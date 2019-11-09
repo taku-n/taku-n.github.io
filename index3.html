@@ -22,9 +22,9 @@ fetch('https://hoge1.xyz:8080/get_all', {
 let action = "";
 
 if (/\/$/.test(location.pathname)) {
-  action = 'http://hoge1.xyz:8080/get?thread=' + location.pathname + 'index.html';
+  action = 'https://hoge1.xyz:8080/get?thread=' + location.pathname + 'index.html';
 } else {
-  action = 'http://hoge1.xyz:8080/get?thread=' + location.pathname;
+  action = 'https://hoge1.xyz:8080/get?thread=' + location.pathname;
 }
 
 fetch(action, {
@@ -55,9 +55,9 @@ function post() {
   let action;
 
   if (/\/$/.test(location.pathname)) {
-    action = 'http://hoge1.xyz:8080/post?thread=' + location.pathname + 'index.html';
+    action = 'https://hoge1.xyz:8080/post?thread=' + location.pathname + 'index.html';
   } else {
-    action = 'http://hoge1.xyz:8080/post?thread=' + location.pathname;
+    action = 'https://hoge1.xyz:8080/post?thread=' + location.pathname;
   }
 
   document.comento.method = 'post';
