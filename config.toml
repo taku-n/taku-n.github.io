@@ -1,4 +1,4 @@
-baseURL = "https://taku-n.github.io/"
+baseURL = "https://taku-n.github.io/public/"
 languageCode = "ja"
 title = "非同期エンジニアブログ"
 theme = "ananke"
