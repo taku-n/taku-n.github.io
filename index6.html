@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>hello, world</title>
+</head>
+
+<body>
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-firestore.js"></script>
+<script>
+var firebase_config = {
+	apiKey: "AIzaSyBiHQFmcVUj0iMPoZZV70WAKkunsJrW_Is",
+	authDomain: "store-7b7ec.firebaseapp.com",
+	databaseURL: "https://store-7b7ec.firebaseio.com",
+	projectId: "store-7b7ec",
+	storageBucket: "store-7b7ec.appspot.com",
+	messagingSenderId: "574453396940",
+	appId: "1:574453396940:web:a7b00381aba4c22d7e1969",
+};
+
+firebase.initializeApp(firebase_config);
+
+var db = firebase.firestore();
+
+db.collection("users").add({
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+</script>
+
+<h1>ルール</h1>
+<h2>ルール バージョン 2</h2>
+<p>1行目 にこちらを書いておきましょう。</p>
+<pre><code>
+rules_version = '2';
+</code></pre>
+<h2>コメント</h2>
+<pre><code>
+// コメント
+/* コメント */
+</code></pre>
+<p><a href="/">HOME</a></p>
+</body>
+
+</html>
