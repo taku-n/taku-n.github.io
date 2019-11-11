@@ -1,0 +1,4 @@
+baseURL = "https://taku-n.github.io/"
+languageCode = "ja"
+title = "非同期エンジニアブログ"
+theme = "ananke"
