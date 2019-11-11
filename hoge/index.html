@@ -1,0 +1,70 @@
+<div id="comento_all"></div>
+
+<script>
+fetch('https://hoge1.xyz/get_all', {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    console.log(record);
+    comments = comments
+        + "<p>" + record.thread  + "</p>"
+        + "<p>" + record.name    + "</p>"
+        + "<p>" + record.comment + "</p>";
+  }
+  comento_all.innerHTML = comments;
+});
+</script>
+
+<div id="comento"></div>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    console.log(record);
+    comments = comments + "<p>" + record.name + "</p>" + "<p>" + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+</script>
+
+<form name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<script>
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
