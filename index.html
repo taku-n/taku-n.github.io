@@ -10,8 +10,24 @@
 <body>
 <h1>非同期エンジニア</h1>
 <a href="blog/">ブログ</a>
+<div id="comento_all"></div>
 
 <script>
+fetch('https://hoge1.xyz/get_all', {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments = comments
+        + "<p>" + record.thread  + "</p>"
+        + "<p>" + record.name    + "</p>"
+        + "<p>" + record.comment + "</p>";
+  }
+  comento_all.innerHTML = comments;
+});
 </script>
 </body>
 
