@@ -1,110 +1,5 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>非同期エンジニアブログ  | Hugo</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.59.1" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
-
-    
-    
-      <link href="/blog/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-    
-    <meta property="og:title" content="Hugo" />
-<meta property="og:description" content="H6 Test (シャープ 6つ だとバグる?  H5 Test   About Hugo Getting Started    Basic Usage (hugo コマンドの基本 読んだほうがいい   Hugo Modules (モジュールシステムについて とりあえず読まなくてよさそう Content Management (一番重要っぽい    Content Management Overview (目次 Organization (content ディレクトリの基本 必読 index.md と _index.md の違いは Page Bundles で出てくる Page Bundles (index.md と _index.md の違い 正直，よくわからない いろいろ試す必要がありそう Supported Content Formats (HTML も使えるよって話と HTML でも Front Matter はつけてねって話 Front Matter (Front Matter は 各 md の先頭に自動的に付加される 3つ のハイフンで囲まれたブロックのこと TOML, YAML, JSON, ORG 好きな形式で書ける どんな値をセットできるかも書いてある Page Resources (画像とかについて 画像とかはメタデータが必要っぽいがよくわからない どこに書くんだこれ Image Processing (なんと画像を引き伸ばしたりもできるらしい Shortcodes (マークダウンの独自拡張 ここはさらっと読んどいたほうがいい 互換性は損なわれるが ぱっと見 相当便利そう 特に gist と シンタックスハイライトと他ページ埋め込みと YouTube Related Content (記事末尾によくある See Also こちらの記事もどうぞ のカスタマイズ とりあえずスルー Sections (_index." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://taku-n.github.io/blog/posts/hugo/" />
-<meta property="article:published_time" content="2019-11-12T15:18:41+09:00" />
-<meta property="article:modified_time" content="2019-11-12T15:18:41+09:00" />
-<meta itemprop="name" content="Hugo">
-<meta itemprop="description" content="H6 Test (シャープ 6つ だとバグる?  H5 Test   About Hugo Getting Started    Basic Usage (hugo コマンドの基本 読んだほうがいい   Hugo Modules (モジュールシステムについて とりあえず読まなくてよさそう Content Management (一番重要っぽい    Content Management Overview (目次 Organization (content ディレクトリの基本 必読 index.md と _index.md の違いは Page Bundles で出てくる Page Bundles (index.md と _index.md の違い 正直，よくわからない いろいろ試す必要がありそう Supported Content Formats (HTML も使えるよって話と HTML でも Front Matter はつけてねって話 Front Matter (Front Matter は 各 md の先頭に自動的に付加される 3つ のハイフンで囲まれたブロックのこと TOML, YAML, JSON, ORG 好きな形式で書ける どんな値をセットできるかも書いてある Page Resources (画像とかについて 画像とかはメタデータが必要っぽいがよくわからない どこに書くんだこれ Image Processing (なんと画像を引き伸ばしたりもできるらしい Shortcodes (マークダウンの独自拡張 ここはさらっと読んどいたほうがいい 互換性は損なわれるが ぱっと見 相当便利そう 特に gist と シンタックスハイライトと他ページ埋め込みと YouTube Related Content (記事末尾によくある See Also こちらの記事もどうぞ のカスタマイズ とりあえずスルー Sections (_index.">
-
-
-<meta itemprop="datePublished" content="2019-11-12T15:18:41&#43;09:00" />
-<meta itemprop="dateModified" content="2019-11-12T15:18:41&#43;09:00" />
-<meta itemprop="wordCount" content="455">
-
-
-
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Hugo"/>
-<meta name="twitter:description" content="H6 Test (シャープ 6つ だとバグる?  H5 Test   About Hugo Getting Started    Basic Usage (hugo コマンドの基本 読んだほうがいい   Hugo Modules (モジュールシステムについて とりあえず読まなくてよさそう Content Management (一番重要っぽい    Content Management Overview (目次 Organization (content ディレクトリの基本 必読 index.md と _index.md の違いは Page Bundles で出てくる Page Bundles (index.md と _index.md の違い 正直，よくわからない いろいろ試す必要がありそう Supported Content Formats (HTML も使えるよって話と HTML でも Front Matter はつけてねって話 Front Matter (Front Matter は 各 md の先頭に自動的に付加される 3つ のハイフンで囲まれたブロックのこと TOML, YAML, JSON, ORG 好きな形式で書ける どんな値をセットできるかも書いてある Page Resources (画像とかについて 画像とかはメタデータが必要っぽいがよくわからない どこに書くんだこれ Image Processing (なんと画像を引き伸ばしたりもできるらしい Shortcodes (マークダウンの独自拡張 ここはさらっと読んどいたほうがいい 互換性は損なわれるが ぱっと見 相当便利そう 特に gist と シンタックスハイライトと他ページ埋め込みと YouTube Related Content (記事末尾によくある See Also こちらの記事もどうぞ のカスタマイズ とりあえずスルー Sections (_index."/>
-
-  </head>
-
-  <body class="ma0 avenir bg-near-white">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://taku-n.github.io/blog/" class="f3 fw2 hover-white no-underline white-90 dib">
-      非同期エンジニアブログ
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-  </div>
-</nav>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        POSTS
-      </p>
-      <h1 class="f1 athelas mb1">Hugo</h1>
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2019-11-12T15:18:41&#43;09:00">November 12, 2019</time>
-      
-      
-    </header>
-
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><nav>
+<body>
+<nav>
 <ul>
 <li>
 <ul>
@@ -163,7 +58,8 @@
 <li>
 <ul>
 <li><a href="#templates-overview-目次">Templates Overview (目次</a></li>
-<li><a href="#introduction-必読です-golang感-がすごい">Introduction (必読です Golang感 がすごい</a></li>
+<li><a href="#introduction-必読です-golang感-がすごい-ところでこれらはどこに書いて実行するのだ-template-lookup-order-に書いてある">Introduction (必読です Golang感 がすごい ところでこれらはどこに書いて実行するのだ? =&gt; Template Lookup Order に書いてある</a></li>
+<li><a href="#template-lookup-order-introduction-にある-ってやつは-layouts-default-single-html-とか-layouts-default-list-html-とかに書けばいいとわかる">Template Lookup Order (Introduction にある {{ }} ってやつは layouts/_default/single.html とか layouts/_default/list.html とかに書けばいいとわかる</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#functions">Functions</a></li>
@@ -213,6 +109,8 @@ _index.md は置けるみたい (Page Bundles -&gt; Branch Bundles</p>
 _index.md があるディレクトリは Branch Bundle になるみたい</p>
 
 <p>section? =&gt; content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん</p>
+
+<p>LiveReload が働かない? それ <body></body> がないからです (Getting Started -&gt; Basic Usage</p>
 
 <p>ドキュメント <a href="https://gohugo.io/documentation/">https://gohugo.io/documentation/</a></p>
 
@@ -274,7 +172,9 @@ _index.md があるディレクトリは Branch Bundle になるみたい</p>
 
 <h5 id="templates-overview-目次">Templates Overview (目次</h5>
 
-<h5 id="introduction-必読です-golang感-がすごい">Introduction (必読です Golang感 がすごい</h5>
+<h5 id="introduction-必読です-golang感-がすごい-ところでこれらはどこに書いて実行するのだ-template-lookup-order-に書いてある">Introduction (必読です Golang感 がすごい ところでこれらはどこに書いて実行するのだ? =&gt; Template Lookup Order に書いてある</h5>
+
+<h5 id="template-lookup-order-introduction-にある-ってやつは-layouts-default-single-html-とか-layouts-default-list-html-とかに書けばいいとわかる">Template Lookup Order (Introduction にある {{ }} ってやつは layouts/_default/single.html とか layouts/_default/list.html とかに書けばいいとわかる</h5>
 
 <h3 id="functions">Functions</h3>
 
@@ -294,50 +194,53 @@ _index.md があるディレクトリは Branch Bundle になるみたい</p>
 
 <h3 id="maintenance">Maintenance</h3>
 
-<p>{{ add 2 3 }}</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-      
-      
-      </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
+<p><p>{{ .Title }}<p></p>
 
 
+<div id="comento"></div>
 
+<form name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
 
-</aside>
+<script>
+let action = "";
 
-  </article>
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
 
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://taku-n.github.io/blog/" >
-    &copy; 2019 非同期エンジニアブログ
-  </a>
-    <div>
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments = comments + "<p>" + record.name + "</p>" + "<p>" + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
 
+function post() {
+  let action;
 
+  if (/\/$/.test(location.pathname)) {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
 
-
-
-
-
-
-
-
-</div>
-  </div>
-</footer>
-
-    
-
-  <script src="/blog/dist/js/app.3fc0f988d21662902933.js"></script>
-
-
-  </body>
-</html>
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
