@@ -6,10 +6,23 @@
     <description>Recent content on 非同期エンジニアブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 13 Nov 2019 02:52:33 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 11 Dec 2019 10:20:39 +0900</lastBuildDate>
     
 	<atom:link href="https://taku-n.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Neovim</title>
+      <link>https://taku-n.github.io/blog/posts/neovim/</link>
+      <pubDate>Wed, 11 Dec 2019 10:20:39 +0900</pubDate>
+      
+      <guid>https://taku-n.github.io/blog/posts/neovim/</guid>
+      <description>Neovim (0.2.2) ウェブサイト Neovim
+User manual
+バージョンを確認 $ nvim --version 設定ファイル ~/.config/nvim/init.vim
+dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
+$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.vim) $ nvim hello.vim echo &amp;quot;hello, world&amp;quot; $ nvim -S hello.vim コメント (comment.vim) &amp;quot; 行全体のコメント echo &amp;quot;hello, world&amp;quot; |&amp;quot; 行末尾のコメント 行の継続 (lines.vim) echo &amp;quot;hello,&amp;quot; \ &amp;quot;world&amp;quot; |&amp;quot;=&amp;gt; hello, world 数を表示 (num.</description>
+    </item>
     
     <item>
       <title>Hugo Templates</title>
@@ -26,7 +39,24 @@
       <pubDate>Tue, 12 Nov 2019 15:18:41 +0900</pubDate>
       
       <guid>https://taku-n.github.io/blog/posts/hugo/</guid>
-      <description>H6 Test (シャープ 6つ だとバグる?  H5 Test   About Hugo Getting Started    Basic Usage (hugo コマンドの基本 読んだほうがいい   Hugo Modules (モジュールシステムについて とりあえず読まなくてよさそう Content Management (一番重要っぽい    Content Management Overview (目次 Organization (content ディレクトリの基本 必読 index.md と _index.md の違いは Page Bundles で出てくる Page Bundles (index.md と _index.md の違い 正直，よくわからない いろいろ試す必要がありそう Supported Content Formats (HTML も使えるよって話と HTML でも Front Matter はつけてねって話 Front Matter (Front Matter は 各 md の先頭に自動的に付加される 3つ のハイフンで囲まれたブロックのこと TOML, YAML, JSON, ORG 好きな形式で書ける どんな値をセットできるかも書いてある Page Resources (画像とかについて 画像とかはメタデータが必要っぽいがよくわからない どこに書くんだこれ Image Processing (なんと画像を引き伸ばしたりもできるらしい Shortcodes (マークダウンの独自拡張 ここはさらっと読んどいたほうがいい 互換性は損なわれるが ぱっと見 相当便利そう 特に gist と シンタックスハイライトと他ページ埋め込みと YouTube Related Content (記事末尾によくある See Also こちらの記事もどうぞ のカスタマイズ とりあえずスルー Sections (_index.</description>
+      <description>Hugo について，わかったことをメモしたいと思う
+正確かどうかは，わからない
+コンテンツの追加
+$ hugo new posts/my-first-post.md
+サーバの起動
+$ hugo server -D
+http://127.0.0.1:1313/
+ビルド
+$ hugo -D ($ hugo となにが違うのだろう? ドラフトを含むか含まないか?
+H6 Test (シャープ 6つ だとバグる? H5 Test Front Matter? =&amp;gt; どうやら，各 md ファイルの先頭に自動的に作成される
+3つ のハイフンで区切られたブロックのことみたい
+title, date, draft, &amp;hellip;
+たぶん，content ディレクトリ直下にファイルは置けなさそう
+section となるディレクトリを置いていく感じみたい
+_index.md は置けるみたい (Page Bundles -&amp;gt; Branch Bundles
+index.md があるディレクトリは Leaf Bundle になり
+_index.md があるディレクトリは Branch Bundle になるみたい
+section? =&amp;gt; content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん</description>
     </item>
     
     <item>

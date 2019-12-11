@@ -6,7 +6,7 @@
     
     <title>非同期エンジニアブログ </title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -34,12 +34,9 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://taku-n.github.io/blog/posts/" />
-
-<meta property="og:updated_time" content="2019-11-13T02:52:33+09:00" />
+<meta property="og:updated_time" content="2019-12-11T10:20:39+09:00" />
 <meta itemprop="name" content="Posts">
-<meta itemprop="description" content="">
-
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
 <meta name="twitter:description" content=""/>
 
@@ -96,6 +93,25 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/blog/posts/neovim/" class="link black dim">
+        Neovim
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Neovim (0.2.2) ウェブサイト Neovim
+User manual
+バージョンを確認 $ nvim --version 設定ファイル ~/.config/nvim/init.vim
+dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
+$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.vim) $ nvim hello.vim echo &quot;hello, world&quot; $ nvim -S hello.vim コメント (comment.vim) &quot; 行全体のコメント echo &quot;hello, world&quot; |&quot; 行末尾のコメント 行の継続 (lines.vim) echo &quot;hello,&quot; \ &quot;world&quot; |&quot;=&gt; hello, world 数を表示 (num.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
       <a href="https://taku-n.github.io/blog/posts/hugo-templates/" class="link black dim">
         Hugo Templates
       </a>
@@ -116,7 +132,24 @@
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      H6 Test (シャープ 6つ だとバグる?  H5 Test   About Hugo Getting Started    Basic Usage (hugo コマンドの基本 読んだほうがいい   Hugo Modules (モジュールシステムについて とりあえず読まなくてよさそう Content Management (一番重要っぽい    Content Management Overview (目次 Organization (content ディレクトリの基本 必読 index.md と _index.md の違いは Page Bundles で出てくる Page Bundles (index.md と _index.md の違い 正直，よくわからない いろいろ試す必要がありそう Supported Content Formats (HTML も使えるよって話と HTML でも Front Matter はつけてねって話 Front Matter (Front Matter は 各 md の先頭に自動的に付加される 3つ のハイフンで囲まれたブロックのこと TOML, YAML, JSON, ORG 好きな形式で書ける どんな値をセットできるかも書いてある Page Resources (画像とかについて 画像とかはメタデータが必要っぽいがよくわからない どこに書くんだこれ Image Processing (なんと画像を引き伸ばしたりもできるらしい Shortcodes (マークダウンの独自拡張 ここはさらっと読んどいたほうがいい 互換性は損なわれるが ぱっと見 相当便利そう 特に gist と シンタックスハイライトと他ページ埋め込みと YouTube Related Content (記事末尾によくある See Also こちらの記事もどうぞ のカスタマイズ とりあえずスルー Sections (_index.
+      Hugo について，わかったことをメモしたいと思う
+正確かどうかは，わからない
+コンテンツの追加
+$ hugo new posts/my-first-post.md
+サーバの起動
+$ hugo server -D
+http://127.0.0.1:1313/
+ビルド
+$ hugo -D ($ hugo となにが違うのだろう? ドラフトを含むか含まないか?
+H6 Test (シャープ 6つ だとバグる? H5 Test Front Matter? =&gt; どうやら，各 md ファイルの先頭に自動的に作成される
+3つ のハイフンで区切られたブロックのことみたい
+title, date, draft, &hellip;
+たぶん，content ディレクトリ直下にファイルは置けなさそう
+section となるディレクトリを置いていく感じみたい
+_index.md は置けるみたい (Page Bundles -&gt; Branch Bundles
+index.md があるディレクトリは Leaf Bundle になり
+_index.md があるディレクトリは Branch Bundle になるみたい
+section? =&gt; content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん
     </div>
   </div>
 </div>
