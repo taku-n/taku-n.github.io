@@ -9,13 +9,43 @@ draft: false
 ## ウェブサイト
 
 [Neovim](https://neovim.io/)  
-[User manual](https://neovim.io/doc/user/)
+[User manual](https://neovim.io/doc/user/)  
+[FAQ](https://github.com/neovim/neovim/wiki/FAQ)
 
 ## バージョンを確認
 
 ```
 $ nvim --version
 ```
+
+## Neovim の動作状況を確認
+
+```
+$ nvim
+```
+
+```
+:checkhealth
+```
+
+## tmux を使用している場合，つぎの設定を追記するらしい  
+
+(tmux のことは，よくわからない
+
+```
+$ nvim ~/.tmux.conf
+```
+
+```
+set -s escape-time 0
+set-option -g default-terminal "screen-256color"
+set-option -ga terminal-overrides ",xterm-256color:Tc"
+```
+
+Line 1: Ctrl + [ を押したときに遅延させない  
+Line 2, 3: 色を正しく表示するため (?)
+
+[Cursor shape doesn't change in tmux](https://github.com/neovim/neovim/wiki/FAQ#cursor-shape-doesnt-change-in-tmux)
 
 ## 設定ファイル
 
