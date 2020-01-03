@@ -34,7 +34,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://taku-n.github.io/blog/posts/" />
-<meta property="og:updated_time" content="2019-12-11T10:20:39+09:00" />
+<meta property="og:updated_time" content="2020-01-03T03:02:51+09:00" />
 <meta itemprop="name" content="Posts">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -93,6 +93,47 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/blog/posts/raw/" class="link black dim">
+        Raw Level Rust
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Raw Level Rust ポインタをつくろう はじめに i32型 のポインタをつくってみましょう。
+let mut p: *mut i32; どうということはないですね。
+64bit Linux のユーザ空間のメモリの範囲は，
+0b00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000 - 0b00000000_00000000_01111111_11111111_11111111_11111111_11111111_11111111 つまりは，
+0x00_00_00_00_00_00_00_00 - 0x00_00_7F_FF_FF_FF_FF_FF らしいですから 最後の 4バイト を指すポインタは，つぎのようにしてつくれます。
+let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; メモリのアドレスは，usize型 を使います。
+usize型 を使えば，メモリのどこであっても指すことができるので，便利です。
+たとえば，64bit Linux であれば，usize型 は，8バイト の大きさをもちます。
+さて，ユーザ空間の最後の 4バイト には，i32 で表すと，どんな値が入っているでしょうか。
+さっそく，見てみましょう。
+let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: i32; unsafe { x = *p; // Segmentation Fault } println!
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/blog/posts/clang/" class="link black dim">
+        Clang
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      https://apt.llvm.org/
+$ sudo bash -c &quot;$(wget -O - https://apt.llvm.org/llvm.sh)&quot; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
       <a href="https://taku-n.github.io/blog/posts/neovim/" class="link black dim">
         Neovim
       </a>
@@ -100,9 +141,14 @@
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       Neovim (0.2.2) ウェブサイト Neovim
 User manual
-バージョンを確認 $ nvim --version 設定ファイル ~/.config/nvim/init.vim
+FAQ
+バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない
+$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &quot;screen-256color&quot; set-option -ga terminal-overrides &quot;,xterm-256color:Tc&quot; Line 1: Ctrl + [ を押したときに遅延させない
+Line 2, 3: 色を正しく表示するため (?)
+Cursor shape doesn't change in tmux
+設定ファイル ~/.config/nvim/init.vim
 dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
-$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.vim) $ nvim hello.vim echo &quot;hello, world&quot; $ nvim -S hello.vim コメント (comment.vim) &quot; 行全体のコメント echo &quot;hello, world&quot; |&quot; 行末尾のコメント 行の継続 (lines.vim) echo &quot;hello,&quot; \ &quot;world&quot; |&quot;=&gt; hello, world 数を表示 (num.
+$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.
     </div>
   </div>
 </div>
@@ -178,7 +224,7 @@ section? =&gt; content ディレクトリ直下のディレクトリや content 
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://taku-n.github.io/blog/" >
-    &copy; 2019 非同期エンジニアブログ
+    &copy; 2020 非同期エンジニアブログ
   </a>
     <div>
 

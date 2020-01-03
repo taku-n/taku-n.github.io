@@ -34,7 +34,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://taku-n.github.io/blog/" />
-<meta property="og:updated_time" content="2019-12-11T10:20:39+09:00" />
+<meta property="og:updated_time" content="2020-01-03T03:02:51+09:00" />
 <meta itemprop="name" content="非同期エンジニアブログ">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="非同期エンジニアブログ"/>
@@ -119,6 +119,65 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="https://taku-n.github.io/blog/posts/raw/" class="color-inherit dim link">
+            Raw Level Rust
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          Raw Level Rust ポインタをつくろう はじめに i32型 のポインタをつくってみましょう。
+let mut p: *mut i32; どうということはないですね。
+64bit Linux のユーザ空間のメモリの範囲は，
+0b00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000 - 0b00000000_00000000_01111111_11111111_11111111_11111111_11111111_11111111 つまりは，
+0x00_00_00_00_00_00_00_00 - 0x00_00_7F_FF_FF_FF_FF_FF らしいですから 最後の 4バイト を指すポインタは，つぎのようにしてつくれます。
+let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; メモリのアドレスは，usize型 を使います。
+usize型 を使えば，メモリのどこであっても指すことができるので，便利です。
+たとえば，64bit Linux であれば，usize型 は，8バイト の大きさをもちます。
+さて，ユーザ空間の最後の 4バイト には，i32 で表すと，どんな値が入っているでしょうか。
+さっそく，見てみましょう。
+let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: i32; unsafe { x = *p; // Segmentation Fault } println!
+        </div>
+          <a href="https://taku-n.github.io/blog/posts/raw/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="https://taku-n.github.io/blog/posts/clang/" class="color-inherit dim link">
+            Clang
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          https://apt.llvm.org/
+$ sudo bash -c &quot;$(wget -O - https://apt.llvm.org/llvm.sh)&quot; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 
+        </div>
+          <a href="https://taku-n.github.io/blog/posts/clang/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
           <a href="https://taku-n.github.io/blog/posts/neovim/" class="color-inherit dim link">
             Neovim
             </a>
@@ -126,76 +185,16 @@
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
           Neovim (0.2.2) ウェブサイト Neovim
 User manual
-バージョンを確認 $ nvim --version 設定ファイル ~/.config/nvim/init.vim
+FAQ
+バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない
+$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &quot;screen-256color&quot; set-option -ga terminal-overrides &quot;,xterm-256color:Tc&quot; Line 1: Ctrl + [ を押したときに遅延させない
+Line 2, 3: 色を正しく表示するため (?)
+Cursor shape doesn't change in tmux
+設定ファイル ~/.config/nvim/init.vim
 dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
-$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.vim) $ nvim hello.vim echo &quot;hello, world&quot; $ nvim -S hello.vim コメント (comment.vim) &quot; 行全体のコメント echo &quot;hello, world&quot; |&quot; 行末尾のコメント 行の継続 (lines.vim) echo &quot;hello,&quot; \ &quot;world&quot; |&quot;=&gt; hello, world 数を表示 (num.
+$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.
         </div>
           <a href="https://taku-n.github.io/blog/posts/neovim/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-
-          </div>
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="https://taku-n.github.io/blog/posts/hugo-templates/" class="color-inherit dim link">
-            Hugo Templates
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-            {{ add 2 3 }}  
-        </div>
-          <a href="https://taku-n.github.io/blog/posts/hugo-templates/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-
-          </div>
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="https://taku-n.github.io/blog/posts/hugo/" class="color-inherit dim link">
-            Hugo
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          Hugo について，わかったことをメモしたいと思う
-正確かどうかは，わからない
-コンテンツの追加
-$ hugo new posts/my-first-post.md
-サーバの起動
-$ hugo server -D
-http://127.0.0.1:1313/
-ビルド
-$ hugo -D ($ hugo となにが違うのだろう? ドラフトを含むか含まないか?
-H6 Test (シャープ 6つ だとバグる? H5 Test Front Matter? =&gt; どうやら，各 md ファイルの先頭に自動的に作成される
-3つ のハイフンで区切られたブロックのことみたい
-title, date, draft, &hellip;
-たぶん，content ディレクトリ直下にファイルは置けなさそう
-section となるディレクトリを置いていく感じみたい
-_index.md は置けるみたい (Page Bundles -&gt; Branch Bundles
-index.md があるディレクトリは Leaf Bundle になり
-_index.md があるディレクトリは Branch Bundle になるみたい
-section? =&gt; content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん
-        </div>
-          <a href="https://taku-n.github.io/blog/posts/hugo/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -210,6 +209,18 @@ section? =&gt; content ディレクトリ直下のディレクトリや content 
       <section class="w-100">
         <h1 class="f3">More</h1>
         
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="https://taku-n.github.io/blog/posts/hugo-templates/" class="link black dim">
+              Hugo Templates
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="https://taku-n.github.io/blog/posts/hugo/" class="link black dim">
+              Hugo
+            </a>
+          </h2>
         
           <h2 class="f5 fw4 mb4 dib mr3">
             <a href="https://taku-n.github.io/blog/posts/my-first-post/" class="link black dim">
@@ -232,7 +243,7 @@ section? =&gt; content ディレクトリ直下のディレクトリや content 
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://taku-n.github.io/blog/" >
-    &copy; 2019 非同期エンジニアブログ
+    &copy; 2020 非同期エンジニアブログ
   </a>
     <div>
 

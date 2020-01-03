@@ -13,10 +13,23 @@
 <h1 id="neovim-022">Neovim (0.2.2)</h1>
 <h2 id="heading">ウェブサイト</h2>
 <p><a href="https://neovim.io/">Neovim</a><br>
-<a href="https://neovim.io/doc/user/">User manual</a></p>
+<a href="https://neovim.io/doc/user/">User manual</a><br>
+<a href="https://github.com/neovim/neovim/wiki/FAQ">FAQ</a></p>
 <h2 id="heading1">バージョンを確認</h2>
 <pre><code>$ nvim --version
-</code></pre><h2 id="heading2">設定ファイル</h2>
+</code></pre><h2 id="neovim-">Neovim の動作状況を確認</h2>
+<pre><code>$ nvim
+</code></pre><pre><code>:checkhealth
+</code></pre><h2 id="tmux-">tmux を使用している場合，つぎの設定を追記するらしい</h2>
+<p>(tmux のことは，よくわからない</p>
+<pre><code>$ nvim ~/.tmux.conf
+</code></pre><pre><code>set -s escape-time 0
+set-option -g default-terminal &quot;screen-256color&quot;
+set-option -ga terminal-overrides &quot;,xterm-256color:Tc&quot;
+</code></pre><p>Line 1: Ctrl + [ を押したときに遅延させない<br>
+Line 2, 3: 色を正しく表示するため (?)</p>
+<p><a href="https://github.com/neovim/neovim/wiki/FAQ#cursor-shape-doesnt-change-in-tmux">Cursor shape doesn't change in tmux</a></p>
+<h2 id="heading2">設定ファイル</h2>
 <p>~/.config/nvim/init.vim</p>
 <h2 id="deinvim">dein.vim</h2>
 <h3 id="heading3">インストール</h3>
@@ -29,7 +42,7 @@ $ sh installer.sh ~/.config/nvim/dein
 <pre><code>:call dein#update()
 </code></pre><h2 id="runtimepath-">runtimepath の表示</h2>
 <pre><code>:set runtimepath
-</code></pre><h2 id="neovim-">Neovim に読み込まれているファイルを一覧表示</h2>
+</code></pre><h2 id="neovim-1">Neovim に読み込まれているファイルを一覧表示</h2>
 <pre><code>:scriptnames
 </code></pre><h2 id="vimscript">Vimscript</h2>
 <h3 id="hello-world-hellovim">hello, world (hello.vim)</h3>

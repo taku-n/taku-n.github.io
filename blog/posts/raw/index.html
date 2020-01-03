@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Raw Level Rust - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="raw-level-rust">Raw Level Rust</h1>
+<h2 id="heading">ポインタをつくろう</h2>
+<p>はじめに i32型 のポインタをつくってみましょう。</p>
+<pre><code>let mut p: *mut i32;
+</code></pre><p>どうということはないですね。<br>
+64bit Linux のユーザ空間のメモリの範囲は，</p>
+<pre><code>0b00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
+-
+0b00000000_00000000_01111111_11111111_11111111_11111111_11111111_11111111
+</code></pre><p>つまりは，</p>
+<pre><code>0x00_00_00_00_00_00_00_00 - 0x00_00_7F_FF_FF_FF_FF_FF
+</code></pre><p>らしいですから
+最後の 4バイト を指すポインタは，つぎのようにしてつくれます。</p>
+<pre><code>let mut p: *mut i32;
+p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
+</code></pre><p>メモリのアドレスは，<a href="https://doc.rust-lang.org/std/primitive.usize.html">usize型</a> を使います。<br>
+usize型 を使えば，メモリのどこであっても指すことができるので，便利です。<br>
+たとえば，64bit Linux であれば，usize型 は，8バイト の大きさをもちます。</p>
+<p>さて，ユーザ空間の最後の 4バイト には，i32 で表すと，どんな値が入っているでしょうか。<br>
+さっそく，見てみましょう。</p>
+<pre><code>let mut p: *mut i32;
+p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
+
+let mut x: i32;
+unsafe {
+    x = *p;  // Segmentation Fault
+}
+println!(&quot;{:?}&quot;, x);
+</code></pre><p>ポインタが指すアドレスの値を取ってくるのは，危険な行為なので，unsafe ブロックの中でやります。<br>
+コメントが不穏ですが，とにかく実行してみましょう。</p>
+<pre><code>$ cargo run
+Segmentation fault (コアダンプ)
+</code></pre><p><a href="https://ja.wikipedia.org/wiki/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%81%95%E5%8F%8D">セグメンテーション違反</a> が発生してしまいました!<br>
+でも，どこで発生したかは，すぐにわかります。<br>
+これが，Rust の unsafe のよさですね。</p>
+<p>これでめげずに，今度は，書き込んでみましょう。</p>
+<pre><code>let mut p: *mut i32;
+p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
+
+unsafe {
+    *p = 42;  // Segmentation Fault
+}
+</code></pre><pre><code>$ cargo run
+Segmentation fault (コアダンプ)
+</code></pre><p>やはり，だめですね。</p>
+<h2 id="heading1">ポインタを使おう</h2>
+<p>今度は，もうちょっとちゃんとポインタを使ってみましょう。</p>
+<pre><code>let mut a: i32 = 42;
+let mut p: *mut i32;
+p = &amp;mut a as *mut i32;
+
+let mut x: i32;
+unsafe {
+    x = *p;
+}
+println!(&quot;{:?}&quot;, x);  //=&gt; 42
+</code></pre><p>今度は，ちゃんと読み出せました。</p>
+<p>書き込みだってできます。</p>
+<pre><code>let mut x: i32 = 1;
+let mut p: *mut i32;
+p = &amp;mut x as *mut i32;
+
+unsafe {
+    *p = 2;
+}
+println!(&quot;{:?}&quot;, x);  //=&gt; 2
+</code></pre><p>大丈夫そうですね。</p>
+<p>こうなると，気になってくるのはアドレスですよね。<br>
+確かめてみましょう。</p>
+<pre><code>let mut x: i32 = 42;
+let mut p: *mut i32;
+p = &amp;mut x as *mut i32;
+
+println!(&quot;{:p}&quot;, &amp;mut x);  //=&gt; 0x7fffd35bec64
+println!(&quot;{:p}&quot;, p);       //=&gt; 0x7fffd35bec64
+</code></pre><p>借用もポインタも，同じ場所を指していることがわかります。</p>
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>
