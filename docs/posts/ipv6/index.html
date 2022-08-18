@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>IPv6 - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="ipv6">IPv6</h1>
+<p>Server OS: Ubuntu 20.04
+Client OS: Windows 10</p>
+<h2 id="ipv6-が有効になっているか調べる">IPv6 が有効になっているか調べる</h2>
+<pre tabindex="0"><code>$ ip -6 a
+</code></pre><h2 id="コマンド-プロンプト-から-ipv6-アドレスに-ping-する">コマンド プロンプト から IPv6 アドレスに ping する</h2>
+<pre tabindex="0"><code>&gt;ping {IPv6 address}
+</code></pre><h2 id="ssh-server-が-ipv6-を受け入れるようにする">SSH Server が IPv6 を受け入れるようにする</h2>
+<pre tabindex="0"><code>$ sudo nvim /etc/ssh/sshd_config
+</code></pre><pre tabindex="0"><code>#ListenAddress ::
+</code></pre><p>を</p>
+<pre tabindex="0"><code>ListenAddress ::
+</code></pre><p>に変更する</p>
+<h2 id="コマンド-プロンプト-から-ipv6-アドレスに-ssh-で接続する">コマンド プロンプト から IPv6 アドレスに SSH で接続する</h2>
+<pre tabindex="0"><code>&gt;ssh {user name}@{IPv6 address}
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

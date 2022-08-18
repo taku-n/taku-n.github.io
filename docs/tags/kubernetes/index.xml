@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on 非同期エンジニアブログ</title>
+    <link>https://taku-n.github.io/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on 非同期エンジニアブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 16 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nginx</title>
+      <link>https://taku-n.github.io/posts/nginx/</link>
+      <pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/nginx/</guid>
+      <description>nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする
+(WSL2 は，IPv6 に対応していないので注意)
+$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator
+起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは
+/etc/nginx/nginx.conf だが，実際に設定するのは，こちら
+/etc/nginx/sites-available/default server ではじまっている部分が
+それぞれ，各 Virtual Host になっている
+初期設定として
+server_name _; の部分を
+server_name ach.moe; とする
+また，TLS を有効にするため
+# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://taku-n.github.io/posts/kubernetes/</link>
+      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/kubernetes/</guid>
+      <description>Kubernetes (1.22, Single Node, Ubuntu 20.04 LTS, ZFS, Conoha) (Almost IPv6 Only) クラスタの構築 (といってもシングルノードだが) kubeadmのインストール
+kubeadmを使用したシングルコントロールプレーンクラスターの作成
+を参考にしていく
+Swap をオフにする $ sudo nvim /etc/fstab swap の行の先頭に # を置いて，コメントアウトすればいい
+br_netfilter モジュールを読み込ませる $ sudo nvim /etc/modules つぎを追記する
+br_netfilter sysctl の設定 $ sudo nvim /etc/sysctl.d/k8s.conf つぎのように
+net.bridge.bridge-nf-call-ip6tables = 1 net.bridge.bridge-nf-call-iptables = 1 書いて
+$ sudo sysctl --system iptables をレガシーモードにする $ sudo apt install iptables arptables ebtables $ sudo update-alternatives --set iptables /usr/sbin/iptables-legacy $ sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy $ sudo update-alternatives --set arptables /usr/sbin/arptables-legacy $ sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy Docker をインストールする はじめに注意だが，/var/lib/docker を ZFS で構築するのは，おすすめできない</description>
+    </item>
+    
+  </channel>
+</rss>

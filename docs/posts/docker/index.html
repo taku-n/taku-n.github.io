@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Docker - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="docker">Docker</h1>
+<p><a href="https://docs.docker.com/engine/">Docker Engine</a><br>
+<a href="https://docs.docker.com/compose/">Docker Compose</a></p>
+<h2 id="docker-1">Docker</h2>
+<p><a href="https://hodalog.com/execute-docker-command-in-linux-without-sudo/">Linux環境でdockerのコマンドをsudoなしで打てるようにする</a></p>
+<h3 id="バージョン確認">バージョン確認</h3>
+<pre tabindex="0"><code>$ docker -v
+</code></pre><h3 id="docker-デーモンの状態を確認">Docker デーモンの状態を確認</h3>
+<pre tabindex="0"><code>$ service docker status
+</code></pre><h3 id="docker-デーモンの開始">Docker デーモンの開始</h3>
+<pre tabindex="0"><code>$ sudo service docker start
+</code></pre><h3 id="docker-デーモンが自動的に起動するように設定-wsl2">Docker デーモンが自動的に起動するように設定 (WSL2)</h3>
+<p><a href="https://qiita.com/ktaidot/items/949d358163bbbad5a91e">wsl2でDocker自動起動設定</a><br>
+Thank @ktaidot.</p>
+<h3 id="コンテナの実行のテスト">コンテナの実行のテスト</h3>
+<pre tabindex="0"><code>$ sudo docker run hello-world
+$ sudo docker run docker/whalesay cowsay boo
+$ sudo docker run -it ubuntu bash
+</code></pre><h3 id="docker-デーモンが起動しないとき">Docker デーモンが起動しないとき</h3>
+<pre tabindex="0"><code>$ sudo dockerd --debug
+</code></pre><h3 id="イメージの一覧">イメージの一覧</h3>
+<pre tabindex="0"><code>$ sudo docker image list
+</code></pre><h3 id="コンテナの一覧">コンテナの一覧</h3>
+<pre tabindex="0"><code>$ sudo docker ps -a
+$ sudo docker ps --no-trunc --format &#34;table {{.Command}}&#34;  # コマンドを見たいとき
+</code></pre><p><a href="https://unskilled.site/docker-ps%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%83%AA%E3%82%B9%E3%83%88%E3%82%92%E8%A1%A8%E7%A4%BA%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B/">docker psでコンテナリストを表示・取得する</a><br>
+<a href="https://qiita.com/chihiro/items/3162a484fd257e114c18">【docker ps】コンテナ情報出力</a></p>
+<h3 id="コンテナの停止">コンテナの停止</h3>
+<pre tabindex="0"><code>$ sudo docker stop {CONTAINER ID|NAMES}
+</code></pre><h2 id="dockerfile">Dockerfile</h2>
+<h3 id="dockerfile-からイメージをビルド">Dockerfile からイメージをビルド</h3>
+<p>Dockerfile をつぎの内容で作成</p>
+<pre tabindex="0"><code>FROM ubuntu
+</code></pre><p>ビルド<br>
+(最後のドットは Dockerfile がカレントディレクトリにあることを示す)</p>
+<pre tabindex="0"><code>$ sudo docker build -t dockerfile-test .
+</code></pre><p>確認</p>
+<pre tabindex="0"><code>$ sudo docker image list
+</code></pre><h2 id="docker-compose">Docker Compose</h2>
+<p>docker-compose.yml をつぎの内容で作成</p>
+<pre tabindex="0"><code>version: &#39;3&#39;
+
+services:
+  web:
+    image: nginx
+    ports:
+      - 80:80
+</code></pre><p>実行 (-d はバックグラウンド)</p>
+<pre tabindex="0"><code>$ sudo docker-compose up -d
+</code></pre><p>ブラウザで http://localhost/ にアクセスして確認<br>
+つぎのコマンドで確認</p>
+<pre tabindex="0"><code>sudo docker-compose ps
+</code></pre><p>停止</p>
+<pre tabindex="0"><code>$ sudo docker-compose down --remove-orphans
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

@@ -93,22 +93,26 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/raw/" class="link black dim">
-        Raw Level Rust
+      <a href="https://taku-n.github.io/posts/vrchat/" class="link black dim">
+        VRChat
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Raw Level Rust (1.40) ポインタ ポインタをつくろう はじめに i32型 のポインタをつくってみましょう。
-let mut p: *mut i32; どうということはないですね。
-64bit Linux のユーザ空間のメモリの範囲は，
-0b00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000 - 0b00000000_00000000_01111111_11111111_11111111_11111111_11111111_11111111 つまりは，
-0x00_00_00_00_00_00_00_00 - 0x00_00_7F_FF_FF_FF_FF_FF らしいですから 最後の 4バイト を指すポインタは，つぎのようにしてつくれます。
-let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; メモリのアドレスは，usize型 を使います。
-usize型 を使えば，メモリのどこであっても指すことができるので，便利です。
-たとえば，64bit Linux であれば，usize型 は，8バイト の大きさをもちます。
-さて，ユーザ空間の最後の 4バイト には，i32 で表すと，どんな値が入っているでしょうか。
-さっそく，見てみましょう。
-let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: i32; unsafe { x = *p; // Segmentation Fault } println!
+      VRChat VRChat
+Documentation
+SDK
+Unity のインストール Currently Supported Unity Version
+こちらの Click here to install the current version of Unity via Unity Hub を押す
+Microsoft Visual Studio Community 2019
+Android Build Support
+Android SDK &amp; NDK Tools
+OpenJDK にチェックし Install
+Avatar Initial Setup and Test Create a new Unity project.
+Import VRCSDK3-AVATAR by &ldquo;Assets -&gt; Import Package -&gt; Custom Package&hellip;&rdquo;.
+Import VRCQuestTools.
+Import lilToon.
+Import an avatar.
+Put *.unity of the avatar into Hierarchy.
     </div>
   </div>
 </div>
@@ -118,13 +122,12 @@ let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: 
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/clang/" class="link black dim">
-        Clang
+      <a href="https://taku-n.github.io/posts/type/" class="link black dim">
+        Type Dictionary
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      https://apt.llvm.org/
-$ sudo bash -c &#34;$(wget -O - https://apt.llvm.org/llvm.sh)&#34; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 
+      Type Dictionary 
     </div>
   </div>
 </div>
@@ -134,21 +137,12 @@ $ sudo bash -c &#34;$(wget -O - https://apt.llvm.org/llvm.sh)&#34; $ clang-9 -v 
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/neovim/" class="link black dim">
-        Neovim
+      <a href="https://taku-n.github.io/posts/wasm/" class="link black dim">
+        WebAssembly
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Neovim (0.2.2) ウェブサイト Neovim
-User manual
-FAQ
-バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない
-$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &#34;screen-256color&#34; set-option -ga terminal-overrides &#34;,xterm-256color:Tc&#34; Line 1: Ctrl + [ を押したときに遅延させない
-Line 2, 3: 色を正しく表示するため (?)
-Cursor shape doesn&rsquo;t change in tmux
-設定ファイル ~/.config/nvim/init.vim
-dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
-$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.
+      WebAssembly wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web 
     </div>
   </div>
 </div>
@@ -158,12 +152,12 @@ $ nvim :call dein#install() アップデート :call dein#update() runtimepath �
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/hugo-templates/" class="link black dim">
-        Hugo Templates
+      <a href="https://taku-n.github.io/posts/macro/" class="link black dim">
+        On Rust
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-       {{ add 2 3 }} 
+      On Rust 
     </div>
   </div>
 </div>
@@ -173,29 +167,18 @@ $ nvim :call dein#install() アップデート :call dein#update() runtimepath �
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/hugo/" class="link black dim">
-        Hugo
+      <a href="https://taku-n.github.io/posts/trait/" class="link black dim">
+        Trait Dictionary
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Hugo Hugo について，わかったことをメモしたいと思う
-正確かどうかは，わからない
-コンテンツの追加
-$ hugo new posts/my-first-post.md
-サーバの起動
-$ hugo server -D
-http://127.0.0.1:1313/
-ビルド
-$ hugo -D ($ hugo となにが違うのだろう? ドラフトを含むか含まないか?
-H6 Test (シャープ 6つ だとバグる? H5 Test Front Matter? =&gt; どうやら，各 md ファイルの先頭に自動的に作成される
-3つ のハイフンで区切られたブロックのことみたい
-title, date, draft, &hellip;
-たぶん，content ディレクトリ直下にファイルは置けなさそう
-section となるディレクトリを置いていく感じみたい
-_index.md は置けるみたい (Page Bundles -&gt; Branch Bundles
-index.md があるディレクトリは Leaf Bundle になり
-_index.md があるディレクトリは Branch Bundle になるみたい
-section? =&gt; content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん
+      Trait Dictionary Rust のトレイトは &ldquo;トレイトとしては別物&rdquo; らしい
+Trait Trait T を定義
+trait T { } Trait S を要求する Trait T を定義
+Trait S は Trait T の Supertrait
+Trait T は Trait S の Subtrait
+trait S { } trait T: S { } Trait R と Trait S を要求する Trait T を定義
+trait R { } trait S { } trait T: R + S { } Clone (std::clone::Clone) pub trait Clone { fn clone(&amp;self) -&gt; Self; fn clone_from(&amp;mut self, source: &amp;Self) {.
     </div>
   </div>
 </div>
@@ -205,18 +188,129 @@ section? =&gt; content ディレクトリ直下のディレクトリや content 
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/my-first-post/" class="link black dim">
-        My First Post
+      <a href="https://taku-n.github.io/posts/rust/" class="link black dim">
+        Rust
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      hello, world
+      Rust Trait Dictionary
+Type Dictionary
+Raw Level Rust
+On Rust
+wasm-bindgen
+axum
+warp
+rustup バージョンの確認 rustup -V rustup 自身のアップデート rustup self update Rust のアップデート rustup update 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &ldquo;*&rdquo; for crates in cargo.toml won&rsquo;t always mean &ldquo;latest version&rdquo;
+cargo edit の cargo upgrade を使うのがいいらしい
     </div>
   </div>
 </div>
 </div>
       
-    </section></article>
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/axum/" class="link black dim">
+        axum
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      axum Crate axum tokio-rs/axum
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/windows/" class="link black dim">
+        Windows
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Windows おかしくなったときに，管理者権限で，まず実行
+sfc /scannow 
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/warp/" class="link black dim">
+        warp
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      warp Structs And pub struct And&lt;T, U&gt; { pub(super) first: T, pub(super) second: U, }
+impl&lt;T, U&gt; FilterBase for And&lt;T, U&gt;
+Traits 
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/nginx/" class="link black dim">
+        nginx
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする
+(WSL2 は，IPv6 に対応していないので注意)
+$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator
+起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは
+/etc/nginx/nginx.conf だが，実際に設定するのは，こちら
+/etc/nginx/sites-available/default server ではじまっている部分が
+それぞれ，各 Virtual Host になっている
+初期設定として
+server_name _; の部分を
+server_name ach.moe; とする
+また，TLS を有効にするため
+# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を
+    </div>
+  </div>
+</div>
+</div>
+      
+    </section>
+    <ul class="pagination pagination-default">
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="First" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="Previous" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/posts/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/posts/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/posts/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/posts/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/posts/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/posts/page/5/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul></article>
 
     </main>
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">

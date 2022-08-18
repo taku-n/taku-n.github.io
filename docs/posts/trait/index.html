@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Trait Dictionary - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="trait-dictionary">Trait Dictionary</h1>
+<p>Rust のトレイトは &ldquo;<a href="https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%AC%E3%82%A4%E3%83%88">トレイトとしては別物</a>&rdquo; らしい</p>
+<h2 id="trait">Trait</h2>
+<p>Trait T を定義</p>
+<pre tabindex="0"><code>trait T {
+}
+</code></pre><p>Trait S を要求する Trait T を定義<br>
+Trait S は Trait T の Supertrait<br>
+Trait T は Trait S の Subtrait</p>
+<pre tabindex="0"><code>trait S {
+}
+
+trait T: S {
+}
+</code></pre><p>Trait R と Trait S を要求する Trait T を定義</p>
+<pre tabindex="0"><code>trait R {
+}
+
+trait S {
+}
+
+trait T: R + S {
+}
+</code></pre><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="clone-stdcloneclone">Clone (std::clone::Clone)</h2>
+<pre tabindex="0"><code>pub trait Clone {
+    fn clone(&amp;self) -&gt; Self;
+
+    fn clone_from(&amp;mut self, source: &amp;Self) {...}
+}
+</code></pre><pre tabindex="0"><code>#[derive(Debug)]
+struct S {
+    x: i32,
+}
+
+fn main() {
+    let s = S {
+        x: 1,
+    };
+    let t = s;
+
+    dbg!(s);  // Error.
+    dbg!(t);
+}
+</code></pre><p>こうすると Move された s を使ったところでエラーとなってしまうが<br>
+Clone を実装してから工夫すれば実行できる</p>
+<pre tabindex="0"><code>#[derive(Clone, Debug)]
+struct S {
+    x: i32,
+}
+
+fn main() {
+    let s = S {
+        x: 1,
+    };
+    let t = &amp;s.clone();
+
+    dbg!(s);  //=&gt; s = S {
+              //=&gt;     x: 1,
+              //=&gt; }
+    dbg!(t);  //=&gt; t = S {
+              //=&gt;     x: 1,
+              //=&gt; }
+}
+</code></pre><p>ちなみに &amp;s.clone() は s.clone() でもいい</p>
+<p>いま Struct S のインスタンスを s とすると</p>
+<p>Struct S のメソッド fn method(self) {} は<br>
+s.method() でも &amp;s.method() でも呼べる<br>
+&amp;s.method() とした呼んだ場合は<br>
+s.method() として呼んだものとして処理される</p>
+<p>Struct S のメソッド fn method(&amp;self) {} は<br>
+s.method() でも &amp;s.method() でも呼べる<br>
+s.method() とした呼んだ場合は<br>
+&amp;s.method() として呼んだものとして処理される</p>
+<p>Rust がよしなにしてくれる</p>
+<p>Required:<br>
+<a href="#std-marker-copy">Copy (std::marker::copy</a></p>
+<p><a href="https://www.fpcomplete.com/blog/cloning-reference-method-calls/">Cloning a reference and method call syntax in Rust</a><br>
+<a href="https://qiita.com/kerupani129/items/8dba9f5bb2c009c4d08d">[Rust] メソッド呼び出し時におけるメソッド探索の仕組み: 自動参照 &amp; 自動参照外し及び Unsized 型強制</a></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="copy-stdmarkercopy">Copy (std::marker::Copy)</h2>
+<pre tabindex="0"><code>pub trait Copy: Clone {}
+</code></pre><pre tabindex="0"><code>#[derive(Debug)]
+struct S {
+    x: i32,
+}
+
+fn main() {
+    let s = S {
+        x: 1,
+    };
+    let t = s;
+
+    dbg!(s);  // Error.
+    dbg!(t);
+}
+</code></pre><p>こうすると Move された s を使ったところでエラーとなってしまうが<br>
+Copy を実装すれば実行できる</p>
+<pre tabindex="0"><code>#[derive(Copy, Clone, Debug)]
+struct S {
+    x: i32,
+}
+
+fn main() {
+    let s = S {
+        x: 1,
+    };
+    let t = s;
+
+    dbg!(s);  //=&gt; s = S {
+              //=&gt;     x: 1,
+              //=&gt; }
+    dbg!(t);  //=&gt; t = S {
+              //=&gt;     x: 1,
+              //=&gt; }
+}
+</code></pre><p>Copy は Clone を要求していることに注意したい</p>
+<p>Copy を実装できない例</p>
+<pre tabindex="0"><code>#[derive(Copy, Clone)]
+struct S {
+    x: Box&lt;i32&gt;,  // Error.
+}
+</code></pre><p>Clone は実装できる</p>
+<pre tabindex="0"><code>#[derive(Clone)]
+struct S {
+    x: Box&lt;i32&gt;,
+}
+</code></pre><p>Requires:<br>
+<a href="#std-clone-clone">Clone (std::clone::Clone</a></p>
+<p><a href="https://teratail.com/questions/253918">RustのCloneとCopyについての素朴な疑問</a></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="debug-stdfmtdebug">Debug (std::fmt::Debug)</h2>
+<pre tabindex="0"><code>pub trait Debug {
+    fn fmt(&amp;self, f: &amp;mut Formatter&lt;&#39;_&gt;) -&gt; Result&lt;(), Error&gt;;
+}
+</code></pre><pre tabindex="0"><code>struct S {
+    x: i32,
+}
+
+fn main() {
+    let s = S {
+        x: 1,
+    };
+
+    dbg!(s);  // Error.
+}
+</code></pre><p>こうするとエラーになってしまうが<br>
+Debug を実装すれば実行できる</p>
+<pre tabindex="0"><code>#[derive(Debug)]
+struct S {
+    x: i32,
+}
+
+fn main() {
+    let s = S {
+        x: 1,
+    };
+
+    dbg!(s);  //=&gt; s = S {
+              //=&gt;     x: 1,
+              //=&gt; }
+}
+</code></pre><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="deref-stdopsderefhttpsdocrust-langorgstdopstraitderefhtml">Deref (<a href="https://doc.rust-lang.org/std/ops/trait.Deref.html">std::ops::Deref</a>)</h2>
+<pre tabindex="0"><code>pub trait Deref {
+    type Target: ?Sized;
+    fn deref(&amp;self) -&gt; &amp;Self::Target;
+}
+</code></pre><pre tabindex="0"><code>let b = Box::new(1);
+dbg!(*b)  //=&gt; *b = 1
+</code></pre><p>これができるのは Deref のおかげ</p>
+<p><a href="https://doc.rust-jp.rs/book-ja/ch15-02-deref.html">Derefトレイトでスマートポインタを普通の参照のように扱う</a></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="fn-stdopsfn">Fn (std::ops::Fn)</h2>
+<pre tabindex="0"><code>pub trait Fn&lt;Args&gt;: FnMut&lt;Args&gt; {
+    extern &#34;rust-call&#34; fn call(&amp;self, args: Args) -&gt; Self::Output;
+}
+</code></pre><pre tabindex="0"><code>fn main() {
+    let mut n = 5;
+    {
+        let mut add = |x| n += x;
+        add(5);
+        dbg!(n);  // n = 10
+    }
+    dbg!(n);  // n = 10
+}
+</code></pre><pre tabindex="0"><code>fn main() {
+    let mut n = 5;
+    {
+        let mut add = move |x| n += x;  // Copy of n occured because it is a move closure.
+        add(5);  // This does not change the original value of n but changes copied value of n.
+        dbg!(n);  //=&gt; n = 5  // Original value of n.
+    }
+    dbg!(n);  //=&gt; n = 5  // Original value of n.
+}
+</code></pre><p>Requires:<br>
+<a href="#std-ops-fnmut">FnMut (std::ops::FnMut)</a></p>
+<p><a href="https://doc.rust-lang.org/std/ops/trait.Fn.html">Trait std::ops::Fn</a><br>
+<a href="https://qiita.com/shortheron/items/c1735dc4c7c78b0b55e9">Rustのクロージャtraitについて調べた(FnOnce, FnMut, Fn)</a><br>
+<a href="https://kanejaku.org/posts/2018/12/rust-closure-types/">Rust の Fn, FnMut, FnOnce の使い分け</a><br>
+<a href="https://bablovia.hatenablog.com/entry/2020/11/17/165344">Rustで高階関数を使う</a>
+<a href="https://keens.github.io/blog/2016/10/10/rustnokuro_ja3tanewotsukutterikaisuru/">Rustのクロージャ3種を作って理解する</a></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="fnmut-stdopsfnmut">FnMut (std::ops::FnMut)</h2>
+<pre tabindex="0"><code>pub trait FnMut&lt;Args&gt;: FnOnce&lt;Args&gt; {
+    extern &#34;rust-call&#34; fn call_mut(
+        &amp;mut self, 
+        args: Args
+    ) -&gt; Self::Output;
+}
+</code></pre><p>Requires:<br>
+<a href="#std-ops-fnonce">FnOnce (std::ops::FnOnce</a></p>
+<p>Required:<br>
+<a href="#std-ops-fn">Fn (std::ops::Fn)</a></p>
+<p><a href="https://doc.rust-lang.org/std/ops/trait.FnMut.html">Trait std::ops::FnMut</a></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="fnonce-stdopsfnonce">FnOnce (std::ops::FnOnce)</h2>
+<pre tabindex="0"><code>pub trait FnOnce&lt;Args&gt; {
+    type Output;
+    extern &#34;rust-call&#34; fn call_once(self, args: Args) -&gt; Self::Output;
+}
+</code></pre><p>Required:<br>
+<a href="#std-ops-fnmut">FnMut (std::ops::FnMut)</a></p>
+<p><a href="https://doc.rust-lang.org/std/ops/trait.FnOnce.html">Trait std::ops::FnOnce</a></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="from-stdconvertfrom">From (std::convert::From)</h2>
+<pre tabindex="0"><code>pub trait From&lt;T&gt; {
+    fn from(T) -&gt; Self;
+}
+</code></pre><p>おなじみのやつ</p>
+<pre tabindex="0"><code>let s = String::from(&#34;str&#34;);
+</code></pre><p>Complementary:<br>
+<a href="#std-convert-into">Into (std::convert::Into</a></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="future-stdfuturefuture">Future (std::future::Future)</h2>
+<pre tabindex="0"><code>pub trait Future {
+    type Output;
+    fn poll(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;&#39;_&gt;) -&gt; Poll&lt;Self::Output&gt;;
+}
+</code></pre><p>Enum Poll は</p>
+<pre tabindex="0"><code>pub enum Poll&lt;T&gt; {
+    Ready(T),
+    Pending,
+}
+</code></pre><p><a href="https://qiita.com/Kumassy/items/fec47952d70b5073b1b7">Rust でお気楽非同期プログラミング</a><br>
+<a href="https://tech-blog.optim.co.jp/entry/2019/11/08/163000">Rustの非同期プログラミングをマスターする</a><br>
+<a href="https://qiita.com/legokichi/items/4f2c09330f90626600a6">非同期 Rust パターン</a></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="into-stdconvertinto">Into (std::convert::Into)</h2>
+<pre tabindex="0"><code>pub trait Into&lt;T&gt; {
+    fn into(self) -&gt; T;
+}
+</code></pre><p>変換先の型を推論して，よしなに変換してくれる。強い</p>
+<p>たとえば</p>
+<pre tabindex="0"><code>web_sys::console::log_1(data_1: &amp;JsValue)
+</code></pre><p>に参照を渡したいとき &amp;JsValue ってなにとなるが，とりあえず into() しておけば，勝手にうまいことやってくれるかもしれない</p>
+<pre tabindex="0"><code>console::log_1(&amp;hoge.into());
+</code></pre><p>Complementary:<br>
+<a href="#std-convert-from">From (std::convert::From)</a></p>
+<p><a href="https://doc.rust-lang.org/rust-by-example/conversion/from_into.html">From and Into</a></p>
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

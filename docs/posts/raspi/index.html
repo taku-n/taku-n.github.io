@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Raspberry Pi - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="raspberry-pi">Raspberry Pi</h1>
+<h2 id="cpu-の温度を見る">CPU の温度を見る</h2>
+<pre tabindex="0"><code>$ cat /sys/class/thermal/thermal_zone0/temp
+</code></pre><p>単位は，ミリ度</p>
+<h2 id="speedtest-cli">SPEEDTEST CLI</h2>
+<p><a href="https://www.speedtest.net/ja/apps/cli">インストール</a></p>
+<pre tabindex="0"><code>$ speedtest
+</code></pre><h2 id="firefox">Firefox</h2>
+<pre tabindex="0"><code>$ sudo apt install firefox-esr-l10n-ja
+</code></pre><h2 id="alsa-advanced-linux-sound-architecture">ALSA (Advanced Linux Sound Architecture)</h2>
+<p>とりあえず &ldquo;PulseAudio 音量調節&rdquo; をインストールすること</p>
+<pre tabindex="0"><code>$ sudo apt install pavucontrol
+</code></pre><p>起動は [RasPi] -&gt; [サウンドとビデオ] -&gt; [PulseAudio 音量調節]<br>
+マイクの音量を 100% を超えて設定したりできる</p>
+<p>使用したハードウェア<br>
+スピーカ: サンワサプライ株式会社 USBスピーカー MM-SPU8BK<br>
+マイク: USB Microphone MI-305</p>
+<p>PCM (Pulse Code Modulation)</p>
+<p>テスト用の音源をダウンロード<br>
+(Thank <a href="http://www.op316.com/">東京都市生活 + 真空管Audio + 視線入力 + 音楽 + 英国車</a>)</p>
+<pre tabindex="0"><code>$ curl -OL http://www.op316.com/tubes/tips/data/1khz-0db-30sec.wav
+</code></pre><pre tabindex="0"><code>$ lsusb
+</code></pre><h3 id="play">Play</h3>
+<p>可変なデバイス一覧</p>
+<pre tabindex="0"><code>$ aplay -l
+</code></pre><pre tabindex="0"><code>$ aplay --device=hw:[card number],[device number] [wave file]
+$ # i.e. $ aplay --device=hw:0,0 1khz-0db-30sec.wav
+</code></pre><p>不変なデバイス一覧</p>
+<pre tabindex="0"><code>$ aplay -L
+</code></pre><pre tabindex="0"><code>$ aplay --device=[device for playing] [wave file]
+$ # i.e. $ aplay --device=sysdefault:CARD=MicroII 1khz-0db-30sec.wav
+$ # i.e. $ aplay --device=front:CARD=MicroII,DEV=0 1khz-0db-30sec.wav
+</code></pre><pre tabindex="0"><code>$ speaker-test -c [card name]
+$ # i.e. $ speaker-test -c MicroII
+$ # Ctrl-C で，何秒か後に止まる
+</code></pre><p>設定を見る</p>
+<pre tabindex="0"><code>$ cat /proc/asound/cards
+</code></pre><pre tabindex="0"><code>$ amixer -c [card name]
+$ # i.e. $ amixer -c MicroII
+</code></pre><p>Playback の値が音量 (0 が無音)<br>
+Playback の行の最後にある [on] や [off] は，ミュートの設定を表す<br>
+[on] でミュートのチェックが外れた状態，[off] でミュートにチェックが入った状態</p>
+<pre tabindex="0"><code>$ alsamixer
+</code></pre><p>上下キーで音量の変更<br>
+m キーでミュートの設定 (00 はミュートのチェックが外れた状態，MM でミュートにチェックが入った状態)</p>
+<h3 id="record">Record</h3>
+<pre tabindex="0"><code>$ arecord -l
+</code></pre><pre tabindex="0"><code>$ arecord -L
+</code></pre><p>下記の PulseAudio をインストールしたらうまくいった気がする</p>
+<pre tabindex="0"><code>$ amixer sget Capture
+</code></pre><p>マイクのテストをする</p>
+<pre tabindex="0"><code>$ sox -t alsa plughw:[card name] -n -S stats
+$ # i.e. $ sox -t alsa plughw:Headset -n -S stats
+</code></pre><h3 id="settings">Settings</h3>
+<p>/usr/share/alsa/alsa.conf<br>
+/etc/alsa/conf.d/*.conf
+~/.asoundrc</p>
+<h2 id="pulseaudio">PulseAudio</h2>
+<pre tabindex="0"><code>$ sudo apt install pulseaudio
+</code></pre><p>設定を見る (* が付いているものがデフォルトの再生デバイス)</p>
+<pre tabindex="0"><code>$ pacmd list-sinks
+</code></pre><p><a href="https://qiita.com/propella/items/4699eda71cd742cba8d3#pulseaudio-%E3%81%A7%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%AE%E5%85%A5%E5%87%BA%E5%8A%9B%E5%85%88%E3%82%92%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%82%8B">PulseAudio でデフォルトの入出力先を切り替える</a></p>
+<h2 id="sox">sox</h2>
+<pre tabindex="0"><code>$ sudo apt install sox
+</code></pre><pre tabindex="0"><code>$ play 1khz-0db-30sec.wav
+</code></pre><pre tabindex="0"><code>$ rec record.wav
+$ # Ctrl-C で録音の停止
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

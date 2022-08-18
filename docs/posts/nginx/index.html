@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>nginx - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="nginx">nginx</h1>
+<h2 id="install">Install</h2>
+<pre tabindex="0"><code>$ sudo apt install nginx
+</code></pre><h2 id="check">Check</h2>
+<pre tabindex="0"><code>$ systemctl status nginx
+</code></pre><p>別の端末からテストする<br>
+(WSL2 は，IPv6 に対応していないので注意)</p>
+<pre tabindex="0"><code>$ curl -4 http://hoge.com/
+$ curl -6 http://hoge.com/
+</code></pre><p><a href="https://ipv6-test.com/validate.php">Website IPv6 accessibility validator</a></p>
+<h2 id="起動と停止と再起動">起動と停止と再起動</h2>
+<pre tabindex="0"><code>$ systemctl start nginx
+$ systemctl stop nginx
+$ systemctl restart nginx
+</code></pre><h2 id="設定ファイル">設定ファイル</h2>
+<p>大元の設定ファイルは</p>
+<pre tabindex="0"><code>/etc/nginx/nginx.conf
+</code></pre><p>だが，実際に設定するのは，こちら</p>
+<pre tabindex="0"><code>/etc/nginx/sites-available/default
+</code></pre><p><code>server</code> ではじまっている部分が<br>
+それぞれ，各 Virtual Host になっている</p>
+<p>初期設定として</p>
+<pre tabindex="0"><code>server_name _;
+</code></pre><p>の部分を</p>
+<pre tabindex="0"><code>server_name ach.moe;
+</code></pre><p>とする<br>
+また，TLS を有効にするため</p>
+<pre tabindex="0"><code># listen 443 ssl default_server;
+# listen [::]:443 ssl default_server;
+</code></pre><p>の部分を</p>
+<pre tabindex="0"><code>listen 443 ssl default_server;
+listen [::]:443 ssl default_server;
+ssl_certificate /etc/letsencrypt/live/hoge.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/hoge.com/privkey.pem;
+</code></pre><p>とする</p>
+<p>設定ファイルのテスト</p>
+<pre tabindex="0"><code>$ sudo nginx -t
+</code></pre><p>設定を反映させる</p>
+<pre tabindex="0"><code>$ systemctl reload nginx
+</code></pre><h2 id="virtual-host-tls-用のワイルドカードの証明書が必要">Virtual Host (TLS 用のワイルドカードの証明書が必要)</h2>
+<pre tabindex="0"><code>#server {
+#       listen 80;
+#       listen [::]:80;
+#
+#       server_name example.com;
+#
+#       root /var/www/example.com;
+#       index index.html;
+#
+#       location / {
+#               try_files $uri $uri/ =404;
+#       }
+#}
+</code></pre><p>の部分を</p>
+<pre tabindex="0"><code>server {
+        listen 80;
+        listen [::]:80;
+        listen 443 ssl;
+        listen [::]:443 ssl;
+        ssl_certificate /etc/letsencrypt/live/hoge.com/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/hoge.com/privkey.pem;
+
+        server_name www.hoge.com;
+
+        root /home/hoge/www;
+        index index.html;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+</code></pre><p>とする</p>
+<h2 id="reverse-proxy">Reverse Proxy</h2>
+<pre tabindex="0"><code>location / {
+	# First attempt to serve request as file, then
+	# as directory, then fall back to displaying a 404.
+	try_files $uri $uri/ =404;
+}
+</code></pre><p>の部分を</p>
+<pre tabindex="0"><code>location / {
+	proxy_pass http://10.96.1.1;                   # 転送先
+        proxy_set_header X-Forwarded-For $remote_addr;  # アクセス元の情報を転送
+
+	# First attempt to serve request as file, then
+	# as directory, then fall back to displaying a 404.
+	try_files $uri $uri/ =404;
+}
+</code></pre><p>とする</p>
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

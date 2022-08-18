@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>systemd on 非同期エンジニアブログ</title>
+    <link>https://taku-n.github.io/tags/systemd/</link>
+    <description>Recent content in systemd on 非同期エンジニアブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/systemd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>systemd</title>
+      <link>https://taku-n.github.io/posts/systemd/</link>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/systemd/</guid>
+      <description>systemd systemctlとserviceの違い
+プロセスの確認
+$ ps aux $ pstree Unit の一覧と自動起動するかを見る
+$ systemctl list-unit-files -t service Unit の一覧と起動状態を見る
+$ systemctl list-units -t service Unit の状態を確認する
+$ systemctl status [unit-name] Unit の自動起動を有効にする
+$ systemctl enable [unit-name] Unit の自動起動を無効にする
+$ systemctl disable [unit-name] Unit を起動する
+$ systemctl start [unit-name] Unit を停止する
+$ systemctl stop [unit-name] Unit を再起動する
+$ systemctl restart [unit-name] $ systemctl daemon-reload $ systemctl show hoge.timer $ journalctl -f -u hoge.service もっといい感じにまとめてくださっている人がいました</description>
+    </item>
+    
+  </channel>
+</rss>

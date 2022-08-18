@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on 非同期エンジニアブログ</title>
+    <link>https://taku-n.github.io/tags/go/</link>
+    <description>Recent content in Go on 非同期エンジニアブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 21 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go</title>
+      <link>https://taku-n.github.io/posts/go/</link>
+      <pubDate>Thu, 21 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/go/</guid>
+      <description>Go go mod Using Go Modules go mod init &amp;lt;ここには何を書く？&amp;gt;
+$ # go mod init 公開しなければこちらはなんでもいいらしい $ # 例 $ go mod init hello go test </description>
+    </item>
+    
+  </channel>
+</rss>

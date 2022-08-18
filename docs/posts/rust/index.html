@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Rust - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="rust">Rust</h1>
+<p><a href="../trait/">Trait Dictionary</a><br>
+<a href="../type/">Type Dictionary</a><br>
+<a href="../raw/">Raw Level Rust</a><br>
+<a href="../macro/">On Rust</a><br>
+<a href="../wasm/">wasm-bindgen</a><br>
+<a href="../axum/">axum</a><br>
+<a href="../warp/">warp</a></p>
+<h2 id="rustup">rustup</h2>
+<h3 id="バージョンの確認">バージョンの確認</h3>
+<pre tabindex="0"><code>rustup -V
+</code></pre><h3 id="rustup-自身のアップデート">rustup 自身のアップデート</h3>
+<pre tabindex="0"><code>rustup self update
+</code></pre><h3 id="rust-のアップデート">Rust のアップデート</h3>
+<pre tabindex="0"><code>rustup update
+</code></pre><h3 id="現在の-toolchain-を確認">現在の Toolchain を確認</h3>
+<pre tabindex="0"><code>rustup show
+</code></pre><h3 id="可用な-toolchain-の表示">可用な Toolchain の表示</h3>
+<pre tabindex="0"><code>rustup target list
+</code></pre><h2 id="cargo">Cargo</h2>
+<h3 id="ソースコードのチェック">ソースコードのチェック</h3>
+<pre tabindex="0"><code>cargo clippy
+</code></pre><h3 id="ソースコードを整える">ソースコードを整える</h3>
+<pre tabindex="0"><code>cargo fmt
+</code></pre><h3 id="依存している-crate-の表示">依存している Crate の表示</h3>
+<pre tabindex="0"><code>cargo tree
+</code></pre><h3 id="依存している-crate-のアップデート">依存している Crate のアップデート</h3>
+<pre tabindex="0"><code>cargo update
+</code></pre><p><a href="https://www.reddit.com/r/rust/comments/a8kzo6/psa_writing_for_crates_in_cargotoml_wont_always/">PSA: writing &ldquo;*&rdquo; for crates in cargo.toml won&rsquo;t always mean &ldquo;latest version&rdquo;</a></p>
+<p>cargo edit の cargo upgrade を使うのがいいらしい</p>
+<h3 id="binary-crate-をつくる">Binary Crate をつくる</h3>
+<pre tabindex="0"><code>cargo new hoge
+</code></pre><h3 id="library-crate-をつくる">Library Crate をつくる</h3>
+<pre tabindex="0"><code>cargo new --lib hoge
+</code></pre><h3 id="github-レポジトリをつくる">GitHub レポジトリをつくる</h3>
+<h4 id="binary-crate">Binary Crate</h4>
+<pre tabindex="0"><code>gh repo create hoge
+cargo init hoge
+</code></pre><h4 id="library-crate">Library Crate</h4>
+<pre tabindex="0"><code>gh repo create hoge
+cargo init --lib hoge
+</code></pre><h3 id="binary-を指定して実行">Binary を指定して実行</h3>
+<p>crate/src/bin ディレクトリを作成したあとに<br>
+crate/src/bin/hoge.rs を準備して</p>
+<pre tabindex="0"><code>cargo run --bin hoge
+</code></pre><h3 id="example-を指定して実行">Example を指定して実行</h3>
+<p>crate/examples ディレクトリを作成したあとに<br>
+crate/examples/hoge.rs を準備して</p>
+<pre tabindex="0"><code>cargo run --example hoge
+</code></pre><h3 id="test-を実行">Test を実行</h3>
+<pre tabindex="0"><code>cargo test
+</code></pre><h3 id="release-build">Release Build</h3>
+<pre tabindex="0"><code>cargo build --release
+</code></pre><h2 id="cargo-edit">cargo edit</h2>
+<h3 id="install-ubuntu-2004-lts">Install (Ubuntu 20.04 LTS)</h3>
+<pre tabindex="0"><code>sudo apt update
+sudo apt full-upgrade
+sudo apt install libssl-dev pkg-config
+cargo install cargo-edit
+</code></pre><h3 id="add-a-crate">Add a Crate</h3>
+<pre tabindex="0"><code>cargo add rand
+cargo add tokio --features full
+cargo add web-sys --features &#34;BinaryType Blob ErrorEvent FileReader&#34;
+cargo add hoge --git https://github.com/fuga/hoge
+cargo add foo --git https://github.com/bar/foo --branch stable
+</code></pre><h3 id="upgrade-crates">Upgrade Crates</h3>
+<pre tabindex="0"><code># crates.io ではなく Git 上の Crate を利用している場合には, こちらも実行してから
+cargo update
+
+cargo upgrade
+</code></pre><h3 id="delete-a-crate">Delete a Crate</h3>
+<pre tabindex="0"><code>cargo rm hoge
+</code></pre><h2 id="cargo-update">cargo-update</h2>
+<h3 id="install">Install</h3>
+<pre tabindex="0"><code>cargo install cargo-update
+</code></pre><h3 id="update-installed-excutables-via-cargo-install-including-itself">Update installed excutables via cargo install, including itself</h3>
+<pre tabindex="0"><code>cargo install-update --all
+</code></pre><h2 id="syntax">Syntax</h2>
+<h3 id="self">self</h3>
+<p>&amp;self は self: &amp;Self の Syntax Sugar<br>
+Self は呼び出し元の型</p>
+<p><a href="https://doc.rust-lang.org/rust-by-example/fn/methods.html">Associated functions &amp; Methods</a></p>
+<h3 id="デバッグとリリースでコードを変更">デバッグとリリースでコードを変更</h3>
+<p><a href="https://coderedirect.com/questions/264155/how-to-check-release-debug-builds-using-cfg-in-rust">How to check release / debug builds using cfg in Rust?</a></p>
+<h2 id="tokio">Tokio</h2>
+<pre tabindex="0"><code>cargo new hoge
+cargo add tokio --features full
+</code></pre><pre tabindex="0"><code>#[tokio::main]
+async fn main() {
+}
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Raspberry Pi on 非同期エンジニアブログ</title>
+    <link>https://taku-n.github.io/tags/raspberry-pi/</link>
+    <description>Recent content in Raspberry Pi on 非同期エンジニアブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/raspberry-pi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Raspberry Pi</title>
+      <link>https://taku-n.github.io/posts/raspi/</link>
+      <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/raspi/</guid>
+      <description>Raspberry Pi CPU の温度を見る $ cat /sys/class/thermal/thermal_zone0/temp 単位は，ミリ度
+SPEEDTEST CLI インストール
+$ speedtest Firefox $ sudo apt install firefox-esr-l10n-ja ALSA (Advanced Linux Sound Architecture) とりあえず &amp;ldquo;PulseAudio 音量調節&amp;rdquo; をインストールすること
+$ sudo apt install pavucontrol 起動は [RasPi] -&amp;gt; [サウンドとビデオ] -&amp;gt; [PulseAudio 音量調節]
+マイクの音量を 100% を超えて設定したりできる
+使用したハードウェア
+スピーカ: サンワサプライ株式会社 USBスピーカー MM-SPU8BK
+マイク: USB Microphone MI-305
+PCM (Pulse Code Modulation)
+テスト用の音源をダウンロード
+(Thank 東京都市生活 + 真空管Audio + 視線入力 + 音楽 + 英国車)
+$ curl -OL http://www.</description>
+    </item>
+    
+  </channel>
+</rss>

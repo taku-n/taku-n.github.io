@@ -194,6 +194,49 @@ unsafe {
 println!(&#34;0x{:08X}&#34;, y);  //=&gt; 0x12345678
 </code></pre><p>順番が逆転していますが，違う解釈をさせることができました。<br>
 ポインタをキャストしたときの話と合わせると，わかりやすいと思います。</p>
+<h2 id="box">Box</h2>
+<p>Box をつかってヒープ領域にデータを格納し，そのアドレスを取得してみましょう。</p>
+<pre tabindex="0"><code>let b: std::boxed::Box&lt;i32&gt;;
+b = Box::&lt;i32&gt;::new(42);
+let p_b: *mut i32;
+p_b = Box::into_raw(b);  // *const i32 でもいい
+println!(&#34;{:?}&#34;, p_b);   //=&gt; 0x55f513da1b70
+</code></pre><p>アドレスから Box を作成することもできます。</p>
+<pre tabindex="0"><code>let p: *mut i32;
+p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
+let b: std::boxed::Box&lt;i32&gt;;
+b = unsafe {Box::from_raw(p)};  //=&gt; Segmentation fault
+</code></pre><h2 id="自己参照構造体の罠">自己参照構造体の罠</h2>
+<p>ムーブするとアドレスが変わってしまう</p>
+<pre tabindex="0"><code>struct SelfRef {
+    x: i32,
+    p: *const i32,
+}
+
+impl SelfRef {
+    pub fn new(x: i32) -&gt; SelfRef {
+        let mut self_ref = SelfRef {
+            x: x,
+            p: std::ptr::null()
+        };
+        self_ref.p = &amp;self_ref.x;
+
+        println!(&#34;{:?}&#34;, &amp;self_ref.x as *const i32);  //=&gt; 0x7ffd44b212e0 x のアドレス
+        println!(&#34;{:?}&#34;, self_ref.p);                 //=&gt; 0x7ffd44b212e0 x を指している
+
+        self_ref  // 構造体なのでムーブする
+    }
+}
+
+fn main() {
+    let self_ref: SelfRef;
+    self_ref = SelfRef::new(42);
+
+    println!(&#34;{:?}&#34;, &amp;self_ref.x as *const i32);  //=&gt; 0x7ffd44b213f8 ムーブしたら変わってしまった
+    println!(&#34;{:?}&#34;, self_ref.p);                 //=&gt; 0x7ffd44b212e0 x を指していることにはならない
+}
+</code></pre><p>こちらを参考にしました<br>
+<a href="https://tech-blog.optim.co.jp/entry/2020/03/05/160000">https://tech-blog.optim.co.jp/entry/2020/03/05/160000</a></p>
 <h2 id="libc">libc</h2>
 <h3 id="libc-を使う">libc を使う</h3>
 <p><a href="https://crates.io/crates/libc">libc</a> を使うには，Cargo.toml の [dependencies] のところを，つぎのようにします。</p>

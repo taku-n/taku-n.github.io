@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Big Image Sample - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<p>The image banners at the top of the page are refered to as &ldquo;bigimg&rdquo; in this theme. They are optional, and one more more can be specified. If more than one is specified, the images rotate every 10 seconds. In the front matter, bigimgs are specified using an array of hashes.</p>
+<p>A single bigimg can be specified in the front matter by the following YAML:</p>
+<pre tabindex="0"><code>bigimg: [{src: &#34;/img/triangle.jpg&#34;, desc: &#34;Triangle&#34;}]
+</code></pre><p>Multiple bigimgs can be specified in the front matter by the following YAML:</p>
+<pre tabindex="0"><code>bigimg: [{src: &#34;/img/triangle.jpg&#34;, desc: &#34;Triangle&#34;}, 
+         {src: &#34;/img/sphere.jpg&#34;, desc: &#34;Sphere&#34;}, 
+         {src: &#34;/img/hexagon.jpg&#34;, desc: &#34;Hexagon&#34;}]
+</code></pre><p>Also note that the description field is optional, and images could instead be specified by:</p>
+<pre tabindex="0"><code>bigimg: [{src: &#34;/img/triangle.jpg&#34;}, 
+         {src: &#34;/img/sphere.jpg&#34;}, 
+         {src: &#34;/img/hexagon.jpg&#34;}]
+</code></pre><p>The above YAML array of hashes were written in &ldquo;flow&rdquo; style. However when generating a new page or post with <code>hugo new post/mypost.md</code>, hugo may interpret the archetype for bigimg in the default YAML style. Defining multiple bigimg&rsquo;s complete with descriptions in this style would be specified by:</p>
+<pre tabindex="0"><code>bigimg: 
+- {src: &#34;/img/triangle.jpg&#34;, desc: &#34;Triangle&#34;}
+- {src: &#34;/img/sphere.jpg&#34;, desc: &#34;Sphere&#34;}
+- {src: &#34;/img/hexagon.jpg&#34;, desc: &#34;Hexagon&#34;}
+</code></pre><p>Additional information can be found <a href="https://rhnh.net/2011/01/31/yaml-tutorial/">in this YAML tutorial</a>.</p>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

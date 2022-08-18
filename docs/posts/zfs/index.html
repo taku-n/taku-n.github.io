@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Oracle に怯えながら ZFS を使う (((ﾟДﾟ;))) - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="oracle-に怯えながら-zfs-を使う-ﾟдﾟ">Oracle に怯えながら ZFS を使う (((ﾟДﾟ;)))</h1>
+<p>&ldquo;Don&rsquo;t use ZFS.&rdquo; - Linus Torvalds</p>
+<h2 id="パーティションの情報を集めたい">パーティションの情報を集めたい</h2>
+<h3 id="dmesg">dmesg</h3>
+<pre tabindex="0"><code>$ dmesg | grep sd
+</code></pre><h3 id="dev">/dev</h3>
+<pre tabindex="0"><code>$ la /dev
+</code></pre><h3 id="gdisk">gdisk</h3>
+<pre tabindex="0"><code>$ sudo gdisk -l /dev/sda
+</code></pre><h3 id="df">df</h3>
+<pre tabindex="0"><code>$ df -hT
+</code></pre><h3 id="du">du</h3>
+<pre tabindex="0"><code>$ sudo du -hx -d1 /
+</code></pre><h3 id="mount">mount</h3>
+<pre tabindex="0"><code>$ mount | grep -e vfat -e zfs | sort
+</code></pre><h3 id="fstab">fstab</h3>
+<pre tabindex="0"><code>$ cat /etc/fstab
+</code></pre><h3 id="zpool">zpool</h3>
+<pre tabindex="0"><code>$ zpool status
+$ zpool status bpool
+$ zpool status rpool
+$ zpool list
+</code></pre><h3 id="zfs">zfs</h3>
+<pre tabindex="0"><code>$ zfs list
+$ zfs list -r bpool
+$ zfs list -r rpool
+$ zfs list -o name,used,compression -r xpool
+
+$ zfs get all xpool
+$ zfs get compression xpool
+$ zfs get -p name,used xpool
+</code></pre><h2 id="zfs-の設定">ZFS の設定</h2>
+<h3 id="ユーザディレクトリ用の-zfs-パーティションを用意する">ユーザディレクトリ用の ZFS パーティションを用意する</h3>
+<pre tabindex="0"><code>$ cd
+$ pwd               # Check your home directory.
+
+$ sudo -i           # To avoid creating &#34;.sudo_as_admin_successful&#34; when you execute zfs commands.
+# shopt -s dotglob  # To move dot files too.
+# mkdir /tmp/temp
+# mv /home/{your-username}/* /tmp/temp
+
+# # These properties are inherited from their pool.
+# # compression, devices, xattr, dnodesize, acltype, relatime
+# zfs create -o mountpoint=/home/{your-username} rpool/home/{your-username}
+
+# mv /tmp/temp/* /home/{your-username}
+# chown {your-username}:{your-username} /home/{your-username}
+# exit
+$ exit              # To see the files moved.
+</code></pre><p>GUI 環境の場合は，まずログアウトしたあと，Ctrl + Alt + F2 を押して，2番目 の仮想端末にログインしてから行う (方がいい気がする)。<br>
+Ubuntu 20.04 LTS の ZFS インストールをした場合には，つぎの手順に従う。<br>
+(かなり無茶してる気がするので，インストール直後が無難)。<br>
+(ユーザが複数いる場合は，やらないで)。<br>
+(/home 用のパーティションがいらないなら，やる必要ない。もともとユーザディレクトリ用の ZFS パーティションは，用意されている)</p>
+<pre tabindex="0"><code>$ sudo -i           # To avoid creating &#34;.sudo_as_admin_successful&#34; when you execute zfs commands.
+
+# shopt -s dotglob  # To move dot files too.
+# mkdir /tmp/temp
+# mv /home/{your-username}/* /tmp/temp
+
+# umount -l /home/{your-username}
+# rm -r /home
+
+# zfs list  # To check 6-characters being used in the next line.
+# zfs destroy -r rpool/USERDATA/{your-username}_{6-characters}
+# zfs create -o mountpoint=/home rpool/home
+# zfs create -o mountpoint=/home/{your-username} rpool/home/{your-username}
+
+# mv /tmp/temp/* /home/{your-username}
+# chown {your-username}:{your-username} /home/{your-username}
+
+# systemctl reboot
+</code></pre><h3 id="zfs-ファイルシステムのクオータを表示する">ZFS ファイルシステムのクオータを表示する</h3>
+<pre tabindex="0"><code>$ zfs get quota
+</code></pre><h3 id="zfs-ファイルシステムのクオータを-1gb-に設定する">ZFS ファイルシステムのクオータを 1GB に設定する</h3>
+<pre tabindex="0"><code>$ sudo zfs set quota=1G rpool/home
+</code></pre><h3 id="zfs-ファイルシステムのクオータを解除する">ZFS ファイルシステムのクオータを解除する</h3>
+<pre tabindex="0"><code>$ sudo zfs set quota=none rpool/home
+</code></pre><h3 id="zfs-ファイルシステムを作成する">ZFS ファイルシステムを作成する</h3>
+<pre tabindex="0"><code>$ sudo zfs create -o mountpoint=/usr/home/hoge zroot/usr/home/hoge
+</code></pre><h3 id="zfs-ファイルシステムを削除する">ZFS ファイルシステムを削除する</h3>
+<pre tabindex="0"><code>$ sudo zfs destroy rpool/hoge
+</code></pre><h2 id="スナップショット">スナップショット</h2>
+<p>スナップショットの作成</p>
+<pre tabindex="0"><code>$ sudo zfs snapshot bpool@snapyyyymmdd     # スナップショットの名前 (@ よりあと) は数字ではじめない
+$ sudo zfs snapshot -r rpool@snapyyyymmdd  # 子孫ファイルシステムのスナップショットも作成
+</code></pre><p>スナップショットの確認</p>
+<pre tabindex="0"><code>$ zfs list -t snapshot
+</code></pre><p>スナップショットの破棄</p>
+<pre tabindex="0"><code>$ sudo zfs destroy rpool@snapyyyymmdd
+</code></pre><p>スナップショットのロールバック</p>
+<pre tabindex="0"><code>$ sudo zfs rollback rpool@snapyyyymmdd
+</code></pre><p><a href="https://qiita.com/belgianbeer/items/822733b30200a2b6727f">ZFSのsnapshotをまとめて削除する</a></p>
+<h2 id="conoha">ConoHa</h2>
+<h3 id="パーティション設計-for-conoha">パーティション設計 (for ConoHa)</h3>
+<p>Logical Sector Size: 512 bytes<br>
+Partitions will be aligned on 2048-sector boundaries<br>
+1MiB =    1048576<br>
+1GiB = 1073741824</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Sector</th>
+<th style="text-align:right">Beginning Byte</th>
+<th style="text-align:right">Ending Byte</th>
+<th style="text-align:right">Size</th>
+<th style="text-align:center">Purpose</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Code</th>
+<th style="text-align:center">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">511</td>
+<td style="text-align:right">512</td>
+<td style="text-align:center">Master Boot Record</td>
+<td style="text-align:center">NA</td>
+<td style="text-align:center">NA</td>
+<td style="text-align:center">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">512</td>
+<td style="text-align:right">1023</td>
+<td style="text-align:right">512</td>
+<td style="text-align:center">First GPT Header</td>
+<td style="text-align:center">NA</td>
+<td style="text-align:center">NA</td>
+<td style="text-align:center">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">1024</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">&hellip;</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:right">16384</td>
+<td style="text-align:center">First GPT Entries</td>
+<td style="text-align:center">NA</td>
+<td style="text-align:center">NA</td>
+<td style="text-align:center">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">33</td>
+<td style="text-align:right"></td>
+<td style="text-align:right">17407</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">34</td>
+<td style="text-align:right">17408</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">&hellip;</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:right">1031168</td>
+<td style="text-align:center">BIOS Boot Partition</td>
+<td style="text-align:center">NA</td>
+<td style="text-align:center">EF02</td>
+<td style="text-align:center">BIOS boot partition</td>
+</tr>
+<tr>
+<td style="text-align:right">2047</td>
+<td style="text-align:right"></td>
+<td style="text-align:right">1048575</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">2048</td>
+<td style="text-align:right">1048576</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">&hellip;</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:right">1073741824</td>
+<td style="text-align:center">EFI System Partition</td>
+<td style="text-align:center">FAT32</td>
+<td style="text-align:center">EF00</td>
+<td style="text-align:center">EFI system partition</td>
+</tr>
+<tr>
+<td style="text-align:right">2099199</td>
+<td style="text-align:right"></td>
+<td style="text-align:right">1074790399</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">2099200</td>
+<td style="text-align:right">1074790400</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">&hellip;</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:right">1073741824</td>
+<td style="text-align:center">Linux Swap</td>
+<td style="text-align:center">Swap</td>
+<td style="text-align:center">8200</td>
+<td style="text-align:center">Linux swap</td>
+</tr>
+<tr>
+<td style="text-align:right">4196351</td>
+<td style="text-align:right"></td>
+<td style="text-align:right">2148532223</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">4196352</td>
+<td style="text-align:right">2148532224</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">&hellip;</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:right">1073741824</td>
+<td style="text-align:center">ZFS Boot Pool</td>
+<td style="text-align:center">ZFS</td>
+<td style="text-align:center">BF01</td>
+<td style="text-align:center">Mac ZFS</td>
+</tr>
+<tr>
+<td style="text-align:right">6293503</td>
+<td style="text-align:right"></td>
+<td style="text-align:right">3222274047</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">6293504</td>
+<td style="text-align:right">3222274048</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:right">&hellip;</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:right">NA</td>
+<td style="text-align:center">ZFS Root Pool</td>
+<td style="text-align:center">ZFS</td>
+<td style="text-align:center">BF01</td>
+<td style="text-align:center">Mac ZFS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="conoha-iso">conoha-iso</h3>
+<p>基本はこちらを読めばいい<br>
+<a href="https://github.com/hironobu-s/conoha-iso">conoha-iso</a><br>
+<a href="https://support.conoha.jp/v/clitools/">CLIツールで簡単にISOイメージをマウントする</a></p>
+<h4 id="ポイント">ポイント</h4>
+<ul>
+<li>ConoHa で API ユーザを作成しておく</li>
+<li>OS_USERNAME, OS_TENANT_NAME, OS_REGION_NAME を環境変数に追加しておく</li>
+<li>OS_REGION_NAME はエンドポイントの tyo2 など</li>
+</ul>
+<p>ISO を ConoHa にダウンロードさせる</p>
+<pre tabindex="0"><code>$ conoha-iso download -p {Your API Password} -i https://releases.ubuntu.com/20.04/ubuntu-20.04-live-server-amd64.iso
+</code></pre><p>その確認 (ダウンロード完了まで意外と時間がかかる)</p>
+<pre tabindex="0"><code>$ conoha-iso list -p {Your API Password}
+</code></pre><p>ISO を入れる</p>
+<pre tabindex="0"><code>$ conoha-iso insert -p {Your API Password}
+</code></pre><p>ISO を出す</p>
+<pre tabindex="0"><code>$ conoha-iso eject -p {Your API Password}
+</code></pre><h2 id="ubuntu-server-2004-lts--zfs-構築用スクリプト">Ubuntu Server 20.04 LTS + ZFS 構築用スクリプト</h2>
+<p><a href="https://github.com/taku-n/lesser-zfs-installer">lesser-zfs-installer</a></p>
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

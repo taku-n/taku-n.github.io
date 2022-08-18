@@ -284,6 +284,64 @@ println!("0x{:08X}", y);  //=> 0x12345678
 順番が逆転していますが，違う解釈をさせることができました。  
 ポインタをキャストしたときの話と合わせると，わかりやすいと思います。
 
+## Box
+
+Box をつかってヒープ領域にデータを格納し，そのアドレスを取得してみましょう。
+
+```
+let b: std::boxed::Box<i32>;
+b = Box::<i32>::new(42);
+let p_b: *mut i32;
+p_b = Box::into_raw(b);  // *const i32 でもいい
+println!("{:?}", p_b);   //=> 0x55f513da1b70
+```
+
+アドレスから Box を作成することもできます。
+
+```
+let p: *mut i32;
+p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
+let b: std::boxed::Box<i32>;
+b = unsafe {Box::from_raw(p)};  //=> Segmentation fault
+```
+
+## 自己参照構造体の罠
+
+ムーブするとアドレスが変わってしまう
+
+```
+struct SelfRef {
+    x: i32,
+    p: *const i32,
+}
+
+impl SelfRef {
+    pub fn new(x: i32) -> SelfRef {
+        let mut self_ref = SelfRef {
+            x: x,
+            p: std::ptr::null()
+        };
+        self_ref.p = &self_ref.x;
+
+        println!("{:?}", &self_ref.x as *const i32);  //=> 0x7ffd44b212e0 x のアドレス
+        println!("{:?}", self_ref.p);                 //=> 0x7ffd44b212e0 x を指している
+
+        self_ref  // 構造体なのでムーブする
+    }
+}
+
+fn main() {
+    let self_ref: SelfRef;
+    self_ref = SelfRef::new(42);
+
+    println!("{:?}", &self_ref.x as *const i32);  //=> 0x7ffd44b213f8 ムーブしたら変わってしまった
+    println!("{:?}", self_ref.p);                 //=> 0x7ffd44b212e0 x を指していることにはならない
+}
+```
+
+こちらを参考にしました  
+[https://tech-blog.optim.co.jp/entry/2020/03/05/160000](https://tech-blog.optim.co.jp/entry/2020/03/05/160000)
+
 ## libc
 
 ### libc を使う

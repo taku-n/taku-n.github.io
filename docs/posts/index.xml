@@ -6,7 +6,363 @@
     <description>Recent content in Posts on 非同期エンジニアブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 03 Jan 2020 03:02:51 +0900</lastBuildDate><atom:link href="https://taku-n.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VRChat</title>
+      <link>https://taku-n.github.io/posts/vrchat/</link>
+      <pubDate>Sat, 15 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/vrchat/</guid>
+      <description>VRChat VRChat
+Documentation
+SDK
+Unity のインストール Currently Supported Unity Version
+こちらの Click here to install the current version of Unity via Unity Hub を押す
+Microsoft Visual Studio Community 2019
+Android Build Support
+Android SDK &amp;amp; NDK Tools
+OpenJDK にチェックし Install
+Avatar Initial Setup and Test Create a new Unity project.
+Import VRCSDK3-AVATAR by &amp;ldquo;Assets -&amp;gt; Import Package -&amp;gt; Custom Package&amp;hellip;&amp;rdquo;.
+Import VRCQuestTools.
+Import lilToon.
+Import an avatar.
+Put *.unity of the avatar into Hierarchy.</description>
+    </item>
+    
+    <item>
+      <title>Type Dictionary</title>
+      <link>https://taku-n.github.io/posts/type/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/type/</guid>
+      <description>Type Dictionary </description>
+    </item>
+    
+    <item>
+      <title>WebAssembly</title>
+      <link>https://taku-n.github.io/posts/wasm/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/wasm/</guid>
+      <description>WebAssembly wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
+    </item>
+    
+    <item>
+      <title>On Rust</title>
+      <link>https://taku-n.github.io/posts/macro/</link>
+      <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/macro/</guid>
+      <description>On Rust </description>
+    </item>
+    
+    <item>
+      <title>Trait Dictionary</title>
+      <link>https://taku-n.github.io/posts/trait/</link>
+      <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/trait/</guid>
+      <description>Trait Dictionary Rust のトレイトは &amp;ldquo;トレイトとしては別物&amp;rdquo; らしい
+Trait Trait T を定義
+trait T { } Trait S を要求する Trait T を定義
+Trait S は Trait T の Supertrait
+Trait T は Trait S の Subtrait
+trait S { } trait T: S { } Trait R と Trait S を要求する Trait T を定義
+trait R { } trait S { } trait T: R + S { } Clone (std::clone::Clone) pub trait Clone { fn clone(&amp;amp;self) -&amp;gt; Self; fn clone_from(&amp;amp;mut self, source: &amp;amp;Self) {.</description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://taku-n.github.io/posts/rust/</link>
+      <pubDate>Tue, 26 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/rust/</guid>
+      <description>Rust Trait Dictionary
+Type Dictionary
+Raw Level Rust
+On Rust
+wasm-bindgen
+axum
+warp
+rustup バージョンの確認 rustup -V rustup 自身のアップデート rustup self update Rust のアップデート rustup update 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.toml won&amp;rsquo;t always mean &amp;ldquo;latest version&amp;rdquo;
+cargo edit の cargo upgrade を使うのがいいらしい</description>
+    </item>
+    
+    <item>
+      <title>axum</title>
+      <link>https://taku-n.github.io/posts/axum/</link>
+      <pubDate>Fri, 13 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/axum/</guid>
+      <description>axum Crate axum tokio-rs/axum</description>
+    </item>
+    
+    <item>
+      <title>Windows</title>
+      <link>https://taku-n.github.io/posts/windows/</link>
+      <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/windows/</guid>
+      <description>Windows おかしくなったときに，管理者権限で，まず実行
+sfc /scannow </description>
+    </item>
+    
+    <item>
+      <title>warp</title>
+      <link>https://taku-n.github.io/posts/warp/</link>
+      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/warp/</guid>
+      <description>warp Structs And pub struct And&amp;lt;T, U&amp;gt; { pub(super) first: T, pub(super) second: U, }
+impl&amp;lt;T, U&amp;gt; FilterBase for And&amp;lt;T, U&amp;gt;
+Traits </description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>https://taku-n.github.io/posts/nginx/</link>
+      <pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/nginx/</guid>
+      <description>nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする
+(WSL2 は，IPv6 に対応していないので注意)
+$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator
+起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは
+/etc/nginx/nginx.conf だが，実際に設定するのは，こちら
+/etc/nginx/sites-available/default server ではじまっている部分が
+それぞれ，各 Virtual Host になっている
+初期設定として
+server_name _; の部分を
+server_name ach.moe; とする
+また，TLS を有効にするため
+# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を</description>
+    </item>
+    
+    <item>
+      <title>HAProxy</title>
+      <link>https://taku-n.github.io/posts/haproxy/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/haproxy/</guid>
+      <description>HAProxy インストール (Ubuntu 20.04 LTS) $ sudo apt update $ sudo apt full-upgrade $ sudo apt autoremove $ sudo apt install haproxy 設定ファイルのテスト $ sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg Let&amp;rsquo;s Ecrypt 基本は，こちらに従う
+インストールと certbot コマンドは，以下の通り
+また，certbot コマンドを打つ前に，設定ファイルに追記した内，https の関係する部分は，コメントアウトしておく
+$ sudo snap refresh core $ sudo snap install --classic certbot $ sudo systemctl restart haproxy $ $ # 正常に起動したら，つぎを実行 $ $ sudo certbot certonly --standalone --preferred-challenges http --http-01-address 127.0.0.1 --http-01-port 9080 -d hoge.</description>
+    </item>
+    
+    <item>
+      <title>TLS</title>
+      <link>https://taku-n.github.io/posts/tls/</link>
+      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/tls/</guid>
+      <description>TLS (Transport Layer Security) Certbot インストール方法は，公式サイトを参照
+https://certbot.eff.org/
+しかし
+$ sudo certbot --nginx がエラーになってしまう
+とりあえず
+$ sudo nginx -t $ sudo nvim /etc/nginx/sites-enabled/default managed by Certbot となっている行をすべてコメントアウト
+その後
+$ sudo systemctl restart nginx $ sudo certbot --nginx サブコマンドとオプション certonly
+証明書の取得のみを行う
+renew
+期限の残りが 30日未満 の証明書を更新
+--dry-run
+実際には，証明書の更新を行わない
+--force-renewal
+すべての証明書を期限の残りにかかわらず，強制的に更新
+--manual
+Nginx とかを使わずに手動で認証
+DNS の場合 (ConoHa DNS) 最も重要な点として，DNS サーバが API による操作に対応していなければならない
+ここでは，ConoHa の DNS サーバを利用することにする
+初回のやり方は，つぎのとおり
+$ sudo certbot certonly --manual --preferred-challenges dns -d hoge.</description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>https://taku-n.github.io/posts/go/</link>
+      <pubDate>Thu, 21 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/go/</guid>
+      <description>Go go mod Using Go Modules go mod init &amp;lt;ここには何を書く？&amp;gt;
+$ # go mod init 公開しなければこちらはなんでもいいらしい $ # 例 $ go mod init hello go test </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 20.04</title>
+      <link>https://taku-n.github.io/posts/ubuntu2004/</link>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/ubuntu2004/</guid>
+      <description>Ubuntu 20.04 $ sudo dpkg-reconfigure tzdata Ubuntuでlocaleを追加する方法
+$ sudo locale-gen ja_JP.UTF-8 apt メインの設定ファイルは /etc/apt/sources.list
+APT の設定 (/etc/apt/sources.list) をちゃんと理解する</description>
+    </item>
+    
+    <item>
+      <title>IPv6</title>
+      <link>https://taku-n.github.io/posts/ipv6/</link>
+      <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/ipv6/</guid>
+      <description>IPv6 Server OS: Ubuntu 20.04 Client OS: Windows 10
+IPv6 が有効になっているか調べる $ ip -6 a コマンド プロンプト から IPv6 アドレスに ping する &amp;gt;ping {IPv6 address} SSH Server が IPv6 を受け入れるようにする $ sudo nvim /etc/ssh/sshd_config #ListenAddress :: を
+ListenAddress :: に変更する
+コマンド プロンプト から IPv6 アドレスに SSH で接続する &amp;gt;ssh {user name}@{IPv6 address} </description>
+    </item>
+    
+    <item>
+      <title>Hy</title>
+      <link>https://taku-n.github.io/posts/hy/</link>
+      <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/hy/</guid>
+      <description>Midnight Hy Way 必ず理解しておくべきこと
+バージョン $ hy -v hy 0.19.0 REPL $ hy --repl-output-fn=hy.contrib.hy-repr.hy-repr ~/.bashrc に
+alias hyr=&amp;#34;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr などとしておき
+$ hyr で起動するのがいいだろう
+言語基礎 演算 =&amp;gt; (+ 7 3) 10 =&amp;gt; (- 7 3) 4 =&amp;gt; (* 7 3) 21 =&amp;gt; (/ 7 3) 2.3333333333333335 =&amp;gt; (% 7 3) 1 変数 =&amp;gt; (setv x 42) =&amp;gt; x 42 入れ子操作 リスト [&amp;lsquo;1 &amp;lsquo;2 &amp;lsquo;3 &amp;lsquo;4 &amp;lsquo;5] と区別するため
+&amp;lsquo;(1 2 3 4 5) のことを</description>
+    </item>
+    
+    <item>
+      <title>systemd</title>
+      <link>https://taku-n.github.io/posts/systemd/</link>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/systemd/</guid>
+      <description>systemd systemctlとserviceの違い
+プロセスの確認
+$ ps aux $ pstree Unit の一覧と自動起動するかを見る
+$ systemctl list-unit-files -t service Unit の一覧と起動状態を見る
+$ systemctl list-units -t service Unit の状態を確認する
+$ systemctl status [unit-name] Unit の自動起動を有効にする
+$ systemctl enable [unit-name] Unit の自動起動を無効にする
+$ systemctl disable [unit-name] Unit を起動する
+$ systemctl start [unit-name] Unit を停止する
+$ systemctl stop [unit-name] Unit を再起動する
+$ systemctl restart [unit-name] $ systemctl daemon-reload $ systemctl show hoge.timer $ journalctl -f -u hoge.service もっといい感じにまとめてくださっている人がいました</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi</title>
+      <link>https://taku-n.github.io/posts/raspi/</link>
+      <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/raspi/</guid>
+      <description>Raspberry Pi CPU の温度を見る $ cat /sys/class/thermal/thermal_zone0/temp 単位は，ミリ度
+SPEEDTEST CLI インストール
+$ speedtest Firefox $ sudo apt install firefox-esr-l10n-ja ALSA (Advanced Linux Sound Architecture) とりあえず &amp;ldquo;PulseAudio 音量調節&amp;rdquo; をインストールすること
+$ sudo apt install pavucontrol 起動は [RasPi] -&amp;gt; [サウンドとビデオ] -&amp;gt; [PulseAudio 音量調節]
+マイクの音量を 100% を超えて設定したりできる
+使用したハードウェア
+スピーカ: サンワサプライ株式会社 USBスピーカー MM-SPU8BK
+マイク: USB Microphone MI-305
+PCM (Pulse Code Modulation)
+テスト用の音源をダウンロード
+(Thank 東京都市生活 + 真空管Audio + 視線入力 + 音楽 + 英国車)
+$ curl -OL http://www.</description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://taku-n.github.io/posts/git/</link>
+      <pubDate>Mon, 22 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/git/</guid>
+      <description>Git GitHub CLI GitHub CLI
+インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
+eval &amp;#34;$(gh completion -s bash)&amp;#34; gh auth まずは，認証する
+$ gh auth login 認証の状態を表示
+-t, &amp;ndash;show-token でトークンも表示する
+$ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示
+まず権限を付与する
+$ gh auth refresh -s read:public_key 表示する
+$ gh ssh-key list GitHub に公開鍵を追加する
+まず権限を付与する
+$ gh auth refresh -s write:public_key 追加する
+$ gh ssh-key add ~/.ssh/id_rsa.pub gh repo リポジトリの一覧を表示
+-L, &amp;ndash;limit int は，表示する最大数を指定</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://taku-n.github.io/posts/kubernetes/</link>
+      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/kubernetes/</guid>
+      <description>Kubernetes (1.22, Single Node, Ubuntu 20.04 LTS, ZFS, Conoha) (Almost IPv6 Only) クラスタの構築 (といってもシングルノードだが) kubeadmのインストール
+kubeadmを使用したシングルコントロールプレーンクラスターの作成
+を参考にしていく
+Swap をオフにする $ sudo nvim /etc/fstab swap の行の先頭に # を置いて，コメントアウトすればいい
+br_netfilter モジュールを読み込ませる $ sudo nvim /etc/modules つぎを追記する
+br_netfilter sysctl の設定 $ sudo nvim /etc/sysctl.d/k8s.conf つぎのように
+net.bridge.bridge-nf-call-ip6tables = 1 net.bridge.bridge-nf-call-iptables = 1 書いて
+$ sudo sysctl --system iptables をレガシーモードにする $ sudo apt install iptables arptables ebtables $ sudo update-alternatives --set iptables /usr/sbin/iptables-legacy $ sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy $ sudo update-alternatives --set arptables /usr/sbin/arptables-legacy $ sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy Docker をインストールする はじめに注意だが，/var/lib/docker を ZFS で構築するのは，おすすめできない</description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://taku-n.github.io/posts/docker/</link>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/docker/</guid>
+      <description>Docker Docker Engine
+Docker Compose
+Docker Linux環境でdockerのコマンドをsudoなしで打てるようにする
+バージョン確認 $ docker -v Docker デーモンの状態を確認 $ service docker status Docker デーモンの開始 $ sudo service docker start Docker デーモンが自動的に起動するように設定 (WSL2) wsl2でDocker自動起動設定
+Thank @ktaidot.
+コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &amp;#34;table {{.</description>
+    </item>
+    
+    <item>
+      <title>Oracle に怯えながら ZFS を使う (((ﾟДﾟ;)))</title>
+      <link>https://taku-n.github.io/posts/zfs/</link>
+      <pubDate>Wed, 29 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/zfs/</guid>
+      <description>Oracle に怯えながら ZFS を使う (((ﾟДﾟ;))) &amp;ldquo;Don&amp;rsquo;t use ZFS.&amp;rdquo; - Linus Torvalds
+パーティションの情報を集めたい dmesg $ dmesg | grep sd /dev $ la /dev gdisk $ sudo gdisk -l /dev/sda df $ df -hT du $ sudo du -hx -d1 / mount $ mount | grep -e vfat -e zfs | sort fstab $ cat /etc/fstab zpool $ zpool status $ zpool status bpool $ zpool status rpool $ zpool list zfs $ zfs list $ zfs list -r bpool $ zfs list -r rpool $ zfs list -o name,used,compression -r xpool $ zfs get all xpool $ zfs get compression xpool $ zfs get -p name,used xpool ZFS の設定 ユーザディレクトリ用の ZFS パーティションを用意する $ cd $ pwd # Check your home directory.</description>
+    </item>
+    
+    <item>
+      <title>foo</title>
+      <link>https://taku-n.github.io/posts/foo/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/foo/</guid>
+      <description>foobarbaz</description>
+    </item>
+    
+    <item>
+      <title>Market</title>
+      <link>https://taku-n.github.io/posts/market/</link>
+      <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/market/</guid>
+      <description>Timetable Summer Time Tokyo (+9) MT5 (+3) Event London (+1) New York (-4) 09:00 03:00 Tokyo Open 01:00 - 15:00 09:00 Tokyo Close 07:00 02:00 16:00 10:00 London Open 08:00 03:00 22:30 16:30 New York Open 14:30 09:30 23:00 17:00 New York Option Cut 15:00 10:00 24:00 18:00 London Fixing 16:00 11:00 24:30 18:30 London Close 16:30 11:30 29:00 23:00 New York Close 21:00 16:00 Standard Time Tokyo (+9) MT5 (+2) Event London (+0) New York (-5) 09:00 02:00 Tokyo Open 00:00 - 15:00 08:00 Tokyo Close 06:00 01:00 17:00 10:00 London Open 08:00 03:00 23:30 16:30 New York Open 14:30 09:30 24:00 17:00 New York Option Cut 15:00 10:00 25:00 18:00 London Fixing 16:00 11:00 25:30 18:30 London Close 16:30 11:30 30:00 23:00 New York Close 21:00 16:00 </description>
+    </item>
+    
+    <item>
+      <title>JISAKU 04</title>
+      <link>https://taku-n.github.io/posts/jisaku04/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/jisaku04/</guid>
+      <description>JISAKU 04 (Plan) Parts Model Spec Price Remarks CPU Intel Core i7-9700K 8C8T 3.6GHz-4.9GHz 45,950JPY DDR4-2666-2ch(PC4-21300) PCIExpress3.0-16 UHD630-1.2GHz 95W Coffee Lake Refresh Motherboard ASUS ROG STRIX Z390-I GAMING Intel Z390 29,555JPY USB Type-C Gen2 ピンヘッダに対応 Memory Crucial CT2K8G4DFS8266 8GBx2 DDR4-2666(PC4-21300) 7,352JPY ブリスターパックとの違いとは (?) OS Microsoft Windows 10 Pro 28,380JPY Amazon で買うのは，危ない感じ 見れば全部わかるDDR4メモリ完全ガイド、規格からレイテンシ、本当の速さまで再確認</description>
+    </item>
+    
+    <item>
+      <title>hello</title>
+      <link>https://taku-n.github.io/posts/hello/</link>
+      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/hello/</guid>
+      <description>hello, world</description>
+    </item>
+    
     <item>
       <title>Raw Level Rust</title>
       <link>https://taku-n.github.io/posts/raw/</link>
@@ -51,7 +407,7 @@ Line 2, 3: 色を正しく表示するため (?)
 Cursor shape doesn&amp;rsquo;t change in tmux
 設定ファイル ~/.config/nvim/init.vim
 dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
-$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.</description>
+$ nvim :call dein#install() アップデート :call dein#update() IME を自動でオフにする ~/.</description>
     </item>
     
     <item>
@@ -72,21 +428,19 @@ $ nvim :call dein#install() アップデート :call dein#update() runtimepath �
       <description>Hugo Hugo について，わかったことをメモしたいと思う
 正確かどうかは，わからない
 コンテンツの追加
-$ hugo new posts/my-first-post.md
+$ hugo new post/my-first-post.md
 サーバの起動
-$ hugo server -D
+$ hugo server
 http://127.0.0.1:1313/
 ビルド
-$ hugo -D ($ hugo となにが違うのだろう? ドラフトを含むか含まないか?
-H6 Test (シャープ 6つ だとバグる? H5 Test Front Matter? =&amp;gt; どうやら，各 md ファイルの先頭に自動的に作成される
-3つ のハイフンで区切られたブロックのことみたい
-title, date, draft, &amp;hellip;
-たぶん，content ディレクトリ直下にファイルは置けなさそう
-section となるディレクトリを置いていく感じみたい
-_index.md は置けるみたい (Page Bundles -&amp;gt; Branch Bundles
-index.md があるディレクトリは Leaf Bundle になり
-_index.md があるディレクトリは Branch Bundle になるみたい
-section? =&amp;gt; content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん</description>
+$ hugo -D ($ hugo となにが違うのだろう? -&amp;gt; ドラフトを含むか含まないか
+When you cloned a hugo site you have created, you must enter the directory and type:
+$ git submodule update &amp;ndash;init &amp;ndash;recursive
+Delete Delete a md file and type:
+$ hugo -D &amp;ndash;cleanDestinationDir
+GitHub Actions GitHub Actions for Hugo
+GitHub Pages Action
+Change its branch from master to main.</description>
     </item>
     
     <item>
@@ -96,6 +450,109 @@ section? =&amp;gt; content ディレクトリ直下のディレクトリや cont
       
       <guid>https://taku-n.github.io/posts/my-first-post/</guid>
       <description>hello, world</description>
+    </item>
+    
+    <item>
+      <title>Big Image Sample</title>
+      <link>https://taku-n.github.io/posts/2017-03-07-bigimg-sample/</link>
+      <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2017-03-07-bigimg-sample/</guid>
+      <description>&lt;p&gt;The image banners at the top of the page are refered to as &amp;ldquo;bigimg&amp;rdquo; in this theme. They are optional, and one more more can be specified. If more than one is specified, the images rotate every 10 seconds. In the front matter, bigimgs are specified using an array of hashes.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Math Sample</title>
+      <link>https://taku-n.github.io/posts/2017-03-05-math-sample/</link>
+      <pubDate>Sun, 05 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2017-03-05-math-sample/</guid>
+      <description>&lt;p&gt;KaTeX can be used to generate complex math formulas. It supports in-line math using the &lt;code&gt;\\( ... \\)&lt;/code&gt; delimiters, like this: \( E = mc^2 \). By default, it does &lt;em&gt;not&lt;/em&gt; support in-line delimiters &lt;code&gt;$...$&lt;/code&gt; because those occur too commonly in typical webpages. It supports displayed math using the &lt;code&gt;$$&lt;/code&gt; or &lt;code&gt;\\[...\\]&lt;/code&gt; delimiters, like this:&lt;/p&gt;
+&lt;p&gt;Formula 1:
+$$
+\phi = \frac{(1+\sqrt{5})}{2} = 1.6180339887\cdots
+$$&lt;/p&gt;
+&lt;p&gt;Formula 2: (same formula, different delimiter)
+\[
+\phi = \frac{(1+\sqrt{5})}{2} = 1.6180339887\cdots
+\]&lt;/p&gt;
+&lt;p&gt;Additional details can be found on &lt;a href=&#34;https://github.com/Khan/KaTeX&#34;&gt;GitHub&lt;/a&gt; or on the &lt;a href=&#34;http://tiddlywiki.com/plugins/tiddlywiki/katex/&#34;&gt;Wiki&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Code Sample</title>
+      <link>https://taku-n.github.io/posts/2016-03-08-code-sample/</link>
+      <pubDate>Tue, 08 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2016-03-08-code-sample/</guid>
+      <description>&lt;p&gt;The following are two code samples using syntax highlighting.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Flake it till you make it</title>
+      <link>https://taku-n.github.io/posts/2015-02-26-flake-it-till-you-make-it/</link>
+      <pubDate>Thu, 26 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2015-02-26-flake-it-till-you-make-it/</guid>
+      <description>Under what circumstances should we step off a path? When is it essential that we finish what we start? If I bought a bag of peanuts and had an allergic reaction, no one would fault me if I threw it out. If I ended a relationship with a woman who hit me, no one would say that I had a commitment problem. But if I walk away from a seemingly secure route because my soul has other ideas, I am a flake?</description>
+    </item>
+    
+    <item>
+      <title>Test markdown</title>
+      <link>https://taku-n.github.io/posts/2015-02-20-test-markdown/</link>
+      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2015-02-20-test-markdown/</guid>
+      <description>You can write regular markdown here and Jekyll will automatically convert it to a nice webpage. I strongly encourage you to take 5 minutes to learn how to write in markdown - it&amp;rsquo;ll teach you how to transform regular text into bold/italics/headings/tables/etc.
+Here is some bold text
+Here is a secondary heading Here&amp;rsquo;s a useless table:
+Number Next number Previous number Five Six Four Ten Eleven Nine Seven Eight Six Two Three One How about a yummy crepe?</description>
+    </item>
+    
+    <item>
+      <title>To be</title>
+      <link>https://taku-n.github.io/posts/2015-02-13-hamlet-monologue/</link>
+      <pubDate>Fri, 13 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2015-02-13-hamlet-monologue/</guid>
+      <description>To be, or not to be&amp;ndash;that is the question: Whether &amp;rsquo;tis nobler in the mind to suffer The slings and arrows of outrageous fortune Or to take arms against a sea of troubles And by opposing end them. To die, to sleep&amp;ndash; No more&amp;ndash;and by a sleep to say we end The heartache, and the thousand natural shocks That flesh is heir to. &amp;lsquo;Tis a consummation Devoutly to be wished. To die, to sleep&amp;ndash; To sleep&amp;ndash;perchance to dream: ay, there&amp;rsquo;s the rub, For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause.</description>
+    </item>
+    
+    <item>
+      <title>Dear diary</title>
+      <link>https://taku-n.github.io/posts/2015-01-27-dear-diary/</link>
+      <pubDate>Tue, 27 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2015-01-27-dear-diary/</guid>
+      <description>What is it with that Mary girl? Dragging me to school every day. As if I had a choice. What you don&amp;rsquo;t hear in those nursery rhymes is that she starves me if I don&amp;rsquo;t go to school with her; it&amp;rsquo;s the only way I can stay alive! I&amp;rsquo;m thinking about being adopted by Little Bo Peep, sure I may get lost, but anything is better than being with Mary and those little brats at school (shudder, shudder).</description>
+    </item>
+    
+    <item>
+      <title>Soccer</title>
+      <link>https://taku-n.github.io/posts/2015-01-19-soccer/</link>
+      <pubDate>Mon, 19 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2015-01-19-soccer/</guid>
+      <description>From Wikipedia:
+Association football, more commonly known as football or soccer,[2] is a sport played between two teams of eleven players with a spherical ball. It is played by 250 million players in over 200 countries, making it the world&amp;rsquo;s most popular sport.[3][4][5][6] The game is played on a rectangular field with a goal at each end. The object of the game is to score by getting the ball into the opposing goal.</description>
+    </item>
+    
+    <item>
+      <title>Pirates arrrr</title>
+      <link>https://taku-n.github.io/posts/2015-01-15-pirates/</link>
+      <pubDate>Thu, 15 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2015-01-15-pirates/</guid>
+      <description>Piracy is typically an act of robbery or criminal violence at sea. The term can include acts committed on land, in the air, or in other major bodies of water or on a shore. It does not normally include crimes committed against persons traveling on the same vessel as the perpetrator (e.g. one passenger stealing from others on the same vessel). The term has been used throughout history to refer to raids across land borders by non-state agents.</description>
+    </item>
+    
+    <item>
+      <title>First post!</title>
+      <link>https://taku-n.github.io/posts/2015-01-04-first-post/</link>
+      <pubDate>Mon, 05 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/2015-01-04-first-post/</guid>
+      <description>This is my first post, how exciting!</description>
     </item>
     
   </channel>

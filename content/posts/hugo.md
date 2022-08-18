@@ -11,17 +11,42 @@ Hugo について，わかったことをメモしたいと思う
 
 コンテンツの追加
 
-$ hugo new posts/my-first-post.md
+$ hugo new post/my-first-post.md
 
 サーバの起動
 
-$ hugo server -D  
+$ hugo server  
 http://127.0.0.1:1313/
 
 ビルド
 
 $ hugo -D
-($ hugo となにが違うのだろう? ドラフトを含むか含まないか?
+($ hugo となにが違うのだろう? -> ドラフトを含むか含まないか
+
+When you cloned a hugo site you have created, you must enter the directory and type:  
+$ git submodule update --init --recursive  
+
+## Delete
+
+Delete a md file and type:  
+$ hugo -D --cleanDestinationDir  
+
+## GitHub Actions
+
+[GitHub Actions for Hugo](https://github.com/peaceiris/actions-hugo)  
+[GitHub Pages Action](https://github.com/peaceiris/actions-gh-pages)  
+
+Change its branch from master to main.  
+Create .github/workflows/gh-pages.yml.  
+Push your repository.  
+Let GitHub protect main branch with no checks.  
+Remove the master branch.  
+Open Settings -> Pages and change Branch to main and / (root).  
+Open your Settings of your repository.  
+Open Environments -> github-pages.  
+Change the setting of Deployment branches to All branches.  
+Open Actions -> pages build and deployment -> Re-run jobs -> Re-run all jobs -> Re-run jobs.  
+Struggle for a while and get the gh-pages branch.  
 
 ###### H6 Test (シャープ 6つ だとバグる?
 ##### H5 Test
@@ -40,6 +65,11 @@ _index.md があるディレクトリは Branch Bundle になるみたい
 section? => content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん
 
 LiveReload が働かない? それ <body></body> がないからです (Getting Started -> Basic Usage
+
+新規作成したページがページリストに出てこない  
+config.toml に buildFuture = true を追加する
+
+とりあえず hugo help してみると発見がある
 
 ドキュメント https://gohugo.io/documentation/
 
@@ -89,5 +119,16 @@ LiveReload が働かない? それ <body></body> がないからです (Getting 
 ### Contribute
 
 ### Maintenance
+
+.bashrc
+
+```
+hugo-server () {
+	hugo server --bind $1 --baseURL=http://$1/
+}
+```
+
+[The world’s fastest framework for building websites | Hugo](https://gohugo.io/)  
+[Hugo 静的サイトジェネレーターによるサイト構築と公開 | パソコン工房 NEXMAG](https://www.pc-koubou.jp/magazine/30737)
 
 <p>{{ .Title }}<p>

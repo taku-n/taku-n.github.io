@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Kubernetes - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="kubernetes-122-single-node-ubuntu-2004-lts-zfs-conoha-almost-ipv6-only">Kubernetes (1.22, Single Node, Ubuntu 20.04 LTS, ZFS, Conoha) (Almost IPv6 Only)</h1>
+<h2 id="クラスタの構築-といってもシングルノードだが">クラスタの構築 (といってもシングルノードだが)</h2>
+<p><a href="https://kubernetes.io/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">kubeadmのインストール</a><br>
+<a href="https://kubernetes.io/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/">kubeadmを使用したシングルコントロールプレーンクラスターの作成</a><br>
+を参考にしていく</p>
+<h3 id="swap-をオフにする">Swap をオフにする</h3>
+<pre tabindex="0"><code>$ sudo nvim /etc/fstab
+</code></pre><p>swap の行の先頭に # を置いて，コメントアウトすればいい</p>
+<h3 id="br_netfilter-モジュールを読み込ませる">br_netfilter モジュールを読み込ませる</h3>
+<pre tabindex="0"><code>$ sudo nvim /etc/modules
+</code></pre><p>つぎを追記する</p>
+<pre tabindex="0"><code>br_netfilter
+</code></pre><h3 id="sysctl-の設定">sysctl の設定</h3>
+<pre tabindex="0"><code>$ sudo nvim /etc/sysctl.d/k8s.conf
+</code></pre><p>つぎのように</p>
+<pre tabindex="0"><code>net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+</code></pre><p>書いて</p>
+<pre tabindex="0"><code>$ sudo sysctl --system
+</code></pre><h3 id="iptables-をレガシーモードにする">iptables をレガシーモードにする</h3>
+<pre tabindex="0"><code>$ sudo apt install iptables arptables ebtables
+$ sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+$ sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+$ sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
+$ sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
+</code></pre><h3 id="docker-をインストールする">Docker をインストールする</h3>
+<p>はじめに注意だが，/var/lib/docker を ZFS で構築するのは，おすすめできない<br>
+<a href="qhttps://github.com/moby/moby/issues/41055">docker ZFS driver creates hundreds of datasets and doesn’t clean them #41055</a></p>
+<p>つぎのようにして回避する<br>
+<a href="https://github.com/taku-n/lesser-zfs-installer#for-docker">taku-n/lesser-zfs-installer</a></p>
+<p>Docker は，ちょっと前のバージョンを入れるので注意</p>
+<p>基本的には，こちらに従う:<br>
+<a href="https://kubernetes.io/ja/docs/setup/production-environment/container-runtimes/">CRIのインストール</a></p>
+<p><a href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine on Ubuntu</a><br>
+<a href="https://docs.docker.com/engine/install/linux-postinstall/">Post-installation steps for Linux</a><br>
+<a href="https://www.366service.com/jp/qa/278a4d77f7955fe8a2f58bb314c71a79">「コントロールプロセスがエラーコードで終了したため、docker.serviceのジョブが失敗しました」を修正する方法 </a>
+<a href="https://forum.snapcraft.io/t/docker-snap-failed-to-mount-overlay-and-where-to-report-bugs/20010">Docker snap “failed to mount overlay” and where to report bugs?</a></p>
+<p>Docker のパッケージのバージョンを固定する</p>
+<pre tabindex="0"><code>$ sudo apt-mark hold containerd.io docker-ce docker-ce-cli
+</code></pre><p>/var/lib/docker に ZFS を採用している場合には，つぎのようにする<br>
+(ただし，上記のとおりの問題があるので ext4 を勧めておく</p>
+<pre tabindex="0"><code>$ sudo nvim /etc/docker/daemon.json
+</code></pre><pre tabindex="0"><code>{
+  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;],
+  &#34;log-driver&#34;: &#34;json-file&#34;,
+  &#34;log-opts&#34;: {
+    &#34;max-size&#34;: &#34;100m&#34;
+  },
+  &#34;storage-driver&#34;: &#34;zfs&#34;
+}
+</code></pre><h3 id="kubeadm-kubelet-kubectl-をインストールする">kubeadm, kubelet, kubectl をインストールする</h3>
+<pre tabindex="0"><code>$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+$ sudo nvim /etc/apt/sources.list.d/kubernetes.list
+</code></pre><p>つぎを書く</p>
+<pre tabindex="0"><code>deb https://apt.kubernetes.io/ kubernetes-xenial main
+</code></pre><pre tabindex="0"><code>$ sudo apt update
+$ sudo apt install kubeadm kubectl kubelet
+$ sudo apt-mark hold kubeadm kubectl kubelet
+</code></pre><h3 id="ipv6-を有効化">IPv6 を有効化</h3>
+<pre tabindex="0"><code>$ sudo nvim /etc/sysctl.conf
+</code></pre><p>つぎの行を追加</p>
+<pre tabindex="0"><code>net.ipv6.conf.all.forwarding = 1
+</code></pre><p>反映</p>
+<pre tabindex="0"><code>$ sudo sysctl -p
+</code></pre><h3 id="コントロールプレーンノード-マスタ-の初期化">コントロールプレーンノード (マスタ) の初期化</h3>
+<pre tabindex="0"><code>sudo kubeadm init \
+--apiserver-advertise-address 2400:your:ip:v6:a:dd:re:ss \
+--apiserver-bind-port 6443 \
+--control-plane-endpoint 2400:your:ip:v6:a:dd:re:ss \
+--service-cidr fc00::/112 \
+--pod-network-cidr fd00::/48
+</code></pre><p>設定ファイルを使う場合は，以下のような感じだと思うが，よくわからなかった</p>
+<pre tabindex="0"><code>nvim kubeadm-config.yaml
+</code></pre><p>つぎのようにする</p>
+<pre tabindex="0"><code>apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+networking:
+  serviceSubnet: 10.96.0.0/12,fd00::/108
+  podSubnet: 192.168.0.0/16,fd00:1::/48
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+</code></pre><p>この構成ファイルについて詳しくは<br>
+<a href="https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3">https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3</a></p>
+<p>つぎのようにして初期化する</p>
+<pre tabindex="0"><code>sudo kubeadm init --config=kubeadm-config.yaml
+</code></pre><p>やり直したいときは</p>
+<pre tabindex="0"><code>sudo kubeadm reset
+</code></pre><p>としてから，もう一度実行する</p>
+<pre tabindex="0"><code>ERROR FileAvailable--etc-kubernetes-manifests-*
+</code></pre><p>が出るときは</p>
+<pre tabindex="0"><code>$ sudo kubeadm reset
+$ sudo rm -r /etc/cni/net.d
+$ rm ~/.kube/config
+</code></pre><h3 id="kubectl-の設定">kubectl の設定</h3>
+<pre tabindex="0"><code>$ mkdir -p $HOME/.kube
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre><h3 id="cni-container-network-interface-を入れる">CNI (Container Network Interface) を入れる</h3>
+<p>Calico を選びました</p>
+<p><a href="https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises">Install Calico networking and network policy for on-premises deployments</a></p>
+<pre tabindex="0"><code>cd ~/.kube
+curl -OL https://docs.projectcalico.org/manifests/calico.yaml
+nvim calico.yaml
+</code></pre><p>つぎのように変更します</p>
+<pre tabindex="0"><code>--- calico.yaml.orig    2021-09-09 17:22:09.760528348 +0900
++++ calico.yaml 2021-09-09 18:19:40.057414568 +0900
+@@ -32,7 +32,9 @@
+           &#34;nodename&#34;: &#34;__KUBERNETES_NODE_NAME__&#34;,
+           &#34;mtu&#34;: __CNI_MTU__,
+           &#34;ipam&#34;: {
+-              &#34;type&#34;: &#34;calico-ipam&#34;
++              &#34;type&#34;: &#34;calico-ipam&#34;,
++              &#34;assign_ipv4&#34;: &#34;true&#34;,
++              &#34;assign_ipv6&#34;: &#34;true&#34;
+           },
+           &#34;policy&#34;: {
+               &#34;type&#34;: &#34;k8s&#34;
+@@ -3885,9 +3887,11 @@
+               value: &#34;ACCEPT&#34;
+             # Disable IPv6 on Kubernetes.
+             - name: FELIX_IPV6SUPPORT
+-              value: &#34;false&#34;
++              value: &#34;true&#34;
+             - name: FELIX_HEALTHENABLED
+               value: &#34;true&#34;
++            - name: IP6
++              value: &#34;autodetect&#34;
+           securityContext:
+             privileged: true
+           resources:
+</code></pre><pre tabindex="0"><code>$ kubectl apply -f calico.yaml
+</code></pre><h3 id="コントロールプレーンノード-マスタ-に-pod-を配置できるようにする">コントロールプレーンノード (マスタ) に Pod を配置できるようにする</h3>
+<pre tabindex="0"><code>$ kubectl taint nodes --all node-role.kubernetes.io/master-
+</code></pre><h3 id="最終確認">最終確認</h3>
+<pre tabindex="0"><code>$ kubectl get pod -A
+</code></pre><p>運良く，つぎが表示されれば，ひとまずゴールです</p>
+<pre tabindex="0"><code>NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+kube-system   calico-kube-controllers-744cfdf676-zkwpz   1/1     Running   0          9m55s
+kube-system   calico-node-9d2gw                          1/1     Running   0          10m
+kube-system   coredns-74ff55c5b-pxn4n                    1/1     Running   0          38m
+kube-system   coredns-74ff55c5b-q2zwx                    1/1     Running   0          38m
+kube-system   etcd-www                                   1/1     Running   0          38m
+kube-system   kube-apiserver-www                         1/1     Running   0          38m
+kube-system   kube-controller-manager-www                1/1     Running   0          38m
+kube-system   kube-proxy-j7v5d                           1/1     Running   0          38m
+kube-system   kube-scheduler-www                         1/1     Running   0          38m
+</code></pre><h2 id="ほかにやっておきたいこと">ほかにやっておきたいこと</h2>
+<h3 id="calicoctl-をインストール">calicoctl をインストール</h3>
+<p><a href="https://docs.projectcalico.org/getting-started/clis/calicoctl/installhttps://docs.projectcalico.org/getting-started/clis/calicoctl/install">Install calicoctl</a></p>
+<h3 id="ノード内に入るための-ubuntu-を動かす-シングルノード仕様">ノード内に入るための Ubuntu を動かす (シングルノード仕様</h3>
+<p>マルチノード構成で使うなら，ノードセレクタを追加されたい</p>
+<p>ZFS 環境なら /k8s にファイルシステムをつくっておくといいと思う</p>
+<pre tabindex="0"><code>nvim ubuntu.yaml
+</code></pre><pre tabindex="0"><code>apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: ubuntu
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+      - name: ubuntu
+        image: ubuntu
+        volumeMounts:
+        - name: ubuntu
+          mountPath: /root
+        command: [&#34;/bin/sleep&#34;, &#34;infinity&#34;]
+      volumes:
+      - name: ubuntu
+        hostPath:
+          path: /k8s/ubuntu/root
+</code></pre><pre tabindex="0"><code>kubectl apply -f ubuntu.yaml
+</code></pre><pre tabindex="0"><code>$ kubectl get pod  # NAME を調べておく
+$ kubectl exec ubuntu-123456789a-12345 -it -- bash
+</code></pre><p>コンテナのホームディレクトリ /root には<br>
+ノードから /k8s/ubuntu/root でアクセスできる</p>
+<h3 id="docker-registry-を動かす-シングルノード仕様">Docker Registry を動かす (シングルノード仕様</h3>
+<p>マルチノード構成で使うなら，ノードセレクタを追加されたい</p>
+<p>ZFS 環境なら /k8s にファイルシステムをつくっておくといいと思う</p>
+<p>/etc/docker/daemon.json に，insecure-registries を下記のように追記する<br>
+(認証を行わないようにするため)</p>
+<p>storage-driver の行の末尾のカンマに注意<br>
+localhost の部分は，IP アドレスでもホスト名でもいい</p>
+<p><code>$ sudo nvim /etc/docker/daemon.json</code></p>
+<pre tabindex="0"><code>{
+  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;],
+  &#34;log-driver&#34;: &#34;json-file&#34;,
+  &#34;log-opts&#34;: {
+    &#34;max-size&#34;: &#34;100m&#34;
+  },
+  &#34;storage-driver&#34;: &#34;overlay2&#34;,
+  &#34;insecure-registries&#34;: [&#34;ip6-localhost:5000&#34;],
+  &#34;ipv6&#34;: true,
+  &#34;fixed-cidr-v6&#34;: &#34;fd01::/64&#34;
+}
+</code></pre><p><code>$ systemctl reload docker</code></p>
+<p><code>$ nvim registry.yaml</code></p>
+<pre tabindex="0"><code>apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: registry
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      hostNetwork: true  # ノードからアクセス可能にする  $ curl -v http://ip6-localhost:5000/  でテスト
+      containers:
+      - name: registry
+        image: registry
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: registry
+          mountPath: /var/lib/registry
+      volumes:
+      - name: registry
+        hostPath:
+          path: /k8s/registry
+</code></pre><p><code>$ kubectl apply -f registry.yaml</code></p>
+<p>動作しているかのテスト</p>
+<pre tabindex="0"><code>$ curl -v http://ip6-localhost:5000/
+&lt; HTTP/1.1 200 OK
+</code></pre><p>Push のテスト<br>
+localhost の部分は，/etc/docker/daemon.json で設定したものにする<br>
+(ホスト名にした場合は，なぜか localhost でもいけた</p>
+<pre tabindex="0"><code>$ docker pull hello-world
+$ docker images | grep hello-world  # hello-world の IMAGE ID を調べる
+$ docker tag 123456789abc ip6-localhost:5000/hello-world
+$ docker push ip6-localhost:5000/hello-world
+$ ls /k8s/registry/docker/registry/v2/repositories
+hello-world
+$ curl http://ip6-localhost:5000/v2/_catalog
+{&#34;repositories&#34;:[&#34;hello-world&#34;]}
+</code></pre><p>http: server gave HTTP response to HTTPS client<br>
+となってしまった場合は，/etc/docker/daemon.json の設定ミスである</p>
+<p>Pull のテスト</p>
+<pre tabindex="0"><code>$ kubectl run hello-world --image=ip6-localhost:5000/hello-world -it --restart=Never --rm
+</code></pre><p>ちなみにここまでの :5000 が無いと，:80 を見に行く模様</p>
+<p>最後に，クラスタに外部から ポート5000番 でアクセスできないようにしておく<br>
+さもないと，知らないだれかに外から Push されてしまう</p>
+<h2 id="ingress">Ingress</h2>
+<h3 id="metallb">MetalLB</h3>
+<p><a href="https://metallb.universe.tf/">Site</a></p>
+<pre tabindex="0"><code>curl -OL https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
+curl -OL https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
+kubectl apply -f namespace.yaml
+kubectl apply -f metallb.yaml
+nvim config.yaml
+</code></pre><pre tabindex="0"><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - 2400:your:ip:v6:a:dd:re:ss-2400:your:ip:v6:a:dd:re:ss
+</code></pre><pre tabindex="0"><code>kubectl apply -f config.yaml
+</code></pre><h3 id="nginx-ingress-controller">NGINX Ingress Controller</h3>
+<p><a href="https://kubernetes.github.io/ingress-nginx/">Site</a></p>
+<p>Docker Desktop のものを使う</p>
+<pre tabindex="0"><code>curl -OL https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/deploy.yaml
+kubectl apply -f deploy.yaml
+</code></pre><p>これで Ingress が使えるようになった (もちろん IPv6 Only)</p>
+<p>バージョンの確認 (?)</p>
+<pre tabindex="0"><code>$ kubectl get pod -A  # NAME の確認
+$ kubectl exec -n ingress-nginx ingress-nginx-controller-123456789a-bcdef -it -- /nginx-ingress-controller --version
+</code></pre><h4 id="検証">検証</h4>
+<p>前提: 事前にサーバのポート 30000 - 32767 が開いているか確認しておく</p>
+<pre tabindex="0"><code>nvim hello.yaml
+</code></pre><pre tabindex="0"><code>apiVersion: v1
+kind: Service
+metadata:
+  name: svc-hello
+spec:
+  selector:
+    app: hello
+  ports:
+  - protocol: TCP
+    port: 8080
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: gcr.io/google-samples/hello-app:1.0
+</code></pre><pre tabindex="0"><code>$ kubectl apply -f hello.yaml
+$ kubectl get svc
+svc-hello    NodePort    fc00::b136   &lt;none&gt;        8080:31234/TCP   14m
+</code></pre><p>svc-hello の NodePort のポート番号 (30000 - 32767) を確認しておく<br>
+外部から curl する</p>
+<pre tabindex="0"><code>curl -6 -v http://[2400:your:ip:v6:a:dd:re:ss]:31234/
+</code></pre><pre tabindex="0"><code>Hello, world!
+Version: 1.0.0
+Hostname: hello-123456789a-bcdef
+</code></pre><p>こんな感じで返ってくれば，とりあえずサービスは動いている</p>
+<pre tabindex="0"><code>nvim ingress.yaml
+</code></pre><pre tabindex="0"><code>apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-hello
+  annotations:
+    kubernetes.io/ingress.class: &#34;nginx&#34;
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: hoge.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-hello
+            port:
+              number: 8080
+</code></pre><pre tabindex="0"><code>kubectl apply -f ingress.yaml
+curl -6 -v http://hoge.com/
+</code></pre><pre tabindex="0"><code>Hello, world!
+Version: 1.0.0
+Hostname: hello-123456789a-bcdef
+</code></pre><p>さきほどと同じものが返ってくれば，Ingress 経由でアクセスできたことになる</p>
+<h4 id="tls">TLS</h4>
+<pre tabindex="0"><code>sudo kubectl --kubeconfig /home/user/.kube/config create secret tls tls-certificate --key /etc/letsencrypt/live/hoge.com/privkey.pem --cert /etc/letsencrypt/live/hoge.com/fullchain.pem
+</code></pre><pre tabindex="0"><code>cp ingress.yaml ingress-tls.yaml
+nvim ingress-tls.yaml
+</code></pre><pre tabindex="0"><code>apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-tls-hello
+  annotations:
+    kubernetes.io/ingress.class: &#34;nginx&#34;
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/force-ssl-redirect: &#34;true&#34;
+spec:
+  tls:
+  - hosts:
+    - hoge.com
+    secretName: tls-certificate
+  rules:
+  - host: hoge.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-hello
+            port:
+              number: 8080
+</code></pre><pre tabindex="0"><code>kubectl delete -f ingress.yaml
+kubectl apply -f ingress-tls.yaml
+</code></pre><pre tabindex="0"><code>curl -6 -v -L http://hoge.com/
+</code></pre><p>HTTPS にリダイレクトされて，さきほどと同じ結果が返ってくれば完了</p>
+<h4 id="自動更新させる-conoha-限定">自動更新させる (ConoHa 限定)</h4>
+<p><a href="../tls/">こちら</a> の renew.sh に追記する</p>
+<pre tabindex="0"><code>#!/bin/bash
+
+echo &#34;Starting certbot.&#34;
+
+certbot renew --manual \
+        --manual-auth-hook /etc/letsencrypt/authenticator.py \
+        --manual-cleanup-hook /etc/letsencrypt/cleanup.py
+
+echo &#34;certbot finished.&#34;
+
+kubectl --kubeconfig /home/user/.kube/config delete secret tls-certificate
+kubectl --kubeconfig /home/user/.kube/config create secret tls tls-certificate \
+        --key /etc/letsencrypt/live/hoge.com/privkey.pem \
+        --cert /etc/letsencrypt/live/hoge.com/fullchain.pem
+
+# Print expiring dates
+openssl x509 -in /etc/letsencrypt/live/hoge.com/fullchain.pem -noout -dates
+
+# To see a log by journalctl, type &#34;journalctl -e -u letsencrypt&#34;.
+# A log file of certbot is /var/log/letsencrypt/letsencrypt.log.
+# A log file of hooks is /etc/letsencrypt/log.txt.
+</code></pre><pre tabindex="0"><code>kubectl delete secret tls-certificate
+curl -6 https://hoge.com/
+</code></pre><p>エラーになることを確認してから</p>
+<pre tabindex="0"><code>sudo systemctl start letsencrypt.service
+curl -6 https://hoge.com/
+</code></pre><p>正常な応答があれば完了<br>
+こちらで動作の確認もしておく</p>
+<pre tabindex="0"><code>systemctl status letsencrypt.service
+</code></pre><h2 id="クラスタのアップグレード-あまり自信はない">クラスタのアップグレード (あまり自信はない</h2>
+<p>公式のドキュメントはこちら <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/">Upgrading kubeadm clusters</a></p>
+<p>最新のバージョンを <a href="https://kubernetes.io/ja/">https://kubernetes.io/ja/</a> の右上の <code>バージョン</code> で確認</p>
+<p>バージョンが固定されているパッケージの確認</p>
+<pre tabindex="0"><code>$ sudo apt-mark showhold
+</code></pre><p>基本的なパッケージのバージョンの確認</p>
+<pre tabindex="0"><code>$ apt list --installed | \
+grep -e containerd.io -e docker-ce -e docker-ce-cli -e kubeadm -e kubectl -e kubelet
+</code></pre><p>kubeadm のバージョンが一致していることを確認</p>
+<pre tabindex="0"><code>$ kubeadm version
+</code></pre><p>アップグレードできるかの確認</p>
+<pre tabindex="0"><code>$ sudo kubeadm upgrade plan
+</code></pre><p>kubelet のバージョンの確認 (たぶんこう</p>
+<pre tabindex="0"><code>$ kubectl get node -o yaml | grep kubelet
+</code></pre><p>Control Plane をアップグレードしたあとに実行する必要があるかもしれないコマンド<br>
+(たぶんいらない</p>
+<pre tabindex="0"><code>$ kubeadm upgrade apply
+</code></pre><h3 id="calico-のアップグレード">Calico のアップグレード</h3>
+<p>Calico の最新バージョンの確認</p>
+<p><a href="https://docs.projectcalico.org/release-notes/">Release notes</a></p>
+<p>Calico のバージョンの確認</p>
+<pre tabindex="0"><code>$ calicoctl version
+</code></pre><p>calicoctl のアップグレード</p>
+<p>ここから入手して上書きする<br>
+<a href="https://docs.projectcalico.org/getting-started/clis/calicoctl/install">Install calicoctl</a></p>
+<p>Calico のアップグレード</p>
+<p><a href="https://docs.projectcalico.org/maintenance/kubernetes-upgrade">Upgrade Calico on Kubernetes</a></p>
+<h2 id="クラスタの運用">クラスタの運用</h2>
+<h3 id="hello-world">hello, world</h3>
+<pre tabindex="0"><code>$ kubectl run hello-world --image=hello-world -it --restart=Never --rm
+</code></pre><h3 id="whalesay">whalesay</h3>
+<pre tabindex="0"><code>$ kubectl run whalesay --image=docker/whalesay -it --restart=Never --rm -- sh -c &#34;cowsay Hello Kubernetes&#34;
+</code></pre><h3 id="nginx">nginx</h3>
+<pre tabindex="0"><code>$ kubectl create deployment nginx --image=nginx
+</code></pre><h3 id="busybox">busybox</h3>
+<pre tabindex="0"><code>$ kubectl run busybox --image=busybox -it --restart=Never --rm -- sh
+</code></pre><h3 id="ubuntu">Ubuntu</h3>
+<pre tabindex="0"><code>$ kubectl run ubuntu --image=ubuntu -it --restart=Never --rm -- bash
+</code></pre><h3 id="クラスタの状態を確認">クラスタの状態を確認</h3>
+<pre tabindex="0"><code>$ kubectl cluster-info
+</code></pre><h3 id="ノードの状態を確認">ノードの状態を確認</h3>
+<pre tabindex="0"><code>$ kubectl get node
+</code></pre><h3 id="すべての処理の状態を確認">すべての処理の状態を確認</h3>
+<pre tabindex="0"><code>$ kubectl get all
+</code></pre><h3 id="さらに多くの処理の情報を-ip-アドレスと共に表示">さらに多くの処理の情報を IP アドレスと共に表示</h3>
+<pre tabindex="0"><code>$ kubectl get all -A -o wide
+</code></pre><h3 id="ポッドの状態を確認">ポッドの状態を確認</h3>
+<pre tabindex="0"><code>$ kubectl get pod
+</code></pre><p>IP アドレスも表示</p>
+<pre tabindex="0"><code>$ kubectl get pod -o wide
+</code></pre><h3 id="ポッドの起動-自動的に終了">ポッドの起動 (自動的に終了)</h3>
+<pre tabindex="0"><code>$ kubectl run hoge --image=hoge -it --restart=Never --rm
+</code></pre><h3 id="ポッドの削除">ポッドの削除</h3>
+<pre tabindex="0"><code>$ kubectl delete pod hoge
+</code></pre><h3 id="デプロイメントの状態を確認">デプロイメントの状態を確認</h3>
+<pre tabindex="0"><code>$ kubectl get deployment
+</code></pre><h3 id="デプロイメントの起動">デプロイメントの起動</h3>
+<pre tabindex="0"><code>$ kubectl create deployment hoge --image=hoge
+</code></pre><h3 id="デプロイメントの削除">デプロイメントの削除</h3>
+<pre tabindex="0"><code>$ kubectl delete deployment hoge
+</code></pre><h3 id="ジョブの状態を確認">ジョブの状態を確認</h3>
+<pre tabindex="0"><code>$ kubectl get job
+</code></pre><h3 id="ジョブの起動">ジョブの起動</h3>
+<pre tabindex="0"><code>$ kubectl create job hoge --image=hoge
+</code></pre><h3 id="ジョブの削除">ジョブの削除</h3>
+<pre tabindex="0"><code>$ kubectl delete job hoge
+</code></pre><h3 id="マニフェストで起動-起動中のマニフェストを更新">マニフェストで起動, 起動中のマニフェストを更新</h3>
+<pre tabindex="0"><code>$ kubectl apply -f hoge.yaml
+</code></pre><h3 id="マニフェストで削除">マニフェストで削除</h3>
+<pre tabindex="0"><code>$ kubectl delete -f hoge.yaml
+</code></pre><h3 id="カレントディレクトリ内のマニフェストで起動-更新">カレントディレクトリ内のマニフェストで起動, 更新</h3>
+<pre tabindex="0"><code>$ kubectl apply -f .
+</code></pre><h3 id="カレントディレクトリ内のマニフェストで削除">カレントディレクトリ内のマニフェストで削除</h3>
+<pre tabindex="0"><code>$ kubectl delete -f .
+</code></pre><h3 id="pod-の標準出力と標準エラー出力をリアルタイムで見る">Pod の標準出力と標準エラー出力をリアルタイムで見る</h3>
+<p>たとえば nginx の場合</p>
+<pre tabindex="0"><code>$ kubectl get pod
+$ kubectl logs nginx-123456789a-12345 -f
+</code></pre><p>ちなみに nginx イメージは</p>
+<pre tabindex="0"><code>/var/log/nginx/access.log -&gt; /dev/stdout
+/var/log/nginx/error.log -&gt; /dev/stderr
+</code></pre><p>となっている<br>
+ただし，nginx において，クラスタの外部からのアクセスの場合，標準エラー出力は出ない<br>
+理由はわからない (IPv6 でアクセスしているからみたい</p>
+<h3 id="稼働中の-pod-のシェルを起動して入る">稼働中の Pod のシェルを起動して入る</h3>
+<p>たとえば</p>
+<pre tabindex="0"><code>$ nvim ubuntu.yaml
+</code></pre><pre tabindex="0"><code>apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: ubuntu
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+      - name: ubuntu
+        image: ubuntu
+        command: [&#34;/bin/sleep&#34;, &#34;infinity&#34;]
+</code></pre><pre tabindex="0"><code>$ kubectl apply -f ubuntu.yaml
+</code></pre><p>に対して</p>
+<pre tabindex="0"><code>$ kubectl get pod
+$ kubectl exec ubuntu-12345678-12345 -it -- bash
+</code></pre><h3 id="ingress-のサンプル">Ingress のサンプル</h3>
+<p>$ nvim ingress.yaml</p>
+<pre tabindex="0"><code>apiVersion: networking.k8s.io/v1
+
+kind: Ingress
+
+metadata:
+  name: ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+spec:
+  rules:
+  - host: hoge.com  # Your domain name (subdomain can be added).
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
+</code></pre><p>$ nvim nginx.yaml</p>
+<pre tabindex="0"><code>apiVersion: v1
+
+kind: Service
+
+metadata:
+  name: nginx
+
+spec:
+  selector:
+    app: nginx
+  externalIPs:
+  - 1.0.0.0  # Your global IP address (これがないせいで外部からつながらずはまった).
+  ports:
+  - port: 80
+    targetPort: 80
+
+---
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: nginx
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+</code></pre><h3 id="クラスタの停止-シングルノード構成-調査中">クラスタの停止 (シングルノード構成, 調査中</h3>
+<p>ノード名は hoge とする</p>
+<pre tabindex="0"><code>$ kubectl get node hoge
+</code></pre><pre tabindex="0"><code>$ kubectl get pod -A
+</code></pre><p>ここで表示される Pod がゼロになることを目指す (?)</p>
+<p>Pod が生成されないようにする</p>
+<pre tabindex="0"><code>$ kubectl cordon hoge
+</code></pre><h3 id="rust-を動かす">Rust を動かす</h3>
+<pre tabindex="0"><code>cargo new hello
+cd hello
+cargo build --release
+nvim Dockerfile
+</code></pre><pre tabindex="0"><code>FROM gcr.io/distroless/cc-debian10
+COPY target/release/hello /
+CMD [&#34;/hello&#34;]
+</code></pre><pre tabindex="0"><code>docker build -t ip6-localhost:5000/hello .
+docker push ip6-localhost:5000/hello
+kubectl run hello --image=ip6-localhost:5000/hello -it --restart=Never --rm
+</code></pre><h2 id="k0s-single-node-ubuntu-2004-lts-現状ではうまく動かない-v091">k0s (Single Node, Ubuntu 20.04 LTS) 現状ではうまく動かない (v0.9.1)</h2>
+<p><a href="https://k0sproject.io/">k0s</a><br>
+<a href="https://github.com/k0sproject/k0s">k0s GitHub</a></p>
+<h3 id="path-が通っていなければ通しておく">PATH が通っていなければ通しておく</h3>
+<pre tabindex="0"><code>$ nvim ~/.bashrc
+</code></pre><p>つぎを追記</p>
+<pre tabindex="0"><code>export PATH=~/.local/bin:$PATH
+</code></pre><p>sudo 時に PATH が通らなくなるのをなんとかする</p>
+<pre tabindex="0"><code>$ sudo visudo
+</code></pre><pre tabindex="0"><code>Defaults        secure_path=&#34;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin&#34;
+</code></pre><p>の部分を</p>
+<pre tabindex="0"><code>#Defaults       secure_path=&#34;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin&#34;
+Defaults        env_keep +=&#34;PATH&#34;
+</code></pre><p>に変更</p>
+<h3 id="ディレクトリがなければつくる">ディレクトリがなければつくる</h3>
+<pre tabindex="0"><code>$ mkdir -p ~/.local/bin
+$ mkdir -p ~/.local/k0s
+$ mkdir -p ~/.kube
+</code></pre><h3 id="ダウンロードとインストール">ダウンロードとインストール</h3>
+<pre tabindex="0"><code>$ cd ~/.local/k0s
+$ # バージョンはこちらで各自確認 https://github.com/k0sproject/k0s/releases/latest
+$ curl -OL https://github.com/k0sproject/k0s/releases/download/v0.9.0/k0s-v0.9.0-amd64
+$ chmod +x k0s-v0.9.0-amd64
+
+$ cd ~/.local/bin
+$ ln -s ~/.local/k0s/k0s-v0.9.0-amd64 k0s
+
+$ sudo visudo
+</code></pre><p>sudo 時のパスワードがだるいのでつぎを追記</p>
+<pre tabindex="0"><code>your-username ALL=(ALL:ALL) NOPASSWD: /home/your-username/.local/bin/k0s
+</code></pre><pre tabindex="0"><code>$ cd ~/.kube
+$ k0s default-config &gt; k0s.yaml
+</code></pre><h3 id="バージョン確認">バージョン確認</h3>
+<pre tabindex="0"><code>$ k0s version
+</code></pre><h3 id="起動">起動</h3>
+<pre tabindex="0"><code>$ cd ~/.kube  # k0s.yaml のあるディレクトリに移動しておく
+$ sudo k0s server --enable-worker
+</code></pre><p>または</p>
+<pre tabindex="0"><code>$ sudo k0s server -c ~/.kube/k0s.yaml --enable-worker
+</code></pre><h3 id="k0syaml">k0s.yaml</h3>
+<pre tabindex="0"><code>apiVersion: k0s.k0sproject.io/v1beta1
+images:
+  konnectivity:
+    image: us.gcr.io/k8s-artifacts-prod/kas-network-proxy/proxy-agent
+    version: v0.0.13
+  metricsserver:
+    image: gcr.io/k8s-staging-metrics-server/metrics-server
+    version: v0.3.7
+  kubeproxy:
+    image: k8s.gcr.io/kube-proxy
+    version: v1.20.1
+  coredns:
+    image: docker.io/coredns/coredns
+    version: 1.7.0
+  calico:
+    cni:
+      image: calico/cni
+      version: v3.16.2
+    flexvolume:
+      image: calico/pod2daemon-flexvol
+      version: v3.16.2
+    node:
+      image: calico/node
+      version: v3.16.2
+    kubecontrollers:
+      image: calico/kube-controllers
+      version: v3.16.2
+installConfig:
+  users:
+    etcdUser: etcd
+    kineUser: kube-apiserver
+    konnectivityUser: konnectivity-server
+    kubeAPIserverUser: kube-apiserver
+    kubeSchedulerUser: kube-scheduler
+kind: Cluster
+metadata:
+  name: k0s
+spec:
+  api:
+    address: 118.27.29.81
+    externalAddress: &#34;&#34;
+    sans:
+    - 118.27.29.81
+    - 118.27.29.81
+    extraArgs: {}
+  controllerManager:
+    extraArgs: {}
+  scheduler:
+    extraArgs: {}
+  storage:
+    type: etcd
+    kine: null
+    etcd:
+      peerAddress: 118.27.29.81
+  network:
+    podCIDR: 10.244.0.0/16
+    serviceCIDR: 10.96.0.0/12
+    provider: calico
+    calico:
+      mode: vxlan
+      vxlanPort: 4789
+      vxlanVNI: 4096
+      mtu: 1450
+      wireguard: false
+      flexVolumeDriverPath: /usr/libexec/k0s/kubelet-plugins/volume/exec/nodeagent~uds
+      withWindowsNodes: false
+  podSecurityPolicy:
+    defaultPolicy: 00-k0s-privileged
+  workerProfiles: []
+telemetry:
+  interval: 10m0s
+  enabled: true
+</code></pre><h3 id="kubectl-のインストール">kubectl のインストール</h3>
+<pre tabindex="0"><code>$ sudo snap install --classic kubectl
+</code></pre><h3 id="kubectl-のバージョンの確認">kubectl のバージョンの確認</h3>
+<pre tabindex="0"><code>$ kubectl version --client
+</code></pre><h3 id="kubectl-の設定-1">kubectl の設定</h3>
+<pre tabindex="0"><code>$ sudo cat /var/lib/k0s/pki/admin.conf &gt; ~/.kube/config
+</code></pre><h3 id="kubectl-の現在の設定を確認">kubectl の現在の設定を確認</h3>
+<pre tabindex="0"><code>$ kubectl config view
+</code></pre><h3 id="kubectl-が正常に設定されているか確認">kubectl が正常に設定されているか確認</h3>
+<pre tabindex="0"><code>$ kubectl cluster-info
+</code></pre><h3 id="クラスタの状態の確認">クラスタの状態の確認</h3>
+<pre tabindex="0"><code>$ kubectl get pods --all-namespaces
+</code></pre><p>または</p>
+<pre tabindex="0"><code>$ kubectl get pods -A
+</code></pre><p>IP アドレスも表示</p>
+<pre tabindex="0"><code>$ kubectl get pods -A -o wide
+</code></pre><h3 id="ポッドの総合的な情報を確認">ポッドの総合的な情報を確認</h3>
+<pre tabindex="0"><code>$ kubectl get all -n NAMESPACE
+</code></pre><h3 id="ポッドの状態の確認">ポッドの状態の確認</h3>
+<pre tabindex="0"><code>$ kubectl get pod -n NAMESPACE NAME
+</code></pre><h3 id="ポッドの詳細を確認">ポッドの詳細を確認</h3>
+<pre tabindex="0"><code>$ kubectl describe pod -n NAMESPACE NAME
+</code></pre><h2 id="kind">kind</h2>
+<p><a href="https://kind.sigs.k8s.io/">kind</a></p>
+<h3 id="下準備">下準備</h3>
+<p>Go と Docker を入れておきます<br>
+つぎのように設定しました</p>
+<pre tabindex="0"><code>export GOPATH=~/.local/gopath
+export PATH=~/.local/gopath/bin:$PATH
+</code></pre><p>WSL2 の場合，eth0 の IP アドレスが毎回変わってしまうため，ダメみたい</p>
+<h2 id="kubernetes-のインストール-ubuntu-2004-lts">Kubernetes のインストール (Ubuntu 20.04 LTS)</h2>
+<p><a href="https://kubernetes.io/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">公式</a><br>
+<a href="https://www.creationline.com/lab/36769">CL LAB</a>
+<a href="https://valinux.hatenablog.com/entry/20200722">VA Linux</a></p>
+<h3 id="systemd-をインストールする">systemd をインストールする</h3>
+<p>こちらを参考にして dotnet-sdk-3.1 をインストールする<br>
+<a href="https://snowsystem.net/other/windows/wsl2-ubuntu-systemctl/">Snow System</a></p>
+<p>dotnet-sdk-3.1 をインストールしたあと<br>
+~/.bashrc につぎの環境変数を追加する</p>
+<pre tabindex="0"><code>export DOTNET_CLI_TELEMETRY_OPTOUT=true
+</code></pre><p>そのあとファイルをつぎの内容で作成する</p>
+<pre tabindex="0"><code>$ sudo nvim /etc/apt/sources.list.d/wsl-translinux.list
+</code></pre><pre tabindex="0"><code>deb [trusted=yes] https://wsl-translinux.arkane-systems.net/apt/ /
+</code></pre><p>そして</p>
+<pre tabindex="0"><code>$ sudo apt install systemd-genie
+</code></pre><p>そのあと<br>
+<a href="https://snowsystem.net/other/windows/wsl2-ubuntu-systemctl/">Snow System</a><br>
+を参考にして自動的に実行されるようにする</p>
+<p>tmux を使っているなら日本語が文字化けするようになるので<br>
+.bashrc につぎを追加</p>
+<pre tabindex="0"><code>alias tmux=&#34;tmux -u&#34;
+</code></pre><p>pstree で systemd が実行されていることを確認</p>
+<pre tabindex="0"><code>$ pstree
+</code></pre><h2 id="swap-をオフにする-1">SWAP をオフにする</h2>
+<p><a href="https://snowsystem.net/other/windows/wsl2-swap-off/">Snow System</a></p>
+<h2 id="docker-をインストールする-1">Docker をインストールする</h2>
+<p>先に Docker をインストールしておきます<br>
+ここは Docker 公式サイトの通りにやれば大丈夫です</p>
+<p>そのあとに<br>
+<a href="https://imokuri123.com/blog/2020/01/kubernetes-dual-stack/">KubernetesをDual Stackで動かす</a><br>
+の JSON を設定して</p>
+<pre tabindex="0"><code>$ sudo mkdir -p /etc/systemd/system/docker.service.d
+$ systemctl daemon-reload
+$ systemctl restart docker
+</code></pre><h3 id="ネットワークの設定">ネットワークの設定</h3>
+<pre tabindex="0"><code>$ sysctl -a | grep net.bridge
+</code></pre><p>を実行して</p>
+<pre tabindex="0"><code>net.bridge.bridge-nf-call-arptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+</code></pre><p>となっているのを確認する<br>
+また</p>
+<pre tabindex="0"><code>$ sudo nvim /etc/sysctl.conf
+</code></pre><p>で</p>
+<pre tabindex="0"><code>#net.ipv6.conf.all.forwarding=1
+</code></pre><p>の # を削除する</p>
+<pre tabindex="0"><code>$ sudo sysctl -p
+$ sudo sysctl -a | grep net.ipv6.conf.all.forwarding
+</code></pre><p>を実行して</p>
+<pre tabindex="0"><code>net.ipv6.conf.all.forwarding = 1
+</code></pre><p>となっているのを確認する</p>
+<h3 id="nftables-を使わないようにする">nftables を使わないようにする</h3>
+<p>iptables の代替として開発されている nftables は<br>
+Kubernetes は対応していないので<br>
+使わないように設定しておく</p>
+<pre tabindex="0"><code>$ sudo apt update
+$ sudo apt full-upgrade
+$ sudo apt install iptables arptables ebtables
+</code></pre><pre tabindex="0"><code>$ sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+$ sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+$ sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
+$ sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
+</code></pre><h3 id="kubeadm-kubectl-kubelet-のインストール">kubeadm, kubectl, kubelet のインストール</h3>
+<pre tabindex="0"><code>$ sudo apt install apt-transport-https curl
+$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+$ sudo apt update
+$ sudo apt install kubeadm kubectl kubelet
+</code></pre><h2 id="kubernetes-の初期設定">Kubernetes の初期設定</h2>
+<p>Kubernetes ではまずクラスタを構築する必要があるようだ<br>
+構築するには公式ツールの <a href="https://kubernetes.io/docs/reference/setup-tools/kubeadm/">kubeadm</a> を使うことができる</p>
+<pre tabindex="0"><code>ERROR FileAvailable--etc-kubernetes-manifests-*
+</code></pre><p>が出るときは</p>
+<pre tabindex="0"><code>$ sudo kubeadm reset
+$ sudo rm -r /etc/cni/net.d
+$ rm ~/.kube/config
+</code></pre><p>とする</p>
+<pre tabindex="0"><code>$ mkdir -p ~/.kube
+$ sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
+$ sudo chown $(id -u):$(id -g) ~/.kube/config
+</code></pre><pre tabindex="0"><code>$ kubectl get node -o wide  # sudo をつけないように注意
+</code></pre><p><a href="https://medium.com/@elfakharany/how-to-enable-ipv6-on-kubernetes-aka-dual-stack-cluster-ac0fe294e4cf">How to enable IPv6 on Kubernetes (aka dual-stack cluster)</a>
+<a href="https://thinkit.co.jp/article/14638">Project CalicoをKubernetesで使ってみる：構築編</a></p>
+<p>calicoctl のインストール<br>
+バージョンはこちらで確認する<br>
+<a href="https://github.com/projectcalico/calicoctl/releases/">https://github.com/projectcalico/calicoctl/releases/</a></p>
+<pre tabindex="0"><code>$ cd ~/.local/bin
+$ curl -O -L  https://github.com/projectcalico/calicoctl/releases/download/vx.y.z/calicoctl
+$ chmod +x calicoctl
+$ sudo nvim /etc/calico/calicoctl.cfg
+</code></pre><pre tabindex="0"><code>apiVersion: projectcalico.org/v3
+kind: CalicoAPIConfig
+metadata:
+spec:
+  datastoreType: &#34;kubernetes&#34;
+  kubeconfig: &#34;/home/your-name/.kube/config&#34;
+</code></pre><pre tabindex="0"><code>$ calicoctl get nodes  # Test
+</code></pre><p>Master にも Pod がデプロイされるようにする</p>
+<p><a href="https://tech-lab.sios.jp/archives/13555">kubeadm を使って Kubernetes v1.13 をインストールしてみた</a>
+<a href="https://forum.linuxfoundation.org/discussion/846483/lab2-1-kubectl-untainted-not-working">lab2.1 kubectl untainted not working</a></p>
+<pre tabindex="0"><code>$ kubectl get nodes
+</code></pre><p>でマスターの名前を確認<br>
+接続先を指定する場合は</p>
+<pre tabindex="0"><code>$ kubectl -s localhost:8080 get nodes
+</code></pre><pre tabindex="0"><code>$ kubectl taint nodes --all node-role.kubernetes.io/master-
+</code></pre><pre tabindex="0"><code>$ kubectl -n kube-system get cm kubeadm-config -oyaml
+</code></pre><pre tabindex="0"><code>$ kubectl config view  # kubectl の設定を表示 (~/.kube/config)
+</code></pre><h3 id="クラスタ設定用の設定ファイルを書く">クラスタ設定用の設定ファイルを書く</h3>
+<p><a href="https://kubernetes.io/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags/">kubeadmを使ったコントロールプレーンの設定のカスタマイズ</a><br>
+<a href="https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2">package v1beta2</a></p>
+<pre tabindex="0"><code>$ mkdir ~/k8s
+$ cd ~/k8s
+$ nvim kubeadm-init-conf.yaml
+</code></pre><pre tabindex="0"><code>apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+</code></pre><pre tabindex="0"><code>$ chmod +x kubeadm-init-conf.yaml
+$ sudo ./kubeadm-init-conf.yaml
+</code></pre><pre tabindex="0"><code>$ sudo kubeadm init \
+&gt; --feature-gates=&#34;IPv6DualStack=true&#34; \
+&gt; --pod-network-cidr=&#34;fd00:1::/48,10.244.0.0/16&#34; \
+&gt; --service-cidr=&#34;fd00::/108,10.96.0.0/12&#34; \
+&gt; --apiserver-advertise-address=&#34;2001:db8::11&#34;
+</code></pre><pre tabindex="0"><code>$ sudo systemctl status kubelet
+$ sudo journalctl -xeu kubelet
+$ sudo docker ps -a | grep kube | grep -v pause
+$ sudo docker logs CONTAINERID
+</code></pre><pre tabindex="0"><code>$ kubeadm version
+</code></pre><pre tabindex="0"><code>$ kubectl config view
+</code></pre><p>マニフェストの場所: /etc/kubernetes/manifests</p>
+<p>よくわからないが Minikube を目指すのがいいらしい</p>
+<p>環境:<br>
+Ubuntu 20.04 LTS on WSL2<br>
+Docker 19.03.11</p>
+<p><a href="https://github.com/microsoft/WSL/issues/4193">Nested Virtualization for WSL2 VM</a></p>
+<h2 id="minikube">Minikube</h2>
+<h3 id="minikube-のインストール">Minikube のインストール</h3>
+<h4 id="仮想化のサポートを確認">仮想化のサポートを確認</h4>
+<p>コマンド プロンプト でこちらを実行</p>
+<pre tabindex="0"><code>&gt;systeminfo
+</code></pre><pre tabindex="0"><code>Hyper-V の要件: ハイパーバイザーが検出されました。Hyper-V に必要な機能は表示されません。
+</code></pre><p>が表示されることを確認</p>
+<pre tabindex="0"><code>$ sudo kvm-ok
+</code></pre><h4 id="kubectl-のインストール-1">kubectl のインストール</h4>
+<pre tabindex="0"><code>$ sudo apt-get update &amp;&amp; sudo apt-get install -y apt-transport-https
+$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+$ echo &#34;deb https://apt.kubernetes.io/ kubernetes-xenial main&#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+$ sudo apt-get update
+$ sudo apt-get install -y kubectl
+</code></pre><pre tabindex="0"><code>$ kubectl version --client
+</code></pre><p>を実行して確認</p>
+<p><a href="https://kubernetes.io/ja/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux">kubectlのインストールおよびセットアップ</a></p>
+<h4 id="kvm-のインストール">KVM のインストール</h4>
+<pre tabindex="0"><code>$ sudo apt -y install qemu-kvm libvirt-daemon bridge-utils virtinst libvirt-daemon-system
+$ sudo apt -y install virt-top libguestfs-tools libosinfo-bin  qemu-system virt-manager
+</code></pre><p><a href="https://computingforgeeks.com/install-kvm-hypervisor-on-ubuntu-focal-fossa/">Install KVM Hypervisor on Ubuntu 20.04 (Focal Fossa)</a></p>
+<h4 id="minikube-のインストール-1">Minikube のインストール</h4>
+<pre tabindex="0"><code>$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+$ sudo dpkg -i minikube_latest_amd64.deb
+$ sudo apt install -y conntrack
+</code></pre><pre tabindex="0"><code>$ sudo minikube start --vm-driver=none
+</code></pre><p>を実行して確認</p>
+<p><a href="https://minikube.sigs.k8s.io/docs/start/">minikube start</a></p>
+<p><a href="https://kubernetes.io/ja/docs/tasks/tools/install-minikube/">Minikubeのインストール</a></p>
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

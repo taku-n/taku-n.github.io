@@ -76,6 +76,41 @@ $ nvim
 :call dein#update()
 ```
 
+## IME を自動でオフにする
+
+~/.local/bin にパスが通っていることを前提とする
+
+```
+mkdir -p ~/.local/zenhan
+cd ~/.local/zenhan
+curl -OL https://github.com/iuchim/zenhan/releases/latest/download/zenhan.zip
+unzip -d .. zenhan.zip
+
+cd ~/.local/bin
+ln -s ~/.local/zenhan/bin64/zenhan.exe zenhan
+```
+
+オンオフできるかテストする
+
+```
+cd
+zenhan 1  # IME オン
+zenhan 0  # IME オフ
+```
+
+Neovim に適用する
+
+```
+nvim ~/.config/nvim/init.vim
+```
+
+以下を追記する
+
+```
+autocmd InsertLeave * :call system('zenhan 0') 
+autocmd CmdlineLeave * :call system('zenhan 0')
+```
+
 ## runtimepath の表示
 
 ```

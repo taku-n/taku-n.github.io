@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VRChat on 非同期エンジニアブログ</title>
+    <link>https://taku-n.github.io/tags/vrchat/</link>
+    <description>Recent content in VRChat on 非同期エンジニアブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 15 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/vrchat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VRChat</title>
+      <link>https://taku-n.github.io/posts/vrchat/</link>
+      <pubDate>Sat, 15 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/vrchat/</guid>
+      <description>VRChat VRChat
+Documentation
+SDK
+Unity のインストール Currently Supported Unity Version
+こちらの Click here to install the current version of Unity via Unity Hub を押す
+Microsoft Visual Studio Community 2019
+Android Build Support
+Android SDK &amp;amp; NDK Tools
+OpenJDK にチェックし Install
+Avatar Initial Setup and Test Create a new Unity project.
+Import VRCSDK3-AVATAR by &amp;ldquo;Assets -&amp;gt; Import Package -&amp;gt; Custom Package&amp;hellip;&amp;rdquo;.
+Import VRCQuestTools.
+Import lilToon.
+Import an avatar.
+Put *.unity of the avatar into Hierarchy.</description>
+    </item>
+    
+  </channel>
+</rss>

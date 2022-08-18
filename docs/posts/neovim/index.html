@@ -40,6 +40,24 @@ $ sh installer.sh ~/.config/nvim/dein
 </code></pre><pre tabindex="0"><code>:call dein#install()
 </code></pre><h3 id="アップデート">アップデート</h3>
 <pre tabindex="0"><code>:call dein#update()
+</code></pre><h2 id="ime-を自動でオフにする">IME を自動でオフにする</h2>
+<p>~/.local/bin にパスが通っていることを前提とする</p>
+<pre tabindex="0"><code>mkdir -p ~/.local/zenhan
+cd ~/.local/zenhan
+curl -OL https://github.com/iuchim/zenhan/releases/latest/download/zenhan.zip
+unzip -d .. zenhan.zip
+
+cd ~/.local/bin
+ln -s ~/.local/zenhan/bin64/zenhan.exe zenhan
+</code></pre><p>オンオフできるかテストする</p>
+<pre tabindex="0"><code>cd
+zenhan 1  # IME オン
+zenhan 0  # IME オフ
+</code></pre><p>Neovim に適用する</p>
+<pre tabindex="0"><code>nvim ~/.config/nvim/init.vim
+</code></pre><p>以下を追記する</p>
+<pre tabindex="0"><code>autocmd InsertLeave * :call system(&#39;zenhan 0&#39;) 
+autocmd CmdlineLeave * :call system(&#39;zenhan 0&#39;)
 </code></pre><h2 id="runtimepath-の表示">runtimepath の表示</h2>
 <pre tabindex="0"><code>:set runtimepath
 </code></pre><h2 id="neovim-に読み込まれているファイルを一覧表示">Neovim に読み込まれているファイルを一覧表示</h2>

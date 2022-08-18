@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitLab on 非同期エンジニアブログ</title>
+    <link>https://taku-n.github.io/tags/gitlab/</link>
+    <description>Recent content in GitLab on 非同期エンジニアブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 22 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git</title>
+      <link>https://taku-n.github.io/posts/git/</link>
+      <pubDate>Mon, 22 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/git/</guid>
+      <description>Git GitHub CLI GitHub CLI
+インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
+eval &amp;#34;$(gh completion -s bash)&amp;#34; gh auth まずは，認証する
+$ gh auth login 認証の状態を表示
+-t, &amp;ndash;show-token でトークンも表示する
+$ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示
+まず権限を付与する
+$ gh auth refresh -s read:public_key 表示する
+$ gh ssh-key list GitHub に公開鍵を追加する
+まず権限を付与する
+$ gh auth refresh -s write:public_key 追加する
+$ gh ssh-key add ~/.ssh/id_rsa.pub gh repo リポジトリの一覧を表示
+-L, &amp;ndash;limit int は，表示する最大数を指定</description>
+    </item>
+    
+  </channel>
+</rss>

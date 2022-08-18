@@ -119,24 +119,28 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="https://taku-n.github.io/posts/raw/" class="color-inherit dim link">
-            Raw Level Rust
+          <a href="https://taku-n.github.io/posts/vrchat/" class="color-inherit dim link">
+            VRChat
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          Raw Level Rust (1.40) ポインタ ポインタをつくろう はじめに i32型 のポインタをつくってみましょう。
-let mut p: *mut i32; どうということはないですね。
-64bit Linux のユーザ空間のメモリの範囲は，
-0b00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000 - 0b00000000_00000000_01111111_11111111_11111111_11111111_11111111_11111111 つまりは，
-0x00_00_00_00_00_00_00_00 - 0x00_00_7F_FF_FF_FF_FF_FF らしいですから 最後の 4バイト を指すポインタは，つぎのようにしてつくれます。
-let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; メモリのアドレスは，usize型 を使います。
-usize型 を使えば，メモリのどこであっても指すことができるので，便利です。
-たとえば，64bit Linux であれば，usize型 は，8バイト の大きさをもちます。
-さて，ユーザ空間の最後の 4バイト には，i32 で表すと，どんな値が入っているでしょうか。
-さっそく，見てみましょう。
-let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: i32; unsafe { x = *p; // Segmentation Fault } println!
+          VRChat VRChat
+Documentation
+SDK
+Unity のインストール Currently Supported Unity Version
+こちらの Click here to install the current version of Unity via Unity Hub を押す
+Microsoft Visual Studio Community 2019
+Android Build Support
+Android SDK &amp; NDK Tools
+OpenJDK にチェックし Install
+Avatar Initial Setup and Test Create a new Unity project.
+Import VRCSDK3-AVATAR by &ldquo;Assets -&gt; Import Package -&gt; Custom Package&hellip;&rdquo;.
+Import VRCQuestTools.
+Import lilToon.
+Import an avatar.
+Put *.unity of the avatar into Hierarchy.
         </div>
-          <a href="https://taku-n.github.io/posts/raw/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="https://taku-n.github.io/posts/vrchat/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -153,15 +157,14 @@ let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: 
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="https://taku-n.github.io/posts/clang/" class="color-inherit dim link">
-            Clang
+          <a href="https://taku-n.github.io/posts/type/" class="color-inherit dim link">
+            Type Dictionary
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          https://apt.llvm.org/
-$ sudo bash -c &#34;$(wget -O - https://apt.llvm.org/llvm.sh)&#34; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 
+          Type Dictionary 
         </div>
-          <a href="https://taku-n.github.io/posts/clang/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="https://taku-n.github.io/posts/type/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -178,23 +181,14 @@ $ sudo bash -c &#34;$(wget -O - https://apt.llvm.org/llvm.sh)&#34; $ clang-9 -v 
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="https://taku-n.github.io/posts/neovim/" class="color-inherit dim link">
-            Neovim
+          <a href="https://taku-n.github.io/posts/wasm/" class="color-inherit dim link">
+            WebAssembly
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          Neovim (0.2.2) ウェブサイト Neovim
-User manual
-FAQ
-バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない
-$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &#34;screen-256color&#34; set-option -ga terminal-overrides &#34;,xterm-256color:Tc&#34; Line 1: Ctrl + [ を押したときに遅延させない
-Line 2, 3: 色を正しく表示するため (?)
-Cursor shape doesn&rsquo;t change in tmux
-設定ファイル ~/.config/nvim/init.vim
-dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
-$ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.
+          WebAssembly wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web 
         </div>
-          <a href="https://taku-n.github.io/posts/neovim/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="https://taku-n.github.io/posts/wasm/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -211,20 +205,26 @@ $ nvim :call dein#install() アップデート :call dein#update() runtimepath �
         
         
           <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="https://taku-n.github.io/posts/hugo-templates/" class="link black dim">
-              Hugo Templates
+            <a href="https://taku-n.github.io/posts/macro/" class="link black dim">
+              On Rust
             </a>
           </h2>
         
           <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="https://taku-n.github.io/posts/hugo/" class="link black dim">
-              Hugo
+            <a href="https://taku-n.github.io/posts/trait/" class="link black dim">
+              Trait Dictionary
             </a>
           </h2>
         
           <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="https://taku-n.github.io/posts/my-first-post/" class="link black dim">
-              My First Post
+            <a href="https://taku-n.github.io/posts/rust/" class="link black dim">
+              Rust
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="https://taku-n.github.io/posts/axum/" class="link black dim">
+              axum
             </a>
           </h2>
         

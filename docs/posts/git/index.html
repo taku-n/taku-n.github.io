@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Git - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="git">Git</h1>
+<h2 id="github-cli">GitHub CLI</h2>
+<p><a href="https://cli.github.com/">GitHub CLI</a></p>
+<h3 id="インストール">インストール</h3>
+<pre tabindex="0"><code>$ sudo snap install gh
+</code></pre><h3 id="補完の設定">補完の設定</h3>
+<p>~/.bashrc に追記</p>
+<pre tabindex="0"><code>eval &#34;$(gh completion -s bash)&#34;
+</code></pre><h3 id="gh-auth">gh auth</h3>
+<p>まずは，認証する</p>
+<pre tabindex="0"><code>$ gh auth login
+</code></pre><p>認証の状態を表示<br>
+-t, &ndash;show-token でトークンも表示する</p>
+<pre tabindex="0"><code>$ gh auth status -t
+</code></pre><h3 id="gh-ssh-key">gh ssh-key</h3>
+<p>GitHub に登録されている公開鍵の一覧を表示</p>
+<p>まず権限を付与する</p>
+<pre tabindex="0"><code>$ gh auth refresh -s read:public_key
+</code></pre><p>表示する</p>
+<pre tabindex="0"><code>$ gh ssh-key list
+</code></pre><p>GitHub に公開鍵を追加する</p>
+<p>まず権限を付与する</p>
+<pre tabindex="0"><code>$ gh auth refresh -s write:public_key
+</code></pre><p>追加する</p>
+<pre tabindex="0"><code>$ gh ssh-key add ~/.ssh/id_rsa.pub
+</code></pre><h3 id="gh-repo">gh repo</h3>
+<p>リポジトリの一覧を表示<br>
+-L, &ndash;limit int は，表示する最大数を指定</p>
+<pre tabindex="0"><code>$ gh repo list hoge -L 1000
+</code></pre><p>リポジトリの概要を表示</p>
+<pre tabindex="0"><code>$ gh repo view hoge/foo
+</code></pre><p>リポジトリの作成</p>
+<pre tabindex="0"><code>$ gh repo create foo
+</code></pre><p>リポジトリのフォーク</p>
+<pre tabindex="0"><code>$ gh repo fork cli/cli
+</code></pre><p>リポジトリのクローン</p>
+<pre tabindex="0"><code>$ gh repo clone hoge/foo
+</code></pre><p>レポジトリの削除は，あえてできないようにしているらしい<br>
+<a href="https://github.com/cli/cli/issues/2461">How to delete a repo using gh cli #2461</a></p>
+<h3 id="gh-gist">gh gist</h3>
+<p>gist の一覧を表示する</p>
+<pre tabindex="0"><code>$ gh gist list -L 1000
+</code></pre><p>gist を表示する</p>
+<pre tabindex="0"><code>$ gh gist view  # and choose a gist
+$ # or
+$ gh gist view 0123456789abcdef0123456789abcdef
+</code></pre><p>gist を作成する</p>
+<pre tabindex="0"><code>$ gh gist create --public my-file
+</code></pre><p>gist を更新する</p>
+<pre tabindex="0"><code>$ gh gist edit 0123456789abcdef0123456789abcdef -a my-file
+</code></pre><p>gist を削除する</p>
+<pre tabindex="0"><code>$ gh gist delete 0123456789abcdef0123456789abcdef
+</code></pre><h2 id="github">GitHub</h2>
+<h3 id="公開鍵認証を利用する">公開鍵認証を利用する</h3>
+<h4 id="テスト">テスト</h4>
+<pre tabindex="0"><code>$ ssh -T git@github.com
+</code></pre><h3 id="git-remote">git remote</h3>
+<h4 id="確認">確認</h4>
+<pre tabindex="0"><code>$ git remote -v
+</code></pre><h4 id="詳細の確認">詳細の確認</h4>
+<pre tabindex="0"><code>$ git remote show origin
+</code></pre><h4 id="追加">追加</h4>
+<pre tabindex="0"><code>$ git remote add origin git@github.com:{user-name}/{repository}.git
+</code></pre><p>ここで</p>
+<pre tabindex="0"><code>$ git remote add origin https://github.com/{user-name}/{repository}.git
+</code></pre><p>としてしまうと，公開鍵認証ができない</p>
+<h4 id="削除">削除</h4>
+<pre tabindex="0"><code>$ git remote rm origin
+</code></pre><h3 id="デフォルトブランチ名の変更">デフォルトブランチ名の変更</h3>
+<h4 id="リモート側">リモート側</h4>
+<p>レポジトリのページから<br>
+Settings -&gt; Branches -&gt; Default branch -&gt; Rename branch<br>
+で変更</p>
+<h4 id="ローカル側">ローカル側</h4>
+<pre tabindex="0"><code>$ git branch -m master main
+$ git fetch origin
+$ git branch -u origin/main main
+$ git remote set-head origin -a
+</code></pre><h3 id="よくわからないこまんどたち">よくわからないこまんどたち</h3>
+<pre tabindex="0"><code>$ git branch -m main sub
+$ git fetch origin
+$ git branch -u origin/sub sub
+$ git remote set-head origin -a  # -a とは?
+</code></pre><h2 id="gitlab">GitLab</h2>
+<h3 id="公開鍵認証を利用する-1">公開鍵認証を利用する</h3>
+<h4 id="鍵を作成">鍵を作成</h4>
+<pre tabindex="0"><code>$ ssh-keygen -t rsa -b 4096 -C {your users.noreply.gitlab.com address}
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/username/.ssh/id_rsa): /home/username/.ssh/id_rsa_gitlab
+Enter passphrase (empty for no passphrase):  # Leave this empty.
+Enter same passphrase again:                 # Leave this empty.
+</code></pre><h4 id="公開鍵を登録">公開鍵を登録</h4>
+<pre tabindex="0"><code>$ cat ~/.ssh/id_rsa_gitlab.pub
+</code></pre><p>を実行して，表示された内容を GitLab の自分のアカウントに登録する</p>
+<h4 id="git-の設定を変更">Git の設定を変更</h4>
+<p>~/.ssh/config を開いて，つぎの内容を追加</p>
+<pre tabindex="0"><code>Host gitlab gitlab.com
+  HostName gitlab.com
+  IdentityFile ~/.ssh/id_rsa_gitlab
+  User git
+</code></pre><h4 id="テスト-1">テスト</h4>
+<pre tabindex="0"><code>$ ssh -T gitlab
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

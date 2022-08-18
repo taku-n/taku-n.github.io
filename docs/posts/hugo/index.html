@@ -14,13 +14,32 @@
 <p>Hugo について，わかったことをメモしたいと思う<br>
 正確かどうかは，わからない</p>
 <p>コンテンツの追加</p>
-<p>$ hugo new posts/my-first-post.md</p>
+<p>$ hugo new post/my-first-post.md</p>
 <p>サーバの起動</p>
-<p>$ hugo server -D<br>
+<p>$ hugo server<br>
 http://127.0.0.1:1313/</p>
 <p>ビルド</p>
 <p>$ hugo -D
-($ hugo となにが違うのだろう? ドラフトを含むか含まないか?</p>
+($ hugo となにが違うのだろう? -&gt; ドラフトを含むか含まないか</p>
+<p>When you cloned a hugo site you have created, you must enter the directory and type:<br>
+$ git submodule update &ndash;init &ndash;recursive</p>
+<h2 id="delete">Delete</h2>
+<p>Delete a md file and type:<br>
+$ hugo -D &ndash;cleanDestinationDir</p>
+<h2 id="github-actions">GitHub Actions</h2>
+<p><a href="https://github.com/peaceiris/actions-hugo">GitHub Actions for Hugo</a><br>
+<a href="https://github.com/peaceiris/actions-gh-pages">GitHub Pages Action</a></p>
+<p>Change its branch from master to main.<br>
+Create .github/workflows/gh-pages.yml.<br>
+Push your repository.<br>
+Let GitHub protect main branch with no checks.<br>
+Remove the master branch.<br>
+Open Settings -&gt; Pages and change Branch to main and / (root).<br>
+Open your Settings of your repository.<br>
+Open Environments -&gt; github-pages.<br>
+Change the setting of Deployment branches to All branches.<br>
+Open Actions -&gt; pages build and deployment -&gt; Re-run jobs -&gt; Re-run all jobs -&gt; Re-run jobs.<br>
+Struggle for a while and get the gh-pages branch.</p>
 <h6 id="h6-test-シャープ-6つ-だとバグる">H6 Test (シャープ 6つ だとバグる?</h6>
 <h5 id="h5-test">H5 Test</h5>
 <p>Front Matter? =&gt; どうやら，各 md ファイルの先頭に自動的に作成される<br>
@@ -33,6 +52,9 @@ _index.md は置けるみたい (Page Bundles -&gt; Branch Bundles</p>
 _index.md があるディレクトリは Branch Bundle になるみたい</p>
 <p>section? =&gt; content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん</p>
 <p>LiveReload が働かない? それ <!-- raw HTML omitted --><!-- raw HTML omitted --> がないからです (Getting Started -&gt; Basic Usage</p>
+<p>新規作成したページがページリストに出てこない<br>
+config.toml に buildFuture = true を追加する</p>
+<p>とりあえず hugo help してみると発見がある</p>
 <p>ドキュメント <a href="https://gohugo.io/documentation/">https://gohugo.io/documentation/</a></p>
 <h3 id="about-hugo">About Hugo</h3>
 <h3 id="getting-started">Getting Started</h3>
@@ -74,6 +96,12 @@ _index.md があるディレクトリは Branch Bundle になるみたい</p>
 <h3 id="hosting--deployment">Hosting &amp; Deployment</h3>
 <h3 id="contribute">Contribute</h3>
 <h3 id="maintenance">Maintenance</h3>
+<p>.bashrc</p>
+<pre tabindex="0"><code>hugo-server () {
+	hugo server --bind $1 --baseURL=http://$1/
+}
+</code></pre><p><a href="https://gohugo.io/">The world’s fastest framework for building websites | Hugo</a><br>
+<a href="https://www.pc-koubou.jp/magazine/30737">Hugo 静的サイトジェネレーターによるサイト構築と公開 | パソコン工房 NEXMAG</a></p>
 <!-- raw HTML omitted -->
 
 

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rust on 非同期エンジニアブログ</title>
+    <link>https://taku-n.github.io/tags/rust/</link>
+    <description>Recent content in Rust on 非同期エンジニアブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 22 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Type Dictionary</title>
+      <link>https://taku-n.github.io/posts/type/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/type/</guid>
+      <description>Type Dictionary </description>
+    </item>
+    
+    <item>
+      <title>WebAssembly</title>
+      <link>https://taku-n.github.io/posts/wasm/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/wasm/</guid>
+      <description>WebAssembly wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
+    </item>
+    
+    <item>
+      <title>On Rust</title>
+      <link>https://taku-n.github.io/posts/macro/</link>
+      <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/macro/</guid>
+      <description>On Rust </description>
+    </item>
+    
+    <item>
+      <title>Trait Dictionary</title>
+      <link>https://taku-n.github.io/posts/trait/</link>
+      <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/trait/</guid>
+      <description>Trait Dictionary Rust のトレイトは &amp;ldquo;トレイトとしては別物&amp;rdquo; らしい
+Trait Trait T を定義
+trait T { } Trait S を要求する Trait T を定義
+Trait S は Trait T の Supertrait
+Trait T は Trait S の Subtrait
+trait S { } trait T: S { } Trait R と Trait S を要求する Trait T を定義
+trait R { } trait S { } trait T: R + S { } Clone (std::clone::Clone) pub trait Clone { fn clone(&amp;amp;self) -&amp;gt; Self; fn clone_from(&amp;amp;mut self, source: &amp;amp;Self) {.</description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://taku-n.github.io/posts/rust/</link>
+      <pubDate>Tue, 26 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/rust/</guid>
+      <description>Rust Trait Dictionary
+Type Dictionary
+Raw Level Rust
+On Rust
+wasm-bindgen
+axum
+warp
+rustup バージョンの確認 rustup -V rustup 自身のアップデート rustup self update Rust のアップデート rustup update 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.toml won&amp;rsquo;t always mean &amp;ldquo;latest version&amp;rdquo;
+cargo edit の cargo upgrade を使うのがいいらしい</description>
+    </item>
+    
+    <item>
+      <title>axum</title>
+      <link>https://taku-n.github.io/posts/axum/</link>
+      <pubDate>Fri, 13 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/axum/</guid>
+      <description>axum Crate axum tokio-rs/axum</description>
+    </item>
+    
+    <item>
+      <title>warp</title>
+      <link>https://taku-n.github.io/posts/warp/</link>
+      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/warp/</guid>
+      <description>warp Structs And pub struct And&amp;lt;T, U&amp;gt; { pub(super) first: T, pub(super) second: U, }
+impl&amp;lt;T, U&amp;gt; FilterBase for And&amp;lt;T, U&amp;gt;
+Traits </description>
+    </item>
+    
+  </channel>
+</rss>

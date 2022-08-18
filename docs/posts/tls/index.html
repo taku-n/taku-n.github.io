@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>TLS - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="tls-transport-layer-security">TLS (Transport Layer Security)</h1>
+<h2 id="certbot">Certbot</h2>
+<p>インストール方法は，公式サイトを参照<br>
+<a href="https://certbot.eff.org/">https://certbot.eff.org/</a></p>
+<p>しかし</p>
+<pre tabindex="0"><code>$ sudo certbot --nginx
+</code></pre><p>がエラーになってしまう<br>
+とりあえず</p>
+<pre tabindex="0"><code>$ sudo nginx -t
+$ sudo nvim /etc/nginx/sites-enabled/default
+</code></pre><p>managed by Certbot となっている行をすべてコメントアウト<br>
+その後</p>
+<pre tabindex="0"><code>$ sudo systemctl restart nginx
+$ sudo certbot --nginx
+</code></pre><h3 id="サブコマンドとオプション">サブコマンドとオプション</h3>
+<p><code>certonly</code><br>
+証明書の取得のみを行う</p>
+<p><code>renew</code><br>
+期限の残りが 30日未満 の証明書を更新</p>
+<p><code>--dry-run</code><br>
+実際には，証明書の更新を行わない</p>
+<p><code>--force-renewal</code><br>
+すべての証明書を期限の残りにかかわらず，強制的に更新</p>
+<p><code>--manual</code><br>
+Nginx とかを使わずに手動で認証</p>
+<h3 id="dns-の場合-conoha-dns">DNS の場合 (ConoHa DNS)</h3>
+<p>最も重要な点として，DNS サーバが API による操作に対応していなければならない<br>
+ここでは，ConoHa の DNS サーバを利用することにする</p>
+<p>初回のやり方は，つぎのとおり</p>
+<pre tabindex="0"><code>$ sudo certbot certonly --manual --preferred-challenges dns -d hoge.com -d &#39;*.hoge.com&#39;
+</code></pre><p>あとは，指示どおりに TXT レコードを追加すれば OK</p>
+<p>更新する場合は，こちらをまず確認<br>
+<a href="https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks">Pre and Post Validation Hooks</a></p>
+<p>フックを準備</p>
+<pre tabindex="0"><code>sudo touch /etc/letsencrypt/authenticator.py
+sudo touch /etc/letsencrypt/cleanup.py
+sudo touch /etc/letsencrypt/log.txt
+sudo chmod 700 /etc/letsencrypt/authenticator.py
+sudo chmod 700 /etc/letsencrypt/cleanup.py
+sudo chmod 600 /etc/letsencrypt/log.txt
+cd
+curl -OL https://bootstrap.pypa.io/get-pip.py
+sudo python get-pip.py
+sudo /usr/local/bin/pip install -U pip
+sudo /usr/local/bin/pip install git+https://github.com/taku-n/mikumo.git@stable
+</code></pre><p>/etc/letsencrypt/authenticator.py をつぎのようにする</p>
+<pre tabindex="0"><code>#!/bin/env python
+
+import datetime
+import os
+import sys
+
+import mikumo  # A library for ConoHa API
+
+############################
+# Set your settings below. #
+############################
+
+# Credentials for ConoHa
+API_USERNAME      = &#39;your-username&#39;
+API_PASSWORD      = &#39;your-password&#39;
+TENANT_ID         = &#39;0123456789abcdef0123456789abcdef&#39;
+IDENTITY_ENDPOINT = &#39;https://identity.****.conoha.io/v2.0&#39;
+
+############################
+# Set your settings above. #
+############################
+
+def log(str):
+    now = datetime.datetime.now()
+    now_str = now.strftime(&#39;%Y.%m.%d %H:%M:%S&#39;)
+
+    with open(&#39;/etc/letsencrypt/log.txt&#39;, &#39;a&#39;) as f:
+        print(now_str, str, file = f)
+
+log(f&#39;CERTBOT_DOMAIN: {os.environ[&#34;CERTBOT_DOMAIN&#34;]}&#39;)
+log(f&#39;CERTBOT_VALIDATION: {os.environ[&#34;CERTBOT_VALIDATION&#34;]}&#39;)
+log(f&#39;CERTBOT_REMAINING_CHALLENGES: {os.environ[&#34;CERTBOT_REMAINING_CHALLENGES&#34;]}&#39;)
+log(f&#39;CERTBOT_ALL_DOMAINS: {os.environ[&#34;CERTBOT_ALL_DOMAINS&#34;]}&#39;)
+
+credentials = {&#39;api-username&#39;: API_USERNAME, &#39;api-password&#39;: API_PASSWORD,
+        &#39;tenant-id&#39;: TENANT_ID, &#39;identity-endpoint&#39;: IDENTITY_ENDPOINT}
+
+code, access = mikumo.id.get_access(credentials)
+if code != 200:
+    log(f&#39;Error: mikumo.id.get_access(): {code}&#39;)
+    sys.exit(1)
+
+domain_name = os.environ[&#39;CERTBOT_DOMAIN&#39;]
+validation = os.environ[&#39;CERTBOT_VALIDATION&#39;]
+code, data = mikumo.dns.create_record_by_domain_name(
+        access, domain_name, &#39;_acme-challenge&#39;, &#39;TXT&#39;, validation, None)
+if code != 200:
+    log(f&#39;Error: mikumo.dns.create_record_by_domain_name(): {code}&#39;)
+    sys.exit(1)
+</code></pre><p>/etc/letsencrypt/cleanup.py をつぎのようにする</p>
+<pre tabindex="0"><code>#!/bin/env python
+
+import datetime
+import os
+import sys
+
+import mikumo  # A library for ConoHa API
+
+############################
+# Set your settings below. #
+############################
+
+# Credentials for ConoHa
+API_USERNAME      = &#39;your-username&#39;
+API_PASSWORD      = &#39;your-password&#39;
+TENANT_ID         = &#39;0123456789abcdef0123456789abcdef&#39;
+IDENTITY_ENDPOINT = &#39;https://identity.****.conoha.io/v2.0&#39;
+
+############################
+# Set your settings above. #
+############################
+
+def log(str):
+    now = datetime.datetime.now()
+    now_str = now.strftime(&#39;%Y.%m.%d %H:%M:%S&#39;)
+
+    with open(&#39;/etc/letsencrypt/log.txt&#39;, &#39;a&#39;) as f:
+        print(now_str, str, file = f)
+
+log(f&#39;CERTBOT_DOMAIN: {os.environ[&#34;CERTBOT_DOMAIN&#34;]}&#39;)
+log(f&#39;CERTBOT_VALIDATION: {os.environ[&#34;CERTBOT_VALIDATION&#34;]}&#39;)
+log(f&#39;CERTBOT_REMAINING_CHALLENGES: {os.environ[&#34;CERTBOT_REMAINING_CHALLENGES&#34;]}&#39;)
+log(f&#39;CERTBOT_ALL_DOMAINS: {os.environ[&#34;CERTBOT_ALL_DOMAINS&#34;]}&#39;)
+
+credentials = {&#39;api-username&#39;: API_USERNAME, &#39;api-password&#39;: API_PASSWORD,
+        &#39;tenant-id&#39;: TENANT_ID, &#39;identity-endpoint&#39;: IDENTITY_ENDPOINT}
+
+code, access = mikumo.id.get_access(credentials)
+if code != 200:
+    log(f&#39;Error: mikumo.id.get_access(): {code}&#39;)
+    sys.exit(1)
+
+domain_name = os.environ[&#39;CERTBOT_DOMAIN&#39;]
+code, data = mikumo.dns.delete_record_by_domain_name_and_name(
+        access, domain_name, &#39;_acme-challenge&#39;, &#39;TXT&#39;)
+if code != 200:
+    log(f&#39;Error: mikumo.dns.delete_record_by_domain_name_and_name(): {code}&#39;)
+    sys.exit(1)
+</code></pre><p>できたら，試す</p>
+<pre tabindex="0"><code>sudo certbot renew --manual \
+--manual-auth-hook /etc/letsencrypt/authenticator.py \
+--manual-cleanup-hook /etc/letsencrypt/cleanup.py \
+--force-renewal --dry-run
+</code></pre><p>うまくいったら，自動更新できるようにする</p>
+<pre tabindex="0"><code>sudo touch /etc/letsencrypt/renew.sh
+sudo chmod 700 /etc/letsencrypt/renew.sh
+</code></pre><p>/etc/letsencrypt/renew.sh をつぎのようにする<br>
+openssl コマンドの <code>hoge.com</code> のところは，自分のドメインに修正する</p>
+<pre tabindex="0"><code>#!/bin/bash
+
+echo &#34;Starting certbot.&#34;
+
+certbot renew --manual \
+        --manual-auth-hook /etc/letsencrypt/authenticator.py \
+        --manual-cleanup-hook /etc/letsencrypt/cleanup.py
+
+echo &#34;certbot finished.&#34;
+
+openssl x509 -in /etc/letsencrypt/live/hoge.com/fullchain.pem -noout -dates
+
+# To see a log by journalctl, type &#34;journalctl -e -u letsencrypt&#34;.
+# A log file of certbot is /var/log/letsencrypt/letsencrypt.log.
+# A log file of hooks is /etc/letsencrypt/log.txt.
+</code></pre><p>/etc/systemd/system/letsencrypt.service をつぎのようにする</p>
+<pre tabindex="0"><code>[Unit]
+Description=Renew Let&#39;s Encrypt
+
+[Service]
+Type=oneshot
+ExecStart=/etc/letsencrypt/renew.sh
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><p>/etc/systemd/system/letsencrypt.timer をつぎのようにする</p>
+<pre tabindex="0"><code>[Unit]
+Description=Timer to renew Let&#39;s Encrypt
+
+[Timer]
+OnUnitActiveSec=1d
+
+[Install]
+WantedBy=timers.target
+</code></pre><p>自動実行を開始する</p>
+<pre tabindex="0"><code>sudo systemctl start letsencrypt.timer
+sudo systemctl start letsencrypt.service
+</code></pre><p>再起動しても自動実行されるように登録する</p>
+<pre tabindex="0"><code>sudo systemctl enable letsencrypt.timer
+sudo systemctl enable letsencrypt.service
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>systemd - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="systemd">systemd</h1>
+<p><a href="http://equj65.net/tech/systemd-manage/">systemctlとserviceの違い</a></p>
+<p>プロセスの確認</p>
+<pre tabindex="0"><code>$ ps aux
+$ pstree
+</code></pre><p>Unit の一覧と自動起動するかを見る</p>
+<pre tabindex="0"><code>$ systemctl list-unit-files -t service
+</code></pre><p>Unit の一覧と起動状態を見る</p>
+<pre tabindex="0"><code>$ systemctl list-units -t service
+</code></pre><p>Unit の状態を確認する</p>
+<pre tabindex="0"><code>$ systemctl status [unit-name]
+</code></pre><p>Unit の自動起動を有効にする</p>
+<pre tabindex="0"><code>$ systemctl enable [unit-name]
+</code></pre><p>Unit の自動起動を無効にする</p>
+<pre tabindex="0"><code>$ systemctl disable [unit-name]
+</code></pre><p>Unit を起動する</p>
+<pre tabindex="0"><code>$ systemctl start [unit-name]
+</code></pre><p>Unit を停止する</p>
+<pre tabindex="0"><code>$ systemctl stop [unit-name]
+</code></pre><p>Unit を再起動する</p>
+<pre tabindex="0"><code>$ systemctl restart [unit-name]
+</code></pre><pre tabindex="0"><code>$ systemctl daemon-reload
+</code></pre><pre tabindex="0"><code>$ systemctl show hoge.timer
+</code></pre><pre tabindex="0"><code>$ journalctl -f -u hoge.service
+</code></pre><p>もっといい感じにまとめてくださっている人がいました<br>
+<a href="https://qiita.com/sinsengumi/items/24d726ec6c761fc75cc9">@sinsengumi</a><br>
+<a href="https://milestone-of-se.nesuke.com/sv-basic/linux-basic/systemctl/">SEの道標</a>
+<a href="http://equj65.net/tech/systemd-boot/">「Systemd」を理解する ーシステム起動編ー</a>
+<a href="https://sites.google.com/site/kandamotohiro/systemd/man-systemd-unit-no-yi">man systemd.unit の訳</a>
+<a href="https://students-tech.blog/post/systemd-startup.html">Systemdで起動時にスクリプトを実行する</a></p>
+<h2 id="timer">Timer</h2>
+<pre tabindex="0"><code>$ sudo nvim /etc/systemd/system/hello.service
+</code></pre><pre tabindex="0"><code>[Unit]
+Description=Say &#34;hello, world&#34;.
+
+[Service]
+Type=oneshot
+ExecStart=echo &#34;hello, world&#34;
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><pre tabindex="0"><code>$ sudo nvim /etc/systemd/system/hello.timer
+</code></pre><pre tabindex="0"><code>[Unit]
+Description=Timer to say &#34;hello, world&#34;.
+
+[Timer]
+OnUnitActiveSec=20s
+
+[Install]
+WantedBy=timers.target
+</code></pre><p>まずタイマをスタートさせて</p>
+<pre tabindex="0"><code>$ systemctl start hello.timer
+</code></pre><p>最後につぎを実行すると，定期実行がはじまる</p>
+<pre tabindex="0"><code>$ systemctl start hello.service
+</code></pre><p>再起動しても定期実行されるように登録する</p>
+<pre tabindex="0"><code>$ systemctl enable hello.timer
+$ systemctl enable hello.service
+</code></pre><p>hello.timer や hello.service を更新したら<br>
+つぎのコマンドで反映させる</p>
+<pre tabindex="0"><code>$ systemctl daemon-reload
+</code></pre><p>タイマに関する情報を得る</p>
+<pre tabindex="0"><code>$ systemctl list-dependencies timers.target
+</code></pre><pre tabindex="0"><code>$ systemctl list-timers
+</code></pre><p>削除の方法は，未検証</p>
+<pre tabindex="0"><code>$ systemctl disable hello.timer
+$ systemctl disable hello.service
+$ systemctl stop hello.timer
+$ systemctl stop hello.service
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

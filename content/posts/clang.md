@@ -1,7 +1,7 @@
 ---
 title: "Clang"
 date: 2019-12-27T01:42:16+09:00
-draft: true
+draft: false
 ---
 
 https://apt.llvm.org/

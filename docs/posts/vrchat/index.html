@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>VRChat - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="vrchat">VRChat</h1>
+<p><a href="https://hello.vrchat.com/">VRChat</a><br>
+<a href="https://docs.vrchat.com/docs">Documentation</a><br>
+<a href="https://vrchat.com/home/download">SDK</a></p>
+<h2 id="unity-のインストール">Unity のインストール</h2>
+<p><a href="https://docs.vrchat.com/docs/current-unity-version">Currently Supported Unity Version</a><br>
+こちらの Click here to install the current version of Unity via Unity Hub を押す</p>
+<p>Microsoft Visual Studio Community 2019<br>
+Android Build Support<br>
+Android SDK &amp; NDK Tools<br>
+OpenJDK にチェックし Install</p>
+<h2 id="avatar">Avatar</h2>
+<h3 id="initial-setup-and-test">Initial Setup and Test</h3>
+<p>Create a new Unity project.<br>
+Import VRCSDK3-AVATAR by &ldquo;Assets -&gt; Import Package -&gt; Custom Package&hellip;&rdquo;.<br>
+Import VRCQuestTools.<br>
+Import lilToon.<br>
+Import an avatar.<br>
+Put *.unity of the avatar into Hierarchy.<br>
+Copy the avatar from its scene to &ldquo;Sample Scene&rdquo;.<br>
+Rename the avatar name.<br>
+Delete its scene.<br>
+Change its build mode into Android by &ldquo;File -&gt; Build Settings&hellip;&rdquo;.<br>
+Select an avatar in Hierarchy to be converted by VRCQuestTools.<br>
+Convert the avatar by VRCQuestTools by &ldquo;VRCQuestTools -&gt; Convert Avatar for Quest&rdquo;.<br>
+Choose a directory to save a converted avatar. e.g. Assets/KRT/QuestAvatars/<br>
+Press the button of &ldquo;変換&rdquo;<br>
+Reduce its PhysBones. The maximum is 8.<br>
+Delete its PC avatar.<br>
+Upload it for Quest and Test.</p>
+<p>You can press the button saying &ldquo;ASTC でテクスチャを圧縮&rdquo; being showed by VRCQuestTools but ASTC needs a good CPU to build.</p>
+<p><a href="https://kurotu.booth.pm/items/2436054">VRCQuestTools</a><br>
+<a href="https://omega.hatenadiary.jp/entry/2019/07/24/032528">ASTC</a><br>
+<a href="https://booth.pm/ja/items/3087170">lilToon</a></p>
+<h3 id="upload-for-pc">Upload for PC</h3>
+<p>Change its build mode into PC by &ldquo;File -&gt; Build Settings&hellip;&rdquo;.</p>
+<h3 id="its-face-is-too-red">Its face is too red.</h3>
+<p>Change the shader of the face alpha to &ldquo;VRChat/Mobile/Particles/Multiply&rdquo;.<br>
+e.g. The name the shader is attached to is like &ldquo;M_Face_alpha_from_blah-blah-blah&rdquo; for Kikyo avatar.</p>
+<p><a href="https://twitter.com/till0196_vrchat/status/1364809328801193985">https://twitter.com/till0196_vrchat/status/1364809328801193985</a><br>
+<a href="https://twitter.com/ring_say_rip/status/1364706722359562241">https://twitter.com/ring_say_rip/status/1364706722359562241</a></p>
+<h3 id="physbones">PhysBones</h3>
+<p><a href="https://note.com/hukube_vrc/n/n76ef8fb112c4">VRChat PB対応メモ書き(Quest化含む)</a><br>
+<a href="https://signyamo.blog/phys-bone_component/">【VRChat】PhysBoneの設定方法・Componentについて</a></p>
+<h3 id="shader">Shader</h3>
+<p><a href="https://qiita.com/hirakichi/items/8282ff70c28548c0eb16">VRChatterのためのシェーダーの基本、完全に理解した</a></p>
+<h3 id="get-the-base-of-kikyo">Get the base of Kikyo</h3>
+<p><a href="https://docs.google.com/document/d/1T8Dy269GhTnmI7LadW9rg5NTxkZfW4cXNv_3rgxh_YE/edit#heading=h.dd58ddyj1og8">シャツセットアップガイド</a></p>
+<h2 id="world">World</h2>
+<p><a href="https://github.com/MerlinVR/UdonSharp">U#</a><br>
+<a href="https://www.wicurio.com/trigger2to3/">Trigger2to3</a></p>
+<h3 id="新しいプロジェクトのつくりかた">新しいプロジェクトのつくりかた</h3>
+<p>Unity Hub -&gt; Projects -&gt; New project -&gt; 3D<br>
+Project name と Location を設定して Create project</p>
+<p>Assets に Scenes だけがあるが，その右の広いところで右クリック<br>
+-&gt; Import Package -&gt; Custom Package&hellip; -&gt; VRCSDK3-WORLD -&gt; 開く -&gt; Import -&gt; I Made a Backup. Go Ahead!</p>
+<p>もう一度 Assets の広いところで右クリック<br>
+-&gt; Import Package -&gt; Custom Package&hellip; -&gt; UdonSharp -&gt; 開く -&gt; Import</p>
+<h3 id="vrcworld-の場所">VRCWorld の場所</h3>
+<p>Assets -&gt; VRChat Examples -&gt; Prefabs<br>
+VRCWorld は，Hierarchy にドラッグ &amp; ドロップ</p>
+<h3 id="アップロードのしかた">アップロードのしかた</h3>
+<p>VRChat SDK -&gt; Show Control Panel<br>
+ログインする<br>
+Builder -&gt; Setup Layers for VRChat -&gt; Do it! -&gt; Set Collision Matrix -&gt; Do it! -&gt; Build &amp; Publish for Windows -&gt; 設定して Upload<br>
+File -&gt; Build Settings&hellip; -&gt; Android -&gt; Switch Platform<br>
+VRChat SDK -&gt; Show Control Panel -&gt; Builder -&gt; Build &amp; Publish for Android -&gt; 設定して Upload</p>
+<p>ヒント: Upload の画面で Scene に戻り VRCCam を動かすと，プレビューの変更ができる</p>
+<h3 id="ugui">uGUI</h3>
+<p>とりあえず Create Empty をつくって空の GameObject をつくり，その中につくっていくのがよさそう<br>
+U# のソースファイルも空の GameObject に Add Component -&gt; Udon Behaviour でつくる</p>
+<h4 id="canvas">Canvas</h4>
+<p>Scale -&gt; Z を 0 にする<br>
+Render Mode を World Space にする<br>
+Add Component -&gt; VRC Ui Shape</p>
+<h4 id="panel">Panel</h4>
+<p>Source Image を None にする</p>
+<h4 id="button">Button</h4>
+<p>On Click () のところに U# ファイルの入った GameObject を入れて UdonBehaviour.Interact () を選ぶ<br>
+もちろん U# ファイルには Interact() メソッドの実装を書いておく</p>
+<pre tabindex="0"><code>public override void Interact() {
+    // Write what you want to invoke...
+}
+</code></pre><h2 id="playing">Playing</h2>
+<p>フレンドが 30人 になった瞬間 New User -&gt; User になった</p>
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>
