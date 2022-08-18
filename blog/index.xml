@@ -6,11 +6,7 @@
     <description>Recent content on 非同期エンジニアブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 03 Jan 2020 03:02:51 +0900</lastBuildDate>
-    
-	<atom:link href="https://taku-n.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 03 Jan 2020 03:02:51 +0900</lastBuildDate><atom:link href="https://taku-n.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Raw Level Rust</title>
       <link>https://taku-n.github.io/blog/posts/raw/</link>
@@ -37,7 +33,7 @@ let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: 
       
       <guid>https://taku-n.github.io/blog/posts/clang/</guid>
       <description>https://apt.llvm.org/
-$ sudo bash -c &amp;quot;$(wget -O - https://apt.llvm.org/llvm.sh)&amp;quot; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 </description>
+$ sudo bash -c &amp;#34;$(wget -O - https://apt.llvm.org/llvm.sh)&amp;#34; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 </description>
     </item>
     
     <item>
@@ -50,9 +46,9 @@ $ sudo bash -c &amp;quot;$(wget -O - https://apt.llvm.org/llvm.sh)&amp;quot; $ c
 User manual
 FAQ
 バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない
-$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &amp;quot;screen-256color&amp;quot; set-option -ga terminal-overrides &amp;quot;,xterm-256color:Tc&amp;quot; Line 1: Ctrl + [ を押したときに遅延させない
+$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &amp;#34;screen-256color&amp;#34; set-option -ga terminal-overrides &amp;#34;,xterm-256color:Tc&amp;#34; Line 1: Ctrl + [ を押したときに遅延させない
 Line 2, 3: 色を正しく表示するため (?)
-Cursor shape doesn&#39;t change in tmux
+Cursor shape doesn&amp;rsquo;t change in tmux
 設定ファイル ~/.config/nvim/init.vim
 dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
 $ nvim :call dein#install() アップデート :call dein#update() runtimepath の表示 :set runtimepath Neovim に読み込まれているファイルを一覧表示 :scriptnames Vimscript hello, world (hello.</description>
@@ -64,7 +60,7 @@ $ nvim :call dein#install() アップデート :call dein#update() runtimepath �
       <pubDate>Wed, 13 Nov 2019 02:52:33 +0900</pubDate>
       
       <guid>https://taku-n.github.io/blog/posts/hugo-templates/</guid>
-      <description>  {{ add 2 3 }}  </description>
+      <description> {{ add 2 3 }} </description>
     </item>
     
     <item>
@@ -73,7 +69,7 @@ $ nvim :call dein#install() アップデート :call dein#update() runtimepath �
       <pubDate>Tue, 12 Nov 2019 15:18:41 +0900</pubDate>
       
       <guid>https://taku-n.github.io/blog/posts/hugo/</guid>
-      <description>Hugo について，わかったことをメモしたいと思う
+      <description>Hugo Hugo について，わかったことをメモしたいと思う
 正確かどうかは，わからない
 コンテンツの追加
 $ hugo new posts/my-first-post.md
