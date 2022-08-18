@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Raw Level Rust - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="raw-level-rust-140">Raw Level Rust (1.40)</h1>
+<h2 id="ポインタ">ポインタ</h2>
+<h3 id="ポインタをつくろう">ポインタをつくろう</h3>
+<p>はじめに i32型 のポインタをつくってみましょう。</p>
+<pre tabindex="0"><code>let mut p: *mut i32;
+</code></pre><p>どうということはないですね。<br>
+64bit Linux のユーザ空間のメモリの範囲は，</p>
+<pre tabindex="0"><code>0b00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
+-
+0b00000000_00000000_01111111_11111111_11111111_11111111_11111111_11111111
+</code></pre><p>つまりは，</p>
+<pre tabindex="0"><code>0x00_00_00_00_00_00_00_00 - 0x00_00_7F_FF_FF_FF_FF_FF
+</code></pre><p>らしいですから
+最後の 4バイト を指すポインタは，つぎのようにしてつくれます。</p>
+<pre tabindex="0"><code>let mut p: *mut i32;
+p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
+</code></pre><p>メモリのアドレスは，<a href="https://doc.rust-lang.org/std/primitive.usize.html">usize型</a> を使います。<br>
+usize型 を使えば，メモリのどこであっても指すことができるので，便利です。<br>
+たとえば，64bit Linux であれば，usize型 は，8バイト の大きさをもちます。</p>
+<p>さて，ユーザ空間の最後の 4バイト には，i32 で表すと，どんな値が入っているでしょうか。<br>
+さっそく，見てみましょう。</p>
+<pre tabindex="0"><code>let mut p: *mut i32;
+p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
+
+let mut x: i32;
+unsafe {
+    x = *p;  // Segmentation Fault
+}
+println!(&#34;{:?}&#34;, x);
+</code></pre><p>ポインタが指すアドレスの値を取ってくるのは，危険な行為なので，unsafe ブロックの中でやります。<br>
+コメントが不穏ですが，とにかく実行してみましょう。</p>
+<pre tabindex="0"><code>$ cargo run
+Segmentation fault (コアダンプ)
+</code></pre><p><a href="https://ja.wikipedia.org/wiki/%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E9%81%95%E5%8F%8D">セグメンテーション違反</a> が発生してしまいました!<br>
+でも，どこで発生したかは，すぐにわかります。<br>
+これが，Rust の unsafe のよさですね。</p>
+<p>これでめげずに，今度は，書き込んでみましょう。</p>
+<pre tabindex="0"><code>let mut p: *mut i32;
+p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
+
+unsafe {
+    *p = 42;  // Segmentation Fault
+}
+</code></pre><pre tabindex="0"><code>$ cargo run
+Segmentation fault (コアダンプ)
+</code></pre><p>やはり，だめですね。</p>
+<h3 id="ポインタを使おう">ポインタを使おう</h3>
+<p>今度は，もうちょっとちゃんとポインタを使ってみましょう。</p>
+<pre tabindex="0"><code>let mut a: i32 = 42;
+let mut p: *mut i32;
+p = &amp;mut a as *mut i32;
+
+let mut x: i32;
+unsafe {
+    x = *p;
+}
+println!(&#34;{:?}&#34;, x);  //=&gt; 42
+</code></pre><p>今度は，ちゃんと読み出せました。</p>
+<p>書き込みだってできます。</p>
+<pre tabindex="0"><code>let mut x: i32 = 1;
+let mut p: *mut i32;
+p = &amp;mut x as *mut i32;
+
+unsafe {
+    *p = 2;
+}
+println!(&#34;{:?}&#34;, x);  //=&gt; 2
+</code></pre><p>大丈夫そうですね。</p>
+<p>こうなると，気になってくるのはアドレスですよね。<br>
+確かめてみましょう。</p>
+<pre tabindex="0"><code>let mut x: i32 = 42;
+let mut p: *mut i32;
+p = &amp;mut x as *mut i32;
+
+println!(&#34;{:p}&#34;, &amp;mut x);  //=&gt; 0x7fffd35bec64
+println!(&#34;{:p}&#34;, p);       //=&gt; 0x7fffd35bec64
+</code></pre><p>借用もポインタも，同じ場所を指していることがわかります。</p>
+<p>ところで，ここまで，借用からポインタをつくってきました。<br>
+今度は逆に，ポインタから借用をつくってみましょう。</p>
+<pre tabindex="0"><code>let mut x: i32 = 42;
+let mut p: *mut i32;
+p = &amp;mut x as *mut i32;
+
+let mut y: &amp;mut i32;
+unsafe {
+    y = &amp;mut *p;
+}
+println!(&#34;{:?}&#34;, y);  //=&gt; 42
+</code></pre><h3 id="mut-t型-と-const-t型">*mut T型 と *const T型</h3>
+<p>これまでずっと，ポインタの型として *mut T型 を使ってきました。<br>
+しかし実は，ポインタの型には，もうひとつあります。<br>
+それが，*const T型 です。<br>
+*const T型 を使うと，ポインタの指すデータを書き換えることができなくなります。<br>
+さっそく，試してみましょう。</p>
+<pre tabindex="0"><code>let mut x: i32 = 1;
+let mut p: *const i32;
+p = &amp;x as *const i32;
+
+unsafe {
+    *p = 2;  // error[E0594]: cannot assign to `*p` which is behind a `*const` pointer
+}
+</code></pre><p>無理に書き換えようとすると，コンパイルエラーが出ました!<br>
+*const T型 のポインタは，参照からつくっていることにも注目してください。<br>
+そして，逆に，参照に変換することもできます。</p>
+<pre tabindex="0"><code>let mut x: i32 = 42;
+let mut p: *const i32;
+p = &amp;x as *const i32;
+
+let mut y: &amp;i32;
+unsafe {
+    y = &amp;*p;
+}
+println!(&#34;{:?}&#34;, y);  //=&gt; 42
+</code></pre><h3 id="ヌルポインタをつくろう">ヌルポインタをつくろう</h3>
+<p><a href="https://doc.rust-lang.org/std/ptr/">std::ptr</a> を使ってつくれます。</p>
+<pre tabindex="0"><code>use std::ptr::*;
+
+let mut p: *const i32 = null();
+let mut q: *mut i32   = null_mut();
+
+println!(&#34;{:p}&#34;, p);  //=&gt; 0x0
+println!(&#34;{:p}&#34;, q);  //=&gt; 0x0
+</code></pre><p>簡単ですね。<br>
+ポインタが null かどうか確かめる関数も用意されています。</p>
+<pre tabindex="0"><code>use std::ptr::*;
+
+let p: *const i32 = null();
+let q: *mut i32   = null_mut();
+
+println!(&#34;{:?}&#34;, p.is_null());  //=&gt; true
+println!(&#34;{:?}&#34;, q.is_null());  //=&gt; true
+</code></pre><h3 id="ポインタ演算風">ポインタ演算風</h3>
+<p>ポインタ演算風をする前に，型のサイズを確認しておきましょう。</p>
+<pre tabindex="0"><code>use std::mem::*;
+
+println!(&#34;{:?}&#34;, size_of::&lt;i32&gt;());  //=&gt; 4
+</code></pre><p>i32型 のサイズは，4バイト であることがあらためてわかりました。<br>
+では，ポインタを 4バイト ずつずらして，i32型 の配列を確認したり，変更したりしてみましょう。</p>
+<pre tabindex="0"><code>let mut xs: [i32; 3] = [1, 2, 3];
+let mut p: *mut i32 = xs.as_mut_ptr();
+
+println!(&#34;{:p}&#34;, p);  //=&gt; 0x7fffeb82bbe4
+unsafe {
+    println!(&#34;{:?}&#34;, *p);  //=&gt; 1
+
+    println!(&#34;{:p}: {:?}&#34;, p.offset(0), *p.offset(0));  //=&gt; 0x7fffeb82bbe4: 1
+    println!(&#34;{:p}: {:?}&#34;, p.offset(1), *p.offset(1));  //=&gt; 0x7fffeb82bbe8: 2
+    println!(&#34;{:p}: {:?}&#34;, p.offset(2), *p.offset(2));  //=&gt; 0x7fffeb82bbec: 3
+
+    *p.offset(1) = 4;
+}
+
+println!(&#34;{:?}&#34;, xs);  //=&gt; [1, 4, 3]
+</code></pre><p>型のサイズに合わせて，ポインタが増加しているのがよくわかります。<br>
+では，ポインタの型をキャストして，増加量が変化する様子を見てみましょう。</p>
+<pre tabindex="0"><code>let mut x: u32 = 0x12345678;
+let mut p: *mut u32 = &amp;mut x as *mut u32;
+let mut q: *mut u8  = p.cast::&lt;u8&gt;();
+
+println!(&#34;{:p}&#34;, p);  //=&gt; 0x7fffeba3cb04
+unsafe {
+    println!(&#34;0x{:08X}&#34;, *p);  //=&gt; 0x12345678
+
+    println!(&#34;{:p}: 0x{:02X}&#34;, q.offset(0), *q.offset(0));  //=&gt; 0x7fffeba3cb04: 0x78
+    println!(&#34;{:p}: 0x{:02X}&#34;, q.offset(1), *q.offset(1));  //=&gt; 0x7fffeba3cb05: 0x56
+    println!(&#34;{:p}: 0x{:02X}&#34;, q.offset(2), *q.offset(2));  //=&gt; 0x7fffeba3cb06: 0x34
+    println!(&#34;{:p}: 0x{:02X}&#34;, q.offset(3), *q.offset(3));  //=&gt; 0x7fffeba3cb07: 0x12
+}
+</code></pre><p>今度は u8型 のポインタなので，ポインタが 1バイト ずつ増加しています。</p>
+<h2 id="ビットを味わう">ビットを味わう</h2>
+<h3 id="transmute">transmute</h3>
+<p><a href="https://doc.rust-lang.org/std/mem/fn.transmute.html">std::mem::transmute</a> を使うと，ビットの解釈を変更することができます。<br>
+たとえば，u8型 の 長さ4 の配列を u32型として解釈させてみましょう。</p>
+<pre tabindex="0"><code>use std::mem::*;
+
+let mut x: [u8; 4] = [0x78u8, 0x56u8, 0x34u8, 0x12u8];
+
+let mut y: u32;
+unsafe {
+    y = transmute::&lt;[u8; 4], u32&gt;(x);
+}
+println!(&#34;0x{:08X}&#34;, y);  //=&gt; 0x12345678
+</code></pre><p>順番が逆転していますが，違う解釈をさせることができました。<br>
+ポインタをキャストしたときの話と合わせると，わかりやすいと思います。</p>
+<h2 id="libc">libc</h2>
+<h3 id="libc-を使う">libc を使う</h3>
+<p><a href="https://crates.io/crates/libc">libc</a> を使うには，Cargo.toml の [dependencies] のところを，つぎのようにします。</p>
+<pre tabindex="0"><code>[dependencies]
+libc = &#34;0.2&#34;
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

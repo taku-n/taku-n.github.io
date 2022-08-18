@@ -1,5 +1,5 @@
-baseURL = "https://taku-n.github.io/blog/"
+baseURL = "https://taku-n.github.io/"
 languageCode = "ja"
 title = "非同期エンジニアブログ"
 theme = "ananke"
-publishDir = "blog"
+publishDir = "docs"

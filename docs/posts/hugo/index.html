@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Hugo - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="hugo">Hugo</h1>
+<p>Hugo について，わかったことをメモしたいと思う<br>
+正確かどうかは，わからない</p>
+<p>コンテンツの追加</p>
+<p>$ hugo new posts/my-first-post.md</p>
+<p>サーバの起動</p>
+<p>$ hugo server -D<br>
+http://127.0.0.1:1313/</p>
+<p>ビルド</p>
+<p>$ hugo -D
+($ hugo となにが違うのだろう? ドラフトを含むか含まないか?</p>
+<h6 id="h6-test-シャープ-6つ-だとバグる">H6 Test (シャープ 6つ だとバグる?</h6>
+<h5 id="h5-test">H5 Test</h5>
+<p>Front Matter? =&gt; どうやら，各 md ファイルの先頭に自動的に作成される<br>
+3つ のハイフンで区切られたブロックのことみたい<br>
+title, date, draft, &hellip;</p>
+<p>たぶん，content ディレクトリ直下にファイルは置けなさそう<br>
+section となるディレクトリを置いていく感じみたい<br>
+_index.md は置けるみたい (Page Bundles -&gt; Branch Bundles</p>
+<p>index.md があるディレクトリは Leaf Bundle になり<br>
+_index.md があるディレクトリは Branch Bundle になるみたい</p>
+<p>section? =&gt; content ディレクトリ直下のディレクトリや content 内で _index.md を包含しているディレクトリのことをいうみたい たぶん</p>
+<p>LiveReload が働かない? それ <!-- raw HTML omitted --><!-- raw HTML omitted --> がないからです (Getting Started -&gt; Basic Usage</p>
+<p>ドキュメント <a href="https://gohugo.io/documentation/">https://gohugo.io/documentation/</a></p>
+<h3 id="about-hugo">About Hugo</h3>
+<h3 id="getting-started">Getting Started</h3>
+<h5 id="basic-usage-hugo-コマンドの基本-読んだほうがいい">Basic Usage (hugo コマンドの基本 読んだほうがいい</h5>
+<h3 id="hugo-modules-モジュールシステムについて-とりあえず読まなくてよさそう">Hugo Modules (モジュールシステムについて とりあえず読まなくてよさそう</h3>
+<h3 id="content-management-一番重要っぽい">Content Management (一番重要っぽい</h3>
+<h5 id="content-management-overview-目次">Content Management Overview (目次</h5>
+<h5 id="organization-content-ディレクトリの基本-必読-indexmd-と-_indexmd-の違いは-page-bundles-で出てくる">Organization (content ディレクトリの基本 必読 index.md と _index.md の違いは Page Bundles で出てくる</h5>
+<h5 id="page-bundles-indexmd-と-_indexmd-の違い-正直よくわからない-いろいろ試す必要がありそう">Page Bundles (index.md と _index.md の違い 正直，よくわからない いろいろ試す必要がありそう</h5>
+<h5 id="supported-content-formats-html-も使えるよって話と-html-でも-front-matter-はつけてねって話">Supported Content Formats (HTML も使えるよって話と HTML でも Front Matter はつけてねって話</h5>
+<h5 id="front-matter-front-matter-は-各-md-の先頭に自動的に付加される-3つ-のハイフンで囲まれたブロックのこと-toml-yaml-json-org-好きな形式で書ける-どんな値をセットできるかも書いてある">Front Matter (Front Matter は 各 md の先頭に自動的に付加される 3つ のハイフンで囲まれたブロックのこと TOML, YAML, JSON, ORG 好きな形式で書ける どんな値をセットできるかも書いてある</h5>
+<h5 id="page-resources-画像とかについて-画像とかはメタデータが必要っぽいがよくわからない-どこに書くんだこれ">Page Resources (画像とかについて 画像とかはメタデータが必要っぽいがよくわからない どこに書くんだこれ</h5>
+<h5 id="image-processing-なんと画像を引き伸ばしたりもできるらしい">Image Processing (なんと画像を引き伸ばしたりもできるらしい</h5>
+<h5 id="shortcodes-マークダウンの独自拡張-ここはさらっと読んどいたほうがいい-互換性は損なわれるが-ぱっと見-相当便利そう-特に-gist-と-シンタックスハイライトと他ページ埋め込みと-youtube">Shortcodes (マークダウンの独自拡張 ここはさらっと読んどいたほうがいい 互換性は損なわれるが ぱっと見 相当便利そう 特に gist と シンタックスハイライトと他ページ埋め込みと YouTube</h5>
+<h5 id="related-content-記事末尾によくある-see-also-こちらの記事もどうぞ-のカスタマイズ-とりあえずスルー">Related Content (記事末尾によくある See Also こちらの記事もどうぞ のカスタマイズ とりあえずスルー</h5>
+<h5 id="sections-_indexmd-とは-再び-いまだによくわからない-page-bundles-と合わせて読むべし">Sections (_index.md とは? 再び いまだによくわからない Page Bundles と合わせて読むべし</h5>
+<h5 id="types-まったくわからないが-type-の値は常に単数形であることはわかった-でっていう-archetype-とかいうなぞ概念も出てきた">Types (まったくわからないが type の値は常に単数形であることはわかった でっていう Archetype とかいうなぞ概念も出てきた</h5>
+<h5 id="archetypes-hugo-new-したときの雛形-各セクションごとに準備できるみたい-読んどいたほうがいい">Archetypes (hugo new したときの雛形 各セクションごとに準備できるみたい 読んどいたほうがいい</h5>
+<h5 id="taxonomies-記事をグループ分けしたりする機能-スルー">Taxonomies (記事をグループ分けしたりする機能 スルー</h5>
+<h5 id="summaries-要約を設定できるらしい-スルー">Summaries (要約を設定できるらしい スルー</h5>
+<h5 id="links-and-cross-references-リンク用のショートコード-マークダウンの独自拡張-ref-が絶対参照-relref-が相対参照">Links and Cross References (リンク用のショートコード マークダウンの独自拡張 ref が絶対参照 relref が相対参照</h5>
+<h5 id="url-management-ひきつづきリンクの話-結構複雑そうなので-後回しに">URL Management (ひきつづきリンクの話 結構複雑そうなので 後回しに</h5>
+<h5 id="menus-メニューについて-あとあとつけたくなったら読む">Menus (メニューについて あとあとつけたくなったら読む</h5>
+<h5 id="static-files-スタイルシートとか-javascript-とか画像とかを置いておくところについて-知っておく必要があるだろう">Static Files (スタイルシートとか JavaScript とか画像とかを置いておくところについて 知っておく必要があるだろう</h5>
+<h5 id="table-of-contents-hugo-はマークダウンを読み取って勝手に目次をつくってくれる-スルー">Table of Contents (Hugo はマークダウンを読み取って勝手に目次をつくってくれる スルー</h5>
+<h5 id="comments-disqus-みたいなコメント機能について-この点は静的サイトジェネレータの弱点だよね-自分で実装した-comento-を使うつもり">Comments (Disqus みたいなコメント機能について この点は静的サイトジェネレータの弱点だよね 自分で実装した Comento を使うつもり</h5>
+<h5 id="multilingual-mode-多言語対応について-日本語しか使えないのでスルー">Multilingual Mode (多言語対応について 日本語しか使えないのでスルー;;</h5>
+<h5 id="syntax-highlighting-シンタックスハイライトの詳細が記されている-必要になったら読みたい">Syntax Highlighting (シンタックスハイライトの詳細が記されている 必要になったら読みたい</h5>
+<h3 id="templates-ここは読まないとダメでしょうね">Templates (ここは読まないとダメでしょうね</h3>
+<h5 id="templates-overview-目次">Templates Overview (目次</h5>
+<h5 id="introduction-必読です-golang感-がすごい-ところでこれらはどこに書いて実行するのだ--template-lookup-order-に書いてある">Introduction (必読です Golang感 がすごい ところでこれらはどこに書いて実行するのだ? =&gt; Template Lookup Order に書いてある</h5>
+<h5 id="template-lookup-order-introduction-にある---ってやつは-layouts_defaultsinglehtml-とか-layouts_defaultlisthtml-とかに書けばいいとわかる">Template Lookup Order (Introduction にある {{ }} ってやつは layouts/_default/single.html とか layouts/_default/list.html とかに書けばいいとわかる</h5>
+<h3 id="functions">Functions</h3>
+<h3 id="variables">Variables</h3>
+<h3 id="hugo-pipes">Hugo Pipes</h3>
+<h3 id="cli">CLI</h3>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<h3 id="tools">Tools</h3>
+<h3 id="hosting--deployment">Hosting &amp; Deployment</h3>
+<h3 id="contribute">Contribute</h3>
+<h3 id="maintenance">Maintenance</h3>
+<!-- raw HTML omitted -->
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>
