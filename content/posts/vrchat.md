@@ -39,6 +39,7 @@ Choose a directory to save a converted avatar. e.g. Assets/KRT/QuestAvatars/
 Press the button of "変換"  
 Get its PhysBones matched between PC and Quest.  
 Reduce its PhysBones. The maximum is 8.  
+Show only the PC avatar by changing the inspector settings.  
 Test the avatar locally.  
 Upload the avatar for PC.  
 Change its build mode into Android by "File -> Build Settings...".  
