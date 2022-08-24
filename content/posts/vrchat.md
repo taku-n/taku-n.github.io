@@ -33,13 +33,19 @@ Put *.unity of the avatar into Hierarchy.
 Copy the avatar from its scene to "Sample Scene".  
 Rename the avatar name.  
 Delete its scene.  
-Change its build mode into Android by "File -> Build Settings...".  
 Select an avatar in Hierarchy to be converted by VRCQuestTools.  
 Convert the avatar by VRCQuestTools by "VRCQuestTools -> Convert Avatar for Quest".  
 Choose a directory to save a converted avatar. e.g. Assets/KRT/QuestAvatars/  
 Press the button of "変換"  
+Get its PhysBones matched between PC and Quest.  
 Reduce its PhysBones. The maximum is 8.  
-Delete its PC avatar.  
+Test the avatar locally.  
+Upload the avatar for PC.  
+Change its build mode into Android by "File -> Build Settings...".  
+Change its shader for transparency.  
+Open "VRChat SDK -> Content Manager" and press "Copy ID" of the avatar you uploaded for PC.  
+Paste it on "Inspector -> Blueprint ID (Optional)" of the Quest avatar.  
+Press "Attach (Optional)".  
 Upload it for Quest and Test.  
 
 You can press the button saying "ASTC でテクスチャを圧縮" being showed by VRCQuestTools but ASTC needs a good CPU to build.  
@@ -52,10 +58,11 @@ You can press the button saying "ASTC でテクスチャを圧縮" being showed 
 
 Change its build mode into PC by "File -> Build Settings...".  
 
-### Its face is too red.
+### Its face is too red in Quest.
 
-Change the shader of the face alpha to "VRChat/Mobile/Particles/Multiply".  
+Change the shader of the face alpha from "Hidden/lilToonTransparent" to "VRChat/Mobile/Particles/Multiply".  
 e.g. The name the shader is attached to is like "M_Face_alpha_from_blah-blah-blah" for Kikyo avatar.  
+Caution: "VRChat/Mobile/Particles/Multiply" can not be seen by PC players.  
 
 [https://twitter.com/till0196_vrchat/status/1364809328801193985](https://twitter.com/till0196_vrchat/status/1364809328801193985)  
 [https://twitter.com/ring_say_rip/status/1364706722359562241](https://twitter.com/ring_say_rip/status/1364706722359562241)  

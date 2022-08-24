@@ -32,13 +32,19 @@ Put *.unity of the avatar into Hierarchy.<br>
 Copy the avatar from its scene to &ldquo;Sample Scene&rdquo;.<br>
 Rename the avatar name.<br>
 Delete its scene.<br>
-Change its build mode into Android by &ldquo;File -&gt; Build Settings&hellip;&rdquo;.<br>
 Select an avatar in Hierarchy to be converted by VRCQuestTools.<br>
 Convert the avatar by VRCQuestTools by &ldquo;VRCQuestTools -&gt; Convert Avatar for Quest&rdquo;.<br>
 Choose a directory to save a converted avatar. e.g. Assets/KRT/QuestAvatars/<br>
 Press the button of &ldquo;変換&rdquo;<br>
+Get its PhysBones matched between PC and Quest.<br>
 Reduce its PhysBones. The maximum is 8.<br>
-Delete its PC avatar.<br>
+Test the avatar locally.<br>
+Upload the avatar for PC.<br>
+Change its build mode into Android by &ldquo;File -&gt; Build Settings&hellip;&rdquo;.<br>
+Change its shader for transparency.<br>
+Open &ldquo;VRChat SDK -&gt; Content Manager&rdquo; and press &ldquo;Copy ID&rdquo; of the avatar you uploaded for PC.<br>
+Paste it on &ldquo;Inspector -&gt; Blueprint ID (Optional)&rdquo; of the Quest avatar.<br>
+Press &ldquo;Attach (Optional)&rdquo;.<br>
 Upload it for Quest and Test.</p>
 <p>You can press the button saying &ldquo;ASTC でテクスチャを圧縮&rdquo; being showed by VRCQuestTools but ASTC needs a good CPU to build.</p>
 <p><a href="https://kurotu.booth.pm/items/2436054">VRCQuestTools</a><br>
@@ -46,9 +52,10 @@ Upload it for Quest and Test.</p>
 <a href="https://booth.pm/ja/items/3087170">lilToon</a></p>
 <h3 id="upload-for-pc">Upload for PC</h3>
 <p>Change its build mode into PC by &ldquo;File -&gt; Build Settings&hellip;&rdquo;.</p>
-<h3 id="its-face-is-too-red">Its face is too red.</h3>
-<p>Change the shader of the face alpha to &ldquo;VRChat/Mobile/Particles/Multiply&rdquo;.<br>
-e.g. The name the shader is attached to is like &ldquo;M_Face_alpha_from_blah-blah-blah&rdquo; for Kikyo avatar.</p>
+<h3 id="its-face-is-too-red-in-quest">Its face is too red in Quest.</h3>
+<p>Change the shader of the face alpha from &ldquo;Hidden/lilToonTransparent&rdquo; to &ldquo;VRChat/Mobile/Particles/Multiply&rdquo;.<br>
+e.g. The name the shader is attached to is like &ldquo;M_Face_alpha_from_blah-blah-blah&rdquo; for Kikyo avatar.<br>
+Caution: &ldquo;VRChat/Mobile/Particles/Multiply&rdquo; can not be seen by PC players.</p>
 <p><a href="https://twitter.com/till0196_vrchat/status/1364809328801193985">https://twitter.com/till0196_vrchat/status/1364809328801193985</a><br>
 <a href="https://twitter.com/ring_say_rip/status/1364706722359562241">https://twitter.com/ring_say_rip/status/1364706722359562241</a></p>
 <h3 id="physbones">PhysBones</h3>
