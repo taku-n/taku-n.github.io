@@ -22,12 +22,12 @@ Microsoft Visual Studio Community 2019
 Android Build Support
 Android SDK &amp;amp; NDK Tools
 OpenJDK にチェックし Install
-Avatar Initial Setup and Test Create a new Unity project.
-Import VRCSDK3-AVATAR by &amp;ldquo;Assets -&amp;gt; Import Package -&amp;gt; Custom Package&amp;hellip;&amp;rdquo;.
-Import VRCQuestTools.
-Import lilToon.
-Import an avatar.
-Put *.unity of the avatar into Hierarchy.</description>
+Avatar Initial Setup and Test Open &amp;ldquo;VRChat Creator Companion&amp;rdquo;.
+Press &amp;ldquo;New&amp;rdquo;.
+Press &amp;ldquo;Avatar&amp;rdquo;.
+Set the place and press &amp;ldquo;Create&amp;rdquo;.
+Press &amp;ldquo;Open Project&amp;rdquo;.
+Save the scene as &amp;ldquo;scene.unity&amp;rdquo; in &amp;ldquo;Assets&amp;rdquo; directory.</description>
     </item>
     
     <item>

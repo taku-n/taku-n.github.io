@@ -24,15 +24,19 @@ OpenJDK にチェックし Install
 
 ### Initial Setup and Test
 
-Create a new Unity project.  
-Import VRCSDK3-AVATAR by "Assets -> Import Package -> Custom Package...".  
+Open "VRChat Creator Companion".  
+Press "New".  
+Press "Avatar".  
+Set the place and press "Create".  
+Press "Open Project".  
+Save the scene as "scene.unity" in "Assets" directory.  
 Import VRCQuestTools.  
 Import lilToon.  
 Import an avatar.  
 Put *.unity of the avatar into Hierarchy.  
-Copy the avatar from its scene to "Sample Scene".  
+Move the avatar from its scene to "scene".  
 Rename the avatar name.  
-Delete its scene.  
+Delete scenes except "scene".  
 Select an avatar in Hierarchy to be converted by VRCQuestTools.  
 Convert the avatar by VRCQuestTools by "VRCQuestTools -> Convert Avatar for Quest".  
 Choose a directory to save a converted avatar. e.g. Assets/KRT/QuestAvatars/  
