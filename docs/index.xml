@@ -16,6 +16,7 @@
       <description>VRChat VRChat
 Documentation
 SDK
+Set the Resolution of VRChat VRChat：Game起動時-解像度設定(Unity2019対応後)
 Unity のインストール Currently Supported Unity Version
 こちらの Click here to install the current version of Unity via Unity Hub を押す
 Microsoft Visual Studio Community 2019
@@ -27,7 +28,7 @@ Press &amp;ldquo;New&amp;rdquo;.
 Press &amp;ldquo;Avatar&amp;rdquo;.
 Set the place and press &amp;ldquo;Create&amp;rdquo;.
 Press &amp;ldquo;Open Project&amp;rdquo;.
-Save the scene as &amp;ldquo;scene.unity&amp;rdquo; in &amp;ldquo;Assets&amp;rdquo; directory.</description>
+Save the scene as &amp;ldquo;scene.</description>
     </item>
     
     <item>

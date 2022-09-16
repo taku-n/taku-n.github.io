@@ -10,6 +10,10 @@ tags: ["VRChat"]
 [Documentation](https://docs.vrchat.com/docs)  
 [SDK](https://vrchat.com/home/download)
 
+## Set the Resolution of VRChat
+
+[VRChat：Game起動時-解像度設定(Unity2019対応後)](https://note.com/naplike/n/n513f8a976a14)  
+
 ## Unity のインストール
 
 [Currently Supported Unity Version](https://docs.vrchat.com/docs/current-unity-version)  
@@ -38,11 +42,10 @@ Move the avatar from its scene to "scene".
 Rename the avatar name.  
 Delete scenes except "scene".  
 Select an avatar in Hierarchy to be converted by VRCQuestTools.  
+Open "VRCQuestTools -> Remove PhysBones" and reduce PhysBones up to 8.  
 Convert the avatar by VRCQuestTools by "VRCQuestTools -> Convert Avatar for Quest".  
 Choose a directory to save a converted avatar. e.g. Assets/KRT/QuestAvatars/  
 Press the button of "変換"  
-Get its PhysBones matched between PC and Quest.  
-Reduce its PhysBones. The maximum is 8.  
 Show only the PC avatar by changing the inspector settings.  
 Test the avatar locally.  
 Upload the avatar for PC.  
@@ -56,6 +59,7 @@ Upload it for Quest and Test.
 You can press the button saying "ASTC でテクスチャを圧縮" being showed by VRCQuestTools but ASTC needs a good CPU to build.  
 
 [VRCQuestTools](https://kurotu.booth.pm/items/2436054)  
+The shaders this can use are Standard, UTS2, arktoon, AXCS, Sunao, lilToon.  
 [ASTC](https://omega.hatenadiary.jp/entry/2019/07/24/032528)  
 [lilToon](https://booth.pm/ja/items/3087170)  
 
@@ -71,6 +75,11 @@ Caution: "VRChat/Mobile/Particles/Multiply" can not be seen by PC players.
 
 [https://twitter.com/till0196_vrchat/status/1364809328801193985](https://twitter.com/till0196_vrchat/status/1364809328801193985)  
 [https://twitter.com/ring_say_rip/status/1364706722359562241](https://twitter.com/ring_say_rip/status/1364706722359562241)  
+
+### Put On / Take off
+
+[【Unity】VRChatで小物を出し入れする方法まとめ＋α](https://jiri42.com/vrc-animation-2/)  
+You can change the name of *.controller after "Right click on Assets -> Create -> Animation"  
 
 ### PhysBones
 
