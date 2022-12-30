@@ -33,7 +33,7 @@ Press "New".
 Press "Avatar".  
 Set the place and press "Create".  
 Press "Open Project".  
-Save the scene as "scene.unity" in "Assets" directory.  
+Save the scene as "scene.unity" in "Assets" directory by File -> Save.  
 Import VRCQuestTools.  
 Import lilToon.  
 Import an avatar.  
@@ -76,6 +76,17 @@ Caution: "VRChat/Mobile/Particles/Multiply" can not be seen by PC players.
 [https://twitter.com/till0196_vrchat/status/1364809328801193985](https://twitter.com/till0196_vrchat/status/1364809328801193985)  
 [https://twitter.com/ring_say_rip/status/1364706722359562241](https://twitter.com/ring_say_rip/status/1364706722359562241)  
 
+### Hand Gestures doesn't work properly.
+
+To show the gestures on Desktop: Shift + F1 ... Shift + F8  
+
+To Fix:  
+Select the avatar in Hierarchy.  
+Double click the FX in Inspector.  
+Click the settings button of AllParts.  
+Click the Selection button of Mask.  
+Choose None.  
+
 ### Put On / Take off
 
 [【Unity】VRChatで小物を出し入れする方法まとめ＋α](https://jiri42.com/vrc-animation-2/)  
@@ -99,20 +110,18 @@ You can change the name of *.controller after "Right click on Assets -> Create -
 [U#](https://github.com/MerlinVR/UdonSharp)  
 [Trigger2to3](https://www.wicurio.com/trigger2to3/)
 
-### 新しいプロジェクトのつくりかた
+### Initial Setup and Test
 
-Unity Hub -> Projects -> New project -> 3D  
-Project name と Location を設定して Create project
-
-Assets に Scenes だけがあるが，その右の広いところで右クリック  
--> Import Package -> Custom Package... -> VRCSDK3-WORLD -> 開く -> Import -> I Made a Backup. Go Ahead!
-
-もう一度 Assets の広いところで右クリック  
--> Import Package -> Custom Package... -> UdonSharp -> 開く -> Import
+Open "VRChat Creator Companion".  
+Press "New".  
+Press "UdonSharp".  
+Set the place and press "Create".  
+Press "Open Project".  
+Save the scene as "scene.unity" in "Assets" directory by File -> Save.  
 
 ### VRCWorld の場所
 
-Assets -> VRChat Examples -> Prefabs  
+Packages -> VRChat SDK - Worlds -> Samples -> UdonExampleScene -> Prefabs -> VRCWorld.Prefab  
 VRCWorld は，Hierarchy にドラッグ & ドロップ
 
 ### アップロードのしかた
@@ -124,6 +133,40 @@ File -> Build Settings... -> Android -> Switch Platform
 VRChat SDK -> Show Control Panel -> Builder -> Build & Publish for Android -> 設定して Upload
 
 ヒント: Upload の画面で Scene に戻り VRCCam を動かすと，プレビューの変更ができる
+
+### VRChat Client Simulator
+
+シミュレータ実行時の挙動は Build Target に合わせたものになるので注意  
+
+### テスト用のアバターを置く
+
+置いたアバターのブループリントを消しておくこと  
+
+### Shaders
+
+lilToon は Quest でおかしくなった  
+
+### Lighting
+
+Skybox  
+[【Unity】Lighting入門 環境光の使い方紹介](https://styly.cc/ja/tips/unity-lighting/)  
+
+Directional Light  
+Point Light  
+Spot Light  
+Area Light  
+Emission  
+
+#### Post Processing
+
+Scene で Post Processing を切った状態を確認するには  
+Reference Camera -> Inspector -> Post-process Layer のチェックを外すか  
+PostProcess の GameObject のチェックを外す  
+(下の方法では，PostProcess の初期状態がオンかオフか設定できる)  
+
+### Lura's Switch
+
+Element x に割り当てたものを一斉にトグルしているだけ  
 
 ### uGUI
 
@@ -153,4 +196,5 @@ public override void Interact() {
 
 ## Playing
 
-フレンドが 30人 になった瞬間 New User -> User になった
+フレンドが 30人 になった瞬間 New User -> User になった  
+サブアカではフレンド 30人 で 3日目 にワールドを巡り日付が変わるころに Visitor -> New User  
