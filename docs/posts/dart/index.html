@@ -4,38 +4,45 @@
 
 <head>
 <meta charset="UTF-8">
-<title>On Rust - 非同期エンジニアブログ</title>
+<title>Dart - 非同期エンジニアブログ</title>
 </head>
 
 <body>
 <a href="../../">戻る</a>
 
-<h1 id="on-rust">On Rust</h1>
-<pre tabindex="0"><code>$ cargo install cargo-expand
-</code></pre><pre tabindex="0"><code>macro_rules! hello {
-    () =&gt; {
-        println!(&#34;hello, world&#34;);
-    };
+<h1 id="dart-3">Dart 3</h1>
+<p><a href="https://dartpad.dev/">DartPad</a></p>
+<h2 id="hello-world">hello, world</h2>
+<pre tabindex="0"><code>main() async {
+  print(&#39;hello, world&#39;);  //=&gt; hello, world
+}
+</code></pre><h2 id="asynchronous-function">Asynchronous Function</h2>
+<pre tabindex="0"><code>main() async {
+  var msg = await getMsg();
+  print(msg);  //=&gt; hello, world
 }
 
-fn main() {
-    hello!();
+/* Asynchronous Function */
+Future&lt;dynamic&gt; getMsg() async {
+  return &#39;hello, world&#39;;
 }
-</code></pre><pre tabindex="0"><code>$ cargo expand main
-</code></pre><pre tabindex="0"><code>fn main() {
-    {
-        ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[]));
-    };
+</code></pre><h2 id="global-variable">Global Variable</h2>
+<pre tabindex="0"><code>var msg = &#39;hello, world&#39;;
+
+main() async {
+  print(msg);  //=&gt; hello, world
 }
-</code></pre><pre tabindex="0"><code>macro_rules! pass {
-    () =&gt; {};
+</code></pre><h2 id="sleep">Sleep</h2>
+<pre tabindex="0"><code>main() async {
+  print(&#39;hello&#39;);
+  await sleeping(3);
+  print(&#39;world&#39;);
 }
 
-fn main() {
-    pass!();
+// Sleep for sec seconds.
+Future&lt;void&gt; sleeping(int sec) async {
+  await Future.delayed(Duration(seconds: sec));
 }
-</code></pre><pre tabindex="0"><code>$ cargo expand main
-</code></pre><pre tabindex="0"><code>fn main() {}
 </code></pre>
 
 <a href="../../">戻る</a>

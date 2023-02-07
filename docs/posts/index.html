@@ -6,7 +6,7 @@
     
     <title>非同期エンジニアブログ </title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.103.0" />
+    <meta name="generator" content="Hugo 0.110.0">
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -34,7 +34,6 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://taku-n.github.io/posts/" />
-
 <meta itemprop="name" content="Posts">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -88,6 +87,22 @@
   <article class="pa3 pa4-ns nested-copy-line-height nested-img">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
     <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/dart/" class="link black dim">
+        Dart
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Dart 3 DartPad
+hello, world main() async { print(&#39;hello, world&#39;); //=&gt; hello, world } Asynchronous Function main() async { var msg = await getMsg(); print(msg); //=&gt; hello, world } /* Asynchronous Function */ Future&lt;dynamic&gt; getMsg() async { return &#39;hello, world&#39;; } Global Variable var msg = &#39;hello, world&#39;; main() async { print(msg); //=&gt; hello, world } Sleep main() async { print(&#39;hello&#39;); await sleeping(3); print(&#39;world&#39;); } // Sleep for sec seconds. Future&lt;void&gt; sleeping(int sec) async { await Future.
+    </div>
+  </div>
+</div>
+</div>
       
         <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
   <div class="bg-white mb3 pa4 gray overflow-hidden">
@@ -158,7 +173,7 @@ Save the scene as &ldquo;scene.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      On Rust 
+      On Rust $ cargo install cargo-expand macro_rules! hello { () =&gt; { println!(&#34;hello, world&#34;); }; } fn main() { hello!(); } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[])); }; } macro_rules! pass { () =&gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} 
     </div>
   </div>
 </div>
@@ -256,32 +271,6 @@ Traits
 </div>
 </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/nginx/" class="link black dim">
-        nginx
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする
-(WSL2 は，IPv6 に対応していないので注意)
-$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator
-起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは
-/etc/nginx/nginx.conf だが，実際に設定するのは，こちら
-/etc/nginx/sites-available/default server ではじまっている部分が
-それぞれ，各 Virtual Host になっている
-初期設定として
-server_name _; の部分を
-server_name ach.moe; とする
-また，TLS を有効にするため
-# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を
-    </div>
-  </div>
-</div>
-</div>
-      
     </section>
     <ul class="pagination pagination-default">
       <li class="page-item disabled">
@@ -317,7 +306,7 @@ server_name ach.moe; とする
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://taku-n.github.io/" >
-    &copy; 2022 非同期エンジニアブログ
+    &copy; 2023 非同期エンジニアブログ
   </a>
     <div>
 

@@ -30,7 +30,7 @@ Press &ldquo;New&rdquo;.<br>
 Press &ldquo;Avatar&rdquo;.<br>
 Set the place and press &ldquo;Create&rdquo;.<br>
 Press &ldquo;Open Project&rdquo;.<br>
-Save the scene as &ldquo;scene.unity&rdquo; in &ldquo;Assets&rdquo; directory.<br>
+Save the scene as &ldquo;scene.unity&rdquo; in &ldquo;Assets&rdquo; directory by File -&gt; Save.<br>
 Import VRCQuestTools.<br>
 Import lilToon.<br>
 Import an avatar.<br>
@@ -65,6 +65,14 @@ e.g. The name the shader is attached to is like &ldquo;M_Face_alpha_from_blah-bl
 Caution: &ldquo;VRChat/Mobile/Particles/Multiply&rdquo; can not be seen by PC players.</p>
 <p><a href="https://twitter.com/till0196_vrchat/status/1364809328801193985">https://twitter.com/till0196_vrchat/status/1364809328801193985</a><br>
 <a href="https://twitter.com/ring_say_rip/status/1364706722359562241">https://twitter.com/ring_say_rip/status/1364706722359562241</a></p>
+<h3 id="hand-gestures-doesnt-work-properly">Hand Gestures doesn&rsquo;t work properly.</h3>
+<p>To show the gestures on Desktop: Shift + F1 &hellip; Shift + F8</p>
+<p>To Fix:<br>
+Select the avatar in Hierarchy.<br>
+Double click the FX in Inspector.<br>
+Click the settings button of AllParts.<br>
+Click the Selection button of Mask.<br>
+Choose None.</p>
 <h3 id="put-on--take-off">Put On / Take off</h3>
 <p><a href="https://jiri42.com/vrc-animation-2/">【Unity】VRChatで小物を出し入れする方法まとめ＋α</a><br>
 You can change the name of *.controller after &ldquo;Right click on Assets -&gt; Create -&gt; Animation&rdquo;</p>
@@ -78,15 +86,15 @@ You can change the name of *.controller after &ldquo;Right click on Assets -&gt;
 <h2 id="world">World</h2>
 <p><a href="https://github.com/MerlinVR/UdonSharp">U#</a><br>
 <a href="https://www.wicurio.com/trigger2to3/">Trigger2to3</a></p>
-<h3 id="新しいプロジェクトのつくりかた">新しいプロジェクトのつくりかた</h3>
-<p>Unity Hub -&gt; Projects -&gt; New project -&gt; 3D<br>
-Project name と Location を設定して Create project</p>
-<p>Assets に Scenes だけがあるが，その右の広いところで右クリック<br>
--&gt; Import Package -&gt; Custom Package&hellip; -&gt; VRCSDK3-WORLD -&gt; 開く -&gt; Import -&gt; I Made a Backup. Go Ahead!</p>
-<p>もう一度 Assets の広いところで右クリック<br>
--&gt; Import Package -&gt; Custom Package&hellip; -&gt; UdonSharp -&gt; 開く -&gt; Import</p>
+<h3 id="initial-setup-and-test-1">Initial Setup and Test</h3>
+<p>Open &ldquo;VRChat Creator Companion&rdquo;.<br>
+Press &ldquo;New&rdquo;.<br>
+Press &ldquo;UdonSharp&rdquo;.<br>
+Set the place and press &ldquo;Create&rdquo;.<br>
+Press &ldquo;Open Project&rdquo;.<br>
+Save the scene as &ldquo;scene.unity&rdquo; in &ldquo;Assets&rdquo; directory by File -&gt; Save.</p>
 <h3 id="vrcworld-の場所">VRCWorld の場所</h3>
-<p>Assets -&gt; VRChat Examples -&gt; Prefabs<br>
+<p>Packages -&gt; VRChat SDK - Worlds -&gt; Samples -&gt; UdonExampleScene -&gt; Prefabs -&gt; VRCWorld.Prefab<br>
 VRCWorld は，Hierarchy にドラッグ &amp; ドロップ</p>
 <h3 id="アップロードのしかた">アップロードのしかた</h3>
 <p>VRChat SDK -&gt; Show Control Panel<br>
@@ -95,6 +103,27 @@ Builder -&gt; Setup Layers for VRChat -&gt; Do it! -&gt; Set Collision Matrix -&
 File -&gt; Build Settings&hellip; -&gt; Android -&gt; Switch Platform<br>
 VRChat SDK -&gt; Show Control Panel -&gt; Builder -&gt; Build &amp; Publish for Android -&gt; 設定して Upload</p>
 <p>ヒント: Upload の画面で Scene に戻り VRCCam を動かすと，プレビューの変更ができる</p>
+<h3 id="vrchat-client-simulator">VRChat Client Simulator</h3>
+<p>シミュレータ実行時の挙動は Build Target に合わせたものになるので注意</p>
+<h3 id="テスト用のアバターを置く">テスト用のアバターを置く</h3>
+<p>置いたアバターのブループリントを消しておくこと</p>
+<h3 id="shaders">Shaders</h3>
+<p>lilToon は Quest でおかしくなった</p>
+<h3 id="lighting">Lighting</h3>
+<p>Skybox<br>
+<a href="https://styly.cc/ja/tips/unity-lighting/">【Unity】Lighting入門 環境光の使い方紹介</a></p>
+<p>Directional Light<br>
+Point Light<br>
+Spot Light<br>
+Area Light<br>
+Emission</p>
+<h4 id="post-processing">Post Processing</h4>
+<p>Scene で Post Processing を切った状態を確認するには<br>
+Reference Camera -&gt; Inspector -&gt; Post-process Layer のチェックを外すか<br>
+PostProcess の GameObject のチェックを外す<br>
+(下の方法では，PostProcess の初期状態がオンかオフか設定できる)</p>
+<h3 id="luras-switch">Lura&rsquo;s Switch</h3>
+<p>Element x に割り当てたものを一斉にトグルしているだけ</p>
 <h3 id="ugui">uGUI</h3>
 <p>とりあえず Create Empty をつくって空の GameObject をつくり，その中につくっていくのがよさそう<br>
 U# のソースファイルも空の GameObject に Add Component -&gt; Udon Behaviour でつくる</p>
@@ -111,7 +140,8 @@ Add Component -&gt; VRC Ui Shape</p>
     // Write what you want to invoke...
 }
 </code></pre><h2 id="playing">Playing</h2>
-<p>フレンドが 30人 になった瞬間 New User -&gt; User になった</p>
+<p>フレンドが 30人 になった瞬間 New User -&gt; User になった<br>
+サブアカではフレンド 30人 で 3日目 にワールドを巡り日付が変わるころに Visitor -&gt; New User</p>
 
 
 <a href="../../">戻る</a>

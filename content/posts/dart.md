@@ -29,3 +29,28 @@ Future<dynamic> getMsg() async {
   return 'hello, world';
 }
 ```
+
+## Global Variable
+
+```
+var msg = 'hello, world';
+
+main() async {
+  print(msg);  //=> hello, world
+}
+```
+
+## Sleep
+
+```
+main() async {
+  print('hello');
+  await sleeping(3);
+  print('world');
+}
+
+// Sleep for sec seconds.
+Future<void> sleeping(int sec) async {
+  await Future.delayed(Duration(seconds: sec));
+}
+```

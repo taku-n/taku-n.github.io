@@ -6,7 +6,17 @@
     <description>Recent content on 非同期エンジニアブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 15 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Feb 2023 11:01:42 +0900</lastBuildDate><atom:link href="https://taku-n.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dart</title>
+      <link>https://taku-n.github.io/posts/dart/</link>
+      <pubDate>Tue, 07 Feb 2023 11:01:42 +0900</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/dart/</guid>
+      <description>Dart 3 DartPad
+hello, world main() async { print(&amp;#39;hello, world&amp;#39;); //=&amp;gt; hello, world } Asynchronous Function main() async { var msg = await getMsg(); print(msg); //=&amp;gt; hello, world } /* Asynchronous Function */ Future&amp;lt;dynamic&amp;gt; getMsg() async { return &amp;#39;hello, world&amp;#39;; } Global Variable var msg = &amp;#39;hello, world&amp;#39;; main() async { print(msg); //=&amp;gt; hello, world } Sleep main() async { print(&amp;#39;hello&amp;#39;); await sleeping(3); print(&amp;#39;world&amp;#39;); } // Sleep for sec seconds. Future&amp;lt;void&amp;gt; sleeping(int sec) async { await Future.</description>
+    </item>
+    
     <item>
       <title>VRChat</title>
       <link>https://taku-n.github.io/posts/vrchat/</link>
@@ -55,7 +65,7 @@ Save the scene as &amp;ldquo;scene.</description>
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/macro/</guid>
-      <description>On Rust </description>
+      <description>On Rust $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;#34;hello, world&amp;#34;); }; } fn main() { hello!(); } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;#34;hello, world\n&amp;#34;], &amp;amp;[])); }; } macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} </description>
     </item>
     
     <item>

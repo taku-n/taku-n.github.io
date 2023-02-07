@@ -6,7 +6,7 @@
     
     <title>非同期エンジニアブログ </title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.103.0" />
+    <meta name="generator" content="Hugo 0.110.0">
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -34,7 +34,6 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://taku-n.github.io/posts/" />
-
 <meta itemprop="name" content="Posts">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -88,6 +87,28 @@
   <article class="pa3 pa4-ns nested-copy-line-height nested-img">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
     <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/kubernetes/" class="link black dim">
+        Kubernetes
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Kubernetes (1.22, Single Node, Ubuntu 20.04 LTS, ZFS, Conoha) (Almost IPv6 Only) クラスタの構築 (といってもシングルノードだが) kubeadmのインストール
+kubeadmを使用したシングルコントロールプレーンクラスターの作成
+を参考にしていく
+Swap をオフにする $ sudo nvim /etc/fstab swap の行の先頭に # を置いて，コメントアウトすればいい
+br_netfilter モジュールを読み込ませる $ sudo nvim /etc/modules つぎを追記する
+br_netfilter sysctl の設定 $ sudo nvim /etc/sysctl.d/k8s.conf つぎのように
+net.bridge.bridge-nf-call-ip6tables = 1 net.bridge.bridge-nf-call-iptables = 1 書いて
+$ sudo sysctl --system iptables をレガシーモードにする $ sudo apt install iptables arptables ebtables $ sudo update-alternatives --set iptables /usr/sbin/iptables-legacy $ sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy $ sudo update-alternatives --set arptables /usr/sbin/arptables-legacy $ sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy Docker をインストールする はじめに注意だが，/var/lib/docker を ZFS で構築するのは，おすすめできない
+    </div>
+  </div>
+</div>
+</div>
       
         <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
   <div class="bg-white mb3 pa4 gray overflow-hidden">
@@ -250,21 +271,6 @@ $ nvim :call dein#install() アップデート :call dein#update() IME を自動
 </div>
 </div>
       
-        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/hugo-templates/" class="link black dim">
-        Hugo Templates
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-       {{ add 2 3 }} 
-    </div>
-  </div>
-</div>
-</div>
-      
     </section>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -300,7 +306,7 @@ $ nvim :call dein#install() アップデート :call dein#update() IME を自動
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://taku-n.github.io/" >
-    &copy; 2022 非同期エンジニアブログ
+    &copy; 2023 非同期エンジニアブログ
   </a>
     <div>
 
