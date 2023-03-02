@@ -56,6 +56,12 @@ $ sudo dockerd --debug
 $ sudo docker image list
 ```
 
+### Remove an image
+
+```
+docker rmi -f [Image ID]
+```
+
 ### コンテナの一覧
 
 ```
@@ -70,6 +76,12 @@ $ sudo docker ps --no-trunc --format "table {{.Command}}"  # コマンドを見�
 
 ```
 $ sudo docker stop {CONTAINER ID|NAMES}
+```
+
+### Remove a container
+
+```
+docker rm -f [Container ID]
 ```
 
 ## Dockerfile

@@ -44,9 +44,9 @@ main() async {
 
 ```
 main() async {
-  print('hello');
+  print('hello');  //=> hello
   await sleeping(3);
-  print('world');
+  print('world');  //=> world
 }
 
 // Sleep for sec seconds.
