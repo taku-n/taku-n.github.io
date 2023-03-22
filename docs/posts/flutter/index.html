@@ -4,46 +4,49 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Dart - 非同期エンジニアブログ</title>
+<title>Flutter - 非同期エンジニアブログ</title>
 </head>
 
 <body>
 <a href="../../">戻る</a>
 
-<h1 id="dart-3">Dart 3</h1>
-<p><a href="https://dartpad.dev/">DartPad</a></p>
-<h2 id="hello-world">hello, world</h2>
-<pre tabindex="0"><code>main() async {
-  print(&#39;hello, world&#39;);  //=&gt; hello, world
-}
-</code></pre><h2 id="asynchronous-function">Asynchronous Function</h2>
-<pre tabindex="0"><code>main() async {
-  var msg = await getMsg();
-  print(msg);  //=&gt; hello, world
-}
+<h1 id="flutter">Flutter</h1>
+<h2 id="install">Install</h2>
+<pre tabindex="0"><code>sudo snap install flutter --classic
+flutter sdk-path
+flutter config --no-analytics
+</code></pre><h2 id="serverpod">Serverpod</h2>
+<h3 id="install-1">Install</h3>
+<pre tabindex="0"><code>dart --disable-analytics
+sudo apt update
+sudo apt full-upgrade
+sudo apt install net-tools
+sudo apt autoremove
+dart pub global activate serverpod_cli
+serverpod
+</code></pre><h3 id="create-a-project">Create a project</h3>
+<pre tabindex="0"><code>serverpod create mypod
+cd mypod/mypod_server
+docker compose up --build --detach
+dart bin/main.dart
+</code></pre><h4 id="postgres-error">Postgres error</h4>
+<pre tabindex="0"><code>2023-03-01 15:31:37.227923Z Internal server error. Failed to connect to database in future call manager.
+PostgreSQLSeverity.fatal 28P01: password authentication failed for user &#34;postgres&#34;
+===== asynchronous gap ===========================
+package:postgres_pool/postgres_pool.dart 351:18                 PgPool.run.&lt;fn&gt;
+package:retry/retry.dart 131:16                                 RetryOptions.retry
+package:postgres_pool/postgres_pool.dart 349:14                 PgPool.run
+package:serverpod/src/database/database_connection.dart 443:20  DatabaseConnection.deleteAndReturn
+package:serverpod/src/database/database.dart 166:12             Database.deleteAndReturn
+package:serverpod/src/server/future_call_manager.dart 100:18    FutureCallManager._checkQueue
 
-/* Asynchronous Function */
-Future&lt;dynamic&gt; getMsg() async {
-  return &#39;hello, world&#39;;
-}
-</code></pre><h2 id="global-variable">Global Variable</h2>
-<pre tabindex="0"><code>var msg = &#39;hello, world&#39;;
+Local stacktrace:
+#0      FutureCallManager._checkQueue (package:serverpod/src/server/future_call_manager.dart:136:36)
+&lt;asynchronous suspension&gt;
+</code></pre><p>Remove the Docker Container of Postgres.<br>
+Remove the Docker Image of Postgres.<br>
+Remove the Docker Volume of your project.</p>
 
-main() async {
-  print(msg);  //=&gt; hello, world
-}
-</code></pre><h2 id="sleep">Sleep</h2>
-<pre tabindex="0"><code>main() async {
-  print(&#39;hello&#39;);  //=&gt; hello
-  await sleeping(3);
-  print(&#39;world&#39;);  //=&gt; world
-}
-
-// Sleep for sec seconds.
-Future&lt;void&gt; sleeping(int sec) async {
-  await Future.delayed(Duration(seconds: sec));
-}
-</code></pre>
 
 <a href="../../">戻る</a>
 

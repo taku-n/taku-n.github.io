@@ -11,6 +11,7 @@
 <a href="../../">戻る</a>
 
 <h1 id="on-rust">On Rust</h1>
+<h2 id="hello-world">hello, world</h2>
 <pre tabindex="0"><code>$ cargo install cargo-expand
 </code></pre><pre tabindex="0"><code>macro_rules! hello {
     () =&gt; {
@@ -19,7 +20,7 @@
 }
 
 fn main() {
-    hello!();
+    hello!();  //=&gt; hello, world
 }
 </code></pre><pre tabindex="0"><code>$ cargo expand main
 </code></pre><pre tabindex="0"><code>fn main() {
@@ -27,7 +28,9 @@ fn main() {
         ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[]));
     };
 }
-</code></pre><pre tabindex="0"><code>macro_rules! pass {
+</code></pre><h2 id="declarative-macros">Declarative Macros</h2>
+<h3 id="simplest-macro">Simplest Macro</h3>
+<pre tabindex="0"><code>macro_rules! pass {
     () =&gt; {};
 }
 
@@ -36,7 +39,83 @@ fn main() {
 }
 </code></pre><pre tabindex="0"><code>$ cargo expand main
 </code></pre><pre tabindex="0"><code>fn main() {}
-</code></pre>
+</code></pre><h3 id="square">Square</h3>
+<pre tabindex="0"><code>macro_rules! square {
+    ($x:expr) =&gt; {
+        $x * $x
+    };
+}
+
+fn main() {
+    println!(&#34;{:?}&#34;, square!(2));  //=&gt; 4
+}
+</code></pre><pre tabindex="0"><code>$ cargo expand main
+</code></pre><pre tabindex="0"><code>fn main() {
+    {
+        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 2 * 2));
+    };
+}
+</code></pre><h3 id="multiply">Multiply</h3>
+<pre tabindex="0"><code>macro_rules! multiply {
+    ($x:expr, $y:expr) =&gt; {
+        $x * $y
+    };
+}
+
+fn main() {
+    println!(&#34;{:?}&#34;, multiply!(3, 19));  //=&gt; 57
+}
+</code></pre><pre tabindex="0"><code>$ cargo expand main
+</code></pre><pre tabindex="0"><code>fn main() {
+    {
+        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 3 * 19));
+    };
+}
+</code></pre><h3 id="multiple-addition">Multiple Addition</h3>
+<pre tabindex="0"><code>macro_rules! ma {
+    ($($x:expr),*) =&gt; {  // The , in this line is the separator. Nothing is also allowed
+        0 $(+ $x)*
+    };
+}
+
+fn main() {
+    println!(&#34;{:?}&#34;, ma!(2, 3, 5));  //=&gt; 10
+}
+</code></pre><pre tabindex="0"><code>$ cargo expand main
+</code></pre><pre tabindex="0"><code>fn main() {
+    {
+        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 0 + 2 + 3 + 5));
+    };
+}
+</code></pre><h3 id="calculation">Calculation</h3>
+<pre tabindex="0"><code>macro_rules! calc {
+    (* $($x:expr)*) =&gt; {
+        1 $(* $x)*
+    };
+    (+ $($x:expr)*) =&gt; {
+        0 $(+ $x)*
+    };
+}
+
+fn main() {
+    println!(&#34;{:?}&#34;, calc!(* 2 3 5));  //=&gt; 30
+    println!(&#34;{:?}&#34;, calc!(+ 2 3 5));  //=&gt; 10
+}
+</code></pre><pre tabindex="0"><code>$ cargo expand main
+</code></pre><pre tabindex="0"><code>fn main() {
+    {
+        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 1 * 2 * 3 * 5));
+    };
+    {
+        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 0 + 2 + 3 + 5));
+    };
+}
+</code></pre><h2 id="procedural-macros">Procedural Macros</h2>
+<p><a href="https://keens.github.io/blog/2018/02/17/makurokurabu_rustshibu/">マクロクラブ Rust支部</a><br>
+<a href="https://qiita.com/k5n/items/758111b12740600cc58f">Rustのマクロを覚える</a><br>
+<a href="https://techracho.bpsinc.jp/yoshi/2020_12_24/102304">Rustの手続きマクロに関する知見をまとめてみた</a><br>
+<a href="https://zenn.dev/kazatsuyu/articles/33e130563b87b1">セバスチャンマクロを作って学ぶRustの手続きマクロ</a></p>
+
 
 <a href="../../">戻る</a>
 

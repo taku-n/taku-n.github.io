@@ -6,7 +6,7 @@
     
     <title>非同期エンジニアブログ </title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.110.0">
+    <meta name="generator" content="Hugo 0.111.3">
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -92,6 +92,33 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/git/" class="link black dim">
+        Git
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Git GitHub CLI GitHub CLI
+インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
+eval &#34;$(gh completion -s bash)&#34; gh auth まずは，認証する
+$ gh auth login 認証の状態を表示
+-t, &ndash;show-token でトークンも表示する
+$ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示
+まず権限を付与する
+$ gh auth refresh -s read:public_key 表示する
+$ gh ssh-key list GitHub に公開鍵を追加する
+まず権限を付与する
+$ gh auth refresh -s write:public_key 追加する
+$ gh ssh-key add ~/.ssh/id_rsa.pub gh repo リポジトリの一覧を表示
+-L, &ndash;limit int は，表示する最大数を指定
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
       <a href="https://taku-n.github.io/posts/kubernetes/" class="link black dim">
         Kubernetes
       </a>
@@ -124,7 +151,7 @@ Docker Compose
 Docker Linux環境でdockerのコマンドをsudoなしで打てるようにする
 バージョン確認 $ docker -v Docker デーモンの状態を確認 $ service docker status Docker デーモンの開始 $ sudo service docker start Docker デーモンが自動的に起動するように設定 (WSL2) wsl2でDocker自動起動設定
 Thank @ktaidot.
-コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &#34;table {{.
+コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list Remove an image docker rmi -f [Image ID] コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &#34;table {{.
     </div>
   </div>
 </div>
@@ -242,30 +269,6 @@ let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: 
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       https://apt.llvm.org/
 $ sudo bash -c &#34;$(wget -O - https://apt.llvm.org/llvm.sh)&#34; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 
-    </div>
-  </div>
-</div>
-</div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/neovim/" class="link black dim">
-        Neovim
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Neovim (0.2.2) ウェブサイト Neovim
-User manual
-FAQ
-バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない
-$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &#34;screen-256color&#34; set-option -ga terminal-overrides &#34;,xterm-256color:Tc&#34; Line 1: Ctrl + [ を押したときに遅延させない
-Line 2, 3: 色を正しく表示するため (?)
-Cursor shape doesn&rsquo;t change in tmux
-設定ファイル ~/.config/nvim/init.vim
-dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと
-$ nvim :call dein#install() アップデート :call dein#update() IME を自動でオフにする ~/.
     </div>
   </div>
 </div>

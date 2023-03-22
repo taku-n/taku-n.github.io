@@ -13,7 +13,7 @@
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/macro/</guid>
-      <description>On Rust $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;#34;hello, world&amp;#34;); }; } fn main() { hello!(); } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;#34;hello, world\n&amp;#34;], &amp;amp;[])); }; } macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} </description>
+      <description>On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;#34;hello, world&amp;#34;); }; } fn main() { hello!(); //=&amp;gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;#34;hello, world\n&amp;#34;], &amp;amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&amp;gt; { $x * $x }; } fn main() { println!</description>
     </item>
     
   </channel>

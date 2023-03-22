@@ -6,7 +6,7 @@
     
     <title>非同期エンジニアブログ </title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.110.0">
+    <meta name="generator" content="Hugo 0.111.3">
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -92,13 +92,28 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/flutter/" class="link black dim">
+        Flutter
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Flutter Install sudo snap install flutter --classic flutter sdk-path flutter config --no-analytics Serverpod Install dart --disable-analytics sudo apt update sudo apt full-upgrade sudo apt install net-tools sudo apt autoremove dart pub global activate serverpod_cli serverpod Create a project serverpod create mypod cd mypod/mypod_server docker compose up --build --detach dart bin/main.dart Postgres error 2023-03-01 15:31:37.227923Z Internal server error. Failed to connect to database in future call manager. PostgreSQLSeverity.fatal 28P01: password authentication failed for user &#34;postgres&#34; ===== asynchronous gap =========================== package:postgres_pool/postgres_pool.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
       <a href="https://taku-n.github.io/posts/dart/" class="link black dim">
         Dart
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       Dart 3 DartPad
-hello, world main() async { print(&#39;hello, world&#39;); //=&gt; hello, world } Asynchronous Function main() async { var msg = await getMsg(); print(msg); //=&gt; hello, world } /* Asynchronous Function */ Future&lt;dynamic&gt; getMsg() async { return &#39;hello, world&#39;; } Global Variable var msg = &#39;hello, world&#39;; main() async { print(msg); //=&gt; hello, world } Sleep main() async { print(&#39;hello&#39;); await sleeping(3); print(&#39;world&#39;); } // Sleep for sec seconds. Future&lt;void&gt; sleeping(int sec) async { await Future.
+hello, world main() async { print(&#39;hello, world&#39;); //=&gt; hello, world } Asynchronous Function main() async { var msg = await getMsg(); print(msg); //=&gt; hello, world } /* Asynchronous Function */ Future&lt;dynamic&gt; getMsg() async { return &#39;hello, world&#39;; } Global Variable var msg = &#39;hello, world&#39;; main() async { print(msg); //=&gt; hello, world } Sleep main() async { print(&#39;hello&#39;); //=&gt; hello await sleeping(3); print(&#39;world&#39;); //=&gt; world } // Sleep for sec seconds.
     </div>
   </div>
 </div>
@@ -173,7 +188,7 @@ Save the scene as &ldquo;scene.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      On Rust $ cargo install cargo-expand macro_rules! hello { () =&gt; { println!(&#34;hello, world&#34;); }; } fn main() { hello!(); } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[])); }; } macro_rules! pass { () =&gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} 
+      On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&gt; { println!(&#34;hello, world&#34;); }; } fn main() { hello!(); //=&gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&gt; { $x * $x }; } fn main() { println!
     </div>
   </div>
 </div>
@@ -249,23 +264,6 @@ cargo edit の cargo upgrade を使うのがいいらしい
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       Windows おかしくなったときに，管理者権限で，まず実行
 sfc /scannow 
-    </div>
-  </div>
-</div>
-</div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/warp/" class="link black dim">
-        warp
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      warp Structs And pub struct And&lt;T, U&gt; { pub(super) first: T, pub(super) second: U, }
-impl&lt;T, U&gt; FilterBase for And&lt;T, U&gt;
-Traits 
     </div>
   </div>
 </div>

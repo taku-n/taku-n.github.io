@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 非同期エンジニアブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 07 Feb 2023 11:01:42 +0900</lastBuildDate><atom:link href="https://taku-n.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Mar 2023 23:19:26 +0900</lastBuildDate><atom:link href="https://taku-n.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flutter</title>
+      <link>https://taku-n.github.io/posts/flutter/</link>
+      <pubDate>Wed, 01 Mar 2023 23:19:26 +0900</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/flutter/</guid>
+      <description>Flutter Install sudo snap install flutter --classic flutter sdk-path flutter config --no-analytics Serverpod Install dart --disable-analytics sudo apt update sudo apt full-upgrade sudo apt install net-tools sudo apt autoremove dart pub global activate serverpod_cli serverpod Create a project serverpod create mypod cd mypod/mypod_server docker compose up --build --detach dart bin/main.dart Postgres error 2023-03-01 15:31:37.227923Z Internal server error. Failed to connect to database in future call manager. PostgreSQLSeverity.fatal 28P01: password authentication failed for user &amp;#34;postgres&amp;#34; ===== asynchronous gap =========================== package:postgres_pool/postgres_pool.</description>
+    </item>
+    
     <item>
       <title>Dart</title>
       <link>https://taku-n.github.io/posts/dart/</link>
@@ -14,7 +23,7 @@
       
       <guid>https://taku-n.github.io/posts/dart/</guid>
       <description>Dart 3 DartPad
-hello, world main() async { print(&amp;#39;hello, world&amp;#39;); //=&amp;gt; hello, world } Asynchronous Function main() async { var msg = await getMsg(); print(msg); //=&amp;gt; hello, world } /* Asynchronous Function */ Future&amp;lt;dynamic&amp;gt; getMsg() async { return &amp;#39;hello, world&amp;#39;; } Global Variable var msg = &amp;#39;hello, world&amp;#39;; main() async { print(msg); //=&amp;gt; hello, world } Sleep main() async { print(&amp;#39;hello&amp;#39;); await sleeping(3); print(&amp;#39;world&amp;#39;); } // Sleep for sec seconds. Future&amp;lt;void&amp;gt; sleeping(int sec) async { await Future.</description>
+hello, world main() async { print(&amp;#39;hello, world&amp;#39;); //=&amp;gt; hello, world } Asynchronous Function main() async { var msg = await getMsg(); print(msg); //=&amp;gt; hello, world } /* Asynchronous Function */ Future&amp;lt;dynamic&amp;gt; getMsg() async { return &amp;#39;hello, world&amp;#39;; } Global Variable var msg = &amp;#39;hello, world&amp;#39;; main() async { print(msg); //=&amp;gt; hello, world } Sleep main() async { print(&amp;#39;hello&amp;#39;); //=&amp;gt; hello await sleeping(3); print(&amp;#39;world&amp;#39;); //=&amp;gt; world } // Sleep for sec seconds.</description>
     </item>
     
     <item>
@@ -65,7 +74,7 @@ Save the scene as &amp;ldquo;scene.</description>
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/macro/</guid>
-      <description>On Rust $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;#34;hello, world&amp;#34;); }; } fn main() { hello!(); } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;#34;hello, world\n&amp;#34;], &amp;amp;[])); }; } macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} </description>
+      <description>On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;#34;hello, world&amp;#34;); }; } fn main() { hello!(); //=&amp;gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;#34;hello, world\n&amp;#34;], &amp;amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&amp;gt; { $x * $x }; } fn main() { println!</description>
     </item>
     
     <item>
@@ -325,7 +334,7 @@ Docker Compose
 Docker Linux環境でdockerのコマンドをsudoなしで打てるようにする
 バージョン確認 $ docker -v Docker デーモンの状態を確認 $ service docker status Docker デーモンの開始 $ sudo service docker start Docker デーモンが自動的に起動するように設定 (WSL2) wsl2でDocker自動起動設定
 Thank @ktaidot.
-コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &amp;#34;table {{.</description>
+コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list Remove an image docker rmi -f [Image ID] コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &amp;#34;table {{.</description>
     </item>
     
     <item>

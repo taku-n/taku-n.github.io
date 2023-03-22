@@ -6,7 +6,7 @@
     
     <title>非同期エンジニアブログ  | Rust</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.110.0">
+    <meta name="generator" content="Hugo 0.111.3">
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -136,7 +136,7 @@
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      On Rust $ cargo install cargo-expand macro_rules! hello { () =&gt; { println!(&#34;hello, world&#34;); }; } fn main() { hello!(); } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[])); }; } macro_rules! pass { () =&gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} 
+      On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&gt; { println!(&#34;hello, world&#34;); }; } fn main() { hello!(); //=&gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&gt; { $x * $x }; } fn main() { println!
     </div>
   </div>
 </div>

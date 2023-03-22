@@ -32,6 +32,8 @@ $ sudo docker run -it ubuntu bash
 <pre tabindex="0"><code>$ sudo dockerd --debug
 </code></pre><h3 id="イメージの一覧">イメージの一覧</h3>
 <pre tabindex="0"><code>$ sudo docker image list
+</code></pre><h3 id="remove-an-image">Remove an image</h3>
+<pre tabindex="0"><code>docker rmi -f [Image ID]
 </code></pre><h3 id="コンテナの一覧">コンテナの一覧</h3>
 <pre tabindex="0"><code>$ sudo docker ps -a
 $ sudo docker ps --no-trunc --format &#34;table {{.Command}}&#34;  # コマンドを見たいとき
@@ -39,6 +41,8 @@ $ sudo docker ps --no-trunc --format &#34;table {{.Command}}&#34;  # コマン�
 <a href="https://qiita.com/chihiro/items/3162a484fd257e114c18">【docker ps】コンテナ情報出力</a></p>
 <h3 id="コンテナの停止">コンテナの停止</h3>
 <pre tabindex="0"><code>$ sudo docker stop {CONTAINER ID|NAMES}
+</code></pre><h3 id="remove-a-container">Remove a container</h3>
+<pre tabindex="0"><code>docker rm -f [Container ID]
 </code></pre><h2 id="dockerfile">Dockerfile</h2>
 <h3 id="dockerfile-からイメージをビルド">Dockerfile からイメージをビルド</h3>
 <p>Dockerfile をつぎの内容で作成</p>
