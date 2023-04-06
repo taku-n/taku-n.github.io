@@ -111,6 +111,39 @@ fn main() {
     };
 }
 </code></pre><h2 id="procedural-macros">Procedural Macros</h2>
+<p><a href="https://astexplorer.net/">AST Explorer</a><br>
+<a href="https://docs.rs/syn/latest/syn/">Crate syn</a></p>
+<table>
+<thead>
+<tr>
+<th>syn::</th>
+<th>Explaination</th>
+<th>e.g.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expr (Enum)</td>
+<td>Expression</td>
+<td>3 * 19</td>
+</tr>
+<tr>
+<td>Ident (Struct)</td>
+<td>Identifier</td>
+<td>x</td>
+</tr>
+<tr>
+<td>LitInt (Struct)</td>
+<td>Literal integer</td>
+<td>57</td>
+</tr>
+<tr>
+<td>UseTree (Enum)</td>
+<td>use path</td>
+<td>std::env::args</td>
+</tr>
+</tbody>
+</table>
 <h3 id="proc_macro">proc_macro</h3>
 <pre tabindex="0"><code>mkdir proc
 cd proc
@@ -186,13 +219,118 @@ mod tests {
         assert_eq!(mcr_impl(quote!()).to_string(), quote!().to_string());
     }
 }
+</code></pre><h4 id="square-1">Square</h4>
+<pre tabindex="0"><code>nvim app/src/main.rs
+</code></pre><pre tabindex="0"><code>use mcr::mcr;
+
+fn main() {
+    println!(&#34;{:?}&#34;, mcr!(2));  //=&gt; 4
+    //mcr!(a);  // error: expected integer literal
+}
+</code></pre><pre tabindex="0"><code>nvim mcr/src/lib.rs
+</code></pre><pre tabindex="0"><code>use proc_macro2::TokenStream;
+use quote::quote;
+use syn::Error;
+use syn::LitInt;
+use syn::Result;
+use syn::parse::ParseStream;
+use syn::parse::Parser;
+
+#[proc_macro]
+pub fn mcr(tokens: proc_macro::TokenStream) -&gt; proc_macro::TokenStream {
+    mcr_impl(tokens.into()).into()
+}
+
+fn mcr_impl(tokens: TokenStream) -&gt; TokenStream {
+    mcr_parse.parse2(tokens).unwrap_or_else(Error::into_compile_error)
+}
+
+fn mcr_parse(input: ParseStream) -&gt; Result&lt;TokenStream&gt; {
+    let x: LitInt = input.parse()?;
+    Ok(quote!(#x * #x))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use quote::quote;
+
+    use pretty_assertions::assert_eq;
+
+    #[test]
+    fn mcr_impl_test_ok() {
+        assert_eq!(mcr_impl(quote!(2)).to_string(), quote!(2 * 2).to_string());
+    }
+
+    #[test]
+    fn mcr_impl_test_ng() {
+        assert_eq!(
+                mcr_impl(quote!(a)).to_string(),
+                quote!(:: core :: compile_error ! { &#34;expected integer literal&#34; }).to_string(),
+        );
+    }
+}
 </code></pre><h4 id="multiply-1">Multiply</h4>
-<h3 id="proc_macro_attribute">proc_macro_attribute</h3>
+<pre tabindex="0"><code>nvim app/src/main.rs
+</code></pre><pre tabindex="0"><code>use mcr::mcr;
+
+fn main() {
+    println!(&#34;{:?}&#34;, mcr!(3 19));  //=&gt; 57
+    //mcr!(a b);  // error: expected integer literal
+}
+</code></pre><pre tabindex="0"><code>nvim mcr/src/lib.rs
+</code></pre><pre tabindex="0"><code>use proc_macro2::TokenStream;
+use quote::quote;
+use syn::Error;
+use syn::LitInt;
+use syn::Result;
+use syn::parse::ParseStream;
+use syn::parse::Parser;
+
+#[proc_macro]
+pub fn mcr(tokens: proc_macro::TokenStream) -&gt; proc_macro::TokenStream {
+    mcr_impl(tokens.into()).into()
+}
+
+fn mcr_impl(tokens: TokenStream) -&gt; TokenStream {
+    mcr_parse.parse2(tokens).unwrap_or_else(Error::into_compile_error)
+}
+
+fn mcr_parse(input: ParseStream) -&gt; Result&lt;TokenStream&gt; {
+    let x: LitInt = input.parse()?;
+    let y: LitInt = input.parse()?;
+    Ok(quote!(#x * #y))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use quote::quote;
+
+    use pretty_assertions::assert_eq;
+
+    #[test]
+    fn mcr_impl_test_ok() {
+        assert_eq!(mcr_impl(quote!(3 19)).to_string(), quote!(3 * 19).to_string());
+    }
+
+    #[test]
+    fn mcr_impl_test_ng() {
+        assert_eq!(
+                mcr_impl(quote!(a b)).to_string(),
+                quote!(:: core :: compile_error ! { &#34;expected integer literal&#34; }).to_string(),
+        );
+    }
+}
+</code></pre><h3 id="proc_macro_attribute">proc_macro_attribute</h3>
 <h3 id="proc_macro_derive">proc_macro_derive</h3>
 <p><a href="https://keens.github.io/blog/2018/02/17/makurokurabu_rustshibu/">マクロクラブ Rust支部</a><br>
 <a href="https://qiita.com/k5n/items/758111b12740600cc58f">Rustのマクロを覚える</a><br>
 <a href="https://techracho.bpsinc.jp/yoshi/2020_12_24/102304">Rustの手続きマクロに関する知見をまとめてみた</a><br>
-<a href="https://zenn.dev/kazatsuyu/articles/33e130563b87b1">セバスチャンマクロを作って学ぶRustの手続きマクロ</a></p>
+<a href="https://zenn.dev/kazatsuyu/articles/33e130563b87b1">セバスチャンマクロを作って学ぶRustの手続きマクロ</a><br>
+<a href="https://zenn.dev/frozenlib/articles/parse_buffer_peek">syn::parse::ParseBuffer::peek の謎に迫る</a></p>
 
 
 <a href="../../">戻る</a>

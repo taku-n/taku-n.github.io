@@ -171,6 +171,16 @@ fn main() {
 
 ## Procedural Macros
 
+[AST Explorer](https://astexplorer.net/)  
+[Crate syn](https://docs.rs/syn/latest/syn/)  
+
+| syn::           | Explaination    | e.g.           |
+| --------------- | --------------- | -------------- |
+| Expr (Enum)     | Expression      | 3 * 19         |
+| Ident (Struct)  | Identifier      | x              |
+| LitInt (Struct) | Literal integer | 57             |
+| UseTree (Enum)  | use path        | std::env::args |
+
 ### proc_macro
 
 ```
@@ -277,7 +287,136 @@ mod tests {
 }
 ```
 
+#### Square
+
+```
+nvim app/src/main.rs
+```
+
+```
+use mcr::mcr;
+
+fn main() {
+    println!("{:?}", mcr!(2));  //=> 4
+    //mcr!(a);  // error: expected integer literal
+}
+```
+
+```
+nvim mcr/src/lib.rs
+```
+
+```
+use proc_macro2::TokenStream;
+use quote::quote;
+use syn::Error;
+use syn::LitInt;
+use syn::Result;
+use syn::parse::ParseStream;
+use syn::parse::Parser;
+
+#[proc_macro]
+pub fn mcr(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    mcr_impl(tokens.into()).into()
+}
+
+fn mcr_impl(tokens: TokenStream) -> TokenStream {
+    mcr_parse.parse2(tokens).unwrap_or_else(Error::into_compile_error)
+}
+
+fn mcr_parse(input: ParseStream) -> Result<TokenStream> {
+    let x: LitInt = input.parse()?;
+    Ok(quote!(#x * #x))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use quote::quote;
+
+    use pretty_assertions::assert_eq;
+
+    #[test]
+    fn mcr_impl_test_ok() {
+        assert_eq!(mcr_impl(quote!(2)).to_string(), quote!(2 * 2).to_string());
+    }
+
+    #[test]
+    fn mcr_impl_test_ng() {
+        assert_eq!(
+                mcr_impl(quote!(a)).to_string(),
+                quote!(:: core :: compile_error ! { "expected integer literal" }).to_string(),
+        );
+    }
+}
+```
+
 #### Multiply
+
+```
+nvim app/src/main.rs
+```
+
+```
+use mcr::mcr;
+
+fn main() {
+    println!("{:?}", mcr!(3 19));  //=> 57
+    //mcr!(a b);  // error: expected integer literal
+}
+```
+
+```
+nvim mcr/src/lib.rs
+```
+
+```
+use proc_macro2::TokenStream;
+use quote::quote;
+use syn::Error;
+use syn::LitInt;
+use syn::Result;
+use syn::parse::ParseStream;
+use syn::parse::Parser;
+
+#[proc_macro]
+pub fn mcr(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    mcr_impl(tokens.into()).into()
+}
+
+fn mcr_impl(tokens: TokenStream) -> TokenStream {
+    mcr_parse.parse2(tokens).unwrap_or_else(Error::into_compile_error)
+}
+
+fn mcr_parse(input: ParseStream) -> Result<TokenStream> {
+    let x: LitInt = input.parse()?;
+    let y: LitInt = input.parse()?;
+    Ok(quote!(#x * #y))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use quote::quote;
+
+    use pretty_assertions::assert_eq;
+
+    #[test]
+    fn mcr_impl_test_ok() {
+        assert_eq!(mcr_impl(quote!(3 19)).to_string(), quote!(3 * 19).to_string());
+    }
+
+    #[test]
+    fn mcr_impl_test_ng() {
+        assert_eq!(
+                mcr_impl(quote!(a b)).to_string(),
+                quote!(:: core :: compile_error ! { "expected integer literal" }).to_string(),
+        );
+    }
+}
+```
 
 ### proc_macro_attribute
 
@@ -287,3 +426,4 @@ mod tests {
 [Rustのマクロを覚える](https://qiita.com/k5n/items/758111b12740600cc58f)  
 [Rustの手続きマクロに関する知見をまとめてみた](https://techracho.bpsinc.jp/yoshi/2020_12_24/102304)  
 [セバスチャンマクロを作って学ぶRustの手続きマクロ](https://zenn.dev/kazatsuyu/articles/33e130563b87b1)  
+[syn::parse::ParseBuffer::peek の謎に迫る](https://zenn.dev/frozenlib/articles/parse_buffer_peek)  
