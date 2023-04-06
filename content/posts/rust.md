@@ -48,6 +48,12 @@ rustup target list
 
 ## Cargo
 
+### デフォルトのブランチ名を main に
+
+```
+git config --global init.defaultBranch 'main'
+```
+
 ### ソースコードのチェック
 
 ```

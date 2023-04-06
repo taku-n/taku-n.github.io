@@ -171,6 +171,118 @@ fn main() {
 
 ## Procedural Macros
 
+### proc_macro
+
+```
+mkdir proc
+cd proc
+nvim Cargo.toml
+```
+
+```
+[workspace]
+members = [
+    "app",
+    "mcr",
+]
+```
+
+```
+cargo new app
+cargo new --lib mcr
+nvim app/Cargo.toml
+```
+
+```
+[package]
+name = "app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mcr = {path = "../mcr"}
+```
+
+```
+nvim app/src/main.rs
+```
+
+```
+use mcr::mcr;
+
+fn main() {
+    mcr!();
+}
+```
+
+```
+nvim mcr/Cargo.toml
+```
+
+```
+[package]
+name = "mcr"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "*"
+quote = "*"
+syn = {version = "*", features = ["full"]}
+
+[dev-dependencies]
+pretty_assertions = "*"
+```
+
+```
+nvim mcr/src/lib.rs
+```
+
+```
+use proc_macro2::TokenStream;
+use quote::quote;
+use syn::Error;
+use syn::Result;
+use syn::parse::ParseStream;
+use syn::parse::Parser;
+
+#[proc_macro]
+pub fn mcr(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    mcr_impl(tokens.into()).into()
+}
+
+fn mcr_impl(tokens: TokenStream) -> TokenStream {
+    mcr_parse.parse2(tokens).unwrap_or_else(Error::into_compile_error)
+}
+
+fn mcr_parse(input: ParseStream) -> Result<TokenStream> {
+    Ok(quote!())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use quote::quote;
+
+    use pretty_assertions::assert_eq;
+
+    #[test]
+    fn mcr_impl_test() {
+        assert_eq!(mcr_impl(quote!()).to_string(), quote!().to_string());
+    }
+}
+```
+
+#### Multiply
+
+### proc_macro_attribute
+
+### proc_macro_derive
+
 [マクロクラブ Rust支部](https://keens.github.io/blog/2018/02/17/makurokurabu_rustshibu/)  
 [Rustのマクロを覚える](https://qiita.com/k5n/items/758111b12740600cc58f)  
 [Rustの手続きマクロに関する知見をまとめてみた](https://techracho.bpsinc.jp/yoshi/2020_12_24/102304)  
