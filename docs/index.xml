@@ -105,8 +105,7 @@ On Rust
 wasm-bindgen
 axum
 warp
-rustup バージョンの確認 rustup -V rustup 自身のアップデート rustup self update Rust のアップデート rustup update 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.toml won&amp;rsquo;t always mean &amp;ldquo;latest version&amp;rdquo;
-cargo edit の cargo upgrade を使うのがいいらしい</description>
+rustup バージョンの確認 rustup -V rustup 自身のアップデート rustup self update Rust のアップデート rustup update 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &amp;#39;main&amp;#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.toml won&amp;rsquo;t always mean &amp;ldquo;latest version&amp;rdquo;</description>
     </item>
     
     <item>
