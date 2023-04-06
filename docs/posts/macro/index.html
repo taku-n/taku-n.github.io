@@ -324,6 +324,13 @@ mod tests {
         );
     }
 }
+</code></pre><pre tabindex="0"><code>cd app
+cargo expand main
+</code></pre><pre tabindex="0"><code>fn main() {
+    {
+        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 3 * 19));
+    };
+}
 </code></pre><h3 id="proc_macro_attribute">proc_macro_attribute</h3>
 <h3 id="proc_macro_derive">proc_macro_derive</h3>
 <p><a href="https://keens.github.io/blog/2018/02/17/makurokurabu_rustshibu/">マクロクラブ Rust支部</a><br>

@@ -418,6 +418,19 @@ mod tests {
 }
 ```
 
+```
+cd app
+cargo expand main
+```
+
+```
+fn main() {
+    {
+        ::std::io::_print(format_args!("{0:?}\n", 3 * 19));
+    };
+}
+```
+
 ### proc_macro_attribute
 
 ### proc_macro_derive
