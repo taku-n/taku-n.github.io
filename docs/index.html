@@ -123,11 +123,10 @@
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          Leptos cargo new hello cd hello touch index.html trunk serve Open http://127.0.0.1:8080/ by your browser.
+          Leptos Trunk cargo new hello cd hello touch index.html trunk serve Open http://127.0.0.1:8080/ by your browser.
 See a blank page.
 Press Ctrl+C to stop the test server.
-cargo add wasm-bindgen cargo add wasm-bindgen-futures nvim src/main.rs use wasm_bindgen::prelude::*; #[wasm_bindgen] extern &#34;C&#34; { #[wasm_bindgen(js_namespace = console)] fn log(s: &amp;str); } #[wasm_bindgen(start)] async fn wain() { log(&#34;hello, world&#34;); } fn main() { } trunk serve See your browser&rsquo;s console says, &ldquo;hello, world&rdquo;.
-cargo add leptos --features=&#34;stable&#34; nvim src/main.
+console.log() and console.error() cargo add wasm-bindgen cargo add wasm-bindgen-futures nvim src/main.rs use wasm_bindgen::prelude::*; #[wasm_bindgen] extern &#34;C&#34; { #[wasm_bindgen(js_namespace = console)] fn log(s: &amp;str); #[wasm_bindgen(js_namespace = console)] fn error(s: &amp;str); } #[wasm_bindgen(start)] async fn wain() { log(&#34;hello, world&#34;); error(&#34;Error!&#34;); } fn main() { } trunk serve See your browser&rsquo;s console says, &ldquo;hello, world&rdquo;.
         </div>
           <a href="https://taku-n.github.io/posts/leptos/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         

@@ -11,6 +11,7 @@
 <a href="../../">戻る</a>
 
 <h1 id="leptos">Leptos</h1>
+<h2 id="trunk">Trunk</h2>
 <pre tabindex="0"><code>cargo new hello
 cd hello
 touch index.html
@@ -18,6 +19,7 @@ trunk serve
 </code></pre><p>Open http://127.0.0.1:8080/ by your browser.<br>
 See a blank page.<br>
 Press Ctrl+C to stop the test server.</p>
+<h2 id="consolelog-and-consoleerror">console.log() and console.error()</h2>
 <pre tabindex="0"><code>cargo add wasm-bindgen
 cargo add wasm-bindgen-futures
 nvim src/main.rs
@@ -27,38 +29,80 @@ nvim src/main.rs
 extern &#34;C&#34; {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &amp;str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn error(s: &amp;str);
 }
 
 #[wasm_bindgen(start)]
 async fn wain() {
     log(&#34;hello, world&#34;);
+    error(&#34;Error!&#34;);
 }
 
 fn main() {
 }
 </code></pre><pre tabindex="0"><code>trunk serve
-</code></pre><p>See your browser&rsquo;s console says, &ldquo;hello, world&rdquo;.</p>
-<pre tabindex="0"><code>cargo add leptos --features=&#34;stable&#34;
-nvim src/main.rs
+</code></pre><p>See your browser&rsquo;s console says, &ldquo;hello, world&rdquo;.<br>
+See an error message, &ldquo;Error!&rdquo;, as well.</p>
+<h2 id="panic-hook">Panic Hook</h2>
+<pre tabindex="0"><code>nvim src/main.rs
 </code></pre><pre tabindex="0"><code>use wasm_bindgen::prelude::*;
-use leptos::*;
+use std::panic;
 
 #[wasm_bindgen]
 extern &#34;C&#34; {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &amp;str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn error(s: &amp;str);
+}
+
+fn panic_hook(panic_info: &amp;panic::PanicInfo) {
+    error(&amp;panic_info.to_string());
 }
 
 #[wasm_bindgen(start)]
 async fn wain() {
+    panic::set_hook(Box::new(panic_hook));
     log(&#34;hello, world&#34;);
+    error(&#34;Error!&#34;);
+    panic!(&#34;Panic!&#34;);
+}
+
+fn main() {
+}
+</code></pre><pre tabindex="0"><code>trunk serve
+</code></pre><p>See a panic message, &ldquo;Panic!&rdquo;.</p>
+<h2 id="rsx">RSX</h2>
+<pre tabindex="0"><code>cargo add leptos --features=&#34;stable&#34;
+nvim src/main.rs
+</code></pre><pre tabindex="0"><code>use wasm_bindgen::prelude::*;
+use leptos::*;
+use std::panic;
+
+#[wasm_bindgen(start)]
+async fn wain() {
+    panic::set_hook(Box::new(panic_hook));
     mount_to_body(|cx| view!{cx,
 &lt;p&gt;&#34;hello, world&#34;&lt;/p&gt;
     });
 }
 
+#[wasm_bindgen]
+extern &#34;C&#34; {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &amp;str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn error(s: &amp;str);
+}
+
+fn panic_hook(panic_info: &amp;panic::PanicInfo) {
+    error(&amp;panic_info.to_string());
+}
+
 fn main() {
 }
+</code></pre><pre tabindex="0"><code>trunk serve
 </code></pre>
 
 <a href="../../">戻る</a>
