@@ -11,7 +11,55 @@
 <a href="../../">戻る</a>
 
 <h1 id="leptos">Leptos</h1>
+<pre tabindex="0"><code>cargo new hello
+cd hello
+touch index.html
+trunk serve
+</code></pre><p>Open http://127.0.0.1:8080/ by your browser.<br>
+See a blank page.<br>
+Press Ctrl+C to stop the test server.</p>
+<pre tabindex="0"><code>cargo add wasm-bindgen
+cargo add wasm-bindgen-futures
+nvim src/main.rs
+</code></pre><pre tabindex="0"><code>use wasm_bindgen::prelude::*;
 
+#[wasm_bindgen]
+extern &#34;C&#34; {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &amp;str);
+}
+
+#[wasm_bindgen(start)]
+async fn wain() {
+    log(&#34;hello, world&#34;);
+}
+
+fn main() {
+}
+</code></pre><pre tabindex="0"><code>trunk serve
+</code></pre><p>See your browser&rsquo;s console says, &ldquo;hello, world&rdquo;.</p>
+<pre tabindex="0"><code>cargo add leptos --features=&#34;stable&#34;
+nvim src/main.rs
+</code></pre><pre tabindex="0"><code>use wasm_bindgen::prelude::*;
+use leptos::*;
+
+#[wasm_bindgen]
+extern &#34;C&#34; {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &amp;str);
+}
+
+#[wasm_bindgen(start)]
+async fn wain() {
+    log(&#34;hello, world&#34;);
+    mount_to_body(|cx| view!{cx,
+&lt;p&gt;&#34;hello, world&#34;&lt;/p&gt;
+    });
+}
+
+fn main() {
+}
+</code></pre>
 
 <a href="../../">戻る</a>
 

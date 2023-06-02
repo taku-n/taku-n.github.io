@@ -15,24 +15,39 @@ tags: ["Rust"]
 [axum](../axum/)  
 [warp](../warp/)  
 
+## Update
+
+### Update rustup
+
+```
+rustup self update
+```
+
+### Update Rust
+
+```
+rustup update
+```
+
+### Update installed executables by cargo install
+
+```
+cargo install-update --all
+```
+
+### Update depending crates
+
+```
+cargo update
+cargo upgrade
+```
+
 ## rustup
 
 ### バージョンの確認
 
 ```
 rustup -V
-```
-
-### rustup 自身のアップデート
-
-```
-rustup self update
-```
-
-### Rust のアップデート
-
-```
-rustup update
 ```
 
 ### 現在の Toolchain を確認

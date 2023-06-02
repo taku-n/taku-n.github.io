@@ -13,7 +13,11 @@
       <pubDate>Fri, 02 Jun 2023 17:14:54 +0900</pubDate>
       
       <guid>https://taku-n.github.io/posts/leptos/</guid>
-      <description>Leptos </description>
+      <description>Leptos cargo new hello cd hello touch index.html trunk serve Open http://127.0.0.1:8080/ by your browser.
+See a blank page.
+Press Ctrl+C to stop the test server.
+cargo add wasm-bindgen cargo add wasm-bindgen-futures nvim src/main.rs use wasm_bindgen::prelude::*; #[wasm_bindgen] extern &amp;#34;C&amp;#34; { #[wasm_bindgen(js_namespace = console)] fn log(s: &amp;amp;str); } #[wasm_bindgen(start)] async fn wain() { log(&amp;#34;hello, world&amp;#34;); } fn main() { } trunk serve See your browser&amp;rsquo;s console says, &amp;ldquo;hello, world&amp;rdquo;.
+cargo add leptos --features=&amp;#34;stable&amp;#34; nvim src/main.</description>
     </item>
     
     <item>
@@ -116,7 +120,7 @@ Leptos
 WebAssembly
 axum
 warp
-rustup バージョンの確認 rustup -V rustup 自身のアップデート rustup self update Rust のアップデート rustup update 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &amp;#39;main&amp;#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.toml won&amp;rsquo;t always mean &amp;ldquo;latest version&amp;rdquo;</description>
+Update Update rustup rustup self update Update Rust rustup update Update installed executables by cargo install cargo install-update --all Update depending crates cargo update cargo upgrade rustup バージョンの確認 rustup -V 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &amp;#39;main&amp;#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.</description>
     </item>
     
     <item>
