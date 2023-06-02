@@ -10,9 +10,10 @@ tags: ["Rust"]
 [Type Dictionary](../type/)  
 [Raw Level Rust](../raw/)  
 [On Rust](../macro/)  
-[wasm-bindgen](../wasm/)  
+[Leptos](../leptos/)  
+[WebAssembly](../wasm/)  
 [axum](../axum/)  
-[warp](../warp/)
+[warp](../warp/)  
 
 ## rustup
 

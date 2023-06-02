@@ -6,7 +6,7 @@
     
     <title>非同期エンジニアブログ </title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.111.3">
+    <meta name="generator" content="Hugo 0.112.6">
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -87,6 +87,32 @@
   <article class="pa3 pa4-ns nested-copy-line-height nested-img">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
     <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="https://taku-n.github.io/posts/raspi/" class="link black dim">
+        Raspberry Pi
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Raspberry Pi CPU の温度を見る $ cat /sys/class/thermal/thermal_zone0/temp 単位は，ミリ度
+SPEEDTEST CLI インストール
+$ speedtest Firefox $ sudo apt install firefox-esr-l10n-ja ALSA (Advanced Linux Sound Architecture) とりあえず &ldquo;PulseAudio 音量調節&rdquo; をインストールすること
+$ sudo apt install pavucontrol 起動は [RasPi] -&gt; [サウンドとビデオ] -&gt; [PulseAudio 音量調節]
+マイクの音量を 100% を超えて設定したりできる
+使用したハードウェア
+スピーカ: サンワサプライ株式会社 USBスピーカー MM-SPU8BK
+マイク: USB Microphone MI-305
+PCM (Pulse Code Modulation)
+テスト用の音源をダウンロード
+(Thank 東京都市生活 + 真空管Audio + 視線入力 + 音楽 + 英国車)
+$ curl -OL http://www.
+    </div>
+  </div>
+</div>
+</div>
       
         <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
   <div class="bg-white mb3 pa4 gray overflow-hidden">
@@ -253,22 +279,6 @@ usize型 を使えば，メモリのどこであっても指すことができ�
 さて，ユーザ空間の最後の 4バイト には，i32 で表すと，どんな値が入っているでしょうか。
 さっそく，見てみましょう。
 let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: i32; unsafe { x = *p; // Segmentation Fault } println!
-    </div>
-  </div>
-</div>
-</div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/clang/" class="link black dim">
-        Clang
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      https://apt.llvm.org/
-$ sudo bash -c &#34;$(wget -O - https://apt.llvm.org/llvm.sh)&#34; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 
     </div>
   </div>
 </div>

@@ -13,7 +13,8 @@
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/wasm/</guid>
-      <description>WebAssembly wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
+      <description>WebAssembly Official results for js web frameworks benchmark
+wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
     </item>
     
   </channel>

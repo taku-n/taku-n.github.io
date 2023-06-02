@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 非同期エンジニアブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 01 Mar 2023 23:19:26 +0900</lastBuildDate><atom:link href="https://taku-n.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Jun 2023 17:14:54 +0900</lastBuildDate><atom:link href="https://taku-n.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Leptos</title>
+      <link>https://taku-n.github.io/posts/leptos/</link>
+      <pubDate>Fri, 02 Jun 2023 17:14:54 +0900</pubDate>
+      
+      <guid>https://taku-n.github.io/posts/leptos/</guid>
+      <description>Leptos </description>
+    </item>
+    
     <item>
       <title>Flutter</title>
       <link>https://taku-n.github.io/posts/flutter/</link>
@@ -65,7 +74,8 @@ Save the scene as &amp;ldquo;scene.</description>
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/wasm/</guid>
-      <description>WebAssembly wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
+      <description>WebAssembly Official results for js web frameworks benchmark
+wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
     </item>
     
     <item>
@@ -102,7 +112,8 @@ trait R { } trait S { } trait T: R + S { } Clone (std::clone::Clone) pub trait C
 Type Dictionary
 Raw Level Rust
 On Rust
-wasm-bindgen
+Leptos
+WebAssembly
 axum
 warp
 rustup バージョンの確認 rustup -V rustup 自身のアップデート rustup self update Rust のアップデート rustup update 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &amp;#39;main&amp;#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.toml won&amp;rsquo;t always mean &amp;ldquo;latest version&amp;rdquo;</description>
