@@ -6,9 +6,15 @@ draft: true
 
 # Leptos
 
+[Leptos](https://leptos.dev/)  
+[Leptos (GitHub)](https://github.com/leptos-rs/leptos)  
+[Leptos in Five Minutes (Video)](https://www.youtube.com/watch?v=K_TmEPAD9Ig)  
+[Documentation](https://leptos-rs.github.io/leptos/)  
+
 ## Trunk
 
 ```
+cargo install trunk
 cargo new hello
 cd hello
 touch index.html
@@ -135,3 +141,7 @@ fn main() {
 ```
 trunk serve
 ```
+
+See a message, "hello, world", in the page.  
+After this, you can keep the test server running and keep your browser opening http://127.0.0.1:8080/.  
+Edit your files in another terminal.  

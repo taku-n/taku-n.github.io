@@ -13,10 +13,14 @@
       <pubDate>Fri, 02 Jun 2023 17:14:54 +0900</pubDate>
       
       <guid>https://taku-n.github.io/posts/leptos/</guid>
-      <description>Leptos Trunk cargo new hello cd hello touch index.html trunk serve Open http://127.0.0.1:8080/ by your browser.
+      <description>Leptos Leptos
+Leptos (GitHub)
+Leptos in Five Minutes (Video)
+Documentation
+Trunk cargo install trunk cargo new hello cd hello touch index.html trunk serve Open http://127.0.0.1:8080/ by your browser.
 See a blank page.
 Press Ctrl+C to stop the test server.
-console.log() and console.error() cargo add wasm-bindgen cargo add wasm-bindgen-futures nvim src/main.rs use wasm_bindgen::prelude::*; #[wasm_bindgen] extern &amp;#34;C&amp;#34; { #[wasm_bindgen(js_namespace = console)] fn log(s: &amp;amp;str); #[wasm_bindgen(js_namespace = console)] fn error(s: &amp;amp;str); } #[wasm_bindgen(start)] async fn wain() { log(&amp;#34;hello, world&amp;#34;); error(&amp;#34;Error!&amp;#34;); } fn main() { } trunk serve See your browser&amp;rsquo;s console says, &amp;ldquo;hello, world&amp;rdquo;.</description>
+console.log() and console.error() cargo add wasm-bindgen cargo add wasm-bindgen-futures nvim src/main.rs use wasm_bindgen::prelude::*; #[wasm_bindgen] extern &amp;#34;C&amp;#34; { #[wasm_bindgen(js_namespace = console)] fn log(s: &amp;amp;str); #[wasm_bindgen(js_namespace = console)] fn error(s: &amp;amp;str); } #[wasm_bindgen(start)] async fn wain() { log(&amp;#34;hello, world&amp;#34;); error(&amp;#34;Error!</description>
     </item>
     
     <item>
