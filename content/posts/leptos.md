@@ -102,6 +102,85 @@ trunk serve
 
 See a panic message, "Panic!".  
 
+## Test
+
+```
+sudo snap install --classic node
+cargo install wasm-bindgen-cli
+cargo add --dev wasm-bindgen-test
+mkdir .cargo
+nvim .cargo/config.toml
+```
+
+```
+[build]
+target = "wasm32-unknown-unknown"
+
+[target.wasm32-unknown-unknown]
+runner = 'wasm-bindgen-test-runner'
+```
+
+```
+nvim src/main.rs
+```
+
+```
+use wasm_bindgen::prelude::*;
+use std::panic;
+
+#[wasm_bindgen(start)]
+async fn wain() {
+    panic::set_hook(Box::new(panic_hook));
+}
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn error(s: &str);
+}
+
+fn panic_hook(panic_info: &panic::PanicInfo) {
+    error(&panic_info.to_string());
+}
+
+fn main() {
+}
+
+#[cfg(test)]
+mod tests {
+    use wasm_bindgen_test::*;
+
+    #[wasm_bindgen_test]
+    fn pass() {
+        assert_eq!(1, 1);
+    }
+}
+```
+
+```
+cargo test
+```
+
+```
+mkdir tests
+nvim tests/tests.rs
+```
+
+```
+use wasm_bindgen_test::*;
+
+#[wasm_bindgen_test]
+fn pass() {
+    assert_eq!(1, 1);
+}
+```
+
+```
+cargo test
+```
+
 ## RSX
 
 ```

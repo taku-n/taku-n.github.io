@@ -78,7 +78,61 @@ fn main() {
 }
 </code></pre><pre tabindex="0"><code>trunk serve
 </code></pre><p>See a panic message, &ldquo;Panic!&rdquo;.</p>
-<h2 id="rsx">RSX</h2>
+<h2 id="test">Test</h2>
+<pre tabindex="0"><code>sudo snap install --classic node
+cargo install wasm-bindgen-cli
+cargo add --dev wasm-bindgen-test
+mkdir .cargo
+nvim .cargo/config.toml
+</code></pre><pre tabindex="0"><code>[build]
+target = &#34;wasm32-unknown-unknown&#34;
+
+[target.wasm32-unknown-unknown]
+runner = &#39;wasm-bindgen-test-runner&#39;
+</code></pre><pre tabindex="0"><code>nvim src/main.rs
+</code></pre><pre tabindex="0"><code>use wasm_bindgen::prelude::*;
+use std::panic;
+
+#[wasm_bindgen(start)]
+async fn wain() {
+    panic::set_hook(Box::new(panic_hook));
+}
+
+#[wasm_bindgen]
+extern &#34;C&#34; {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &amp;str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn error(s: &amp;str);
+}
+
+fn panic_hook(panic_info: &amp;panic::PanicInfo) {
+    error(&amp;panic_info.to_string());
+}
+
+fn main() {
+}
+
+#[cfg(test)]
+mod tests {
+    use wasm_bindgen_test::*;
+
+    #[wasm_bindgen_test]
+    fn pass() {
+        assert_eq!(1, 1);
+    }
+}
+</code></pre><pre tabindex="0"><code>cargo test
+</code></pre><pre tabindex="0"><code>mkdir tests
+nvim tests/tests.rs
+</code></pre><pre tabindex="0"><code>use wasm_bindgen_test::*;
+
+#[wasm_bindgen_test]
+fn pass() {
+    assert_eq!(1, 1);
+}
+</code></pre><pre tabindex="0"><code>cargo test
+</code></pre><h2 id="rsx">RSX</h2>
 <pre tabindex="0"><code>cargo add leptos --features=&#34;stable&#34;
 nvim src/main.rs
 </code></pre><pre tabindex="0"><code>use wasm_bindgen::prelude::*;
