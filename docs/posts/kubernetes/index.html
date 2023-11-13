@@ -53,12 +53,12 @@ $ sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
 (ただし，上記のとおりの問題があるので ext4 を勧めておく</p>
 <pre tabindex="0"><code>$ sudo nvim /etc/docker/daemon.json
 </code></pre><pre tabindex="0"><code>{
-  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;],
-  &#34;log-driver&#34;: &#34;json-file&#34;,
-  &#34;log-opts&#34;: {
-    &#34;max-size&#34;: &#34;100m&#34;
+  &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;],
+  &quot;log-driver&quot;: &quot;json-file&quot;,
+  &quot;log-opts&quot;: {
+    &quot;max-size&quot;: &quot;100m&quot;
   },
-  &#34;storage-driver&#34;: &#34;zfs&#34;
+  &quot;storage-driver&quot;: &quot;zfs&quot;
 }
 </code></pre><h3 id="kubeadm-kubelet-kubectl-をインストールする">kubeadm, kubelet, kubectl をインストールする</h3>
 <pre tabindex="0"><code>$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -118,26 +118,26 @@ nvim calico.yaml
 <pre tabindex="0"><code>--- calico.yaml.orig    2021-09-09 17:22:09.760528348 +0900
 +++ calico.yaml 2021-09-09 18:19:40.057414568 +0900
 @@ -32,7 +32,9 @@
-           &#34;nodename&#34;: &#34;__KUBERNETES_NODE_NAME__&#34;,
-           &#34;mtu&#34;: __CNI_MTU__,
-           &#34;ipam&#34;: {
--              &#34;type&#34;: &#34;calico-ipam&#34;
-+              &#34;type&#34;: &#34;calico-ipam&#34;,
-+              &#34;assign_ipv4&#34;: &#34;true&#34;,
-+              &#34;assign_ipv6&#34;: &#34;true&#34;
+           &quot;nodename&quot;: &quot;__KUBERNETES_NODE_NAME__&quot;,
+           &quot;mtu&quot;: __CNI_MTU__,
+           &quot;ipam&quot;: {
+-              &quot;type&quot;: &quot;calico-ipam&quot;
++              &quot;type&quot;: &quot;calico-ipam&quot;,
++              &quot;assign_ipv4&quot;: &quot;true&quot;,
++              &quot;assign_ipv6&quot;: &quot;true&quot;
            },
-           &#34;policy&#34;: {
-               &#34;type&#34;: &#34;k8s&#34;
+           &quot;policy&quot;: {
+               &quot;type&quot;: &quot;k8s&quot;
 @@ -3885,9 +3887,11 @@
-               value: &#34;ACCEPT&#34;
+               value: &quot;ACCEPT&quot;
              # Disable IPv6 on Kubernetes.
              - name: FELIX_IPV6SUPPORT
--              value: &#34;false&#34;
-+              value: &#34;true&#34;
+-              value: &quot;false&quot;
++              value: &quot;true&quot;
              - name: FELIX_HEALTHENABLED
-               value: &#34;true&#34;
+               value: &quot;true&quot;
 +            - name: IP6
-+              value: &#34;autodetect&#34;
++              value: &quot;autodetect&quot;
            securityContext:
              privileged: true
            resources:
@@ -187,7 +187,7 @@ spec:
         volumeMounts:
         - name: ubuntu
           mountPath: /root
-        command: [&#34;/bin/sleep&#34;, &#34;infinity&#34;]
+        command: [&quot;/bin/sleep&quot;, &quot;infinity&quot;]
       volumes:
       - name: ubuntu
         hostPath:
@@ -206,15 +206,15 @@ $ kubectl exec ubuntu-123456789a-12345 -it -- bash
 localhost の部分は，IP アドレスでもホスト名でもいい</p>
 <p><code>$ sudo nvim /etc/docker/daemon.json</code></p>
 <pre tabindex="0"><code>{
-  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;],
-  &#34;log-driver&#34;: &#34;json-file&#34;,
-  &#34;log-opts&#34;: {
-    &#34;max-size&#34;: &#34;100m&#34;
+  &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;],
+  &quot;log-driver&quot;: &quot;json-file&quot;,
+  &quot;log-opts&quot;: {
+    &quot;max-size&quot;: &quot;100m&quot;
   },
-  &#34;storage-driver&#34;: &#34;overlay2&#34;,
-  &#34;insecure-registries&#34;: [&#34;ip6-localhost:5000&#34;],
-  &#34;ipv6&#34;: true,
-  &#34;fixed-cidr-v6&#34;: &#34;fd01::/64&#34;
+  &quot;storage-driver&quot;: &quot;overlay2&quot;,
+  &quot;insecure-registries&quot;: [&quot;ip6-localhost:5000&quot;],
+  &quot;ipv6&quot;: true,
+  &quot;fixed-cidr-v6&quot;: &quot;fd01::/64&quot;
 }
 </code></pre><p><code>$ systemctl reload docker</code></p>
 <p><code>$ nvim registry.yaml</code></p>
@@ -262,7 +262,7 @@ $ docker push ip6-localhost:5000/hello-world
 $ ls /k8s/registry/docker/registry/v2/repositories
 hello-world
 $ curl http://ip6-localhost:5000/v2/_catalog
-{&#34;repositories&#34;:[&#34;hello-world&#34;]}
+{&quot;repositories&quot;:[&quot;hello-world&quot;]}
 </code></pre><p>http: server gave HTTP response to HTTPS client<br>
 となってしまった場合は，/etc/docker/daemon.json の設定ミスである</p>
 <p>Pull のテスト</p>
@@ -348,7 +348,7 @@ kind: Ingress
 metadata:
   name: ingress-hello
   annotations:
-    kubernetes.io/ingress.class: &#34;nginx&#34;
+    kubernetes.io/ingress.class: &quot;nginx&quot;
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
@@ -377,9 +377,9 @@ kind: Ingress
 metadata:
   name: ingress-tls-hello
   annotations:
-    kubernetes.io/ingress.class: &#34;nginx&#34;
+    kubernetes.io/ingress.class: &quot;nginx&quot;
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/force-ssl-redirect: &#34;true&#34;
+    nginx.ingress.kubernetes.io/force-ssl-redirect: &quot;true&quot;
 spec:
   tls:
   - hosts:
@@ -404,13 +404,13 @@ kubectl apply -f ingress-tls.yaml
 <p><a href="../tls/">こちら</a> の renew.sh に追記する</p>
 <pre tabindex="0"><code>#!/bin/bash
 
-echo &#34;Starting certbot.&#34;
+echo &quot;Starting certbot.&quot;
 
 certbot renew --manual \
         --manual-auth-hook /etc/letsencrypt/authenticator.py \
         --manual-cleanup-hook /etc/letsencrypt/cleanup.py
 
-echo &#34;certbot finished.&#34;
+echo &quot;certbot finished.&quot;
 
 kubectl --kubeconfig /home/user/.kube/config delete secret tls-certificate
 kubectl --kubeconfig /home/user/.kube/config create secret tls tls-certificate \
@@ -420,7 +420,7 @@ kubectl --kubeconfig /home/user/.kube/config create secret tls tls-certificate \
 # Print expiring dates
 openssl x509 -in /etc/letsencrypt/live/hoge.com/fullchain.pem -noout -dates
 
-# To see a log by journalctl, type &#34;journalctl -e -u letsencrypt&#34;.
+# To see a log by journalctl, type &quot;journalctl -e -u letsencrypt&quot;.
 # A log file of certbot is /var/log/letsencrypt/letsencrypt.log.
 # A log file of hooks is /etc/letsencrypt/log.txt.
 </code></pre><pre tabindex="0"><code>kubectl delete secret tls-certificate
@@ -462,7 +462,7 @@ grep -e containerd.io -e docker-ce -e docker-ce-cli -e kubeadm -e kubectl -e kub
 <h3 id="hello-world">hello, world</h3>
 <pre tabindex="0"><code>$ kubectl run hello-world --image=hello-world -it --restart=Never --rm
 </code></pre><h3 id="whalesay">whalesay</h3>
-<pre tabindex="0"><code>$ kubectl run whalesay --image=docker/whalesay -it --restart=Never --rm -- sh -c &#34;cowsay Hello Kubernetes&#34;
+<pre tabindex="0"><code>$ kubectl run whalesay --image=docker/whalesay -it --restart=Never --rm -- sh -c &quot;cowsay Hello Kubernetes&quot;
 </code></pre><h3 id="nginx">nginx</h3>
 <pre tabindex="0"><code>$ kubectl create deployment nginx --image=nginx
 </code></pre><h3 id="busybox">busybox</h3>
@@ -538,7 +538,7 @@ spec:
       containers:
       - name: ubuntu
         image: ubuntu
-        command: [&#34;/bin/sleep&#34;, &#34;infinity&#34;]
+        command: [&quot;/bin/sleep&quot;, &quot;infinity&quot;]
 </code></pre><pre tabindex="0"><code>$ kubectl apply -f ubuntu.yaml
 </code></pre><p>に対して</p>
 <pre tabindex="0"><code>$ kubectl get pod
@@ -621,7 +621,7 @@ cargo build --release
 nvim Dockerfile
 </code></pre><pre tabindex="0"><code>FROM gcr.io/distroless/cc-debian10
 COPY target/release/hello /
-CMD [&#34;/hello&#34;]
+CMD [&quot;/hello&quot;]
 </code></pre><pre tabindex="0"><code>docker build -t ip6-localhost:5000/hello .
 docker push ip6-localhost:5000/hello
 kubectl run hello --image=ip6-localhost:5000/hello -it --restart=Never --rm
@@ -634,10 +634,10 @@ kubectl run hello --image=ip6-localhost:5000/hello -it --restart=Never --rm
 <pre tabindex="0"><code>export PATH=~/.local/bin:$PATH
 </code></pre><p>sudo 時に PATH が通らなくなるのをなんとかする</p>
 <pre tabindex="0"><code>$ sudo visudo
-</code></pre><pre tabindex="0"><code>Defaults        secure_path=&#34;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin&#34;
+</code></pre><pre tabindex="0"><code>Defaults        secure_path=&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin&quot;
 </code></pre><p>の部分を</p>
-<pre tabindex="0"><code>#Defaults       secure_path=&#34;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin&#34;
-Defaults        env_keep +=&#34;PATH&#34;
+<pre tabindex="0"><code>#Defaults       secure_path=&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin&quot;
+Defaults        env_keep +=&quot;PATH&quot;
 </code></pre><p>に変更</p>
 <h3 id="ディレクトリがなければつくる">ディレクトリがなければつくる</h3>
 <pre tabindex="0"><code>$ mkdir -p ~/.local/bin
@@ -705,7 +705,7 @@ metadata:
 spec:
   api:
     address: 118.27.29.81
-    externalAddress: &#34;&#34;
+    externalAddress: &quot;&quot;
     sans:
     - 118.27.29.81
     - 118.27.29.81
@@ -787,7 +787,7 @@ export PATH=~/.local/gopath/bin:$PATH
 を参考にして自動的に実行されるようにする</p>
 <p>tmux を使っているなら日本語が文字化けするようになるので<br>
 .bashrc につぎを追加</p>
-<pre tabindex="0"><code>alias tmux=&#34;tmux -u&#34;
+<pre tabindex="0"><code>alias tmux=&quot;tmux -u&quot;
 </code></pre><p>pstree で systemd が実行されていることを確認</p>
 <pre tabindex="0"><code>$ pstree
 </code></pre><h2 id="swap-をオフにする-1">SWAP をオフにする</h2>
@@ -860,8 +860,8 @@ $ sudo nvim /etc/calico/calicoctl.cfg
 kind: CalicoAPIConfig
 metadata:
 spec:
-  datastoreType: &#34;kubernetes&#34;
-  kubeconfig: &#34;/home/your-name/.kube/config&#34;
+  datastoreType: &quot;kubernetes&quot;
+  kubeconfig: &quot;/home/your-name/.kube/config&quot;
 </code></pre><pre tabindex="0"><code>$ calicoctl get nodes  # Test
 </code></pre><p>Master にも Pod がデプロイされるようにする</p>
 <p><a href="https://tech-lab.sios.jp/archives/13555">kubeadm を使って Kubernetes v1.13 をインストールしてみた</a>
@@ -884,10 +884,10 @@ kind: InitConfiguration
 </code></pre><pre tabindex="0"><code>$ chmod +x kubeadm-init-conf.yaml
 $ sudo ./kubeadm-init-conf.yaml
 </code></pre><pre tabindex="0"><code>$ sudo kubeadm init \
-&gt; --feature-gates=&#34;IPv6DualStack=true&#34; \
-&gt; --pod-network-cidr=&#34;fd00:1::/48,10.244.0.0/16&#34; \
-&gt; --service-cidr=&#34;fd00::/108,10.96.0.0/12&#34; \
-&gt; --apiserver-advertise-address=&#34;2001:db8::11&#34;
+&gt; --feature-gates=&quot;IPv6DualStack=true&quot; \
+&gt; --pod-network-cidr=&quot;fd00:1::/48,10.244.0.0/16&quot; \
+&gt; --service-cidr=&quot;fd00::/108,10.96.0.0/12&quot; \
+&gt; --apiserver-advertise-address=&quot;2001:db8::11&quot;
 </code></pre><pre tabindex="0"><code>$ sudo systemctl status kubelet
 $ sudo journalctl -xeu kubelet
 $ sudo docker ps -a | grep kube | grep -v pause
@@ -911,7 +911,7 @@ Docker 19.03.11</p>
 </code></pre><h4 id="kubectl-のインストール-1">kubectl のインストール</h4>
 <pre tabindex="0"><code>$ sudo apt-get update &amp;&amp; sudo apt-get install -y apt-transport-https
 $ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-$ echo &#34;deb https://apt.kubernetes.io/ kubernetes-xenial main&#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+$ echo &quot;deb https://apt.kubernetes.io/ kubernetes-xenial main&quot; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 $ sudo apt-get update
 $ sudo apt-get install -y kubectl
 </code></pre><pre tabindex="0"><code>$ kubectl version --client

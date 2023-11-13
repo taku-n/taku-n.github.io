@@ -18,7 +18,7 @@ Docker Compose
 Docker Linux環境でdockerのコマンドをsudoなしで打てるようにする
 バージョン確認 $ docker -v Docker デーモンの状態を確認 $ service docker status Docker デーモンの開始 $ sudo service docker start Docker デーモンが自動的に起動するように設定 (WSL2) wsl2でDocker自動起動設定
 Thank @ktaidot.
-コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list Remove an image docker rmi -f [Image ID] コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &amp;#34;table {{.</description>
+コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list Remove an image docker rmi -f [Image ID] コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &amp;quot;table {{.</description>
     </item>
     
   </channel>

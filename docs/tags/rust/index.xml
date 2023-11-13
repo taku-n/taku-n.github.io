@@ -32,7 +32,7 @@ wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack �
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/macro/</guid>
-      <description>On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;#34;hello, world&amp;#34;); }; } fn main() { hello!(); //=&amp;gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;#34;hello, world\n&amp;#34;], &amp;amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&amp;gt; { $x * $x }; } fn main() { println!</description>
+      <description>On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;quot;hello, world&amp;quot;); }; } fn main() { hello!(); //=&amp;gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;quot;hello, world\n&amp;quot;], &amp;amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&amp;gt; { $x * $x }; } fn main() { println!</description>
     </item>
     
     <item>
@@ -64,7 +64,7 @@ Leptos
 WebAssembly
 axum
 warp
-Update Update rustup rustup self update Update Rust rustup update Update installed executables by cargo install cargo install-update --all Update depending crates cargo update cargo upgrade rustup バージョンの確認 rustup -V 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &amp;#39;main&amp;#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.</description>
+Update Update rustup rustup self update Update Rust rustup update Update installed executables by cargo install cargo install-update --all Update depending crates cargo update cargo upgrade rustup バージョンの確認 rustup -V 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &#39;main&#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.</description>
     </item>
     
     <item>

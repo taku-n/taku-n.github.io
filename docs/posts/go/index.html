@@ -11,14 +11,44 @@
 <a href="../../">戻る</a>
 
 <h1 id="go">Go</h1>
-<h2 id="go-mod">go mod</h2>
+<h2 id="install">Install</h2>
+<p>~/.local 以下にインストールしていくケースです</p>
+<pre tabindex="0"><code>$ cd ~/.local
+$ curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz
+$ tar zxf gox.y.z.linux-amd64.tar.gz
+$ mkdir -p gopath/bin
+</code></pre><p>.bashrc に以下を追記します</p>
+<pre tabindex="0"><code>export PATH=~/.local/go/bin:~/.local/gopath/bin:$PATH
+export GOPATH=~/.local/gopath
+</code></pre><h2 id="hello-world">hello, world</h2>
+<pre tabindex="0"><code>$ mkdir hello
+$ cd hello
+$ go mod init hello
+</code></pre><p>hello.go をつくります<br>
+インデントはタブ 1つ です</p>
+<pre tabindex="0"><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	fmt.Println(&quot;hello, world&quot;)
+}
+</code></pre><h2 id="go-mod">go mod</h2>
 <p><a href="https://blog.golang.org/using-go-modules">Using Go Modules</a>
 <a href="https://teratail.com/questions/217859">go mod init &lt;ここには何を書く？&gt;</a></p>
-<pre tabindex="0"><code>$ # go mod init 公開しなければこちらはなんでもいいらしい
+<pre tabindex="0"><code>$ # go mod init [公開しなければこちらはなんでもいいらしい]
+$
 $ # 例
 $ go mod init hello
 </code></pre><h2 id="go-test">go test</h2>
-
+<h2 id="vi">vi</h2>
+<p>スペースをタブに変換する</p>
+<pre tabindex="0"><code>:set noet
+:ret!
+</code></pre><p>タブをスペースに変換する</p>
+<pre tabindex="0"><code>:set et
+:ret
+</code></pre>
 
 <a href="../../">戻る</a>
 

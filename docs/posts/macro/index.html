@@ -15,7 +15,7 @@
 <pre tabindex="0"><code>$ cargo install cargo-expand
 </code></pre><pre tabindex="0"><code>macro_rules! hello {
     () =&gt; {
-        println!(&#34;hello, world&#34;);
+        println!(&quot;hello, world&quot;);
     };
 }
 
@@ -25,7 +25,7 @@ fn main() {
 </code></pre><pre tabindex="0"><code>$ cargo expand main
 </code></pre><pre tabindex="0"><code>fn main() {
     {
-        ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[]));
+        ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&quot;hello, world\n&quot;], &amp;[]));
     };
 }
 </code></pre><h2 id="declarative-macros">Declarative Macros</h2>
@@ -47,12 +47,12 @@ fn main() {
 }
 
 fn main() {
-    println!(&#34;{:?}&#34;, square!(2));  //=&gt; 4
+    println!(&quot;{:?}&quot;, square!(2));  //=&gt; 4
 }
 </code></pre><pre tabindex="0"><code>$ cargo expand main
 </code></pre><pre tabindex="0"><code>fn main() {
     {
-        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 2 * 2));
+        ::std::io::_print(format_args!(&quot;{0:?}\n&quot;, 2 * 2));
     };
 }
 </code></pre><h3 id="multiply">Multiply</h3>
@@ -63,12 +63,12 @@ fn main() {
 }
 
 fn main() {
-    println!(&#34;{:?}&#34;, multiply!(3, 19));  //=&gt; 57
+    println!(&quot;{:?}&quot;, multiply!(3, 19));  //=&gt; 57
 }
 </code></pre><pre tabindex="0"><code>$ cargo expand main
 </code></pre><pre tabindex="0"><code>fn main() {
     {
-        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 3 * 19));
+        ::std::io::_print(format_args!(&quot;{0:?}\n&quot;, 3 * 19));
     };
 }
 </code></pre><h3 id="multiple-addition">Multiple Addition</h3>
@@ -79,12 +79,12 @@ fn main() {
 }
 
 fn main() {
-    println!(&#34;{:?}&#34;, ma!(2, 3, 5));  //=&gt; 10
+    println!(&quot;{:?}&quot;, ma!(2, 3, 5));  //=&gt; 10
 }
 </code></pre><pre tabindex="0"><code>$ cargo expand main
 </code></pre><pre tabindex="0"><code>fn main() {
     {
-        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 0 + 2 + 3 + 5));
+        ::std::io::_print(format_args!(&quot;{0:?}\n&quot;, 0 + 2 + 3 + 5));
     };
 }
 </code></pre><h3 id="calculation">Calculation</h3>
@@ -98,16 +98,16 @@ fn main() {
 }
 
 fn main() {
-    println!(&#34;{:?}&#34;, calc!(* 2 3 5));  //=&gt; 30
-    println!(&#34;{:?}&#34;, calc!(+ 2 3 5));  //=&gt; 10
+    println!(&quot;{:?}&quot;, calc!(* 2 3 5));  //=&gt; 30
+    println!(&quot;{:?}&quot;, calc!(+ 2 3 5));  //=&gt; 10
 }
 </code></pre><pre tabindex="0"><code>$ cargo expand main
 </code></pre><pre tabindex="0"><code>fn main() {
     {
-        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 1 * 2 * 3 * 5));
+        ::std::io::_print(format_args!(&quot;{0:?}\n&quot;, 1 * 2 * 3 * 5));
     };
     {
-        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 0 + 2 + 3 + 5));
+        ::std::io::_print(format_args!(&quot;{0:?}\n&quot;, 0 + 2 + 3 + 5));
     };
 }
 </code></pre><h2 id="procedural-macros">Procedural Macros</h2>
@@ -150,19 +150,19 @@ cd proc
 nvim Cargo.toml
 </code></pre><pre tabindex="0"><code>[workspace]
 members = [
-    &#34;app&#34;,
-    &#34;mcr&#34;,
+    &quot;app&quot;,
+    &quot;mcr&quot;,
 ]
 </code></pre><pre tabindex="0"><code>cargo new app
 cargo new --lib mcr
 nvim app/Cargo.toml
 </code></pre><pre tabindex="0"><code>[package]
-name = &#34;app&#34;
-version = &#34;0.1.0&#34;
-edition = &#34;2021&#34;
+name = &quot;app&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
 
 [dependencies]
-mcr = {path = &#34;../mcr&#34;}
+mcr = {path = &quot;../mcr&quot;}
 </code></pre><pre tabindex="0"><code>nvim app/src/main.rs
 </code></pre><pre tabindex="0"><code>use mcr::mcr;
 
@@ -171,20 +171,20 @@ fn main() {
 }
 </code></pre><pre tabindex="0"><code>nvim mcr/Cargo.toml
 </code></pre><pre tabindex="0"><code>[package]
-name = &#34;mcr&#34;
-version = &#34;0.1.0&#34;
-edition = &#34;2021&#34;
+name = &quot;mcr&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
 
 [lib]
 proc-macro = true
 
 [dependencies]
-proc-macro2 = &#34;*&#34;
-quote = &#34;*&#34;
-syn = {version = &#34;*&#34;, features = [&#34;full&#34;]}
+proc-macro2 = &quot;*&quot;
+quote = &quot;*&quot;
+syn = {version = &quot;*&quot;, features = [&quot;full&quot;]}
 
 [dev-dependencies]
-pretty_assertions = &#34;*&#34;
+pretty_assertions = &quot;*&quot;
 </code></pre><pre tabindex="0"><code>nvim mcr/src/lib.rs
 </code></pre><pre tabindex="0"><code>use proc_macro2::TokenStream;
 use quote::quote;
@@ -224,7 +224,7 @@ mod tests {
 </code></pre><pre tabindex="0"><code>use mcr::mcr;
 
 fn main() {
-    println!(&#34;{:?}&#34;, mcr!(2));  //=&gt; 4
+    println!(&quot;{:?}&quot;, mcr!(2));  //=&gt; 4
     //mcr!(a);  // error: expected integer literal
 }
 </code></pre><pre tabindex="0"><code>nvim mcr/src/lib.rs
@@ -267,7 +267,7 @@ mod tests {
     fn mcr_impl_test_ng() {
         assert_eq!(
                 mcr_impl(quote!(a)).to_string(),
-                quote!(:: core :: compile_error ! { &#34;expected integer literal&#34; }).to_string(),
+                quote!(:: core :: compile_error ! { &quot;expected integer literal&quot; }).to_string(),
         );
     }
 }
@@ -276,7 +276,7 @@ mod tests {
 </code></pre><pre tabindex="0"><code>use mcr::mcr;
 
 fn main() {
-    println!(&#34;{:?}&#34;, mcr!(3 19));  //=&gt; 57
+    println!(&quot;{:?}&quot;, mcr!(3 19));  //=&gt; 57
     //mcr!(a b);  // error: expected integer literal
 }
 </code></pre><pre tabindex="0"><code>nvim mcr/src/lib.rs
@@ -320,7 +320,7 @@ mod tests {
     fn mcr_impl_test_ng() {
         assert_eq!(
                 mcr_impl(quote!(a b)).to_string(),
-                quote!(:: core :: compile_error ! { &#34;expected integer literal&#34; }).to_string(),
+                quote!(:: core :: compile_error ! { &quot;expected integer literal&quot; }).to_string(),
         );
     }
 }
@@ -328,7 +328,7 @@ mod tests {
 cargo expand main
 </code></pre><pre tabindex="0"><code>fn main() {
     {
-        ::std::io::_print(format_args!(&#34;{0:?}\n&#34;, 3 * 19));
+        ::std::io::_print(format_args!(&quot;{0:?}\n&quot;, 3 * 19));
     };
 }
 </code></pre><h3 id="proc_macro_attribute">proc_macro_attribute</h3>

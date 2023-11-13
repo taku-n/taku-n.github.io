@@ -20,7 +20,7 @@ Documentation
 Trunk cargo install trunk cargo new hello cd hello touch index.html trunk serve Open http://127.0.0.1:8080/ by your browser.
 See a blank page.
 Press Ctrl+C to stop the test server.
-console.log() and console.error() cargo add wasm-bindgen cargo add wasm-bindgen-futures nvim src/main.rs use wasm_bindgen::prelude::*; #[wasm_bindgen] extern &amp;#34;C&amp;#34; { #[wasm_bindgen(js_namespace = console)] fn log(s: &amp;amp;str); #[wasm_bindgen(js_namespace = console)] fn error(s: &amp;amp;str); } #[wasm_bindgen(start)] async fn wain() { log(&amp;#34;hello, world&amp;#34;); error(&amp;#34;Error!</description>
+console.log() and console.error() cargo add wasm-bindgen cargo add wasm-bindgen-futures nvim src/main.rs use wasm_bindgen::prelude::*; #[wasm_bindgen] extern &amp;quot;C&amp;quot; { #[wasm_bindgen(js_namespace = console)] fn log(s: &amp;amp;str); #[wasm_bindgen(js_namespace = console)] fn error(s: &amp;amp;str); } #[wasm_bindgen(start)] async fn wain() { log(&amp;quot;hello, world&amp;quot;); error(&amp;quot;Error!</description>
     </item>
     
     <item>
@@ -29,7 +29,7 @@ console.log() and console.error() cargo add wasm-bindgen cargo add wasm-bindgen-
       <pubDate>Wed, 01 Mar 2023 23:19:26 +0900</pubDate>
       
       <guid>https://taku-n.github.io/posts/flutter/</guid>
-      <description>Flutter Install sudo snap install flutter --classic flutter sdk-path flutter config --no-analytics Serverpod Install dart --disable-analytics sudo apt update sudo apt full-upgrade sudo apt install net-tools sudo apt autoremove dart pub global activate serverpod_cli serverpod Create a project serverpod create mypod cd mypod/mypod_server docker compose up --build --detach dart bin/main.dart Postgres error 2023-03-01 15:31:37.227923Z Internal server error. Failed to connect to database in future call manager. PostgreSQLSeverity.fatal 28P01: password authentication failed for user &amp;#34;postgres&amp;#34; ===== asynchronous gap =========================== package:postgres_pool/postgres_pool.</description>
+      <description>Flutter Install sudo snap install flutter --classic flutter sdk-path flutter config --no-analytics Serverpod Install dart --disable-analytics sudo apt update sudo apt full-upgrade sudo apt install net-tools sudo apt autoremove dart pub global activate serverpod_cli serverpod Create a project serverpod create mypod cd mypod/mypod_server docker compose up --build --detach dart bin/main.dart Postgres error 2023-03-01 15:31:37.227923Z Internal server error. Failed to connect to database in future call manager. PostgreSQLSeverity.fatal 28P01: password authentication failed for user &amp;quot;postgres&amp;quot; ===== asynchronous gap =========================== package:postgres_pool/postgres_pool.</description>
     </item>
     
     <item>
@@ -39,7 +39,7 @@ console.log() and console.error() cargo add wasm-bindgen cargo add wasm-bindgen-
       
       <guid>https://taku-n.github.io/posts/dart/</guid>
       <description>Dart 3 DartPad
-hello, world main() async { print(&amp;#39;hello, world&amp;#39;); //=&amp;gt; hello, world } Asynchronous Function main() async { var msg = await getMsg(); print(msg); //=&amp;gt; hello, world } /* Asynchronous Function */ Future&amp;lt;dynamic&amp;gt; getMsg() async { return &amp;#39;hello, world&amp;#39;; } Global Variable var msg = &amp;#39;hello, world&amp;#39;; main() async { print(msg); //=&amp;gt; hello, world } Sleep main() async { print(&amp;#39;hello&amp;#39;); //=&amp;gt; hello await sleeping(3); print(&amp;#39;world&amp;#39;); //=&amp;gt; world } // Sleep for sec seconds.</description>
+hello, world main() async { print(&#39;hello, world&#39;); //=&amp;gt; hello, world } Asynchronous Function main() async { var msg = await getMsg(); print(msg); //=&amp;gt; hello, world } /* Asynchronous Function */ Future&amp;lt;dynamic&amp;gt; getMsg() async { return &#39;hello, world&#39;; } Global Variable var msg = &#39;hello, world&#39;; main() async { print(msg); //=&amp;gt; hello, world } Sleep main() async { print(&#39;hello&#39;); //=&amp;gt; hello await sleeping(3); print(&#39;world&#39;); //=&amp;gt; world } // Sleep for sec seconds.</description>
     </item>
     
     <item>
@@ -91,7 +91,7 @@ wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack �
       <pubDate>Thu, 28 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/macro/</guid>
-      <description>On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;#34;hello, world&amp;#34;); }; } fn main() { hello!(); //=&amp;gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;#34;hello, world\n&amp;#34;], &amp;amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&amp;gt; { $x * $x }; } fn main() { println!</description>
+      <description>On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&amp;gt; { println!(&amp;quot;hello, world&amp;quot;); }; } fn main() { hello!(); //=&amp;gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;amp;[&amp;quot;hello, world\n&amp;quot;], &amp;amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&amp;gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&amp;gt; { $x * $x }; } fn main() { println!</description>
     </item>
     
     <item>
@@ -123,7 +123,7 @@ Leptos
 WebAssembly
 axum
 warp
-Update Update rustup rustup self update Update Rust rustup update Update installed executables by cargo install cargo install-update --all Update depending crates cargo update cargo upgrade rustup バージョンの確認 rustup -V 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &amp;#39;main&amp;#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.</description>
+Update Update rustup rustup self update Update Rust rustup update Update installed executables by cargo install cargo install-update --all Update depending crates cargo update cargo upgrade rustup バージョンの確認 rustup -V 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &#39;main&#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &amp;ldquo;*&amp;rdquo; for crates in cargo.</description>
     </item>
     
     <item>
@@ -223,8 +223,12 @@ $ sudo certbot certonly --manual --preferred-challenges dns -d hoge.</descriptio
       <pubDate>Thu, 21 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/go/</guid>
-      <description>Go go mod Using Go Modules go mod init &amp;lt;ここには何を書く？&amp;gt;
-$ # go mod init 公開しなければこちらはなんでもいいらしい $ # 例 $ go mod init hello go test </description>
+      <description>Go Install ~/.local 以下にインストールしていくケースです
+$ cd ~/.local $ curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz $ tar zxf gox.y.z.linux-amd64.tar.gz $ mkdir -p gopath/bin .bashrc に以下を追記します
+export PATH=~/.local/go/bin:~/.local/gopath/bin:$PATH export GOPATH=~/.local/gopath hello, world $ mkdir hello $ cd hello $ go mod init hello hello.go をつくります
+インデントはタブ 1つ です
+package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;hello, world&amp;quot;) } go mod Using Go Modules go mod init &amp;lt;ここには何を書く？&amp;gt;
+$ # go mod init [公開しなければこちらはなんでもいいらしい] $ $ # 例 $ go mod init hello go test vi スペースをタブに変換する</description>
     </item>
     
     <item>
@@ -258,7 +262,7 @@ ListenAddress :: に変更する
       <guid>https://taku-n.github.io/posts/hy/</guid>
       <description>Midnight Hy Way 必ず理解しておくべきこと
 バージョン $ hy -v hy 0.19.0 REPL $ hy --repl-output-fn=hy.contrib.hy-repr.hy-repr ~/.bashrc に
-alias hyr=&amp;#34;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr などとしておき
+alias hyr=&amp;quot;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr などとしておき
 $ hyr で起動するのがいいだろう
 言語基礎 演算 =&amp;gt; (+ 7 3) 10 =&amp;gt; (- 7 3) 4 =&amp;gt; (* 7 3) 21 =&amp;gt; (/ 7 3) 2.3333333333333335 =&amp;gt; (% 7 3) 1 変数 =&amp;gt; (setv x 42) =&amp;gt; x 42 入れ子操作 リスト [&amp;lsquo;1 &amp;lsquo;2 &amp;lsquo;3 &amp;lsquo;4 &amp;lsquo;5] と区別するため
 &amp;lsquo;(1 2 3 4 5) のことを</description>
@@ -311,7 +315,7 @@ $ curl -OL http://www.</description>
       <guid>https://taku-n.github.io/posts/git/</guid>
       <description>Git GitHub CLI GitHub CLI
 インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
-eval &amp;#34;$(gh completion -s bash)&amp;#34; gh auth まずは，認証する
+eval &amp;quot;$(gh completion -s bash)&amp;quot; gh auth まずは，認証する
 $ gh auth login 認証の状態を表示
 -t, &amp;ndash;show-token でトークンも表示する
 $ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示
@@ -351,7 +355,7 @@ Docker Compose
 Docker Linux環境でdockerのコマンドをsudoなしで打てるようにする
 バージョン確認 $ docker -v Docker デーモンの状態を確認 $ service docker status Docker デーモンの開始 $ sudo service docker start Docker デーモンが自動的に起動するように設定 (WSL2) wsl2でDocker自動起動設定
 Thank @ktaidot.
-コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list Remove an image docker rmi -f [Image ID] コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &amp;#34;table {{.</description>
+コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list Remove an image docker rmi -f [Image ID] コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &amp;quot;table {{.</description>
     </item>
     
     <item>
@@ -379,7 +383,7 @@ Thank @ktaidot.
       <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/market/</guid>
-      <description>Timetable Summer Time Tokyo (+9) MT5 (+3) Event London (+1) New York (-4) 09:00 03:00 Tokyo Open 01:00 - 15:00 09:00 Tokyo Close 07:00 02:00 16:00 10:00 London Open 08:00 03:00 22:30 16:30 New York Open 14:30 09:30 23:00 17:00 New York Option Cut 15:00 10:00 24:00 18:00 London Fixing 16:00 11:00 24:30 18:30 London Close 16:30 11:30 29:00 23:00 New York Close 21:00 16:00 Standard Time Tokyo (+9) MT5 (+2) Event London (+0) New York (-5) 09:00 02:00 Tokyo Open 00:00 - 15:00 08:00 Tokyo Close 06:00 01:00 17:00 10:00 London Open 08:00 03:00 23:30 16:30 New York Open 14:30 09:30 24:00 17:00 New York Option Cut 15:00 10:00 25:00 18:00 London Fixing 16:00 11:00 25:30 18:30 London Close 16:30 11:30 30:00 23:00 New York Close 21:00 16:00 </description>
+      <description>Timetable Summer Time    Tokyo (+9) MT5 (+3) Event London (+1) New York (-4)     09:00 03:00 Tokyo Open 01:00 -   15:00 09:00 Tokyo Close 07:00 02:00   16:00 10:00 London Open 08:00 03:00   22:30 16:30 New York Open 14:30 09:30   23:00 17:00 New York Option Cut 15:00 10:00   24:00 18:00 London Fixing 16:00 11:00   24:30 18:30 London Close 16:30 11:30   29:00 23:00 New York Close 21:00 16:00    Standard Time    Tokyo (+9) MT5 (+2) Event London (+0) New York (-5)     09:00 02:00 Tokyo Open 00:00 -   15:00 08:00 Tokyo Close 06:00 01:00   17:00 10:00 London Open 08:00 03:00   23:30 16:30 New York Open 14:30 09:30   24:00 17:00 New York Option Cut 15:00 10:00   25:00 18:00 London Fixing 16:00 11:00   25:30 18:30 London Close 16:30 11:30   30:00 23:00 New York Close 21:00 16:00    </description>
     </item>
     
     <item>
@@ -388,7 +392,7 @@ Thank @ktaidot.
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/jisaku04/</guid>
-      <description>JISAKU 04 (Plan) Parts Model Spec Price Remarks CPU Intel Core i7-9700K 8C8T 3.6GHz-4.9GHz 45,950JPY DDR4-2666-2ch(PC4-21300) PCIExpress3.0-16 UHD630-1.2GHz 95W Coffee Lake Refresh Motherboard ASUS ROG STRIX Z390-I GAMING Intel Z390 29,555JPY USB Type-C Gen2 ピンヘッダに対応 Memory Crucial CT2K8G4DFS8266 8GBx2 DDR4-2666(PC4-21300) 7,352JPY ブリスターパックとの違いとは (?) OS Microsoft Windows 10 Pro 28,380JPY Amazon で買うのは，危ない感じ 見れば全部わかるDDR4メモリ完全ガイド、規格からレイテンシ、本当の速さまで再確認</description>
+      <description>JISAKU 04 (Plan)    Parts Model Spec Price Remarks     CPU Intel Core i7-9700K 8C8T 3.6GHz-4.9GHz 45,950JPY DDR4-2666-2ch(PC4-21300) PCIExpress3.0-16 UHD630-1.2GHz 95W Coffee Lake Refresh   Motherboard ASUS ROG STRIX Z390-I GAMING Intel Z390 29,555JPY USB Type-C Gen2 ピンヘッダに対応   Memory Crucial CT2K8G4DFS8266 8GBx2 DDR4-2666(PC4-21300) 7,352JPY ブリスターパックとの違いとは (?)   OS Microsoft Windows 10 Pro  28,380JPY Amazon で買うのは，危ない感じ    見れば全部わかるDDR4メモリ完全ガイド、規格からレイテンシ、本当の速さまで再確認</description>
     </item>
     
     <item>
@@ -426,7 +430,7 @@ let mut p: *mut i32; p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32; let mut x: 
       
       <guid>https://taku-n.github.io/posts/clang/</guid>
       <description>https://apt.llvm.org/
-$ sudo bash -c &amp;#34;$(wget -O - https://apt.llvm.org/llvm.sh)&amp;#34; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 </description>
+$ sudo bash -c &amp;quot;$(wget -O - https://apt.llvm.org/llvm.sh)&amp;quot; $ clang-9 -v # これ以降は，いらなかったみたい $ curl -OL https://apt.llvm.org/llvm-snapshot.gpg.key $ sudo apt-key add llvm-snapshot.gpg.key $ sudo apt update $ sudo apt install clang-9 lldb-9 lld-9 </description>
     </item>
     
     <item>
@@ -439,7 +443,7 @@ $ sudo bash -c &amp;#34;$(wget -O - https://apt.llvm.org/llvm.sh)&amp;#34; $ cla
 User manual
 FAQ
 バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない
-$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &amp;#34;screen-256color&amp;#34; set-option -ga terminal-overrides &amp;#34;,xterm-256color:Tc&amp;#34; Line 1: Ctrl + [ を押したときに遅延させない
+$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &amp;quot;screen-256color&amp;quot; set-option -ga terminal-overrides &amp;quot;,xterm-256color:Tc&amp;quot; Line 1: Ctrl + [ を押したときに遅延させない
 Line 2, 3: 色を正しく表示するため (?)
 Cursor shape doesn&amp;rsquo;t change in tmux
 設定ファイル ~/.config/nvim/init.vim
@@ -453,7 +457,7 @@ $ nvim :call dein#install() アップデート :call dein#update() IME を自動
       <pubDate>Wed, 13 Nov 2019 02:52:33 +0900</pubDate>
       
       <guid>https://taku-n.github.io/posts/hugo-templates/</guid>
-      <description> {{ add 2 3 }} </description>
+      <description>  {{ add 2 3 }}  </description>
     </item>
     
     <item>
@@ -543,7 +547,7 @@ $$&lt;/p&gt;
       <description>You can write regular markdown here and Jekyll will automatically convert it to a nice webpage. I strongly encourage you to take 5 minutes to learn how to write in markdown - it&amp;rsquo;ll teach you how to transform regular text into bold/italics/headings/tables/etc.
 Here is some bold text
 Here is a secondary heading Here&amp;rsquo;s a useless table:
-Number Next number Previous number Five Six Four Ten Eleven Nine Seven Eight Six Two Three One How about a yummy crepe?</description>
+   Number Next number Previous number     Five Six Four   Ten Eleven Nine   Seven Eight Six   Two Three One    How about a yummy crepe?</description>
     </item>
     
     <item>
@@ -552,7 +556,7 @@ Number Next number Previous number Five Six Four Ten Eleven Nine Seven Eight Six
       <pubDate>Fri, 13 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/2015-02-13-hamlet-monologue/</guid>
-      <description>To be, or not to be&amp;ndash;that is the question: Whether &amp;rsquo;tis nobler in the mind to suffer The slings and arrows of outrageous fortune Or to take arms against a sea of troubles And by opposing end them. To die, to sleep&amp;ndash; No more&amp;ndash;and by a sleep to say we end The heartache, and the thousand natural shocks That flesh is heir to. &amp;lsquo;Tis a consummation Devoutly to be wished. To die, to sleep&amp;ndash; To sleep&amp;ndash;perchance to dream: ay, there&amp;rsquo;s the rub, For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause.</description>
+      <description>To be, or not to be&amp;ndash;that is the question: Whether &amp;lsquo;tis nobler in the mind to suffer The slings and arrows of outrageous fortune Or to take arms against a sea of troubles And by opposing end them. To die, to sleep&amp;ndash; No more&amp;ndash;and by a sleep to say we end The heartache, and the thousand natural shocks That flesh is heir to. &amp;lsquo;Tis a consummation Devoutly to be wished. To die, to sleep&amp;ndash; To sleep&amp;ndash;perchance to dream: ay, there&amp;rsquo;s the rub, For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause.</description>
     </item>
     
     <item>

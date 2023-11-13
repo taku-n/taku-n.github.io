@@ -15,7 +15,7 @@
       <guid>https://taku-n.github.io/posts/git/</guid>
       <description>Git GitHub CLI GitHub CLI
 インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
-eval &amp;#34;$(gh completion -s bash)&amp;#34; gh auth まずは，認証する
+eval &amp;quot;$(gh completion -s bash)&amp;quot; gh auth まずは，認証する
 $ gh auth login 認証の状態を表示
 -t, &amp;ndash;show-token でトークンも表示する
 $ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示

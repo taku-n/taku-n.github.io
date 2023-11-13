@@ -15,7 +15,7 @@
       <guid>https://taku-n.github.io/posts/hy/</guid>
       <description>Midnight Hy Way 必ず理解しておくべきこと
 バージョン $ hy -v hy 0.19.0 REPL $ hy --repl-output-fn=hy.contrib.hy-repr.hy-repr ~/.bashrc に
-alias hyr=&amp;#34;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr などとしておき
+alias hyr=&amp;quot;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr などとしておき
 $ hyr で起動するのがいいだろう
 言語基礎 演算 =&amp;gt; (+ 7 3) 10 =&amp;gt; (- 7 3) 4 =&amp;gt; (* 7 3) 21 =&amp;gt; (/ 7 3) 2.3333333333333335 =&amp;gt; (% 7 3) 1 変数 =&amp;gt; (setv x 42) =&amp;gt; x 42 入れ子操作 リスト [&amp;lsquo;1 &amp;lsquo;2 &amp;lsquo;3 &amp;lsquo;4 &amp;lsquo;5] と区別するため
 &amp;lsquo;(1 2 3 4 5) のことを</description>
