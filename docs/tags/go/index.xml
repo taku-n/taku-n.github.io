@@ -17,7 +17,7 @@
 $ cd ~/.local $ curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz $ tar zxf gox.y.z.linux-amd64.tar.gz $ mkdir -p gopath/bin .bashrc に以下を追記します
 export PATH=~/.local/go/bin:~/.local/gopath/bin:$PATH export GOPATH=~/.local/gopath hello, world $ mkdir hello $ cd hello $ go mod init hello hello.go をつくります
 インデントはタブ 1つ です
-package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;hello, world&amp;quot;) } go mod Using Go Modules go mod init &amp;lt;ここには何を書く？&amp;gt;
+package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;hello, world&amp;quot;) } $ go run hello.go hello, world go mod Using Go Modules go mod init &amp;lt;ここには何を書く？&amp;gt;
 $ # go mod init [公開しなければこちらはなんでもいいらしい] $ $ # 例 $ go mod init hello go test vi スペースをタブに変換する</description>
     </item>
     

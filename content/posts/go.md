@@ -45,6 +45,11 @@ func main() {
 }
 ```
 
+```
+$ go run hello.go
+hello, world
+```
+
 ## go mod
 
 [Using Go Modules](https://blog.golang.org/using-go-modules)
