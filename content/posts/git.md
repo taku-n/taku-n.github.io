@@ -6,6 +6,12 @@ tags: ["Git", "GitHub", "GitLab"]
 
 # Git
 
+```
+git config --global user.name name
+git config --global user.email email
+git config --list
+```
+
 ## GitHub CLI
 
 [GitHub CLI](https://cli.github.com/)

@@ -313,7 +313,7 @@ $ curl -OL http://www.</description>
       <pubDate>Mon, 22 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://taku-n.github.io/posts/git/</guid>
-      <description>Git GitHub CLI GitHub CLI
+      <description>Git git config --global user.name name git config --global user.email email git config --list GitHub CLI GitHub CLI
 インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
 eval &amp;quot;$(gh completion -s bash)&amp;quot; gh auth まずは，認証する
 $ gh auth login 認証の状態を表示
@@ -323,9 +323,7 @@ $ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧
 $ gh auth refresh -s read:public_key 表示する
 $ gh ssh-key list GitHub に公開鍵を追加する
 まず権限を付与する
-$ gh auth refresh -s write:public_key 追加する
-$ gh ssh-key add ~/.ssh/id_rsa.pub gh repo リポジトリの一覧を表示
--L, &amp;ndash;limit int は，表示する最大数を指定</description>
+$ gh auth refresh -s write:public_key 追加する</description>
     </item>
     
     <item>
