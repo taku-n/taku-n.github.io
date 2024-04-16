@@ -13,13 +13,18 @@
 <h1 id="go">Go</h1>
 <h2 id="install">Install</h2>
 <p>~/.local 以下にインストールしていくケースです</p>
-<pre tabindex="0"><code>$ cd ~/.local
-$ curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz
-$ tar zxf gox.y.z.linux-amd64.tar.gz
-$ mkdir -p gopath/bin
+<pre tabindex="0"><code>cd ~/.local
+curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz
+tar zxf gox.y.z.linux-amd64.tar.gz
+mkdir -p gopath/bin
 </code></pre><p>.bashrc に以下を追記します</p>
 <pre tabindex="0"><code>export PATH=~/.local/go/bin:~/.local/gopath/bin:$PATH
 export GOPATH=~/.local/gopath
+</code></pre><h2 id="update">Update</h2>
+<pre tabindex="0"><code>cd ~/.local
+rm -r go
+curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz
+tar zxf gox.y.z.linux-amd64.tar.gz
 </code></pre><h2 id="hello-world">hello, world</h2>
 <pre tabindex="0"><code>$ mkdir hello
 $ cd hello
@@ -36,14 +41,29 @@ func main() {
 </code></pre><pre tabindex="0"><code>$ go run hello.go
 hello, world
 </code></pre><h2 id="go-mod">go mod</h2>
-<p><a href="https://blog.golang.org/using-go-modules">Using Go Modules</a>
+<p><a href="https://blog.golang.org/using-go-modules">Using Go Modules</a><br>
 <a href="https://teratail.com/questions/217859">go mod init &lt;ここには何を書く？&gt;</a></p>
 <pre tabindex="0"><code>$ # go mod init [公開しなければこちらはなんでもいいらしい]
 $
 $ # 例
 $ go mod init hello
 </code></pre><h2 id="go-test">go test</h2>
-<h2 id="vi">vi</h2>
+<pre tabindex="0"><code>go mod init mul
+vi mul_test.go	# The file name must end with _test.go
+</code></pre><pre tabindex="0"><code>package main
+
+import &quot;testing&quot;
+
+func mul(x int, y int) int {
+	return x * y
+}
+
+func TestMul(t *testing.T) {  // The function name must begin with Test and the camel case follows
+	if mul(3, 19) != 57 {
+		t.Errorf(&quot;Failed&quot;)
+	}
+}
+</code></pre><h2 id="vi">vi</h2>
 <p>スペースをタブに変換する</p>
 <pre tabindex="0"><code>:set noet
 :ret!
