@@ -11,7 +11,7 @@ Hugo について，わかったことをメモしたいと思う
 
 コンテンツの追加
 
-$ hugo new post/my-first-post.md
+$ hugo new posts/my-first-post.md
 
 サーバの起動
 
