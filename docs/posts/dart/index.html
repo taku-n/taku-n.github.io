@@ -14,7 +14,7 @@
 <p><a href="https://dartpad.dev/">DartPad</a></p>
 <h2 id="hello-world">hello, world</h2>
 <pre tabindex="0"><code>main() async {
-  print('hello, world');  //=&gt; hello, world
+  print(&#39;hello, world&#39;);  //=&gt; hello, world
 }
 </code></pre><h2 id="asynchronous-function">Asynchronous Function</h2>
 <pre tabindex="0"><code>main() async {
@@ -24,19 +24,19 @@
 
 /* Asynchronous Function */
 Future&lt;dynamic&gt; getMsg() async {
-  return 'hello, world';
+  return &#39;hello, world&#39;;
 }
 </code></pre><h2 id="global-variable">Global Variable</h2>
-<pre tabindex="0"><code>var msg = 'hello, world';
+<pre tabindex="0"><code>var msg = &#39;hello, world&#39;;
 
 main() async {
   print(msg);  //=&gt; hello, world
 }
 </code></pre><h2 id="sleep">Sleep</h2>
 <pre tabindex="0"><code>main() async {
-  print('hello');  //=&gt; hello
+  print(&#39;hello&#39;);  //=&gt; hello
   await sleeping(3);
-  print('world');  //=&gt; world
+  print(&#39;world&#39;);  //=&gt; world
 }
 
 // Sleep for sec seconds.

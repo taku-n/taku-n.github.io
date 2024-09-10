@@ -6,17 +6,24 @@ draft: false
 
 # Hugo
 
+[Hugo](https://gohugo.io/)  
+[Hugo Documentation](https://gohugo.io/documentation/)  
+
 Hugo について，わかったことをメモしたいと思う  
 正確かどうかは，わからない
 
 コンテンツの追加
 
-$ hugo new posts/my-first-post.md
+```
+$ hugo new content content/posts/my-first-post.md
+```
 
 サーバの起動
 
-$ hugo server  
+```
+$ hugo server -D  # includes draft content
 http://127.0.0.1:1313/
+```
 
 ビルド
 

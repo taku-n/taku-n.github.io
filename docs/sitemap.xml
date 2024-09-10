@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://taku-n.github.io/posts/</loc>
-    <lastmod>2024-05-31T14:05:50+09:00</lastmod>
+    <loc>https://taku-n.github.io/posts/godot/</loc>
+    <lastmod>2024-08-18T20:06:36+09:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/ubuntu2404/</loc>
-    <lastmod>2024-05-31T14:05:50+09:00</lastmod>
+    <loc>https://taku-n.github.io/posts/</loc>
+    <lastmod>2024-08-18T20:06:36+09:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/</loc>
+    <lastmod>2024-08-18T20:06:36+09:00</lastmod>
+  </url><url>
+    <loc>https://taku-n.github.io/posts/ubuntu2404/</loc>
     <lastmod>2024-05-31T14:05:50+09:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/leptos/</loc>
@@ -56,10 +59,10 @@
     <loc>https://taku-n.github.io/posts/rust/</loc>
     <lastmod>2021-10-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/axum/</loc>
+    <loc>https://taku-n.github.io/posts/axum/</loc>
     <lastmod>2021-08-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/axum/</loc>
+    <loc>https://taku-n.github.io/tags/axum/</loc>
     <lastmod>2021-08-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/windows/</loc>
@@ -68,10 +71,10 @@
     <loc>https://taku-n.github.io/posts/windows/</loc>
     <lastmod>2021-06-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/warp/</loc>
+    <loc>https://taku-n.github.io/posts/warp/</loc>
     <lastmod>2021-05-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/warp/</loc>
+    <loc>https://taku-n.github.io/tags/warp/</loc>
     <lastmod>2021-05-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/kubernetes/</loc>
@@ -80,10 +83,10 @@
     <loc>https://taku-n.github.io/tags/linux/</loc>
     <lastmod>2021-04-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/nginx/</loc>
+    <loc>https://taku-n.github.io/posts/nginx/</loc>
     <lastmod>2021-04-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/nginx/</loc>
+    <loc>https://taku-n.github.io/tags/nginx/</loc>
     <lastmod>2021-04-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/haproxy/</loc>
@@ -122,10 +125,10 @@
     <loc>https://taku-n.github.io/posts/hy/</loc>
     <lastmod>2020-10-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/systemd/</loc>
+    <loc>https://taku-n.github.io/posts/systemd/</loc>
     <lastmod>2020-10-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/systemd/</loc>
+    <loc>https://taku-n.github.io/tags/systemd/</loc>
     <lastmod>2020-10-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/raspberry-pi/</loc>
@@ -179,10 +182,10 @@
     <loc>https://taku-n.github.io/posts/jisaku04/</loc>
     <lastmod>2020-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/hello/</loc>
+    <loc>https://taku-n.github.io/posts/hello/</loc>
     <lastmod>2020-04-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/hello/</loc>
+    <loc>https://taku-n.github.io/tags/hello/</loc>
     <lastmod>2020-04-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/world/</loc>

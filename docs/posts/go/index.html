@@ -33,10 +33,10 @@ $ go mod init hello
 インデントはタブ 1つ です</p>
 <pre tabindex="0"><code>package main
 
-import &quot;fmt&quot;
+import &#34;fmt&#34;
 
 func main() {
-	fmt.Println(&quot;hello, world&quot;)
+	fmt.Println(&#34;hello, world&#34;)
 }
 </code></pre><pre tabindex="0"><code>$ go run hello.go
 hello, world
@@ -52,7 +52,7 @@ $ go mod init hello
 vi mul_test.go	# The file name must end with _test.go
 </code></pre><pre tabindex="0"><code>package main
 
-import &quot;testing&quot;
+import &#34;testing&#34;
 
 func mul(x int, y int) int {
 	return x * y
@@ -60,7 +60,7 @@ func mul(x int, y int) int {
 
 func TestMul(t *testing.T) {  // The function name must begin with Test and the camel case follows
 	if mul(3, 19) != 57 {
-		t.Errorf(&quot;Failed&quot;)
+		t.Errorf(&#34;Failed&#34;)
 	}
 }
 </code></pre><h2 id="vi">vi</h2>

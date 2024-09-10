@@ -11,14 +11,16 @@
 <a href="../../">戻る</a>
 
 <h1 id="hugo">Hugo</h1>
+<p><a href="https://gohugo.io/">Hugo</a><br>
+<a href="https://gohugo.io/documentation/">Hugo Documentation</a></p>
 <p>Hugo について，わかったことをメモしたいと思う<br>
 正確かどうかは，わからない</p>
 <p>コンテンツの追加</p>
-<p>$ hugo new posts/my-first-post.md</p>
-<p>サーバの起動</p>
-<p>$ hugo server<br>
-http://127.0.0.1:1313/</p>
-<p>ビルド</p>
+<pre tabindex="0"><code>$ hugo new content content/posts/my-first-post.md
+</code></pre><p>サーバの起動</p>
+<pre tabindex="0"><code>$ hugo server -D  # includes draft content
+http://127.0.0.1:1313/
+</code></pre><p>ビルド</p>
 <p>$ hugo -D
 ($ hugo となにが違うのだろう? -&gt; ドラフトを含むか含まないか</p>
 <p>When you cloned a hugo site you have created, you must enter the directory and type:<br>

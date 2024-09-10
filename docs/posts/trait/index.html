@@ -143,7 +143,7 @@ struct S {
 <p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h2 id="debug-stdfmtdebug">Debug (std::fmt::Debug)</h2>
 <pre tabindex="0"><code>pub trait Debug {
-    fn fmt(&amp;self, f: &amp;mut Formatter&lt;'_&gt;) -&gt; Result&lt;(), Error&gt;;
+    fn fmt(&amp;self, f: &amp;mut Formatter&lt;&#39;_&gt;) -&gt; Result&lt;(), Error&gt;;
 }
 </code></pre><pre tabindex="0"><code>struct S {
     x: i32,
@@ -185,7 +185,7 @@ dbg!(*b)  //=&gt; *b = 1
 <p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h2 id="fn-stdopsfn">Fn (std::ops::Fn)</h2>
 <pre tabindex="0"><code>pub trait Fn&lt;Args&gt;: FnMut&lt;Args&gt; {
-    extern &quot;rust-call&quot; fn call(&amp;self, args: Args) -&gt; Self::Output;
+    extern &#34;rust-call&#34; fn call(&amp;self, args: Args) -&gt; Self::Output;
 }
 </code></pre><pre tabindex="0"><code>fn main() {
     let mut n = 5;
@@ -215,7 +215,7 @@ dbg!(*b)  //=&gt; *b = 1
 <p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h2 id="fnmut-stdopsfnmut">FnMut (std::ops::FnMut)</h2>
 <pre tabindex="0"><code>pub trait FnMut&lt;Args&gt;: FnOnce&lt;Args&gt; {
-    extern &quot;rust-call&quot; fn call_mut(
+    extern &#34;rust-call&#34; fn call_mut(
         &amp;mut self, 
         args: Args
     ) -&gt; Self::Output;
@@ -229,7 +229,7 @@ dbg!(*b)  //=&gt; *b = 1
 <h2 id="fnonce-stdopsfnonce">FnOnce (std::ops::FnOnce)</h2>
 <pre tabindex="0"><code>pub trait FnOnce&lt;Args&gt; {
     type Output;
-    extern &quot;rust-call&quot; fn call_once(self, args: Args) -&gt; Self::Output;
+    extern &#34;rust-call&#34; fn call_once(self, args: Args) -&gt; Self::Output;
 }
 </code></pre><p>Required:<br>
 <a href="#std-ops-fnmut">FnMut (std::ops::FnMut)</a></p>
@@ -240,14 +240,14 @@ dbg!(*b)  //=&gt; *b = 1
     fn from(T) -&gt; Self;
 }
 </code></pre><p>おなじみのやつ</p>
-<pre tabindex="0"><code>let s = String::from(&quot;str&quot;);
+<pre tabindex="0"><code>let s = String::from(&#34;str&#34;);
 </code></pre><p>Complementary:<br>
 <a href="#std-convert-into">Into (std::convert::Into</a></p>
 <p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h2 id="future-stdfuturefuture">Future (std::future::Future)</h2>
 <pre tabindex="0"><code>pub trait Future {
     type Output;
-    fn poll(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;Self::Output&gt;;
+    fn poll(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;&#39;_&gt;) -&gt; Poll&lt;Self::Output&gt;;
 }
 </code></pre><p>Enum Poll は</p>
 <pre tabindex="0"><code>pub enum Poll&lt;T&gt; {

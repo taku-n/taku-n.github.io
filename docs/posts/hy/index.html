@@ -18,7 +18,7 @@ hy 0.19.0
 </code></pre><h2 id="repl">REPL</h2>
 <pre tabindex="0"><code>$ hy --repl-output-fn=hy.contrib.hy-repr.hy-repr
 </code></pre><p>~/.bashrc に</p>
-<pre tabindex="0"><code>alias hyr=&quot;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr
+<pre tabindex="0"><code>alias hyr=&#34;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr
 </code></pre><p>などとしておき</p>
 <pre tabindex="0"><code>$ hyr
 </code></pre><p>で起動するのがいいだろう</p>
@@ -42,39 +42,39 @@ hy 0.19.0
 <p><code>リスト</code> [&lsquo;1 &lsquo;2 &lsquo;3 &lsquo;4 &lsquo;5] と区別するため<br>
 &lsquo;(1 2 3 4 5) のことを<br>
 こちらのドキュメントでは <code>入れ子</code> と呼ぶことにする</p>
-<pre tabindex="0"><code>=&gt; (first '(1 2 3 4 5))
-'1
-=&gt; (second '(1 2 3 4 5))
-'2
-=&gt; (rest '(1 2 3 4 5))
+<pre tabindex="0"><code>=&gt; (first &#39;(1 2 3 4 5))
+&#39;1
+=&gt; (second &#39;(1 2 3 4 5))
+&#39;2
+=&gt; (rest &#39;(1 2 3 4 5))
 &lt;itertools.islice object at 0x...
-'(2 3 4 5) 相当のものが生成されているはず
-=&gt; (last '(1 2 3 4 5))
-'5
+&#39;(2 3 4 5) 相当のものが生成されているはず
+=&gt; (last &#39;(1 2 3 4 5))
+&#39;5
 
-=&gt; (cut '(1 2 3 4 5) 2)
-'(3 4 5)
-=&gt; (cut '(1 2 3 4 5))
-'(1 2 3 4 5)
-=&gt; (cut (rest '(1 2 3 4 5)))
-TypeError: 'itertools.islice' object is not subscriptable
+=&gt; (cut &#39;(1 2 3 4 5) 2)
+&#39;(3 4 5)
+=&gt; (cut &#39;(1 2 3 4 5))
+&#39;(1 2 3 4 5)
+=&gt; (cut (rest &#39;(1 2 3 4 5)))
+TypeError: &#39;itertools.islice&#39; object is not subscriptable
 これはなぜかできない
 
-=&gt; (list '(1 2 3 4 5))
-['1 '2 '3 '4 '5]
-=&gt; (list (rest '(1 2 3 4 5)))
-['2 '3 '4 '5]
+=&gt; (list &#39;(1 2 3 4 5))
+[&#39;1 &#39;2 &#39;3 &#39;4 &#39;5]
+=&gt; (list (rest &#39;(1 2 3 4 5)))
+[&#39;2 &#39;3 &#39;4 &#39;5]
 </code></pre><h3 id="条件分岐">条件分岐</h3>
 <pre tabindex="0"><code>=&gt; (defn check [x]
-...  (if (&gt; x 0) &quot;positive&quot;
-...      (= x 0) &quot;zero&quot;
-...      &quot;negative&quot;))
+...  (if (&gt; x 0) &#34;positive&#34;
+...      (= x 0) &#34;zero&#34;
+...      &#34;negative&#34;))
 =&gt; (check 42)
-&quot;positive&quot;
+&#34;positive&#34;
 =&gt; (check 0)
-&quot;zero&quot;
+&#34;zero&#34;
 =&gt; (check -42)
-&quot;negative&quot;
+&#34;negative&#34;
 </code></pre><h3 id="関数">関数</h3>
 <pre tabindex="0"><code>=&gt; (defn add [x y]
 ...  (+ x y))
@@ -90,16 +90,16 @@ TypeError: 'itertools.islice' object is not subscriptable
 <pre tabindex="0"><code>; main.hy
 
 (defn hello [name]
-  (+ &quot;hello, &quot; name))
+  (+ &#34;hello, &#34; name))
 
 ; defmain は，プログラムの最後に置くのがいいらしい
 (defmain [&amp;rest args]
-  (print &quot;hello, world&quot;)
+  (print &#34;hello, world&#34;)
   (print args)
   (print (hello (second args))))
 </code></pre><pre tabindex="0"><code>$ hy main.hy alice bob carol
 hello, world
-('main.hy', 'alice', 'bob', 'carol')
+(&#39;main.hy&#39;, &#39;alice&#39;, &#39;bob&#39;, &#39;carol&#39;)
 hello, alice
 </code></pre><p>ちなみに，hyc は，壊れているようでなにも生成してくれない<br>
 (<code>__pycache__</code> 内が生成物?)</p>
@@ -141,8 +141,8 @@ hello, alice
 ...     (except [e KeyError] (print e)))
 4
 
-(setv (. label [&quot;text&quot;]) &quot;hello, world&quot;)
-(assoc label &quot;text&quot; &quot;hello, world&quot;)
+(setv (. label [&#34;text&#34;]) &#34;hello, world&#34;)
+(assoc label &#34;text&#34; &#34;hello, world&#34;)
 </code></pre><h2 id="スペシャルフォーム">スペシャルフォーム</h2>
 <h3 id="--最初の引数に入れる">-&gt; (最初の引数に入れる)</h3>
 <pre tabindex="0"><code>=&gt; (defn f [x y]
@@ -164,10 +164,10 @@ hello, alice
 42
 42
 </code></pre><h3 id="py-python-の式">py (Python の式)</h3>
-<pre tabindex="0"><code>=&gt; (py &quot;41 + 1&quot;)
+<pre tabindex="0"><code>=&gt; (py &#34;41 + 1&#34;)
 42
 </code></pre><h3 id="pys-python-の文">pys (Python の文)</h3>
-<pre tabindex="0"><code>=&gt; (pys &quot;print('hoge')&quot;)
+<pre tabindex="0"><code>=&gt; (pys &#34;print(&#39;hoge&#39;)&#34;)
 hoge
 </code></pre>
 

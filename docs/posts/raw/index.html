@@ -38,7 +38,7 @@ let mut x: i32;
 unsafe {
     x = *p;  // Segmentation Fault
 }
-println!(&quot;{:?}&quot;, x);
+println!(&#34;{:?}&#34;, x);
 </code></pre><p>ポインタが指すアドレスの値を取ってくるのは，危険な行為なので，unsafe ブロックの中でやります。<br>
 コメントが不穏ですが，とにかく実行してみましょう。</p>
 <pre tabindex="0"><code>$ cargo run
@@ -66,7 +66,7 @@ let mut x: i32;
 unsafe {
     x = *p;
 }
-println!(&quot;{:?}&quot;, x);  //=&gt; 42
+println!(&#34;{:?}&#34;, x);  //=&gt; 42
 </code></pre><p>今度は，ちゃんと読み出せました。</p>
 <p>書き込みだってできます。</p>
 <pre tabindex="0"><code>let mut x: i32 = 1;
@@ -76,7 +76,7 @@ p = &amp;mut x as *mut i32;
 unsafe {
     *p = 2;
 }
-println!(&quot;{:?}&quot;, x);  //=&gt; 2
+println!(&#34;{:?}&#34;, x);  //=&gt; 2
 </code></pre><p>大丈夫そうですね。</p>
 <p>こうなると，気になってくるのはアドレスですよね。<br>
 確かめてみましょう。</p>
@@ -84,8 +84,8 @@ println!(&quot;{:?}&quot;, x);  //=&gt; 2
 let mut p: *mut i32;
 p = &amp;mut x as *mut i32;
 
-println!(&quot;{:p}&quot;, &amp;mut x);  //=&gt; 0x7fffd35bec64
-println!(&quot;{:p}&quot;, p);       //=&gt; 0x7fffd35bec64
+println!(&#34;{:p}&#34;, &amp;mut x);  //=&gt; 0x7fffd35bec64
+println!(&#34;{:p}&#34;, p);       //=&gt; 0x7fffd35bec64
 </code></pre><p>借用もポインタも，同じ場所を指していることがわかります。</p>
 <p>ところで，ここまで，借用からポインタをつくってきました。<br>
 今度は逆に，ポインタから借用をつくってみましょう。</p>
@@ -97,7 +97,7 @@ let mut y: &amp;mut i32;
 unsafe {
     y = &amp;mut *p;
 }
-println!(&quot;{:?}&quot;, y);  //=&gt; 42
+println!(&#34;{:?}&#34;, y);  //=&gt; 42
 </code></pre><h3 id="mut-t型-と-const-t型">*mut T型 と *const T型</h3>
 <p>これまでずっと，ポインタの型として *mut T型 を使ってきました。<br>
 しかし実は，ポインタの型には，もうひとつあります。<br>
@@ -122,7 +122,7 @@ let mut y: &amp;i32;
 unsafe {
     y = &amp;*p;
 }
-println!(&quot;{:?}&quot;, y);  //=&gt; 42
+println!(&#34;{:?}&#34;, y);  //=&gt; 42
 </code></pre><h3 id="ヌルポインタをつくろう">ヌルポインタをつくろう</h3>
 <p><a href="https://doc.rust-lang.org/std/ptr/">std::ptr</a> を使ってつくれます。</p>
 <pre tabindex="0"><code>use std::ptr::*;
@@ -130,8 +130,8 @@ println!(&quot;{:?}&quot;, y);  //=&gt; 42
 let mut p: *const i32 = null();
 let mut q: *mut i32   = null_mut();
 
-println!(&quot;{:p}&quot;, p);  //=&gt; 0x0
-println!(&quot;{:p}&quot;, q);  //=&gt; 0x0
+println!(&#34;{:p}&#34;, p);  //=&gt; 0x0
+println!(&#34;{:p}&#34;, q);  //=&gt; 0x0
 </code></pre><p>簡単ですね。<br>
 ポインタが null かどうか確かめる関数も用意されています。</p>
 <pre tabindex="0"><code>use std::ptr::*;
@@ -139,44 +139,44 @@ println!(&quot;{:p}&quot;, q);  //=&gt; 0x0
 let p: *const i32 = null();
 let q: *mut i32   = null_mut();
 
-println!(&quot;{:?}&quot;, p.is_null());  //=&gt; true
-println!(&quot;{:?}&quot;, q.is_null());  //=&gt; true
+println!(&#34;{:?}&#34;, p.is_null());  //=&gt; true
+println!(&#34;{:?}&#34;, q.is_null());  //=&gt; true
 </code></pre><h3 id="ポインタ演算風">ポインタ演算風</h3>
 <p>ポインタ演算風をする前に，型のサイズを確認しておきましょう。</p>
 <pre tabindex="0"><code>use std::mem::*;
 
-println!(&quot;{:?}&quot;, size_of::&lt;i32&gt;());  //=&gt; 4
+println!(&#34;{:?}&#34;, size_of::&lt;i32&gt;());  //=&gt; 4
 </code></pre><p>i32型 のサイズは，4バイト であることがあらためてわかりました。<br>
 では，ポインタを 4バイト ずつずらして，i32型 の配列を確認したり，変更したりしてみましょう。</p>
 <pre tabindex="0"><code>let mut xs: [i32; 3] = [1, 2, 3];
 let mut p: *mut i32 = xs.as_mut_ptr();
 
-println!(&quot;{:p}&quot;, p);  //=&gt; 0x7fffeb82bbe4
+println!(&#34;{:p}&#34;, p);  //=&gt; 0x7fffeb82bbe4
 unsafe {
-    println!(&quot;{:?}&quot;, *p);  //=&gt; 1
+    println!(&#34;{:?}&#34;, *p);  //=&gt; 1
 
-    println!(&quot;{:p}: {:?}&quot;, p.offset(0), *p.offset(0));  //=&gt; 0x7fffeb82bbe4: 1
-    println!(&quot;{:p}: {:?}&quot;, p.offset(1), *p.offset(1));  //=&gt; 0x7fffeb82bbe8: 2
-    println!(&quot;{:p}: {:?}&quot;, p.offset(2), *p.offset(2));  //=&gt; 0x7fffeb82bbec: 3
+    println!(&#34;{:p}: {:?}&#34;, p.offset(0), *p.offset(0));  //=&gt; 0x7fffeb82bbe4: 1
+    println!(&#34;{:p}: {:?}&#34;, p.offset(1), *p.offset(1));  //=&gt; 0x7fffeb82bbe8: 2
+    println!(&#34;{:p}: {:?}&#34;, p.offset(2), *p.offset(2));  //=&gt; 0x7fffeb82bbec: 3
 
     *p.offset(1) = 4;
 }
 
-println!(&quot;{:?}&quot;, xs);  //=&gt; [1, 4, 3]
+println!(&#34;{:?}&#34;, xs);  //=&gt; [1, 4, 3]
 </code></pre><p>型のサイズに合わせて，ポインタが増加しているのがよくわかります。<br>
 では，ポインタの型をキャストして，増加量が変化する様子を見てみましょう。</p>
 <pre tabindex="0"><code>let mut x: u32 = 0x12345678;
 let mut p: *mut u32 = &amp;mut x as *mut u32;
 let mut q: *mut u8  = p.cast::&lt;u8&gt;();
 
-println!(&quot;{:p}&quot;, p);  //=&gt; 0x7fffeba3cb04
+println!(&#34;{:p}&#34;, p);  //=&gt; 0x7fffeba3cb04
 unsafe {
-    println!(&quot;0x{:08X}&quot;, *p);  //=&gt; 0x12345678
+    println!(&#34;0x{:08X}&#34;, *p);  //=&gt; 0x12345678
 
-    println!(&quot;{:p}: 0x{:02X}&quot;, q.offset(0), *q.offset(0));  //=&gt; 0x7fffeba3cb04: 0x78
-    println!(&quot;{:p}: 0x{:02X}&quot;, q.offset(1), *q.offset(1));  //=&gt; 0x7fffeba3cb05: 0x56
-    println!(&quot;{:p}: 0x{:02X}&quot;, q.offset(2), *q.offset(2));  //=&gt; 0x7fffeba3cb06: 0x34
-    println!(&quot;{:p}: 0x{:02X}&quot;, q.offset(3), *q.offset(3));  //=&gt; 0x7fffeba3cb07: 0x12
+    println!(&#34;{:p}: 0x{:02X}&#34;, q.offset(0), *q.offset(0));  //=&gt; 0x7fffeba3cb04: 0x78
+    println!(&#34;{:p}: 0x{:02X}&#34;, q.offset(1), *q.offset(1));  //=&gt; 0x7fffeba3cb05: 0x56
+    println!(&#34;{:p}: 0x{:02X}&#34;, q.offset(2), *q.offset(2));  //=&gt; 0x7fffeba3cb06: 0x34
+    println!(&#34;{:p}: 0x{:02X}&#34;, q.offset(3), *q.offset(3));  //=&gt; 0x7fffeba3cb07: 0x12
 }
 </code></pre><p>今度は u8型 のポインタなので，ポインタが 1バイト ずつ増加しています。</p>
 <h2 id="ビットを味わう">ビットを味わう</h2>
@@ -191,7 +191,7 @@ let mut y: u32;
 unsafe {
     y = transmute::&lt;[u8; 4], u32&gt;(x);
 }
-println!(&quot;0x{:08X}&quot;, y);  //=&gt; 0x12345678
+println!(&#34;0x{:08X}&#34;, y);  //=&gt; 0x12345678
 </code></pre><p>順番が逆転していますが，違う解釈をさせることができました。<br>
 ポインタをキャストしたときの話と合わせると，わかりやすいと思います。</p>
 <h2 id="box">Box</h2>
@@ -200,7 +200,7 @@ println!(&quot;0x{:08X}&quot;, y);  //=&gt; 0x12345678
 b = Box::&lt;i32&gt;::new(42);
 let p_b: *mut i32;
 p_b = Box::into_raw(b);  // *const i32 でもいい
-println!(&quot;{:?}&quot;, p_b);   //=&gt; 0x55f513da1b70
+println!(&#34;{:?}&#34;, p_b);   //=&gt; 0x55f513da1b70
 </code></pre><p>アドレスから Box を作成することもできます。</p>
 <pre tabindex="0"><code>let p: *mut i32;
 p = 0x00_00_7F_FF_FF_FF_FF_FCusize as *mut i32;
@@ -221,8 +221,8 @@ impl SelfRef {
         };
         self_ref.p = &amp;self_ref.x;
 
-        println!(&quot;{:?}&quot;, &amp;self_ref.x as *const i32);  //=&gt; 0x7ffd44b212e0 x のアドレス
-        println!(&quot;{:?}&quot;, self_ref.p);                 //=&gt; 0x7ffd44b212e0 x を指している
+        println!(&#34;{:?}&#34;, &amp;self_ref.x as *const i32);  //=&gt; 0x7ffd44b212e0 x のアドレス
+        println!(&#34;{:?}&#34;, self_ref.p);                 //=&gt; 0x7ffd44b212e0 x を指している
 
         self_ref  // 構造体なのでムーブする
     }
@@ -232,8 +232,8 @@ fn main() {
     let self_ref: SelfRef;
     self_ref = SelfRef::new(42);
 
-    println!(&quot;{:?}&quot;, &amp;self_ref.x as *const i32);  //=&gt; 0x7ffd44b213f8 ムーブしたら変わってしまった
-    println!(&quot;{:?}&quot;, self_ref.p);                 //=&gt; 0x7ffd44b212e0 x を指していることにはならない
+    println!(&#34;{:?}&#34;, &amp;self_ref.x as *const i32);  //=&gt; 0x7ffd44b213f8 ムーブしたら変わってしまった
+    println!(&#34;{:?}&#34;, self_ref.p);                 //=&gt; 0x7ffd44b212e0 x を指していることにはならない
 }
 </code></pre><p>こちらを参考にしました<br>
 <a href="https://tech-blog.optim.co.jp/entry/2020/03/05/160000">https://tech-blog.optim.co.jp/entry/2020/03/05/160000</a></p>
@@ -241,7 +241,7 @@ fn main() {
 <h3 id="libc-を使う">libc を使う</h3>
 <p><a href="https://crates.io/crates/libc">libc</a> を使うには，Cargo.toml の [dependencies] のところを，つぎのようにします。</p>
 <pre tabindex="0"><code>[dependencies]
-libc = &quot;0.2&quot;
+libc = &#34;0.2&#34;
 </code></pre>
 
 <a href="../../">戻る</a>

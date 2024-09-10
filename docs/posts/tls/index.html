@@ -39,7 +39,7 @@ Nginx とかを使わずに手動で認証</p>
 <p>最も重要な点として，DNS サーバが API による操作に対応していなければならない<br>
 ここでは，ConoHa の DNS サーバを利用することにする</p>
 <p>初回のやり方は，つぎのとおり</p>
-<pre tabindex="0"><code>$ sudo certbot certonly --manual --preferred-challenges dns -d hoge.com -d '*.hoge.com'
+<pre tabindex="0"><code>$ sudo certbot certonly --manual --preferred-challenges dns -d hoge.com -d &#39;*.hoge.com&#39;
 </code></pre><p>あとは，指示どおりに TXT レコードを追加すれば OK</p>
 <p>更新する場合は，こちらをまず確認<br>
 <a href="https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks">Pre and Post Validation Hooks</a></p>
@@ -69,10 +69,10 @@ import mikumo  # A library for ConoHa API
 ############################
 
 # Credentials for ConoHa
-API_USERNAME      = 'your-username'
-API_PASSWORD      = 'your-password'
-TENANT_ID         = '0123456789abcdef0123456789abcdef'
-IDENTITY_ENDPOINT = 'https://identity.****.conoha.io/v2.0'
+API_USERNAME      = &#39;your-username&#39;
+API_PASSWORD      = &#39;your-password&#39;
+TENANT_ID         = &#39;0123456789abcdef0123456789abcdef&#39;
+IDENTITY_ENDPOINT = &#39;https://identity.****.conoha.io/v2.0&#39;
 
 ############################
 # Set your settings above. #
@@ -80,30 +80,30 @@ IDENTITY_ENDPOINT = 'https://identity.****.conoha.io/v2.0'
 
 def log(str):
     now = datetime.datetime.now()
-    now_str = now.strftime('%Y.%m.%d %H:%M:%S')
+    now_str = now.strftime(&#39;%Y.%m.%d %H:%M:%S&#39;)
 
-    with open('/etc/letsencrypt/log.txt', 'a') as f:
+    with open(&#39;/etc/letsencrypt/log.txt&#39;, &#39;a&#39;) as f:
         print(now_str, str, file = f)
 
-log(f'CERTBOT_DOMAIN: {os.environ[&quot;CERTBOT_DOMAIN&quot;]}')
-log(f'CERTBOT_VALIDATION: {os.environ[&quot;CERTBOT_VALIDATION&quot;]}')
-log(f'CERTBOT_REMAINING_CHALLENGES: {os.environ[&quot;CERTBOT_REMAINING_CHALLENGES&quot;]}')
-log(f'CERTBOT_ALL_DOMAINS: {os.environ[&quot;CERTBOT_ALL_DOMAINS&quot;]}')
+log(f&#39;CERTBOT_DOMAIN: {os.environ[&#34;CERTBOT_DOMAIN&#34;]}&#39;)
+log(f&#39;CERTBOT_VALIDATION: {os.environ[&#34;CERTBOT_VALIDATION&#34;]}&#39;)
+log(f&#39;CERTBOT_REMAINING_CHALLENGES: {os.environ[&#34;CERTBOT_REMAINING_CHALLENGES&#34;]}&#39;)
+log(f&#39;CERTBOT_ALL_DOMAINS: {os.environ[&#34;CERTBOT_ALL_DOMAINS&#34;]}&#39;)
 
-credentials = {'api-username': API_USERNAME, 'api-password': API_PASSWORD,
-        'tenant-id': TENANT_ID, 'identity-endpoint': IDENTITY_ENDPOINT}
+credentials = {&#39;api-username&#39;: API_USERNAME, &#39;api-password&#39;: API_PASSWORD,
+        &#39;tenant-id&#39;: TENANT_ID, &#39;identity-endpoint&#39;: IDENTITY_ENDPOINT}
 
 code, access = mikumo.id.get_access(credentials)
 if code != 200:
-    log(f'Error: mikumo.id.get_access(): {code}')
+    log(f&#39;Error: mikumo.id.get_access(): {code}&#39;)
     sys.exit(1)
 
-domain_name = os.environ['CERTBOT_DOMAIN']
-validation = os.environ['CERTBOT_VALIDATION']
+domain_name = os.environ[&#39;CERTBOT_DOMAIN&#39;]
+validation = os.environ[&#39;CERTBOT_VALIDATION&#39;]
 code, data = mikumo.dns.create_record_by_domain_name(
-        access, domain_name, '_acme-challenge', 'TXT', validation, None)
+        access, domain_name, &#39;_acme-challenge&#39;, &#39;TXT&#39;, validation, None)
 if code != 200:
-    log(f'Error: mikumo.dns.create_record_by_domain_name(): {code}')
+    log(f&#39;Error: mikumo.dns.create_record_by_domain_name(): {code}&#39;)
     sys.exit(1)
 </code></pre><p>/etc/letsencrypt/cleanup.py をつぎのようにする</p>
 <pre tabindex="0"><code>#!/bin/env python
@@ -119,10 +119,10 @@ import mikumo  # A library for ConoHa API
 ############################
 
 # Credentials for ConoHa
-API_USERNAME      = 'your-username'
-API_PASSWORD      = 'your-password'
-TENANT_ID         = '0123456789abcdef0123456789abcdef'
-IDENTITY_ENDPOINT = 'https://identity.****.conoha.io/v2.0'
+API_USERNAME      = &#39;your-username&#39;
+API_PASSWORD      = &#39;your-password&#39;
+TENANT_ID         = &#39;0123456789abcdef0123456789abcdef&#39;
+IDENTITY_ENDPOINT = &#39;https://identity.****.conoha.io/v2.0&#39;
 
 ############################
 # Set your settings above. #
@@ -130,29 +130,29 @@ IDENTITY_ENDPOINT = 'https://identity.****.conoha.io/v2.0'
 
 def log(str):
     now = datetime.datetime.now()
-    now_str = now.strftime('%Y.%m.%d %H:%M:%S')
+    now_str = now.strftime(&#39;%Y.%m.%d %H:%M:%S&#39;)
 
-    with open('/etc/letsencrypt/log.txt', 'a') as f:
+    with open(&#39;/etc/letsencrypt/log.txt&#39;, &#39;a&#39;) as f:
         print(now_str, str, file = f)
 
-log(f'CERTBOT_DOMAIN: {os.environ[&quot;CERTBOT_DOMAIN&quot;]}')
-log(f'CERTBOT_VALIDATION: {os.environ[&quot;CERTBOT_VALIDATION&quot;]}')
-log(f'CERTBOT_REMAINING_CHALLENGES: {os.environ[&quot;CERTBOT_REMAINING_CHALLENGES&quot;]}')
-log(f'CERTBOT_ALL_DOMAINS: {os.environ[&quot;CERTBOT_ALL_DOMAINS&quot;]}')
+log(f&#39;CERTBOT_DOMAIN: {os.environ[&#34;CERTBOT_DOMAIN&#34;]}&#39;)
+log(f&#39;CERTBOT_VALIDATION: {os.environ[&#34;CERTBOT_VALIDATION&#34;]}&#39;)
+log(f&#39;CERTBOT_REMAINING_CHALLENGES: {os.environ[&#34;CERTBOT_REMAINING_CHALLENGES&#34;]}&#39;)
+log(f&#39;CERTBOT_ALL_DOMAINS: {os.environ[&#34;CERTBOT_ALL_DOMAINS&#34;]}&#39;)
 
-credentials = {'api-username': API_USERNAME, 'api-password': API_PASSWORD,
-        'tenant-id': TENANT_ID, 'identity-endpoint': IDENTITY_ENDPOINT}
+credentials = {&#39;api-username&#39;: API_USERNAME, &#39;api-password&#39;: API_PASSWORD,
+        &#39;tenant-id&#39;: TENANT_ID, &#39;identity-endpoint&#39;: IDENTITY_ENDPOINT}
 
 code, access = mikumo.id.get_access(credentials)
 if code != 200:
-    log(f'Error: mikumo.id.get_access(): {code}')
+    log(f&#39;Error: mikumo.id.get_access(): {code}&#39;)
     sys.exit(1)
 
-domain_name = os.environ['CERTBOT_DOMAIN']
+domain_name = os.environ[&#39;CERTBOT_DOMAIN&#39;]
 code, data = mikumo.dns.delete_record_by_domain_name_and_name(
-        access, domain_name, '_acme-challenge', 'TXT')
+        access, domain_name, &#39;_acme-challenge&#39;, &#39;TXT&#39;)
 if code != 200:
-    log(f'Error: mikumo.dns.delete_record_by_domain_name_and_name(): {code}')
+    log(f&#39;Error: mikumo.dns.delete_record_by_domain_name_and_name(): {code}&#39;)
     sys.exit(1)
 </code></pre><p>できたら，試す</p>
 <pre tabindex="0"><code>sudo certbot renew --manual \
@@ -166,22 +166,22 @@ sudo chmod 700 /etc/letsencrypt/renew.sh
 openssl コマンドの <code>hoge.com</code> のところは，自分のドメインに修正する</p>
 <pre tabindex="0"><code>#!/bin/bash
 
-echo &quot;Starting certbot.&quot;
+echo &#34;Starting certbot.&#34;
 
 certbot renew --manual \
         --manual-auth-hook /etc/letsencrypt/authenticator.py \
         --manual-cleanup-hook /etc/letsencrypt/cleanup.py
 
-echo &quot;certbot finished.&quot;
+echo &#34;certbot finished.&#34;
 
 openssl x509 -in /etc/letsencrypt/live/hoge.com/fullchain.pem -noout -dates
 
-# To see a log by journalctl, type &quot;journalctl -e -u letsencrypt&quot;.
+# To see a log by journalctl, type &#34;journalctl -e -u letsencrypt&#34;.
 # A log file of certbot is /var/log/letsencrypt/letsencrypt.log.
 # A log file of hooks is /etc/letsencrypt/log.txt.
 </code></pre><p>/etc/systemd/system/letsencrypt.service をつぎのようにする</p>
 <pre tabindex="0"><code>[Unit]
-Description=Renew Let's Encrypt
+Description=Renew Let&#39;s Encrypt
 
 [Service]
 Type=oneshot
@@ -191,7 +191,7 @@ ExecStart=/etc/letsencrypt/renew.sh
 WantedBy=multi-user.target
 </code></pre><p>/etc/systemd/system/letsencrypt.timer をつぎのようにする</p>
 <pre tabindex="0"><code>[Unit]
-Description=Timer to renew Let's Encrypt
+Description=Timer to renew Let&#39;s Encrypt
 
 [Timer]
 OnUnitActiveSec=1d

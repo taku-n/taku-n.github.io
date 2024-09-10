@@ -24,8 +24,8 @@
 <p>(tmux のことは，よくわからない</p>
 <pre tabindex="0"><code>$ nvim ~/.tmux.conf
 </code></pre><pre tabindex="0"><code>set -s escape-time 0
-set-option -g default-terminal &quot;screen-256color&quot;
-set-option -ga terminal-overrides &quot;,xterm-256color:Tc&quot;
+set-option -g default-terminal &#34;screen-256color&#34;
+set-option -ga terminal-overrides &#34;,xterm-256color:Tc&#34;
 </code></pre><p>Line 1: Ctrl + [ を押したときに遅延させない<br>
 Line 2, 3: 色を正しく表示するため (?)</p>
 <p><a href="https://github.com/neovim/neovim/wiki/FAQ#cursor-shape-doesnt-change-in-tmux">Cursor shape doesn&rsquo;t change in tmux</a></p>
@@ -56,8 +56,8 @@ zenhan 0  # IME オフ
 </code></pre><p>Neovim に適用する</p>
 <pre tabindex="0"><code>nvim ~/.config/nvim/init.vim
 </code></pre><p>以下を追記する</p>
-<pre tabindex="0"><code>autocmd InsertLeave * :call system('zenhan 0') 
-autocmd CmdlineLeave * :call system('zenhan 0')
+<pre tabindex="0"><code>autocmd InsertLeave * :call system(&#39;zenhan 0&#39;) 
+autocmd CmdlineLeave * :call system(&#39;zenhan 0&#39;)
 </code></pre><h2 id="runtimepath-の表示">runtimepath の表示</h2>
 <pre tabindex="0"><code>:set runtimepath
 </code></pre><h2 id="neovim-に読み込まれているファイルを一覧表示">Neovim に読み込まれているファイルを一覧表示</h2>
@@ -65,21 +65,21 @@ autocmd CmdlineLeave * :call system('zenhan 0')
 </code></pre><h2 id="vimscript">Vimscript</h2>
 <h3 id="hello-world-hellovim">hello, world (hello.vim)</h3>
 <pre tabindex="0"><code>$ nvim hello.vim
-</code></pre><pre tabindex="0"><code>echo &quot;hello, world&quot;
+</code></pre><pre tabindex="0"><code>echo &#34;hello, world&#34;
 </code></pre><pre tabindex="0"><code>$ nvim -S hello.vim
 </code></pre><h3 id="コメント-commentvim">コメント (comment.vim)</h3>
-<pre tabindex="0"><code>&quot; 行全体のコメント
-echo &quot;hello, world&quot;  |&quot; 行末尾のコメント
+<pre tabindex="0"><code>&#34; 行全体のコメント
+echo &#34;hello, world&#34;  |&#34; 行末尾のコメント
 </code></pre><h3 id="行の継続-linesvim">行の継続 (lines.vim)</h3>
-<pre tabindex="0"><code>echo &quot;hello,&quot;
-    \ &quot;world&quot;  |&quot;=&gt; hello, world
+<pre tabindex="0"><code>echo &#34;hello,&#34;
+    \ &#34;world&#34;  |&#34;=&gt; hello, world
 </code></pre><h3 id="数を表示-numvim">数を表示 (num.vim)</h3>
-<pre tabindex="0"><code>echo 1  |&quot;=&gt; 1
+<pre tabindex="0"><code>echo 1  |&#34;=&gt; 1
 </code></pre><h3 id="数を計算-calcvim">数を計算 (calc.vim)</h3>
-<pre tabindex="0"><code>echo 1 + 2  |&quot;=&gt; 3
+<pre tabindex="0"><code>echo 1 + 2  |&#34;=&gt; 3
 </code></pre><h3 id="変数-varvim">変数 (var.vim)</h3>
 <pre tabindex="0"><code>let x = 1
-echo x  |&quot;=&gt; 1
+echo x  |&#34;=&gt; 1
 </code></pre><h3 id="if--endif-if1vim">if &hellip; endif (if1.vim)</h3>
 <pre tabindex="0"><code>let x = 1
 
@@ -111,7 +111,7 @@ endif
 </code></pre><pre tabindex="0"><code>3
 </code></pre><h3 id="リスト-listvim">リスト (list.vim)</h3>
 <pre tabindex="0"><code>let xs = [1, 2, 3]
-echo xs  |&quot;=&gt; [1, 2, 3]
+echo xs  |&#34;=&gt; [1, 2, 3]
 </code></pre><h3 id="for-x-in-リスト-for1vim">for x in リスト (for1.vim)</h3>
 <pre tabindex="0"><code>for i in [1, 2, 3]
   echo i
@@ -142,10 +142,10 @@ endfor
 7
 </code></pre><h3 id="関数-引数なし-戻り値なし-func1vim">関数 (引数なし, 戻り値なし) (func1.vim)</h3>
 <pre tabindex="0"><code>function! Hello()
-  echo &quot;hello, world&quot;
+  echo &#34;hello, world&#34;
 endfunction
 
-call Hello()  |&quot;=&gt; hello, world
+call Hello()  |&#34;=&gt; hello, world
 </code></pre><h3 id="関数-引数あり-戻り値あり-func2vim">関数 (引数あり, 戻り値あり) (func2.vim)</h3>
 <pre tabindex="0"><code>function! Add(x, y)
   return a:x + a:y
