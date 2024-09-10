@@ -4,20 +4,16 @@
     <title>HAProxy on 非同期エンジニアブログ</title>
     <link>https://taku-n.github.io/tags/haproxy/</link>
     <description>Recent content in HAProxy on 非同期エンジニアブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://taku-n.github.io/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HAProxy</title>
       <link>https://taku-n.github.io/posts/haproxy/</link>
       <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://taku-n.github.io/posts/haproxy/</guid>
-      <description>HAProxy インストール (Ubuntu 20.04 LTS) $ sudo apt update $ sudo apt full-upgrade $ sudo apt autoremove $ sudo apt install haproxy 設定ファイルのテスト $ sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg Let&amp;rsquo;s Ecrypt 基本は，こちらに従う
-インストールと certbot コマンドは，以下の通り
-また，certbot コマンドを打つ前に，設定ファイルに追記した内，https の関係する部分は，コメントアウトしておく
-$ sudo snap refresh core $ sudo snap install --classic certbot $ sudo systemctl restart haproxy $ $ # 正常に起動したら，つぎを実行 $ $ sudo certbot certonly --standalone --preferred-challenges http --http-01-address 127.0.0.1 --http-01-port 9080 -d hoge.</description>
+      <description>HAProxy インストール (Ubuntu 20.04 LTS) $ sudo apt update $ sudo apt full-upgrade $ sudo apt autoremove $ sudo apt install haproxy 設定ファイルのテスト $ sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg Let&amp;rsquo;s Ecrypt 基本は，こちらに従う&#xA;インストールと certbot コマンドは，以下の通り&#xA;また，certbot コマンドを打つ前に，設定ファイルに追記した内，https の関係する部分は，コメントアウトしておく&#xA;$ sudo snap refresh core $ sudo snap install --classic certbot $ sudo systemctl restart haproxy $ $ # 正常に起動したら，つぎを実行 $ $ sudo certbot certonly --standalone --preferred-challenges http --http-01-address 127.0.0.1 --http-01-port 9080 -d hoge.</description>
     </item>
-    
   </channel>
 </rss>

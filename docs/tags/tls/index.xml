@@ -4,37 +4,16 @@
     <title>TLS on 非同期エンジニアブログ</title>
     <link>https://taku-n.github.io/tags/tls/</link>
     <description>Recent content in TLS on 非同期エンジニアブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 19 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/tls/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://taku-n.github.io/tags/tls/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TLS</title>
       <link>https://taku-n.github.io/posts/tls/</link>
       <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://taku-n.github.io/posts/tls/</guid>
-      <description>TLS (Transport Layer Security) Certbot インストール方法は，公式サイトを参照
-https://certbot.eff.org/
-しかし
-$ sudo certbot --nginx がエラーになってしまう
-とりあえず
-$ sudo nginx -t $ sudo nvim /etc/nginx/sites-enabled/default managed by Certbot となっている行をすべてコメントアウト
-その後
-$ sudo systemctl restart nginx $ sudo certbot --nginx サブコマンドとオプション certonly
-証明書の取得のみを行う
-renew
-期限の残りが 30日未満 の証明書を更新
---dry-run
-実際には，証明書の更新を行わない
---force-renewal
-すべての証明書を期限の残りにかかわらず，強制的に更新
---manual
-Nginx とかを使わずに手動で認証
-DNS の場合 (ConoHa DNS) 最も重要な点として，DNS サーバが API による操作に対応していなければならない
-ここでは，ConoHa の DNS サーバを利用することにする
-初回のやり方は，つぎのとおり
-$ sudo certbot certonly --manual --preferred-challenges dns -d hoge.</description>
+      <description>TLS (Transport Layer Security) Certbot インストール方法は，公式サイトを参照&#xA;https://certbot.eff.org/&#xA;しかし&#xA;$ sudo certbot --nginx がエラーになってしまう&#xA;とりあえず&#xA;$ sudo nginx -t $ sudo nvim /etc/nginx/sites-enabled/default managed by Certbot となっている行をすべてコメントアウト&#xA;その後&#xA;$ sudo systemctl restart nginx $ sudo certbot --nginx サブコマンドとオプション certonly&#xA;証明書の取得のみを行う&#xA;renew&#xA;期限の残りが 30日未満 の証明書を更新&#xA;--dry-run&#xA;実際には，証明書の更新を行わない&#xA;--force-renewal&#xA;すべての証明書を期限の残りにかかわらず，強制的に更新&#xA;--manual&#xA;Nginx とかを使わずに手動で認証&#xA;DNS の場合 (ConoHa DNS) 最も重要な点として，DNS サーバが API による操作に対応していなければならない&#xA;ここでは，ConoHa の DNS サーバを利用することにする&#xA;初回のやり方は，つぎのとおり&#xA;$ sudo certbot certonly --manual --preferred-challenges dns -d hoge.</description>
     </item>
-    
   </channel>
 </rss>

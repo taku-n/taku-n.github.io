@@ -1,65 +1,235 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="ja"
+  dir="ltr"
+>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Tags - 非同期エンジニアブログ</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  
+  <meta
+    name="description"
+    content="A personal blog"
+  />
+  <meta name="author" content="非同期エンジニアブログ" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://taku-n.github.io/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="https://taku-n.github.io/theme.png" />
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  <link
+    rel="icon"
+    href="https://taku-n.github.io/favicon.ico"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="https://taku-n.github.io/apple-touch-icon.png"
+  />
+
+  
+  <meta name="generator" content="Hugo 0.133.0">
+
+  
+  
+  
+  
+  
+
+
+  
+  
+  <meta itemprop="name" content="Tags">
+  <meta itemprop="datePublished" content="2022-01-15T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-01-15T00:00:00+00:00">
+  
+  <meta property="og:url" content="https://taku-n.github.io/tags/">
+  <meta property="og:site_name" content="非同期エンジニアブログ">
+  <meta property="og:title" content="Tags">
+  <meta property="og:locale" content="ja">
+  <meta property="og:type" content="website">
+
+  
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Tags">
+
+  
+  
+  <link
+    rel="alternate"
+    type="application/rss&#43;xml"
+    href="https://taku-n.github.io/tags/index.xml"
+    title="非同期エンジニアブログ"
+  />
+  
+
+  
+  <link rel="canonical" href="https://taku-n.github.io/tags/" />
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-[--w] px-8 lg:justify-center">
+  <div class="relative z-50 ltr:mr-auto rtl:ml-auto flex items-center">
+    <a class="-translate-y-[1px] text-2xl font-medium" href="https://taku-n.github.io/"
+      >非同期エンジニアブログ</a
+    >
+    <div
+      class="btn-dark text-[0] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 ltr:-mr-8 rtl:-ml-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
     
-    <title>非同期エンジニアブログ </title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.112.7">
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
 
     
-    
-      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
-    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
 
     
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
 
     
-      
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
     
 
     
-    
-      <link href="/tags/index.xml" rel="alternate" type="application/rss+xml" title="非同期エンジニアブログ" />
-      <link href="/tags/index.xml" rel="feed" type="application/rss+xml" title="非同期エンジニアブログ" />
-      
-    
-    
-    <meta property="og:title" content="Tags" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://taku-n.github.io/tags/" />
-<meta itemprop="name" content="Tags">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tags"/>
-<meta name="twitter:description" content=""/>
+  </div>
+</header>
 
-  </head>
 
-  <body class="ma0 avenir bg-near-white">
-
-    
-
-  <header>
-    <div class="pb3-m pb6-l bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://taku-n.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      非同期エンジニアブログ
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-[--w] px-8 pb-16 pt-14 dark:prose-invert"
+    >
       
 
 
 
+<h1 class="mb-14">#Tags</h1>
 
 
 
@@ -67,1261 +237,34 @@
 
 
 
-
-    </div>
-  </div>
-</nav>
-
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          Tags
-        </h1>
-        
-      </div>
-    </div>
-  </header>
+ 
 
 
-    <main class="pb7" role="main">
-      
-    
-  <article class="cf pa3 pa4-m pa4-l">
-    <div class="measure-wide-l center f4 lh-copy nested-copy-line-height nested-links nested-img mid-gray">
-      
-    </div>
-  </article>
-  <div class="mw8 center">
-    <section class="ph4">
-      
-        <h2 class="f1">
-          <a href="/tags/axum" class="link blue hover-black">
-            Tag: axum
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/axum/" class="link black dim">
-        axum
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      axum Crate axum tokio-rs/axum
-    </div>
-  </div>
-</div>
 
-        
-      
-        <h2 class="f1">
-          <a href="/tags/baz" class="link blue hover-black">
-            Tag: baz
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/foo/" class="link black dim">
-        foo
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      foobarbaz
-    </div>
-  </div>
-</div>
 
-        
-      
-        <h2 class="f1">
-          <a href="/tags/bigimg" class="link blue hover-black">
-            Tag: bigimg
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/2017-03-07-bigimg-sample/" class="link black dim">
-        Big Image Sample
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>The image banners at the top of the page are refered to as &ldquo;bigimg&rdquo; in this theme. They are optional, and one more more can be specified. If more than one is specified, the images rotate every 10 seconds. In the front matter, bigimgs are specified using an array of hashes.</p>
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/code" class="link blue hover-black">
-            Tag: code
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/2016-03-08-code-sample/" class="link black dim">
-        Code Sample
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>The following are two code samples using syntax highlighting.</p>
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/docker" class="link blue hover-black">
-            Tag: docker
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/docker/" class="link black dim">
-        Docker
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Docker Docker Engine
-Docker Compose
-Docker Linux環境でdockerのコマンドをsudoなしで打てるようにする
-バージョン確認 $ docker -v Docker デーモンの状態を確認 $ service docker status Docker デーモンの開始 $ sudo service docker start Docker デーモンが自動的に起動するように設定 (WSL2) wsl2でDocker自動起動設定
-Thank @ktaidot.
-コンテナの実行のテスト $ sudo docker run hello-world $ sudo docker run docker/whalesay cowsay boo $ sudo docker run -it ubuntu bash Docker デーモンが起動しないとき $ sudo dockerd --debug イメージの一覧 $ sudo docker image list Remove an image docker rmi -f [Image ID] コンテナの一覧 $ sudo docker ps -a $ sudo docker ps --no-trunc --format &#34;table {{.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/example" class="link blue hover-black">
-            Tag: example
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/2017-03-07-bigimg-sample/" class="link black dim">
-        Big Image Sample
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>The image banners at the top of the page are refered to as &ldquo;bigimg&rdquo; in this theme. They are optional, and one more more can be specified. If more than one is specified, the images rotate every 10 seconds. In the front matter, bigimgs are specified using an array of hashes.</p>
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/2017-03-05-math-sample/" class="link black dim">
-        Math Sample
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>KaTeX can be used to generate complex math formulas. It supports in-line math using the <code>\\( ... \\)</code> delimiters, like this: \( E = mc^2 \). By default, it does <em>not</em> support in-line delimiters <code>$...$</code> because those occur too commonly in typical webpages. It supports displayed math using the <code>$$</code> or <code>\\[...\\]</code> delimiters, like this:</p>
-<p>Formula 1:
-$$
-\phi = \frac{(1+\sqrt{5})}{2} = 1.6180339887\cdots
-$$</p>
-<p>Formula 2: (same formula, different delimiter)
-\[
-\phi = \frac{(1+\sqrt{5})}{2} = 1.6180339887\cdots
-\]</p>
-<p>Additional details can be found on <a href="https://github.com/Khan/KaTeX">GitHub</a> or on the <a href="http://tiddlywiki.com/plugins/tiddlywiki/katex/">Wiki</a>.</p>
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/2016-03-08-code-sample/" class="link black dim">
-        Code Sample
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>The following are two code samples using syntax highlighting.</p>
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/2015-02-20-test-markdown/" class="link black dim">
-        Test markdown
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      You can write regular markdown here and Jekyll will automatically convert it to a nice webpage. I strongly encourage you to take 5 minutes to learn how to write in markdown - it&rsquo;ll teach you how to transform regular text into bold/italics/headings/tables/etc.
-Here is some bold text
-Here is a secondary heading Here&rsquo;s a useless table:
-Number Next number Previous number Five Six Four Ten Eleven Nine Seven Eight Six Two Three One How about a yummy crepe?
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/git" class="link blue hover-black">
-            Tag: git
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/git/" class="link black dim">
-        Git
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Git GitHub CLI GitHub CLI
-インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
-eval &#34;$(gh completion -s bash)&#34; gh auth まずは，認証する
-$ gh auth login 認証の状態を表示
--t, &ndash;show-token でトークンも表示する
-$ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示
-まず権限を付与する
-$ gh auth refresh -s read:public_key 表示する
-$ gh ssh-key list GitHub に公開鍵を追加する
-まず権限を付与する
-$ gh auth refresh -s write:public_key 追加する
-$ gh ssh-key add ~/.ssh/id_rsa.pub gh repo リポジトリの一覧を表示
--L, &ndash;limit int は，表示する最大数を指定
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/github" class="link blue hover-black">
-            Tag: github
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/git/" class="link black dim">
-        Git
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Git GitHub CLI GitHub CLI
-インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
-eval &#34;$(gh completion -s bash)&#34; gh auth まずは，認証する
-$ gh auth login 認証の状態を表示
--t, &ndash;show-token でトークンも表示する
-$ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示
-まず権限を付与する
-$ gh auth refresh -s read:public_key 表示する
-$ gh ssh-key list GitHub に公開鍵を追加する
-まず権限を付与する
-$ gh auth refresh -s write:public_key 追加する
-$ gh ssh-key add ~/.ssh/id_rsa.pub gh repo リポジトリの一覧を表示
--L, &ndash;limit int は，表示する最大数を指定
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/gitlab" class="link blue hover-black">
-            Tag: gitlab
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/git/" class="link black dim">
-        Git
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Git GitHub CLI GitHub CLI
-インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
-eval &#34;$(gh completion -s bash)&#34; gh auth まずは，認証する
-$ gh auth login 認証の状態を表示
--t, &ndash;show-token でトークンも表示する
-$ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示
-まず権限を付与する
-$ gh auth refresh -s read:public_key 表示する
-$ gh ssh-key list GitHub に公開鍵を追加する
-まず権限を付与する
-$ gh auth refresh -s write:public_key 追加する
-$ gh ssh-key add ~/.ssh/id_rsa.pub gh repo リポジトリの一覧を表示
--L, &ndash;limit int は，表示する最大数を指定
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/go" class="link blue hover-black">
-            Tag: go
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/go/" class="link black dim">
-        Go
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Go go mod Using Go Modules go mod init &lt;ここには何を書く？&gt;
-$ # go mod init 公開しなければこちらはなんでもいいらしい $ # 例 $ go mod init hello go test 
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/haproxy" class="link blue hover-black">
-            Tag: haproxy
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/haproxy/" class="link black dim">
-        HAProxy
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      HAProxy インストール (Ubuntu 20.04 LTS) $ sudo apt update $ sudo apt full-upgrade $ sudo apt autoremove $ sudo apt install haproxy 設定ファイルのテスト $ sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg Let&rsquo;s Ecrypt 基本は，こちらに従う
-インストールと certbot コマンドは，以下の通り
-また，certbot コマンドを打つ前に，設定ファイルに追記した内，https の関係する部分は，コメントアウトしておく
-$ sudo snap refresh core $ sudo snap install --classic certbot $ sudo systemctl restart haproxy $ $ # 正常に起動したら，つぎを実行 $ $ sudo certbot certonly --standalone --preferred-challenges http --http-01-address 127.0.0.1 --http-01-port 9080 -d hoge.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/hello" class="link blue hover-black">
-            Tag: hello
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/hello/" class="link black dim">
-        hello
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      hello, world
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/hy" class="link blue hover-black">
-            Tag: hy
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/hy/" class="link black dim">
-        Hy
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Midnight Hy Way 必ず理解しておくべきこと
-バージョン $ hy -v hy 0.19.0 REPL $ hy --repl-output-fn=hy.contrib.hy-repr.hy-repr ~/.bashrc に
-alias hyr=&#34;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr などとしておき
-$ hyr で起動するのがいいだろう
-言語基礎 演算 =&gt; (+ 7 3) 10 =&gt; (- 7 3) 4 =&gt; (* 7 3) 21 =&gt; (/ 7 3) 2.3333333333333335 =&gt; (% 7 3) 1 変数 =&gt; (setv x 42) =&gt; x 42 入れ子操作 リスト [&lsquo;1 &lsquo;2 &lsquo;3 &lsquo;4 &lsquo;5] と区別するため
-&lsquo;(1 2 3 4 5) のことを
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/ipv6" class="link blue hover-black">
-            Tag: ipv6
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/ipv6/" class="link black dim">
-        IPv6
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      IPv6 Server OS: Ubuntu 20.04 Client OS: Windows 10
-IPv6 が有効になっているか調べる $ ip -6 a コマンド プロンプト から IPv6 アドレスに ping する &gt;ping {IPv6 address} SSH Server が IPv6 を受け入れるようにする $ sudo nvim /etc/ssh/sshd_config #ListenAddress :: を
-ListenAddress :: に変更する
-コマンド プロンプト から IPv6 アドレスに SSH で接続する &gt;ssh {user name}@{IPv6 address} 
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/jisaku" class="link blue hover-black">
-            Tag: jisaku
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/jisaku04/" class="link black dim">
-        JISAKU 04
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      JISAKU 04 (Plan) Parts Model Spec Price Remarks CPU Intel Core i7-9700K 8C8T 3.6GHz-4.9GHz 45,950JPY DDR4-2666-2ch(PC4-21300) PCIExpress3.0-16 UHD630-1.2GHz 95W Coffee Lake Refresh Motherboard ASUS ROG STRIX Z390-I GAMING Intel Z390 29,555JPY USB Type-C Gen2 ピンヘッダに対応 Memory Crucial CT2K8G4DFS8266 8GBx2 DDR4-2666(PC4-21300) 7,352JPY ブリスターパックとの違いとは (?) OS Microsoft Windows 10 Pro 28,380JPY Amazon で買うのは，危ない感じ 見れば全部わかるDDR4メモリ完全ガイド、規格からレイテンシ、本当の速さまで再確認
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/kubernetes" class="link blue hover-black">
-            Tag: kubernetes
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/nginx/" class="link black dim">
-        nginx
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする
-(WSL2 は，IPv6 に対応していないので注意)
-$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator
-起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは
-/etc/nginx/nginx.conf だが，実際に設定するのは，こちら
-/etc/nginx/sites-available/default server ではじまっている部分が
-それぞれ，各 Virtual Host になっている
-初期設定として
-server_name _; の部分を
-server_name ach.moe; とする
-また，TLS を有効にするため
-# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/kubernetes/" class="link black dim">
-        Kubernetes
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Kubernetes (1.22, Single Node, Ubuntu 20.04 LTS, ZFS, Conoha) (Almost IPv6 Only) クラスタの構築 (といってもシングルノードだが) kubeadmのインストール
-kubeadmを使用したシングルコントロールプレーンクラスターの作成
-を参考にしていく
-Swap をオフにする $ sudo nvim /etc/fstab swap の行の先頭に # を置いて，コメントアウトすればいい
-br_netfilter モジュールを読み込ませる $ sudo nvim /etc/modules つぎを追記する
-br_netfilter sysctl の設定 $ sudo nvim /etc/sysctl.d/k8s.conf つぎのように
-net.bridge.bridge-nf-call-ip6tables = 1 net.bridge.bridge-nf-call-iptables = 1 書いて
-$ sudo sysctl --system iptables をレガシーモードにする $ sudo apt install iptables arptables ebtables $ sudo update-alternatives --set iptables /usr/sbin/iptables-legacy $ sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy $ sudo update-alternatives --set arptables /usr/sbin/arptables-legacy $ sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy Docker をインストールする はじめに注意だが，/var/lib/docker を ZFS で構築するのは，おすすめできない
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/linux" class="link blue hover-black">
-            Tag: linux
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/nginx/" class="link black dim">
-        nginx
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする
-(WSL2 は，IPv6 に対応していないので注意)
-$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator
-起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは
-/etc/nginx/nginx.conf だが，実際に設定するのは，こちら
-/etc/nginx/sites-available/default server ではじまっている部分が
-それぞれ，各 Virtual Host になっている
-初期設定として
-server_name _; の部分を
-server_name ach.moe; とする
-また，TLS を有効にするため
-# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/ubuntu2004/" class="link black dim">
-        Ubuntu 20.04
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Ubuntu 20.04 $ sudo dpkg-reconfigure tzdata Ubuntuでlocaleを追加する方法
-$ sudo locale-gen ja_JP.UTF-8 apt メインの設定ファイルは /etc/apt/sources.list
-APT の設定 (/etc/apt/sources.list) をちゃんと理解する
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/systemd/" class="link black dim">
-        systemd
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      systemd systemctlとserviceの違い
-プロセスの確認
-$ ps aux $ pstree Unit の一覧と自動起動するかを見る
-$ systemctl list-unit-files -t service Unit の一覧と起動状態を見る
-$ systemctl list-units -t service Unit の状態を確認する
-$ systemctl status [unit-name] Unit の自動起動を有効にする
-$ systemctl enable [unit-name] Unit の自動起動を無効にする
-$ systemctl disable [unit-name] Unit を起動する
-$ systemctl start [unit-name] Unit を停止する
-$ systemctl stop [unit-name] Unit を再起動する
-$ systemctl restart [unit-name] $ systemctl daemon-reload $ systemctl show hoge.timer $ journalctl -f -u hoge.service もっといい感じにまとめてくださっている人がいました
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/raspi/" class="link black dim">
-        Raspberry Pi
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Raspberry Pi CPU の温度を見る $ cat /sys/class/thermal/thermal_zone0/temp 単位は，ミリ度
-SPEEDTEST CLI インストール
-$ speedtest Firefox $ sudo apt install firefox-esr-l10n-ja ALSA (Advanced Linux Sound Architecture) とりあえず &ldquo;PulseAudio 音量調節&rdquo; をインストールすること
-$ sudo apt install pavucontrol 起動は [RasPi] -&gt; [サウンドとビデオ] -&gt; [PulseAudio 音量調節]
-マイクの音量を 100% を超えて設定したりできる
-使用したハードウェア
-スピーカ: サンワサプライ株式会社 USBスピーカー MM-SPU8BK
-マイク: USB Microphone MI-305
-PCM (Pulse Code Modulation)
-テスト用の音源をダウンロード
-(Thank 東京都市生活 + 真空管Audio + 視線入力 + 音楽 + 英国車)
-$ curl -OL http://www.
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/zfs/" class="link black dim">
-        Oracle に怯えながら ZFS を使う (((ﾟДﾟ;)))
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Oracle に怯えながら ZFS を使う (((ﾟДﾟ;))) &ldquo;Don&rsquo;t use ZFS.&rdquo; - Linus Torvalds
-パーティションの情報を集めたい dmesg $ dmesg | grep sd /dev $ la /dev gdisk $ sudo gdisk -l /dev/sda df $ df -hT du $ sudo du -hx -d1 / mount $ mount | grep -e vfat -e zfs | sort fstab $ cat /etc/fstab zpool $ zpool status $ zpool status bpool $ zpool status rpool $ zpool list zfs $ zfs list $ zfs list -r bpool $ zfs list -r rpool $ zfs list -o name,used,compression -r xpool $ zfs get all xpool $ zfs get compression xpool $ zfs get -p name,used xpool ZFS の設定 ユーザディレクトリ用の ZFS パーティションを用意する $ cd $ pwd # Check your home directory.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/macro" class="link blue hover-black">
-            Tag: macro
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/macro/" class="link black dim">
-        On Rust
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&gt; { println!(&#34;hello, world&#34;); }; } fn main() { hello!(); //=&gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&gt; { $x * $x }; } fn main() { println!
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/markdown" class="link blue hover-black">
-            Tag: markdown
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/2015-02-20-test-markdown/" class="link black dim">
-        Test markdown
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      You can write regular markdown here and Jekyll will automatically convert it to a nice webpage. I strongly encourage you to take 5 minutes to learn how to write in markdown - it&rsquo;ll teach you how to transform regular text into bold/italics/headings/tables/etc.
-Here is some bold text
-Here is a secondary heading Here&rsquo;s a useless table:
-Number Next number Previous number Five Six Four Ten Eleven Nine Seven Eight Six Two Three One How about a yummy crepe?
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/market" class="link blue hover-black">
-            Tag: market
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/market/" class="link black dim">
-        Market
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Timetable Summer Time Tokyo (+9) MT5 (+3) Event London (+1) New York (-4) 09:00 03:00 Tokyo Open 01:00 - 15:00 09:00 Tokyo Close 07:00 02:00 16:00 10:00 London Open 08:00 03:00 22:30 16:30 New York Open 14:30 09:30 23:00 17:00 New York Option Cut 15:00 10:00 24:00 18:00 London Fixing 16:00 11:00 24:30 18:30 London Close 16:30 11:30 29:00 23:00 New York Close 21:00 16:00 Standard Time Tokyo (+9) MT5 (+2) Event London (+0) New York (-5) 09:00 02:00 Tokyo Open 00:00 - 15:00 08:00 Tokyo Close 06:00 01:00 17:00 10:00 London Open 08:00 03:00 23:30 16:30 New York Open 14:30 09:30 24:00 17:00 New York Option Cut 15:00 10:00 25:00 18:00 London Fixing 16:00 11:00 25:30 18:30 London Close 16:30 11:30 30:00 23:00 New York Close 21:00 16:00 
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/math" class="link blue hover-black">
-            Tag: math
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/2017-03-05-math-sample/" class="link black dim">
-        Math Sample
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>KaTeX can be used to generate complex math formulas. It supports in-line math using the <code>\\( ... \\)</code> delimiters, like this: \( E = mc^2 \). By default, it does <em>not</em> support in-line delimiters <code>$...$</code> because those occur too commonly in typical webpages. It supports displayed math using the <code>$$</code> or <code>\\[...\\]</code> delimiters, like this:</p>
-<p>Formula 1:
-$$
-\phi = \frac{(1+\sqrt{5})}{2} = 1.6180339887\cdots
-$$</p>
-<p>Formula 2: (same formula, different delimiter)
-\[
-\phi = \frac{(1+\sqrt{5})}{2} = 1.6180339887\cdots
-\]</p>
-<p>Additional details can be found on <a href="https://github.com/Khan/KaTeX">GitHub</a> or on the <a href="http://tiddlywiki.com/plugins/tiddlywiki/katex/">Wiki</a>.</p>
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/nginx" class="link blue hover-black">
-            Tag: nginx
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/nginx/" class="link black dim">
-        nginx
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする
-(WSL2 は，IPv6 に対応していないので注意)
-$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator
-起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは
-/etc/nginx/nginx.conf だが，実際に設定するのは，こちら
-/etc/nginx/sites-available/default server ではじまっている部分が
-それぞれ，各 Virtual Host になっている
-初期設定として
-server_name _; の部分を
-server_name ach.moe; とする
-また，TLS を有効にするため
-# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/raspberry-pi" class="link blue hover-black">
-            Tag: raspberry-pi
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/raspi/" class="link black dim">
-        Raspberry Pi
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Raspberry Pi CPU の温度を見る $ cat /sys/class/thermal/thermal_zone0/temp 単位は，ミリ度
-SPEEDTEST CLI インストール
-$ speedtest Firefox $ sudo apt install firefox-esr-l10n-ja ALSA (Advanced Linux Sound Architecture) とりあえず &ldquo;PulseAudio 音量調節&rdquo; をインストールすること
-$ sudo apt install pavucontrol 起動は [RasPi] -&gt; [サウンドとビデオ] -&gt; [PulseAudio 音量調節]
-マイクの音量を 100% を超えて設定したりできる
-使用したハードウェア
-スピーカ: サンワサプライ株式会社 USBスピーカー MM-SPU8BK
-マイク: USB Microphone MI-305
-PCM (Pulse Code Modulation)
-テスト用の音源をダウンロード
-(Thank 東京都市生活 + 真空管Audio + 視線入力 + 音楽 + 英国車)
-$ curl -OL http://www.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/rust" class="link blue hover-black">
-            Tag: rust
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/type/" class="link black dim">
-        Type Dictionary
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Type Dictionary 
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/wasm/" class="link black dim">
-        WebAssembly
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      WebAssembly Official results for js web frameworks benchmark
-wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web 
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/macro/" class="link black dim">
-        On Rust
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      On Rust hello, world $ cargo install cargo-expand macro_rules! hello { () =&gt; { println!(&#34;hello, world&#34;); }; } fn main() { hello!(); //=&gt; hello, world } $ cargo expand main fn main() { { ::std::io::_print(::core::fmt::Arguments::new_v1(&amp;[&#34;hello, world\n&#34;], &amp;[])); }; } Declarative Macros Simplest Macro macro_rules! pass { () =&gt; {}; } fn main() { pass!(); } $ cargo expand main fn main() {} Square macro_rules! square { ($x:expr) =&gt; { $x * $x }; } fn main() { println!
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/trait/" class="link black dim">
-        Trait Dictionary
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Trait Dictionary Rust のトレイトは &ldquo;トレイトとしては別物&rdquo; らしい
-Trait Trait T を定義
-trait T { } Trait S を要求する Trait T を定義
-Trait S は Trait T の Supertrait
-Trait T は Trait S の Subtrait
-trait S { } trait T: S { } Trait R と Trait S を要求する Trait T を定義
-trait R { } trait S { } trait T: R + S { } Clone (std::clone::Clone) pub trait Clone { fn clone(&amp;self) -&gt; Self; fn clone_from(&amp;mut self, source: &amp;Self) {.
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/rust/" class="link black dim">
-        Rust
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Rust Trait Dictionary
-Type Dictionary
-Raw Level Rust
-On Rust
-Leptos
-WebAssembly
-axum
-warp
-Update Update rustup rustup self update Update Rust rustup update Update installed executables by cargo install cargo install-update --all Update depending crates cargo update cargo upgrade rustup バージョンの確認 rustup -V 現在の Toolchain を確認 rustup show 可用な Toolchain の表示 rustup target list Cargo デフォルトのブランチ名を main に git config --global init.defaultBranch &#39;main&#39; ソースコードのチェック cargo clippy ソースコードを整える cargo fmt 依存している Crate の表示 cargo tree 依存している Crate のアップデート cargo update PSA: writing &ldquo;*&rdquo; for crates in cargo.
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/axum/" class="link black dim">
-        axum
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      axum Crate axum tokio-rs/axum
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/warp/" class="link black dim">
-        warp
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      warp Structs And pub struct And&lt;T, U&gt; { pub(super) first: T, pub(super) second: U, }
-impl&lt;T, U&gt; FilterBase for And&lt;T, U&gt;
-Traits 
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/systemd" class="link blue hover-black">
-            Tag: systemd
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/systemd/" class="link black dim">
-        systemd
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      systemd systemctlとserviceの違い
-プロセスの確認
-$ ps aux $ pstree Unit の一覧と自動起動するかを見る
-$ systemctl list-unit-files -t service Unit の一覧と起動状態を見る
-$ systemctl list-units -t service Unit の状態を確認する
-$ systemctl status [unit-name] Unit の自動起動を有効にする
-$ systemctl enable [unit-name] Unit の自動起動を無効にする
-$ systemctl disable [unit-name] Unit を起動する
-$ systemctl start [unit-name] Unit を停止する
-$ systemctl stop [unit-name] Unit を再起動する
-$ systemctl restart [unit-name] $ systemctl daemon-reload $ systemctl show hoge.timer $ journalctl -f -u hoge.service もっといい感じにまとめてくださっている人がいました
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/tls" class="link blue hover-black">
-            Tag: tls
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/tls/" class="link black dim">
-        TLS
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      TLS (Transport Layer Security) Certbot インストール方法は，公式サイトを参照
-https://certbot.eff.org/
-しかし
-$ sudo certbot --nginx がエラーになってしまう
-とりあえず
-$ sudo nginx -t $ sudo nvim /etc/nginx/sites-enabled/default managed by Certbot となっている行をすべてコメントアウト
-その後
-$ sudo systemctl restart nginx $ sudo certbot --nginx サブコマンドとオプション certonly
-証明書の取得のみを行う
-renew
-期限の残りが 30日未満 の証明書を更新
---dry-run
-実際には，証明書の更新を行わない
---force-renewal
-すべての証明書を期限の残りにかかわらず，強制的に更新
---manual
-Nginx とかを使わずに手動で認証
-DNS の場合 (ConoHa DNS) 最も重要な点として，DNS サーバが API による操作に対応していなければならない
-ここでは，ConoHa の DNS サーバを利用することにする
-初回のやり方は，つぎのとおり
-$ sudo certbot certonly --manual --preferred-challenges dns -d hoge.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/trait" class="link blue hover-black">
-            Tag: trait
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/trait/" class="link black dim">
-        Trait Dictionary
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Trait Dictionary Rust のトレイトは &ldquo;トレイトとしては別物&rdquo; らしい
-Trait Trait T を定義
-trait T { } Trait S を要求する Trait T を定義
-Trait S は Trait T の Supertrait
-Trait T は Trait S の Subtrait
-trait S { } trait T: S { } Trait R と Trait S を要求する Trait T を定義
-trait R { } trait S { } trait T: R + S { } Clone (std::clone::Clone) pub trait Clone { fn clone(&amp;self) -&gt; Self; fn clone_from(&amp;mut self, source: &amp;Self) {.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/ubuntu" class="link blue hover-black">
-            Tag: ubuntu
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/ubuntu2004/" class="link black dim">
-        Ubuntu 20.04
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Ubuntu 20.04 $ sudo dpkg-reconfigure tzdata Ubuntuでlocaleを追加する方法
-$ sudo locale-gen ja_JP.UTF-8 apt メインの設定ファイルは /etc/apt/sources.list
-APT の設定 (/etc/apt/sources.list) をちゃんと理解する
-    </div>
-  </div>
-</div>
-
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/zfs/" class="link black dim">
-        Oracle に怯えながら ZFS を使う (((ﾟДﾟ;)))
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Oracle に怯えながら ZFS を使う (((ﾟДﾟ;))) &ldquo;Don&rsquo;t use ZFS.&rdquo; - Linus Torvalds
-パーティションの情報を集めたい dmesg $ dmesg | grep sd /dev $ la /dev gdisk $ sudo gdisk -l /dev/sda df $ df -hT du $ sudo du -hx -d1 / mount $ mount | grep -e vfat -e zfs | sort fstab $ cat /etc/fstab zpool $ zpool status $ zpool status bpool $ zpool status rpool $ zpool list zfs $ zfs list $ zfs list -r bpool $ zfs list -r rpool $ zfs list -o name,used,compression -r xpool $ zfs get all xpool $ zfs get compression xpool $ zfs get -p name,used xpool ZFS の設定 ユーザディレクトリ用の ZFS パーティションを用意する $ cd $ pwd # Check your home directory.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/vrchat" class="link blue hover-black">
-            Tag: vrchat
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/vrchat/" class="link black dim">
-        VRChat
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      VRChat VRChat
-Documentation
-SDK
-Set the Resolution of VRChat VRChat：Game起動時-解像度設定(Unity2019対応後)
-Unity のインストール Currently Supported Unity Version
-こちらの Click here to install the current version of Unity via Unity Hub を押す
-Microsoft Visual Studio Community 2019
-Android Build Support
-Android SDK &amp; NDK Tools
-OpenJDK にチェックし Install
-Avatar Initial Setup and Test Open &ldquo;VRChat Creator Companion&rdquo;.
-Press &ldquo;New&rdquo;.
-Press &ldquo;Avatar&rdquo;.
-Set the place and press &ldquo;Create&rdquo;.
-Press &ldquo;Open Project&rdquo;.
-Save the scene as &ldquo;scene.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/warp" class="link blue hover-black">
-            Tag: warp
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/warp/" class="link black dim">
-        warp
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      warp Structs And pub struct And&lt;T, U&gt; { pub(super) first: T, pub(super) second: U, }
-impl&lt;T, U&gt; FilterBase for And&lt;T, U&gt;
-Traits 
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/webassembly" class="link blue hover-black">
-            Tag: webassembly
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/wasm/" class="link black dim">
-        WebAssembly
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      WebAssembly Official results for js web frameworks benchmark
-wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web 
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/windows" class="link blue hover-black">
-            Tag: windows
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/windows/" class="link black dim">
-        Windows
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Windows おかしくなったときに，管理者権限で，まず実行
-sfc /scannow 
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/world" class="link blue hover-black">
-            Tag: world
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/hello/" class="link black dim">
-        hello
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      hello, world
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/tags/zfs" class="link blue hover-black">
-            Tag: zfs
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="https://taku-n.github.io/posts/zfs/" class="link black dim">
-        Oracle に怯えながら ZFS を使う (((ﾟДﾟ;)))
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Oracle に怯えながら ZFS を使う (((ﾟДﾟ;))) &ldquo;Don&rsquo;t use ZFS.&rdquo; - Linus Torvalds
-パーティションの情報を集めたい dmesg $ dmesg | grep sd /dev $ la /dev gdisk $ sudo gdisk -l /dev/sda df $ df -hT du $ sudo du -hx -d1 / mount $ mount | grep -e vfat -e zfs | sort fstab $ cat /etc/fstab zpool $ zpool status $ zpool status bpool $ zpool status rpool $ zpool list zfs $ zfs list $ zfs list -r bpool $ zfs list -r rpool $ zfs list -o name,used,compression -r xpool $ zfs get all xpool $ zfs get compression xpool $ zfs get -p name,used xpool ZFS の設定 ユーザディレクトリ用の ZFS パーティションを用意する $ cd $ pwd # Check your home directory.
-    </div>
-  </div>
-</div>
-
-        
-      
-    </section>
-  </div>
 
     </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://taku-n.github.io/" >
-    &copy; 2023 非同期エンジニアブログ
-  </a>
-    <div>
 
-
-
-
-
-
-
-
-
-
-</div>
+    <footer
+  class="mx-auto flex h-[4.5rem] max-w-[--w] items-center px-8 text-xs uppercase tracking-wider opacity-60"
+>
+  <div class="mr-auto">
+  
+    &copy; 2024
+    <a class="link" href="https://taku-n.github.io/">非同期エンジニアブログ</a>
+  
   </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >powered by hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >hugo-paper</a
+  >
 </footer>
-
-    
-
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
-
 
   </body>
 </html>

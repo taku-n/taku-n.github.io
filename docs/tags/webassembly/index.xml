@@ -4,18 +4,16 @@
     <title>WebAssembly on 非同期エンジニアブログ</title>
     <link>https://taku-n.github.io/tags/webassembly/</link>
     <description>Recent content in WebAssembly on 非同期エンジニアブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/webassembly/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://taku-n.github.io/tags/webassembly/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WebAssembly</title>
       <link>https://taku-n.github.io/posts/wasm/</link>
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://taku-n.github.io/posts/wasm/</guid>
-      <description>WebAssembly Official results for js web frameworks benchmark
-wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
+      <description>WebAssembly Official results for js web frameworks benchmark&#xA;wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
     </item>
-    
   </channel>
 </rss>

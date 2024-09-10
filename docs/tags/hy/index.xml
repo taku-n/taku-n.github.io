@@ -4,22 +4,16 @@
     <title>Hy on 非同期エンジニアブログ</title>
     <link>https://taku-n.github.io/tags/hy/</link>
     <description>Recent content in Hy on 非同期エンジニアブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 30 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/hy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://taku-n.github.io/tags/hy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hy</title>
       <link>https://taku-n.github.io/posts/hy/</link>
       <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://taku-n.github.io/posts/hy/</guid>
-      <description>Midnight Hy Way 必ず理解しておくべきこと
-バージョン $ hy -v hy 0.19.0 REPL $ hy --repl-output-fn=hy.contrib.hy-repr.hy-repr ~/.bashrc に
-alias hyr=&amp;quot;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr などとしておき
-$ hyr で起動するのがいいだろう
-言語基礎 演算 =&amp;gt; (+ 7 3) 10 =&amp;gt; (- 7 3) 4 =&amp;gt; (* 7 3) 21 =&amp;gt; (/ 7 3) 2.3333333333333335 =&amp;gt; (% 7 3) 1 変数 =&amp;gt; (setv x 42) =&amp;gt; x 42 入れ子操作 リスト [&amp;lsquo;1 &amp;lsquo;2 &amp;lsquo;3 &amp;lsquo;4 &amp;lsquo;5] と区別するため
-&amp;lsquo;(1 2 3 4 5) のことを</description>
+      <description>Midnight Hy Way 必ず理解しておくべきこと&#xA;バージョン $ hy -v hy 0.19.0 REPL $ hy --repl-output-fn=hy.contrib.hy-repr.hy-repr ~/.bashrc に&#xA;alias hyr=&amp;#34;hy --repl-output-fn=hy.contrib.hy-repr.hy-repr などとしておき&#xA;$ hyr で起動するのがいいだろう&#xA;言語基礎 演算 =&amp;gt; (+ 7 3) 10 =&amp;gt; (- 7 3) 4 =&amp;gt; (* 7 3) 21 =&amp;gt; (/ 7 3) 2.3333333333333335 =&amp;gt; (% 7 3) 1 変数 =&amp;gt; (setv x 42) =&amp;gt; x 42 入れ子操作 リスト [&amp;lsquo;1 &amp;lsquo;2 &amp;lsquo;3 &amp;lsquo;4 &amp;lsquo;5] と区別するため&#xA;&amp;lsquo;(1 2 3 4 5) のことを</description>
     </item>
-    
   </channel>
 </rss>

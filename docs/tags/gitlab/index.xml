@@ -4,27 +4,16 @@
     <title>GitLab on 非同期エンジニアブログ</title>
     <link>https://taku-n.github.io/tags/gitlab/</link>
     <description>Recent content in GitLab on 非同期エンジニアブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 22 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://taku-n.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Git</title>
       <link>https://taku-n.github.io/posts/git/</link>
       <pubDate>Mon, 22 Jun 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://taku-n.github.io/posts/git/</guid>
-      <description>Git git config --global user.name name git config --global user.email email git config --list GitHub CLI GitHub CLI
-インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記
-eval &amp;quot;$(gh completion -s bash)&amp;quot; gh auth まずは，認証する
-$ gh auth login 認証の状態を表示
--t, &amp;ndash;show-token でトークンも表示する
-$ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示
-まず権限を付与する
-$ gh auth refresh -s read:public_key 表示する
-$ gh ssh-key list GitHub に公開鍵を追加する
-まず権限を付与する
-$ gh auth refresh -s write:public_key 追加する</description>
+      <description>Git git config --global user.name name git config --global user.email email git config --list GitHub CLI GitHub CLI&#xA;インストール $ sudo snap install gh 補完の設定 ~/.bashrc に追記&#xA;eval &amp;#34;$(gh completion -s bash)&amp;#34; gh auth まずは，認証する&#xA;$ gh auth login 認証の状態を表示&#xA;-t, &amp;ndash;show-token でトークンも表示する&#xA;$ gh auth status -t gh ssh-key GitHub に登録されている公開鍵の一覧を表示&#xA;まず権限を付与する&#xA;$ gh auth refresh -s read:public_key 表示する&#xA;$ gh ssh-key list GitHub に公開鍵を追加する&#xA;まず権限を付与する&#xA;$ gh auth refresh -s write:public_key 追加する</description>
     </item>
-    
   </channel>
 </rss>

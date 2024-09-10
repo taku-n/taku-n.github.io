@@ -4,18 +4,16 @@
     <title>ZFS on 非同期エンジニアブログ</title>
     <link>https://taku-n.github.io/tags/zfs/</link>
     <description>Recent content in ZFS on 非同期エンジニアブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 29 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/zfs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://taku-n.github.io/tags/zfs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Oracle に怯えながら ZFS を使う (((ﾟДﾟ;)))</title>
       <link>https://taku-n.github.io/posts/zfs/</link>
       <pubDate>Wed, 29 Apr 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://taku-n.github.io/posts/zfs/</guid>
-      <description>Oracle に怯えながら ZFS を使う (((ﾟДﾟ;))) &amp;ldquo;Don&amp;rsquo;t use ZFS.&amp;rdquo; - Linus Torvalds
-パーティションの情報を集めたい dmesg $ dmesg | grep sd /dev $ la /dev gdisk $ sudo gdisk -l /dev/sda df $ df -hT du $ sudo du -hx -d1 / mount $ mount | grep -e vfat -e zfs | sort fstab $ cat /etc/fstab zpool $ zpool status $ zpool status bpool $ zpool status rpool $ zpool list zfs $ zfs list $ zfs list -r bpool $ zfs list -r rpool $ zfs list -o name,used,compression -r xpool $ zfs get all xpool $ zfs get compression xpool $ zfs get -p name,used xpool ZFS の設定 ユーザディレクトリ用の ZFS パーティションを用意する $ cd $ pwd # Check your home directory.</description>
+      <description>Oracle に怯えながら ZFS を使う (((ﾟДﾟ;))) &amp;ldquo;Don&amp;rsquo;t use ZFS.&amp;rdquo; - Linus Torvalds&#xA;パーティションの情報を集めたい dmesg $ dmesg | grep sd /dev $ la /dev gdisk $ sudo gdisk -l /dev/sda df $ df -hT du $ sudo du -hx -d1 / mount $ mount | grep -e vfat -e zfs | sort fstab $ cat /etc/fstab zpool $ zpool status $ zpool status bpool $ zpool status rpool $ zpool list zfs $ zfs list $ zfs list -r bpool $ zfs list -r rpool $ zfs list -o name,used,compression -r xpool $ zfs get all xpool $ zfs get compression xpool $ zfs get -p name,used xpool ZFS の設定 ユーザディレクトリ用の ZFS パーティションを用意する $ cd $ pwd # Check your home directory.</description>
     </item>
-    
   </channel>
 </rss>

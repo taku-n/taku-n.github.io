@@ -135,7 +135,14 @@ hugo-server () {
 }
 ```
 
+### Themes
+
+[Beautiful Hugo](https://themes.gohugo.io/themes/beautifulhugo/)  
+[Ananke Gohugo Theme](https://themes.gohugo.io/themes/gohugo-theme-ananke/)  
+[Paper](https://themes.gohugo.io/themes/hugo-paper/)  
+
 [The world’s fastest framework for building websites | Hugo](https://gohugo.io/)  
-[Hugo 静的サイトジェネレーターによるサイト構築と公開 | パソコン工房 NEXMAG](https://www.pc-koubou.jp/magazine/30737)
+[Hugo 静的サイトジェネレーターによるサイト構築と公開 | パソコン工房 NEXMAG](https://www.pc-koubou.jp/magazine/30737)  
+[HUGOで作ったブログにテーマを導入してみよう!](https://zenn.dev/daira0910/articles/51fc5f33eeef05)  
 
 <p>{{ .Title }}<p>

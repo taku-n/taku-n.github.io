@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>nginx on 非同期エンジニアブログ</title>
+    <title>Nginx on 非同期エンジニアブログ</title>
     <link>https://taku-n.github.io/tags/nginx/</link>
-    <description>Recent content in nginx on 非同期エンジニアブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Nginx on 非同期エンジニアブログ</description>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 16 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://taku-n.github.io/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nginx</title>
       <link>https://taku-n.github.io/posts/nginx/</link>
       <pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://taku-n.github.io/posts/nginx/</guid>
-      <description>nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする
-(WSL2 は，IPv6 に対応していないので注意)
-$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator
-起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは
-/etc/nginx/nginx.conf だが，実際に設定するのは，こちら
-/etc/nginx/sites-available/default server ではじまっている部分が
-それぞれ，各 Virtual Host になっている
-初期設定として
-server_name _; の部分を
-server_name ach.moe; とする
-また，TLS を有効にするため
-# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を</description>
+      <description>nginx Install $ sudo apt install nginx Check $ systemctl status nginx 別の端末からテストする&#xA;(WSL2 は，IPv6 に対応していないので注意)&#xA;$ curl -4 http://hoge.com/ $ curl -6 http://hoge.com/ Website IPv6 accessibility validator&#xA;起動と停止と再起動 $ systemctl start nginx $ systemctl stop nginx $ systemctl restart nginx 設定ファイル 大元の設定ファイルは&#xA;/etc/nginx/nginx.conf だが，実際に設定するのは，こちら&#xA;/etc/nginx/sites-available/default server ではじまっている部分が&#xA;それぞれ，各 Virtual Host になっている&#xA;初期設定として&#xA;server_name _; の部分を&#xA;server_name ach.moe; とする&#xA;また，TLS を有効にするため&#xA;# listen 443 ssl default_server; # listen [::]:443 ssl default_server; の部分を</description>
     </item>
-    
   </channel>
 </rss>

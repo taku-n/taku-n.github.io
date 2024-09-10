@@ -4,21 +4,16 @@
     <title>Go on 非同期エンジニアブログ</title>
     <link>https://taku-n.github.io/tags/go/</link>
     <description>Recent content in Go on 非同期エンジニアブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 21 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://taku-n.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://taku-n.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go</title>
       <link>https://taku-n.github.io/posts/go/</link>
       <pubDate>Thu, 21 Jan 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://taku-n.github.io/posts/go/</guid>
-      <description>Go Install ~/.local 以下にインストールしていくケースです
-cd ~/.local curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz tar zxf gox.y.z.linux-amd64.tar.gz mkdir -p gopath/bin .bashrc に以下を追記します
-export PATH=~/.local/go/bin:~/.local/gopath/bin:$PATH export GOPATH=~/.local/gopath Update cd ~/.local rm -r go curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz tar zxf gox.y.z.linux-amd64.tar.gz hello, world $ mkdir hello $ cd hello $ go mod init hello hello.go をつくります
-インデントはタブ 1つ です
-package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;hello, world&amp;quot;) } $ go run hello.go hello, world go mod Using Go Modules</description>
+      <description>Go Install ~/.local 以下にインストールしていくケースです&#xA;cd ~/.local curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz tar zxf gox.y.z.linux-amd64.tar.gz mkdir -p gopath/bin .bashrc に以下を追記します&#xA;export PATH=~/.local/go/bin:~/.local/gopath/bin:$PATH export GOPATH=~/.local/gopath Update cd ~/.local rm -r go curl -OL https://go.dev/dl/gox.y.z.linux-amd64.tar.gz tar zxf gox.y.z.linux-amd64.tar.gz hello, world $ mkdir hello $ cd hello $ go mod init hello hello.go をつくります&#xA;インデントはタブ 1つ です&#xA;package main import &amp;#34;fmt&amp;#34; func main() { fmt.Println(&amp;#34;hello, world&amp;#34;) } $ go run hello.go hello, world go mod Using Go Modules</description>
     </item>
-    
   </channel>
 </rss>
