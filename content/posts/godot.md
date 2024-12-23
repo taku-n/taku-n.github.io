@@ -274,20 +274,273 @@ for element in [0, 1, 2]:
 
 ### Lesson 18 - Creating arrays
 
+```
+[1, 2, 6, 7]
+[Vector2(0, 0), Vector2(4, 3), 5, -1.0]
+var numbers = [1, 2, 6, 7]
+var turtle_path = [
+		Vector2(1, 0),
+		Vector2(1, 1),
+		Vector2(2, 1),
+		Vector2(3, 1),
+		Vector2(4, 1),
+		Vector2(5, 1),
+		Vector2(5, 2),
+		Vector2(5, 3),
+]
+```
+
+```
+void select_units(cells: Array)
+```
+
+```
+select_units([
+		Vector2(0, 3),
+		Vector2(1, 0),
+		Vector2(4, 2),
+		Vector2(5, 1),
+])
+```
+
 ### Lesson 19 - Looping over arrays
+
+```
+var numbers = [0, 1, 2]
+for number in numbers:
+    print(number)
+```
+
+```
+for cell in cells:
+    if cell in units:
+        selected_units.append(cell)
+```
+
+In a condition, the in keyword allows you to check if a value exists in an array.  
+The array's append() function appends a new value at the end of the array.  
+
+```
+void draw_rectangle(length: float, height: float)
+void jump(x: float, y: float)
+```
+
+```
+var rectangle_sizes = [Vector2(200, 120), Vector2(140, 80), Vector2(80, 140), Vector2(200, 140)]
+
+func run():
+	for x in rectangle_sizes:
+		draw_rectangle(x.x, x.y)
+		jump(x.x + 100, 0)
+```
 
 ### Lesson 20 - Strings
 
+```
+String
+```
+
+```
+"This is a text string."
+var my_name = "Robot"
+print(my_name)
+```
+
+```
+for character in "Robot":
+    print(character)  # R
+                      # o
+                      # b
+                      # o
+                      # t
+```
+
+```
+var combo = ["jump", "damage", "damage", "jump", "level"]
+```
+
+```
+combo = ["jab", "jab", "uppercut"]
+for x in combo:
+	play_animation(x)
+```
+
 ### Lesson 21 - Functions that return a value
+
+```
+round(11.4)  # 11
+round(38.5)  # 39
+```
+
+The lerp() function, short for linear interpolate, calculates and returns a weighted avarage between two values.  
+It takes three arguments: the two values to average and a value between 0.0 and 1.0 to skew the result.  
+
+```
+func _process(delta):
+    position = lerp(position, get_local_mouse_position(), 2 * delta)
+```
+
+```
+var cell_size = Vector2(120, 120)
+
+func convert_to_world_coordinates(cell):
+    return cell * cell_size + cell_size / 2  # Vector2(1, 1) * Vector2(120, 120) + Vector2(120, 120) / 2
+
+var world_position = convert_to_world_coordinates(Vector2(1, 1))
+print(world_position)  # Vector2(180, 180)
+```
 
 ### Lesson 22 - Appending and popping values from arrays
 
+Queue
+
+```
+var waiting_orders = []
+var completed_orders = []
+
+func add_order(meal_name):
+    waiting_orders.append(meal_name)
+
+func complete_current_order():
+    var first_order = waiting_orders.pop_front()
+    completed_orders.append(first_order)
+```
+
+Stack
+
+```
+var crates = ["sword", "gems", "healing heart"]
+
+func use_top_crate():
+    var crate = crates.pop_back()
+    use(crate)
+```
+
+```
+var crates = ["sword", "shield", "gems"]
+
+crates.pop_back()
+print(crates)  # [sword, shield]
+```
+
+```
+var crates = ["healing heart", "shield", "gems", "sword"]
+
+func run():
+	while crates:
+		crates.pop_back()
+```
+
+You can check if the crates array still contains values by writing while crates:  
+
 ### Lesson 23 - Accessing values in arrays
+
+```
+var inventory = [
+    "sword",
+    "shield",
+    "healing heart",
+    "gems",
+    "healing heart",
+    "sword",
+]
+
+use_item(inventory[3])  # gems
+use_item(inventory[-2])  # healing heart
+print(inventory.size())  # 6
+```
 
 ### Lesson 24 - Creating Dictionaries
 
+```
+var inventory = {
+    "healing heart": 3,
+    "gems": 5,
+    "sword": 1,
+}
+
+var item_count = inventory["gems"]
+inventory["healing heart"] += 1
+```
+
+A key could be a string, a number, or even a vector!  
+Every key has to be unique.  
+
 ### Lesson 25 - Looping over dictionaries
+
+To get the list of keys in the dictionary, you can call its keys() member function.  
+
+```
+var inventory = {
+    "healing heart": 3,
+    "gems": 5,
+    "sword": 1,
+}
+
+for item_name in inventory.keys():
+    print(item_name)  # healing heart
+                      # gems
+                      # sword
+```
+
+Instead, you can directly type the variable name in a for loop after the in keyword. The language understands that you implicitly want to loop over the dictionary's keys.  
+
+```
+var inventory = {
+    "healing heart": 3,
+    "gems": 5,
+    "sword": 1,
+}
+
+for item_name in inventory:
+    var item_count = inventory[item_name]
+    print(item_name + ": " + str(item_count))  # healing heart: 3
+                                               # gems: 5
+                                               # sword: 1
+```
+
+```
+var unit_cells = {
+    Vector2(1, 0): "robot",
+    Vector2(2, 2): "turtle",
+    Vector2(3, 0): "robot",
+}
+
+for cell in unit_cells:
+    var unit = unit_cells[cell]
+```
 
 ### Lesson 26 - Value types
 
+You can get the text representation of a value by calling the str() function (short for "string"). The function returns its argument as a new String.  
+You can use this function whenever you want to turn some number or vector into text.  
+
+You can also convert strings into whole numbers or decimal numbers using respectively the int() and float() functions.  
+
+```
+print(Vector2(1, 1) * 10)  # (10, 10)
+```
+
+```
+print(3 / 2)  # 1
+print(3.0 / 2.0)  # 1.5
+```
+
 ### Lesson 27 - Specifying types with type hints
+
+```
+var cell_size: Vector2 = Vector2(50.0, 50.0)
+```
+
+Type Inference  
+
+```
+var cell_size := Vector2(50.0, 50.0)
+```
+
+```
+var vector: Vector2 = Vector2(1, 1)
+var text: String = "Hello, world!"
+var whole_number: int = 4
+var decimal_number: float = 3.14
+```
