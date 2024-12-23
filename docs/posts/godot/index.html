@@ -14,23 +14,155 @@
 <h2 id="learn-to-code-from-zero-with-godot">Learn to Code From Zero with Godot</h2>
 <p><a href="https://gdquest.github.io/learn-gdscript/">Learn to Code From Zero with Godot</a></p>
 <h3 id="lesson-01---what-code-is-like">Lesson 01 - What Code is Like</h3>
-<h3 id="lesson-02---your-first-error">Lesson 02 - Your First Error</h3>
-<h3 id="lesson-03---we-stand-on-the-shoulders-of-giants">Lesson 03 - We Stand on the Shoulders of Giants</h3>
-<h3 id="lesson-04---drawing-a-rectangle">Lesson 04 - Drawing a Rectangle</h3>
-<h3 id="lesson-05---coding-your-first-function">Lesson 05 - Coding Your First Function</h3>
+<pre tabindex="0"><code>print(&#34;Welcome!&#34;)
+</code></pre><h3 id="lesson-02---your-first-error">Lesson 02 - Your First Error</h3>
+<pre tabindex="0"><code>func this_code_is_wrong():
+    #return
+</code></pre><h3 id="lesson-03---we-stand-on-the-shoulders-of-giants">Lesson 03 - We Stand on the Shoulders of Giants</h3>
+<pre tabindex="0"><code>show()
+hide()
+rotate(0.3)
+move_local_x(20)
+move_local_y(20)
+</code></pre><pre tabindex="0"><code>PI
+</code></pre><h3 id="lesson-04---drawing-a-rectangle">Lesson 04 - Drawing a Rectangle</h3>
+<pre tabindex="0"><code>move_forward(200)
+turn_left(45)
+turn_right(45)
+</code></pre><h3 id="lesson-05---coding-your-first-function">Lesson 05 - Coding Your First Function</h3>
+<pre tabindex="0"><code>func move_and_rotate():
+    move_forward(200)
+    turn_right(90)
+
+func draw_square(size):
+    move_forward(size)
+    turn_right(90)
+    move_forward(size)
+    turn_right(90)
+    move_forward(size)
+    turn_right(90)
+    move_forward(size)
+    turn_right(90)
+</code></pre><pre tabindex="0"><code>jump(-100,50)
+</code></pre><p>The instructions inside the function must all start with a leading tab character.</p>
+<p>Identifiers also have to start with a letter or an underscore; You can&rsquo;t begin with a number, but you can use numbers after the first character.<br>
+Note that it&rsquo;s fine to use capital letters.</p>
 <h3 id="lesson-06---your-first-function-parameter">Lesson 06 - Your First Function Parameter</h3>
-<h3 id="lesson-07---introduction-to-member-variables">Lesson 07 - Introduction to Member Variables</h3>
-<h3 id="lesson-08---defining-your-own-variables">Lesson 08 - Defining Your Own Variables</h3>
+<pre tabindex="0"><code>func move_local_xy(offset_x, offset_y):
+    move_local_x(offset_x)
+    move_local_y(offset_y)
+</code></pre><h3 id="lesson-07---introduction-to-member-variables">Lesson 07 - Introduction to Member Variables</h3>
+<pre tabindex="0"><code>position
+scale
+</code></pre><pre tabindex="0"><code>rotation = 0
+position.x = 200
+position.y = 250
+scale.x = 1.5
+scale.y = 1.5
+</code></pre><h3 id="lesson-08---defining-your-own-variables">Lesson 08 - Defining Your Own Variables</h3>
+<pre tabindex="0"><code>var health = 5
+health = health - 1
+print(health)
+</code></pre><pre tabindex="0"><code>var health
+var health  # Error
+</code></pre><pre tabindex="0"><code>var health = 100
+health = &#34;This is some text&#34;
+</code></pre><p>Variables are case-sensitive, which means health and Health are technically different variables.</p>
 <h3 id="lesson-09---adding-and-subtracting">Lesson 09 - Adding and Subtracting</h3>
-<h3 id="lesson-10---the-game-loop">Lesson 10 - The Game Loop</h3>
+<pre tabindex="0"><code>health -= amount
+health = health - amount
+
+health += amount
+health = health + amount
+</code></pre><h3 id="lesson-10---the-game-loop">Lesson 10 - The Game Loop</h3>
+<pre tabindex="0"><code>func _process(delta):
+    rotate(0.05)
+</code></pre><p>This function can run hundreds of times a second.<br>
+The _process() function takes one parameter: delta.<br>
+If the function exists in your code, and it is called precisely _process, then Godot will automatically run it every frame.<br>
+When Godot draws on the screen, we call that a frame.<br>
+The faster your computer, the more times _process() will run.<br>
+Godot will try and run _process() as quickly as it can.</p>
 <h3 id="lesson-11---time-delta">Lesson 11 - Time Delta</h3>
+<p>It&rsquo;s not just our character that has a _process() function; Almost everything in the game has a _process() function!<br>
+Dozens of times per second, Godot runs every _process() function in the game to update the game world.<br>
+After that, it displays an image of the game world on the screen. We call that image a frame.<br>
+Godot then moves on to calculating the next frame.</p>
+<p>Depending on the game, the computer, and what the game engine needs to calculate, frames take more or less time to display.<br>
+There will always be milliseconds variations frame to frame.<br>
+That is why the _process() function receives a delta parameter.<br>
+Delta represents a time difference. It&rsquo;s the time passed since the previous frame, in seconds.</p>
+<pre tabindex="0"><code>func _process(delta):
+    move_local_x(100 * delta)
+</code></pre><p>The robot moves 100 pixels per second.</p>
 <h3 id="lesson-12---using-variables-to-make-code-easier-to-read">Lesson 12 - Using Variables to Make Code Easier to Read</h3>
-<h3 id="lesson-13---conditions">Lesson 13 - Conditions</h3>
-<h3 id="lesson-14---multiplying">Lesson 14 - Multiplying</h3>
-<h3 id="lesson-15---2d-vectors">Lesson 15 - 2D Vectors</h3>
-<h3 id="lesson-16---introduction-to-while-loops">Lesson 16 - Introduction to While Loops</h3>
-<h3 id="lesson-17---introduction-to-for-loops">Lesson 17 - Introduction to For Loops</h3>
-<h3 id="lesson-18---creating-arrays">Lesson 18 - Creating arrays</h3>
+<pre tabindex="0"><code>var angular_speed = 4
+
+func _process(delta):
+    rotate(angular_speed * delta)
+
+func set_angular_speed(new_angular_speed):
+    angular_speed = new_angular_speed
+</code></pre><pre tabindex="0"><code>func _process(delta):
+    var angular_speed = 4
+    rotate(angular_speed * delta)
+
+func set_angular_speed(new_angular_speed):
+    angular_speed = new_angular_speed  # Error
+</code></pre><h3 id="lesson-13---conditions">Lesson 13 - Conditions</h3>
+<pre tabindex="0"><code>true
+false
+</code></pre><pre tabindex="0"><code>func heal(amount):
+    health += amount
+    if health &gt; 100:
+        health = 100
+</code></pre><pre tabindex="0"><code>if health &gt; 100:  # If health is greater than 100
+    pass
+if health &lt; 50:  # If health is less than 50
+    pass
+if health == 25:  # If health is equal to 25
+    pass
+if health != 7:  # If health is not equal to 7
+    pass
+</code></pre><pre tabindex="0"><code>func run():
+    var speed = 120
+    if speed &lt; 100:
+        print(&#34;You&#39;re slow!&#34;)
+    else:
+        print(&#34;You&#39;re fast!&#34;)
+</code></pre><h3 id="lesson-14---multiplying">Lesson 14 - Multiplying</h3>
+<pre tabindex="0"><code>var level = 5
+var power = 3
+
+func calculate_damage():
+    var damage = power * level
+    damage *= 2
+</code></pre><h3 id="lesson-15---2d-vectors">Lesson 15 - 2D Vectors</h3>
+<pre tabindex="0"><code>func level_up():
+    scale.x += 0.2
+    scale.y += 0.2
+</code></pre><p>In Godot, 2D vectors are a common value type named Vector2,</p>
+<pre tabindex="0"><code>func level_up():
+    scale += Vector2(0.2, 0.2)
+
+func move():
+    position += Vector2(20, 20)
+</code></pre><pre tabindex="0"><code>func reset_robot():
+    position = Vector2(0, 0)
+    scale = Vector2(1.0, 1.0)
+</code></pre><h3 id="lesson-16---introduction-to-while-loops">Lesson 16 - Introduction to While Loops</h3>
+<pre tabindex="0"><code>var number = 0
+while number &lt; 4:
+    print(number)
+    number += 1
+</code></pre><h3 id="lesson-17---introduction-to-for-loops">Lesson 17 - Introduction to For Loops</h3>
+<pre tabindex="0"><code>for number in range(3):
+    print(number)
+</code></pre><p>Calling range(3) outputs the list of numbers [0, 1, 2],<br>
+This code behaves the same as the previous example:</p>
+<pre tabindex="0"><code>for element in [0, 1, 2]:
+    print(element)
+</code></pre><h3 id="lesson-18---creating-arrays">Lesson 18 - Creating arrays</h3>
 <h3 id="lesson-19---looping-over-arrays">Lesson 19 - Looping over arrays</h3>
 <h3 id="lesson-20---strings">Lesson 20 - Strings</h3>
 <h3 id="lesson-21---functions-that-return-a-value">Lesson 21 - Functions that return a value</h3>
