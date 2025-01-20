@@ -544,3 +544,111 @@ var text: String = "Hello, world!"
 var whole_number: int = 4
 var decimal_number: float = 3.14
 ```
+
+## GODOT DOCS - GETTING STARTED
+
+初期化時に呼ばれる仮想関数は _init()  
+フレームごとに呼ばれる仮想関数は _process()  
+_ready()  
+_process() は一番最初の呼び出しであったとしても delta は 0.0 ではない  
+
+```
+Vector2.ZERO  # (0.0, 0.0)
+Vector2.UP  # (0.0, -1.0)
+```
+
+```
+if Input.is_action_pressed("ui_left"):
+    pass  # The Left key is being pressed
+if Input.is_action_pressed("ui_right"):
+    pass  # The Right key is being pressed
+if Input.is_action_pressed("ui_up"):
+    pass  # The Up key is being pressed
+```
+
+```
+not true  # false
+```
+
+_process() の処理をさせたりさせなかったりする  
+処理しているとき is_processing() は true  
+処理していないとき is_processing() は false  
+set_process(true) で処理をさせるようにする  
+set_process(false) で処理をさせないようにする  
+
+```
+set_process(not is_processing())
+```
+
+$ is shorthand for get_node() i.e. $AnimatedSprite2D.play() is the same as get_node("AnimatedSprite2D").play  
+$ returns the node at the relative path from the current node, or returns null if the node is not found  
+Since AnimatedSprite2D is a child of the current node, we can use $AnimatedSprite2D  
+
+connect()  
+visible  
+Vector2::length()  
+Vector2::normalized()  
+
+画面外に出ないようにする  
+
+```
+var screen_size: Vector2
+func _ready() -> void:
+    screen_size = get_viewport_rect().size
+func _process(d: float) -> void:
+    position.clamp(Vector2.ZERO, screen_size)
+```
+
+```
+if v.x != 0.0:
+    pass
+elif v.y != 0.0:
+    pass
+```
+
+```
+$AnimatedSprite2D.flip_h = v.x < 0.0
+```
+
+is equal to  
+
+```
+if v.x < 0.0:
+    $AnimatedSprite2D.flip_h = true
+else:
+    $AnimatedSprite2D.flip_h = false
+```
+
+hide()  
+show()  
+
+$AnimatedSprite2D.animation = "walk"    
+$AnimatedSprite2D.flip_v = false  
+$AnimatedSprite2D.flip_h = v.x < 0.0  
+
+$CollisionShape2D.set_deferred("disabled", true)  
+
+Disabling the area's collision shape can cause an error if it happens in the middle of the engine's collision processing. Using set_deferred() tells Godot to wait to disable the shape until it's safe to do so.  
+
+randi()  
+
+_physics_process(d)  
+
+Vector3::normalized()  
+CharacterBody3D::move_and_slide()  
+look_at_from_position()  
+rotate_y()  
+Vector3.FORWARD  
+PackedScene  
+get_node()  
+randf()  
+add_child()  
+CharacterBody3D::get_slide_collision_count()  
+CharacterBody3D::get_slide_collision()  
+Node::is_in_group()  
+Vector3::dot()  
+queue_free()  
+text = "Score: %s" % score  
+event.is_action_pressed("ui_accept")  
+visible  
+get_tree().reload_current_scene()  

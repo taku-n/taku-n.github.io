@@ -327,7 +327,77 @@ print(3.0 / 2.0)  # 1.5
 var text: String = &#34;Hello, world!&#34;
 var whole_number: int = 4
 var decimal_number: float = 3.14
-</code></pre>
+</code></pre><h2 id="godot-docs---getting-started">GODOT DOCS - GETTING STARTED</h2>
+<p>初期化時に呼ばれる仮想関数は _init()<br>
+フレームごとに呼ばれる仮想関数は _process()<br>
+_ready()<br>
+_process() は一番最初の呼び出しであったとしても delta は 0.0 ではない</p>
+<pre tabindex="0"><code>Vector2.ZERO  # (0.0, 0.0)
+Vector2.UP  # (0.0, -1.0)
+</code></pre><pre tabindex="0"><code>if Input.is_action_pressed(&#34;ui_left&#34;):
+    pass  # The Left key is being pressed
+if Input.is_action_pressed(&#34;ui_right&#34;):
+    pass  # The Right key is being pressed
+if Input.is_action_pressed(&#34;ui_up&#34;):
+    pass  # The Up key is being pressed
+</code></pre><pre tabindex="0"><code>not true  # false
+</code></pre><p>_process() の処理をさせたりさせなかったりする<br>
+処理しているとき is_processing() は true<br>
+処理していないとき is_processing() は false<br>
+set_process(true) で処理をさせるようにする<br>
+set_process(false) で処理をさせないようにする</p>
+<pre tabindex="0"><code>set_process(not is_processing())
+</code></pre><p>$ is shorthand for get_node() i.e. $AnimatedSprite2D.play() is the same as get_node(&ldquo;AnimatedSprite2D&rdquo;).play<br>
+$ returns the node at the relative path from the current node, or returns null if the node is not found<br>
+Since AnimatedSprite2D is a child of the current node, we can use $AnimatedSprite2D</p>
+<p>connect()<br>
+visible<br>
+Vector2::length()<br>
+Vector2::normalized()</p>
+<p>画面外に出ないようにする</p>
+<pre tabindex="0"><code>var screen_size: Vector2
+func _ready() -&gt; void:
+    screen_size = get_viewport_rect().size
+func _process(d: float) -&gt; void:
+    position.clamp(Vector2.ZERO, screen_size)
+</code></pre><pre tabindex="0"><code>if v.x != 0.0:
+    pass
+elif v.y != 0.0:
+    pass
+</code></pre><pre tabindex="0"><code>$AnimatedSprite2D.flip_h = v.x &lt; 0.0
+</code></pre><p>is equal to</p>
+<pre tabindex="0"><code>if v.x &lt; 0.0:
+    $AnimatedSprite2D.flip_h = true
+else:
+    $AnimatedSprite2D.flip_h = false
+</code></pre><p>hide()<br>
+show()</p>
+<p>$AnimatedSprite2D.animation = &ldquo;walk&rdquo; <br>
+$AnimatedSprite2D.flip_v = false<br>
+$AnimatedSprite2D.flip_h = v.x &lt; 0.0</p>
+<p>$CollisionShape2D.set_deferred(&ldquo;disabled&rdquo;, true)</p>
+<p>Disabling the area&rsquo;s collision shape can cause an error if it happens in the middle of the engine&rsquo;s collision processing. Using set_deferred() tells Godot to wait to disable the shape until it&rsquo;s safe to do so.</p>
+<p>randi()</p>
+<p>_physics_process(d)</p>
+<p>Vector3::normalized()<br>
+CharacterBody3D::move_and_slide()<br>
+look_at_from_position()<br>
+rotate_y()<br>
+Vector3.FORWARD<br>
+PackedScene<br>
+get_node()<br>
+randf()<br>
+add_child()<br>
+CharacterBody3D::get_slide_collision_count()<br>
+CharacterBody3D::get_slide_collision()<br>
+Node::is_in_group()<br>
+Vector3::dot()<br>
+queue_free()<br>
+text = &ldquo;Score: %s&rdquo; % score<br>
+event.is_action_pressed(&ldquo;ui_accept&rdquo;)<br>
+visible<br>
+get_tree().reload_current_scene()</p>
+
 
 <a href="../../">戻る</a>
 
