@@ -123,6 +123,29 @@ autocmd CmdlineLeave * :call system('zenhan 0')
 :scriptnames
 ```
 
+## Lua
+
+Neovim に内蔵されているのは Lua 5.1  
+
+vi hello.lua  
+
+```
+print("hello")
+print("world")
+```
+
+:w  
+:luafile hello.lua  
+:luafile %  
+:luaf %  
+:source %  
+:so %  
+
+vi -S hello.lua  
+
+:luafile と :source の違いについて  
+[https://www.reddit.com/r/neovim/comments/rm2ell/luafile_vs_source_commands/](https://www.reddit.com/r/neovim/comments/rm2ell/luafile_vs_source_commands/)  
+
 ## Vimscript
 
 ### hello, world (hello.vim)

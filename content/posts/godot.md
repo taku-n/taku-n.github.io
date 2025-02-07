@@ -633,6 +633,7 @@ Disabling the area's collision shape can cause an error if it happens in the mid
 randi()  
 
 _physics_process(d)  
+You can change the duration of _physics_process(d) at Physics -> Common -> Physics Fps in Project -> Project Settings  
 
 Vector3::normalized()  
 CharacterBody3D::move_and_slide()  
@@ -652,3 +653,175 @@ text = "Score: %s" % score
 event.is_action_pressed("ui_accept")  
 visible  
 get_tree().reload_current_scene()  
+
+## Engine
+
+目のマークで非表示にしても見えないだけで存在が消えたわけではない  
+たとえば箱を非表示にしても透明な箱が存在しつづけるしプレイヤは貫通できない  
+
+エディタ内において基本的には CollisionShape* は上の方に置くのがいい (ほんらいの色が見えるようになる  
+
+ノードを右クリックして Save Branch as Scene でノードをシーンとして切り出せる  
+
+### Perfectly Elastic Collision
+
+Note: Even with bounce set to 1.0, some energy will be lost over time due to linear and angular damping.  
+To have a physics body that preserves all its energy over time, set bounce to 1.0, the body's linear damp mode to Replace, its linear damp to 0.0, its angular damp mode to Replace, and its angular damp to 0.0.  
+
+RigidBody2D  
+└PhysicsMaterial  
+
+### Get a key press
+
+Input.is_action_pressed("forward")  
+
+### Delete all nodes under a node
+
+```
+# Site
+#   + World
+#   + Player
+
+for x in $Site.get_children():
+	x.queue_free()
+```
+
+### Load a scene dynamically
+
+```
+# main.gd
+
+# ball.tscn has a RigidBody3D
+var ball = preload("res://ball.tscn").instantiate()
+ball.position = Vector3(5.0, 1.0, 10.0)
+add_child(ball)
+```
+
+### Load a PCK dynamically
+
+```
+ProjectSettings.load_resource_pack("res://world.pck")
+var world = load("res://world.tscn").instantiate()
+$Site.add_child(world)
+```
+
+## 2D
+
+ピクセルではなくピクセルとピクセルの交点を意識して考えるとよさそう  
+
+Set Project -> Project Settings -> General -> Display -> Window -> Size -> Viewport Width 1280  
+Set Project -> Project Settings -> General -> Display -> Window -> Size -> Viewport Height 720  
+Set Project -> Project Settings -> General -> Display -> Window -> Stretch -> Mode canvas_items  
+Set Project -> Project Settings -> General -> Display -> Window -> V-Sync -> [V-Sync Mode](https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-vsyncmode) Disabled  
+
+Set Project -> Project Settings -> General -> Rendering -> Textures -> Canvas Textures -> Default Texture Filter Nearest  
+
+Set Project Settings -> General -> Physics -> Common -> Physics Ticks per Second 100  
+Set Max Physics Steps per Frame 10  
+Set Project Settings -> General -> Physics -> 3D -> Default Gravity 980.7   
+
+### Main
+
+Node named Main  
+
+### Floor
+
+StaticBody2D named Floor (0, 700)  
+├Polygon2D having (0, 0), (1280, 0), (1280, 20), (0, 20)  
+└CollisionShape2D  
+　└RectangleShape2D (1280, 20)  
+
+### Player
+
+CharacterBody2D named Player (100, 600)  
+├Polygon2D having (0, 0), (100, 0), (100, 100), (0, 100)  
+└CollisionShape2D  
+　└RectangleShape2D (100, 100)  
+
+### Block
+
+Create a new scene
+
+RigidBody2D named Block  
+├Polygon2D (-25, -25), (25, -25), (25, 25), (-25, 25)  
+└CollisionShape2D  
+　└RectangleShape2D (50, 50)
+
+Now the layers (1, 2, 3) are (world, player, objects)  
+Set Layer of Player (2) and Mask of Player (1)  
+Set Layer of an object (3) and Mask of an object (1, 2, 3)  
+
+レイヤーを変更したら block.tscn を保存しないと main.tscn に反映されないので注意  
+
+$Block1.queue_free() で消せる  
+
+## 3D
+
+右手系で上方向が +Y 前方向が +Z  
+glTF (GL Transmission Format) と同じ
+
+Set Project Settings -> General -> Display -> Window -> V-Sync -> [V-Sync Mode](https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-vsyncmode) Disabled  
+
+Set Project Settings -> General -> Physics -> Common -> Physics Ticks per Second 100  
+Set Max Physics Steps per Frame 10  
+Set Project Settings -> General -> Physics -> 3D -> Default Gravity 9.807   
+
+### Main
+
+Add Node as Main  
+
+```
+func _ready() -> void:
+    Engine.max_fps = 120  # Meta Quest 3
+```
+
+In case FPS doesn't hit 120, see NVIDIA Control Panel -> 3D 設定 -> 3D 設定の管理 -> グローバル設定 -> 最大フレームレート and 垂直同期  
+
+### Directional Light
+
+Add DirectionalLight3D as a child of Main and set Position (10, 10, 10) and set Rotation (-35.3, 45, 0) and set Inspector -> Light3D -> Shadow -> Enabled on  
+-35.3 = arctan(1/sqrt(2))  
+(-45, 45, 0) だと原点よりも sqrt(2) - 1 だけ手前に光が向かってしまう (コンパスをイメージするとわかりやすい  
+DirectionalLight3D ははじめ Z軸 と逆方向を向いているから Rotation z は意味がない  
+Rotation x とは yz 平面上における角  
+Rotation y とは zx 平面上における角  
+Rotation z とは xy 平面上における角  
+
+### Camera
+
+Add Marker3D as CameraPivot and add Camera3D as a child of it  
+Node3D ではなく Marker3D なのはオレンジの棒が出るので見やすいくらいなものなのかもしれない  
+
+### HUD
+
+Control  
+Label  
+
+### Static Objects
+
+StaticBody3D  
+├MeshInstance3D  
+│　└*Mesh  
+└CollisionShape3D  
+　└*Shape3D  
+
+### Player
+
+Create a new scene  
+CharacterBody3D as Player
+Node3D as Pivot  
+*.glb  
+CollisionShape3D  
+CapsuleShape3D  
+Radius 0.254  
+Height 1.554  
+Position (0, 0.777, 0) because of 1.554 / 2  
+
+### Physical Objects
+
+RigidBody3D  
+MeshInstance3D  
+CollisionShape3D  
+Now the layers (1, 2, 3) are (world, player, objects)  
+Set Layer of Player (2) and Mask of Player (1)  
+Set Layer of an object (3) and Mask of an object (1, 2, 3)  
