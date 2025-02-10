@@ -51,6 +51,12 @@ Line 2, 3: 色を正しく表示するため (?)
 
 ~/.config/nvim/init.vim
 
+## lazy.nvim
+
+:Lazy  
+
+:Lazy update  
+
 ## dein.vim
 
 ### インストール
