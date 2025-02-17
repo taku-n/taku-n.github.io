@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Ratatui - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="ratatui">Ratatui</h1>
+<h2 id="installation">Installation</h2>
+<pre tabindex="0"><code>sudo aptitude update
+sudo aptitude full-upgrade
+sudo aptitude install pkg-config
+sudo aptitude install libssl-dev
+
+rustup self update
+rustup update
+cargo install cargo-generate
+</code></pre><h2 id="create-a-project">Create a Project</h2>
+<pre tabindex="0"><code>cargo generate ratatui/templates simple
+cargo add tokio@1 --features=full
+cargo add anyhow@1
+cargo add async-recursion@1
+cargo add tui-textarea@0.7
+</code></pre><p>main.rs</p>
+<pre tabindex="0"><code>use anyhow::*;
+use async_recursion::*;
+
+pub use app::App                .direction(Direction::Vertical)
+                .constraints(vec![Constraint::Percentage(50), Constraint::Percentage(50)])
+                .split(f.area());
+
+        let lines = strings_to_lines(self.text_area.lines());
+        let b = Paragraph::new(lines).block(Block::new().title(&#34;You typed:&#34;));
+
+        f.render_widget(&amp;self.text_area, rects[0]);
+        f.render_widget(b, rects[1]);
+
+pub mod app;
+
+#[tokio::main]
+async fn main() -&gt; color_eyre::Result&lt;()&gt; {
+    color_eyre::install()?;
+    let terminal = ratatui::init();
+
+    let handle = tokio::spawn(async move {
+        App::new().run(terminal).await
+    });
+
+    let result = handle.await?;
+    ratatui::restore();
+    result
+}
+</code></pre><p>app.rs</p>
+<pre tabindex="0"><code>use ratatui::prelude::*;
+use ratatui::widgets::*;
+
+#[derive(Debug, Default)]
+pub struct App&lt;&#39;a&gt; {
+    /// Is the application running?
+    running: bool,
+
+    text_area: tui_textarea::TextArea&lt;&#39;a&gt;,
+
+    lines: Vec&lt;Line&lt;&#39;a&gt;&gt;,
+}
+
+impl&lt;&#39;a&gt; App&lt;&#39;a&gt; {
+    ...
+
+    pub async fn run(mut self, mut terminal: DefaultTerminal) -&gt; Result&lt;()&gt; {
+        self.text_area = tui_textarea::TextArea::default();
+        self.running = true;
+        while self.running {
+            terminal.draw(|frame| self.draw(frame))?;
+            self.handle_crossterm_events()?;
+            tokio::task::yield_now().await;
+        }
+        Ok(())
+    }
+
+    ...
+
+    fn on_key_event(&amp;mut self, key: KeyEvent) {
+        match (key.modifiers, key.code) {
+            (_, KeyCode::Esc)
+            | (KeyModifiers::CONTROL, KeyCode::Char(&#39;c&#39;) | KeyCode::Char(&#39;C&#39;)) =&gt; self.quit(),
+            // Add other key handlers here.
+            _ =&gt; {}
+        }
+        self.text_area.input(key);
+    }
+
+    ...
+
+    // Get the last max_lines lines from App::lines
+    fn get_last_lines(&amp;self, max_lines: usize) -&gt; Vec&lt;Line&gt; {
+        let mut v = vec![Line::raw(&#34;&#34;); max_lines];
+        let starting_line: usize;
+        if max_lines &lt; self.lines.len() {
+            starting_line = self.lines.len() - max_lines;
+            v.clone_from_slice(&amp;self.lines[starting_line..]);
+        } else {
+            return self.lines.clone();
+        }
+        v
+    }
+
+    fn add_line(&amp;mut self) {
+        let string = self.text_area.clone().into_lines().remove(0);
+        self.lines.push(string.into());
+    }
+
+    fn delete_text_area_line(&amp;mut self) {
+        self.text_area.move_cursor(tui_textarea::CursorMove::Head);
+        self.text_area.delete_line_by_end();
+    }
+}
+
+fn strings_to_lines(strings: &amp;[String]) -&gt; Vec&lt;Line&gt; {
+    let mut v: Vec&lt;Line&gt; = Vec::new();
+    for x in strings {
+        v.push(Line::raw(x));
+    }
+    v
+}
+</code></pre><h2 id="hello-block">hello, block</h2>
+<p>Draw an empty block</p>
+<p>app.rs</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    f.render_widget(Block::new(), f.area());
+}
+</code></pre><pre tabindex="0"><code></code></pre><p>You can quit by Esc or Ctrl-C</p>
+<p>Set the title of this block</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    let b = Block::new().title(&#34;hello, block&#34;);
+    f.render_widget(b, f.area());
+}
+</code></pre><pre tabindex="0"><code>hello, block
+</code></pre><p>Add a paragraph to the block</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    let b = Paragraph::new(&#34;block&#34;).block(Block::new().title(&#34;hello&#34;));
+    f.render_widget(b, f.area());
+}
+</code></pre><pre tabindex="0"><code>hello
+block
+</code></pre><p>2 rects vertically, each of them having a block</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    let rects = Layout::default()
+            .direction(Direction::Vertical)
+            .constraints(vec![Constraint::Percentage(50), Constraint::Percentage(50)])
+            .split(f.area());
+    let b_top = Paragraph::new(&#34;top&#34;).block(Block::new().title(&#34;hello&#34;));
+    let b_bottom = Paragraph::new(&#34;bottom&#34;).block(Block::new().title(&#34;hello&#34;));
+    f.render_widget(b_top, rects[0]);
+    f.render_widget(b_bottom, rects[1]);
+}
+</code></pre><pre tabindex="0"><code>hello
+top
+
+hello
+bottom
+</code></pre><p>Split the bottom rect horizontally</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    let rects_v = Layout::default()
+            .direction(Direction::Vertical)
+            .constraints(vec![Constraint::Percentage(50), Constraint::Percentage(50)])
+            .split(f.area());
+    let rects_h = Layout::default()
+            .direction(Direction::Horizontal)
+            .constraints(vec![Constraint::Percentage(50), Constraint::Percentage(50)])
+            .split(rects_v[1]);
+
+    let b_top = Paragraph::new(&#34;top&#34;).block(Block::new().title(&#34;hello&#34;));
+    let b_bottom_left = Paragraph::new(&#34;bottom left&#34;).block(Block::new().title(&#34;hello&#34;));
+    let b_bottom_right = Paragraph::new(&#34;bottom right&#34;).block(Block::new().title(&#34;hello&#34;));
+
+    f.render_widget(b_top, rects_v[0]);
+    f.render_widget(b_bottom_left, rects_h[0]);
+    f.render_widget(b_bottom_right, rects_h[1]);
+}
+</code></pre><pre tabindex="0"><code>hello
+top
+
+hello       hello
+bottom left bottom right
+</code></pre><p>A block having padding</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    let b = Paragraph::new(&#34;block&#34;).block(Block::new()
+            .title(&#34;hello&#34;)
+            .padding(Padding::new(1, 1, 1, 1)));  // (left, right, top, bottom)
+    f.render_widget(b, f.area());
+}
+</code></pre><pre tabindex="0"><code>hello
+
+ block
+</code></pre><p>Text area</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    f.render_widget(&amp;self.text_area, f.area());
+}
+</code></pre><p>Print what you typed</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    let rects = Layout::default()
+            .direction(Direction::Vertical)
+            .constraints(vec![Constraint::Percentage(50), Constraint::Percentage(50)])
+            .split(f.area());
+
+    let lines = strings_to_lines(self.text_area.lines());
+    let b = Paragraph::new(lines).block(Block::new().title(&#34;You typed:&#34;));
+
+    f.render_widget(&amp;self.text_area, rects[0]);
+    f.render_widget(b, rects[1]);
+}
+</code></pre><pre tabindex="0"><code>hello
+world
+
+You typed:
+hello
+world
+</code></pre><p>Add a line you typed when you press Enter</p>
+<pre tabindex="0"><code>fn draw(&amp;mut self, f: &amp;mut Frame) {
+    let rects = Layout::default()
+            .direction(Direction::Vertical)
+            .constraints(vec![Constraint::Percentage(99), Constraint::Length(1)])
+            .split(f.area());
+
+    let max_lines = rects[0].height;
+    let b = Paragraph::new(self.get_last_lines(max_lines.into())).block(Block::new());
+
+    f.render_widget(b, rects[0]);
+    f.render_widget(&amp;self.text_area, rects[1]);
+}
+
+// Add other key handlers here.
+(_, KeyCode::Enter) | (KeyModifiers::CONTROL, KeyCode::Char(&#39;m&#39;)) =&gt; {
+    self.add_line();
+    self.delete_text_area_line();
+    return;
+}
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment" placeholder="故障中"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

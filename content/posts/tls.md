@@ -266,3 +266,9 @@ sudo systemctl start letsencrypt.service
 sudo systemctl enable letsencrypt.timer
 sudo systemctl enable letsencrypt.service
 ```
+
+## OreOreCA
+
+PKI: Public Key Infrastructure  
+　CA: Certificate Authority  
+　X.509  

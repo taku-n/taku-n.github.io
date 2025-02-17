@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Crossterm - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="crossterm">Crossterm</h1>
+<p>Imports</p>
+<pre tabindex="0"><code>use std::io::Stdout;
+use std::io::stdout;
+
+use crossterm::ExecutableCommand;
+use crossterm::cursor::MoveTo;
+use crossterm::style::Print;
+use crossterm::terminal::Clear;
+use crossterm::terminal::ClearType::All;
+use crossterm::terminal::disable_raw_mode;
+use crossterm::terminal::enable_raw_mode;
+</code></pre><p>Get the standard output</p>
+<pre tabindex="0"><code>let mut o: Stdout = stdout();
+</code></pre><p>Enable the raw mode</p>
+<pre tabindex="0"><code>enable_raw_mode()?;
+</code></pre><p>Disable the raw mode</p>
+<pre tabindex="0"><code>disable_raw_mode()?;
+</code></pre><p>Clear the screen</p>
+<pre tabindex="0"><code>o.execute(Clear(All))?;
+</code></pre><p>Move the cursor</p>
+<pre tabindex="0"><code>o.execute(MoveTo(0, 0))?;
+</code></pre><p>Print</p>
+<pre tabindex="0"><code>o.execute(Print(&#34;hello, world&#34;))?;
+</code></pre><p>A sample using tokio</p>
+<pre tabindex="0"><code>[package]
+name = &#34;stream&#34;
+version = &#34;0.1.0&#34;
+edition = &#34;2021&#34;
+
+[dependencies]
+anyhow = &#34;1&#34;
+crossterm = { version = &#34;0.28&#34;, features = [&#34;event-stream&#34;] }
+futures = &#34;0.3&#34;
+tokio = { version = &#34;1&#34;, features = [&#34;full&#34;] }
+</code></pre><pre tabindex="0"><code>use std::io::stdout;
+use std::io::Stdout;
+use std::time::Duration;
+
+use anyhow::*;
+use futures::FutureExt; // fuse()
+use futures::StreamExt; // next()
+use tokio::sync::mpsc;
+use tokio::time::sleep;
+
+use crossterm::cursor::MoveTo;
+use crossterm::event::Event::Key;
+use crossterm::event::EventStream;
+use crossterm::event::KeyCode;
+use crossterm::style::Print;
+use crossterm::terminal::disable_raw_mode;
+use crossterm::terminal::enable_raw_mode;
+use crossterm::terminal::Clear;
+use crossterm::terminal::ClearType::All;
+use crossterm::ExecutableCommand; // execute()
+
+enum Evt {
+    EKey(String),
+    ETime(i32),
+    None,
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;()&gt; {
+    enable_raw_mode()?;
+
+    let mut o: Stdout = stdout();
+    let (tx, mut rx) = mpsc::channel(137);
+
+    tokio::spawn(async move {
+        let mut x = 0;
+        loop {
+            tx.send(x).await;
+            x = x + 1;
+            sleep(Duration::from_secs(3)).await;
+        }
+    });
+
+    let mut reader = EventStream::new();
+    loop {
+        let evt = get_event(&amp;mut reader, &amp;mut rx).await;
+        match evt {
+            Evt::EKey(x) if x == String::from(&#34;a&#34;) =&gt; print(&amp;mut o, &amp;String::from(&#34;a&#34;)).await,
+            Evt::EKey(x) if x == String::from(&#34;esc&#34;) =&gt; break,
+            Evt::EKey(_) =&gt; panic!(),
+            Evt::ETime(x) =&gt; print(&amp;mut o, &amp;x.to_string()).await,
+            Evt::None =&gt; continue,
+        }
+    }
+
+    disable_raw_mode()?;
+
+    Ok(())
+}
+
+async fn get_event(reader: &amp;mut EventStream, rx: &amp;mut mpsc::Receiver&lt;i32&gt;) -&gt; Evt {
+    let event = reader.next().fuse();
+
+    tokio::select! {
+        option_evt = event =&gt; {
+            let result = option_evt.unwrap();
+            let evt = result.unwrap();
+            if evt == Key(KeyCode::Char(&#39;a&#39;).into()) {
+                return Evt::EKey(&#34;a&#34;.into());
+            }
+            if evt == Key(KeyCode::Esc.into()) {
+                return Evt::EKey(&#34;esc&#34;.into());
+            }
+        }
+        option_time = rx.recv() =&gt; {
+            let x = option_time.unwrap();
+            return Evt::ETime(x);
+        }
+    };
+
+    Evt::None
+}
+
+async fn print(o: &amp;mut Stdout, string: &amp;String) {
+    o.execute(Clear(All));
+    o.execute(MoveTo(0, 0));
+    o.execute(Print(string));
+}
+</code></pre><p><a href="https://github.com/crossterm-rs/crossterm/blob/master/examples/event-stream-tokio.rs">https://github.com/crossterm-rs/crossterm/blob/master/examples/event-stream-tokio.rs</a><br>
+<a href="https://ratatui.rs/tutorials/counter-async-app/async-event-stream/">https://ratatui.rs/tutorials/counter-async-app/async-event-stream/</a><br>
+<a href="https://memo.sugyan.com/entry/2024/07/17/230008">BlueskyのTUI Client Appを作り始めてしまった</a></p>
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment" placeholder="故障中"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

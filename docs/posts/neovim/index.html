@@ -31,6 +31,9 @@ Line 2, 3: 色を正しく表示するため (?)</p>
 <p><a href="https://github.com/neovim/neovim/wiki/FAQ#cursor-shape-doesnt-change-in-tmux">Cursor shape doesn&rsquo;t change in tmux</a></p>
 <h2 id="設定ファイル">設定ファイル</h2>
 <p>~/.config/nvim/init.vim</p>
+<h2 id="lazynvim">lazy.nvim</h2>
+<p>:Lazy</p>
+<p>:Lazy update</p>
 <h2 id="deinvim">dein.vim</h2>
 <h3 id="インストール">インストール</h3>
 <pre tabindex="0"><code>$ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
@@ -62,7 +65,21 @@ autocmd CmdlineLeave * :call system(&#39;zenhan 0&#39;)
 <pre tabindex="0"><code>:set runtimepath
 </code></pre><h2 id="neovim-に読み込まれているファイルを一覧表示">Neovim に読み込まれているファイルを一覧表示</h2>
 <pre tabindex="0"><code>:scriptnames
-</code></pre><h2 id="vimscript">Vimscript</h2>
+</code></pre><h2 id="lua">Lua</h2>
+<p>Neovim に内蔵されているのは Lua 5.1</p>
+<p>vi hello.lua</p>
+<pre tabindex="0"><code>print(&#34;hello&#34;)
+print(&#34;world&#34;)
+</code></pre><p>:w<br>
+:luafile hello.lua<br>
+:luafile %<br>
+:luaf %<br>
+:source %<br>
+:so %</p>
+<p>vi -S hello.lua</p>
+<p>:luafile と :source の違いについて<br>
+<a href="https://www.reddit.com/r/neovim/comments/rm2ell/luafile_vs_source_commands/">https://www.reddit.com/r/neovim/comments/rm2ell/luafile_vs_source_commands/</a></p>
+<h2 id="vimscript">Vimscript</h2>
 <h3 id="hello-world-hellovim">hello, world (hello.vim)</h3>
 <pre tabindex="0"><code>$ nvim hello.vim
 </code></pre><pre tabindex="0"><code>echo &#34;hello, world&#34;

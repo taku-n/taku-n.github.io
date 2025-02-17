@@ -378,7 +378,8 @@ $AnimatedSprite2D.flip_h = v.x &lt; 0.0</p>
 <p>$CollisionShape2D.set_deferred(&ldquo;disabled&rdquo;, true)</p>
 <p>Disabling the area&rsquo;s collision shape can cause an error if it happens in the middle of the engine&rsquo;s collision processing. Using set_deferred() tells Godot to wait to disable the shape until it&rsquo;s safe to do so.</p>
 <p>randi()</p>
-<p>_physics_process(d)</p>
+<p>_physics_process(d)<br>
+You can change the duration of _physics_process(d) at Physics -&gt; Common -&gt; Physics Fps in Project -&gt; Project Settings</p>
 <p>Vector3::normalized()<br>
 CharacterBody3D::move_and_slide()<br>
 look_at_from_position()<br>
@@ -397,6 +398,118 @@ text = &ldquo;Score: %s&rdquo; % score<br>
 event.is_action_pressed(&ldquo;ui_accept&rdquo;)<br>
 visible<br>
 get_tree().reload_current_scene()</p>
+<h2 id="engine">Engine</h2>
+<p>目のマークで非表示にしても見えないだけで存在が消えたわけではない<br>
+たとえば箱を非表示にしても透明な箱が存在しつづけるしプレイヤは貫通できない</p>
+<p>エディタ内において基本的には CollisionShape* は上の方に置くのがいい (ほんらいの色が見えるようになる</p>
+<p>ノードを右クリックして Save Branch as Scene でノードをシーンとして切り出せる</p>
+<h3 id="perfectly-elastic-collision">Perfectly Elastic Collision</h3>
+<p>Note: Even with bounce set to 1.0, some energy will be lost over time due to linear and angular damping.<br>
+To have a physics body that preserves all its energy over time, set bounce to 1.0, the body&rsquo;s linear damp mode to Replace, its linear damp to 0.0, its angular damp mode to Replace, and its angular damp to 0.0.</p>
+<p>RigidBody2D<br>
+└PhysicsMaterial</p>
+<h3 id="get-a-key-press">Get a key press</h3>
+<p>Input.is_action_pressed(&ldquo;forward&rdquo;)</p>
+<h3 id="delete-all-nodes-under-a-node">Delete all nodes under a node</h3>
+<pre tabindex="0"><code># Site
+#   + World
+#   + Player
+
+for x in $Site.get_children():
+	x.queue_free()
+</code></pre><h3 id="load-a-scene-dynamically">Load a scene dynamically</h3>
+<pre tabindex="0"><code># main.gd
+
+# ball.tscn has a RigidBody3D
+var ball = preload(&#34;res://ball.tscn&#34;).instantiate()
+ball.position = Vector3(5.0, 1.0, 10.0)
+add_child(ball)
+</code></pre><h3 id="load-a-pck-dynamically">Load a PCK dynamically</h3>
+<pre tabindex="0"><code>ProjectSettings.load_resource_pack(&#34;res://world.pck&#34;)
+var world = load(&#34;res://world.tscn&#34;).instantiate()
+$Site.add_child(world)
+</code></pre><h2 id="2d">2D</h2>
+<p>ピクセルではなくピクセルとピクセルの交点を意識して考えるとよさそう</p>
+<p>Set Project -&gt; Project Settings -&gt; General -&gt; Display -&gt; Window -&gt; Size -&gt; Viewport Width 1280<br>
+Set Project -&gt; Project Settings -&gt; General -&gt; Display -&gt; Window -&gt; Size -&gt; Viewport Height 720<br>
+Set Project -&gt; Project Settings -&gt; General -&gt; Display -&gt; Window -&gt; Stretch -&gt; Mode canvas_items<br>
+Set Project -&gt; Project Settings -&gt; General -&gt; Display -&gt; Window -&gt; V-Sync -&gt; <a href="https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-vsyncmode">V-Sync Mode</a> Disabled</p>
+<p>Set Project -&gt; Project Settings -&gt; General -&gt; Rendering -&gt; Textures -&gt; Canvas Textures -&gt; Default Texture Filter Nearest</p>
+<p>Set Project Settings -&gt; General -&gt; Physics -&gt; Common -&gt; Physics Ticks per Second 100<br>
+Set Max Physics Steps per Frame 10<br>
+Set Project Settings -&gt; General -&gt; Physics -&gt; 3D -&gt; Default Gravity 980.7</p>
+<h3 id="main">Main</h3>
+<p>Node named Main</p>
+<h3 id="floor">Floor</h3>
+<p>StaticBody2D named Floor (0, 700)<br>
+├Polygon2D having (0, 0), (1280, 0), (1280, 20), (0, 20)<br>
+└CollisionShape2D<br>
+　└RectangleShape2D (1280, 20)</p>
+<h3 id="player">Player</h3>
+<p>CharacterBody2D named Player (100, 600)<br>
+├Polygon2D having (0, 0), (100, 0), (100, 100), (0, 100)<br>
+└CollisionShape2D<br>
+　└RectangleShape2D (100, 100)</p>
+<h3 id="block">Block</h3>
+<p>Create a new scene</p>
+<p>RigidBody2D named Block<br>
+├Polygon2D (-25, -25), (25, -25), (25, 25), (-25, 25)<br>
+└CollisionShape2D<br>
+　└RectangleShape2D (50, 50)</p>
+<p>Now the layers (1, 2, 3) are (world, player, objects)<br>
+Set Layer of Player (2) and Mask of Player (1)<br>
+Set Layer of an object (3) and Mask of an object (1, 2, 3)</p>
+<p>レイヤーを変更したら block.tscn を保存しないと main.tscn に反映されないので注意</p>
+<p>$Block1.queue_free() で消せる</p>
+<h2 id="3d">3D</h2>
+<p>右手系で上方向が +Y 前方向が +Z<br>
+glTF (GL Transmission Format) と同じ</p>
+<p>Set Project Settings -&gt; General -&gt; Display -&gt; Window -&gt; V-Sync -&gt; <a href="https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-vsyncmode">V-Sync Mode</a> Disabled</p>
+<p>Set Project Settings -&gt; General -&gt; Physics -&gt; Common -&gt; Physics Ticks per Second 100<br>
+Set Max Physics Steps per Frame 10<br>
+Set Project Settings -&gt; General -&gt; Physics -&gt; 3D -&gt; Default Gravity 9.807</p>
+<h3 id="main-1">Main</h3>
+<p>Add Node as Main</p>
+<pre tabindex="0"><code>func _ready() -&gt; void:
+    Engine.max_fps = 120  # Meta Quest 3
+</code></pre><p>In case FPS doesn&rsquo;t hit 120, see NVIDIA Control Panel -&gt; 3D 設定 -&gt; 3D 設定の管理 -&gt; グローバル設定 -&gt; 最大フレームレート and 垂直同期</p>
+<h3 id="directional-light">Directional Light</h3>
+<p>Add DirectionalLight3D as a child of Main and set Position (10, 10, 10) and set Rotation (-35.3, 45, 0) and set Inspector -&gt; Light3D -&gt; Shadow -&gt; Enabled on<br>
+-35.3 = arctan(1/sqrt(2))<br>
+(-45, 45, 0) だと原点よりも sqrt(2) - 1 だけ手前に光が向かってしまう (コンパスをイメージするとわかりやすい<br>
+DirectionalLight3D ははじめ Z軸 と逆方向を向いているから Rotation z は意味がない<br>
+Rotation x とは yz 平面上における角<br>
+Rotation y とは zx 平面上における角<br>
+Rotation z とは xy 平面上における角</p>
+<h3 id="camera">Camera</h3>
+<p>Add Marker3D as CameraPivot and add Camera3D as a child of it<br>
+Node3D ではなく Marker3D なのはオレンジの棒が出るので見やすいくらいなものなのかもしれない</p>
+<h3 id="hud">HUD</h3>
+<p>Control<br>
+Label</p>
+<h3 id="static-objects">Static Objects</h3>
+<p>StaticBody3D<br>
+├MeshInstance3D<br>
+│　└*Mesh<br>
+└CollisionShape3D<br>
+　└*Shape3D</p>
+<h3 id="player-1">Player</h3>
+<p>Create a new scene<br>
+CharacterBody3D as Player
+Node3D as Pivot<br>
+*.glb<br>
+CollisionShape3D<br>
+CapsuleShape3D<br>
+Radius 0.254<br>
+Height 1.554<br>
+Position (0, 0.777, 0) because of 1.554 / 2</p>
+<h3 id="physical-objects">Physical Objects</h3>
+<p>RigidBody3D<br>
+MeshInstance3D<br>
+CollisionShape3D<br>
+Now the layers (1, 2, 3) are (world, player, objects)<br>
+Set Layer of Player (2) and Mask of Player (1)<br>
+Set Layer of an object (3) and Mask of an object (1, 2, 3)</p>
 
 
 <a href="../../">戻る</a>
