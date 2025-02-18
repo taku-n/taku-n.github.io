@@ -1,7 +1,7 @@
 ---
 title: "Ratatui"
 date: 2025-02-07T16:37:47+09:00
-draft: true
+draft: false
 ---
 
 # Ratatui
@@ -314,3 +314,7 @@ fn draw(&mut self, f: &mut Frame) {
     return;
 }
 ```
+
+## Ratatui with tokio example
+
+[taku-n/streamed-ratatui](https://github.com/taku-n/streamed-ratatui)  
