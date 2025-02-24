@@ -11,3 +11,11 @@ tags: ["Windows"]
 ```
 sfc /scannow
 ```
+
+## Windows Subsystem for Linux
+
+バージョンを見る  
+wsl.exe -v  
+
+アップデートする  
+wsl.exe --update
