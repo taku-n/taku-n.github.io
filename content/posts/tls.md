@@ -342,23 +342,45 @@ openssl x509 -req -in svr-csr.pem -days 397 -CA ../ca-crt.pem -CAkey ../ca-pri.p
 ```
 
 [信頼済み証明書に関する今後の制限について](https://support.apple.com/ja-jp/102028)  
+[Why does signing a certificate require `-CAcreateserial` argument?](https://stackoverflow.com/questions/66357451/why-does-signing-a-certificate-require-cacreateserial-argument)  
+[OpenSSL で”error while loading serial number”が出た](https://btatsu.hatenablog.com/entry/2019/11/28/113945)  
+
+### 検証
+
+```
+openssl verify -CAfile ../ca-crt.pem svr-crt.pem
+```
 
 ### 読む
 
 Private Key  
 
 ```
-openssl rsa -text -in ca-pri.pem -noout
+openssl rsa -text -in pri.pem -noout
 ```
 
 CSR  
 
 ```
-openssl req -text -in ca-req.csr -noout
+openssl req -text -in req.csr -noout
 ```
 
 Certificate  
 
 ```
-openssl x509 -text -in ca-crt.pem -noout
+openssl x509 -text -in crt.pem -noout
+```
+
+### mkcert
+
+```
+sudo aptitude install mkcert
+
+mkcert -install
+# ~/.local/share/mkcert/rootCA-key.pem is the private key of CA
+# ~/.local/share/mkcert/rootCA.pem is the certificate of CA
+
+mkcert hello.lan
+# hello.lan-key.pem is the private key of the Server
+# hello.lan.pem is the certificate of the Server
 ```

@@ -238,14 +238,28 @@ cd server
 <pre tabindex="0"><code>subjectAltName=DNS:*.hello.lan,IP:::,IP:0.0.0.0
 </code></pre><p>Server の Certificate をつくる (CA の Private Key で Server の CSR に署名)</p>
 <pre tabindex="0"><code>openssl x509 -req -in svr-csr.pem -days 397 -CA ../ca-crt.pem -CAkey ../ca-pri.pem -CAcreateserial -out svr-crt.pem -extfile svr-ext.cnf
-</code></pre><p><a href="https://support.apple.com/ja-jp/102028">信頼済み証明書に関する今後の制限について</a></p>
-<h3 id="読む">読む</h3>
+</code></pre><p><a href="https://support.apple.com/ja-jp/102028">信頼済み証明書に関する今後の制限について</a><br>
+<a href="https://stackoverflow.com/questions/66357451/why-does-signing-a-certificate-require-cacreateserial-argument">Why does signing a certificate require <code>-CAcreateserial</code> argument?</a><br>
+<a href="https://btatsu.hatenablog.com/entry/2019/11/28/113945">OpenSSL で”error while loading serial number”が出た</a></p>
+<h3 id="検証">検証</h3>
+<pre tabindex="0"><code>openssl verify -CAfile ../ca-crt.pem svr-crt.pem
+</code></pre><h3 id="読む">読む</h3>
 <p>Private Key</p>
-<pre tabindex="0"><code>openssl rsa -text -in ca-pri.pem -noout
+<pre tabindex="0"><code>openssl rsa -text -in pri.pem -noout
 </code></pre><p>CSR</p>
-<pre tabindex="0"><code>openssl req -text -in ca-req.csr -noout
+<pre tabindex="0"><code>openssl req -text -in req.csr -noout
 </code></pre><p>Certificate</p>
-<pre tabindex="0"><code>openssl x509 -text -in ca-crt.pem -noout
+<pre tabindex="0"><code>openssl x509 -text -in crt.pem -noout
+</code></pre><h3 id="mkcert">mkcert</h3>
+<pre tabindex="0"><code>sudo aptitude install mkcert
+
+mkcert -install
+# ~/.local/share/mkcert/rootCA-key.pem is the private key of CA
+# ~/.local/share/mkcert/rootCA.pem is the certificate of CA
+
+mkcert hello.lan
+# hello.lan-key.pem is the private key of the Server
+# hello.lan.pem is the certificate of the Server
 </code></pre>
 
 <a href="../../">戻る</a>
