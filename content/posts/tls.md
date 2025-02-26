@@ -380,7 +380,7 @@ mkcert -install
 # ~/.local/share/mkcert/rootCA-key.pem is the private key of CA
 # ~/.local/share/mkcert/rootCA.pem is the certificate of CA
 
-mkcert hello.lan
-# hello.lan-key.pem is the private key of the Server
-# hello.lan.pem is the certificate of the Server
+mkcert -key-file svr-pri.pem -cert-file svr-crt.pem *.hello.lan :: 0.0.0.0
+# svr-pri.pem is the private key of the Server
+# svr-crt.pem is the certificate of the Server
 ```
