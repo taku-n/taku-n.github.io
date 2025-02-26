@@ -207,8 +207,46 @@ sudo systemctl enable letsencrypt.service
 </code></pre><h2 id="oreoreca">OreOreCA</h2>
 <p>PKI: Public Key Infrastructure<br>
 　CA: Certificate Authority<br>
-　X.509</p>
-
+　CSR: Certificate Signing Request<br>
+　　C: Country Name<br>
+　　ST: State or Province Name<br>
+　　L: Locality Name<br>
+　　O: Organization Name<br>
+　　OU: Organizational Unit Name<br>
+　　CN: Common Name<br>
+　X.509<br>
+PEM: Privacy Enhanced Mail</p>
+<p><a href="https://www.netattest.com/pem-2024_mkt_tst">PEMとは？ わかりやすく10分で解説</a></p>
+<h3 id="ca-をつくる">CA をつくる</h3>
+<pre tabindex="0"><code>mkdir oreoreca
+cd oreoreca
+</code></pre><p>CA の Private Key をつくる</p>
+<pre tabindex="0"><code>openssl genrsa -aes256 -out ca-pri.pem 2048
+</code></pre><p>CA の CSR をつくる (Public Key + Information)</p>
+<pre tabindex="0"><code>openssl req -new -key ca-pri.pem -subj &#34;/C=JP/ST=Tokyo/L=Chiyoda/O=CRT/OU=Workshop/CN=OreOreCA/&#34; -out ca-csr.pem
+</code></pre><p>CA の Certificate をつくる (Private Key で CSR に署名)</p>
+<pre tabindex="0"><code>openssl x509 -req -in ca-csr.pem -days 397 -signkey ca-pri.pem -out ca-crt.pem
+</code></pre><h3 id="server-certificate-をつくる">Server Certificate をつくる</h3>
+<pre tabindex="0"><code>mkdir server
+cd server
+</code></pre><p>Server の Private Key をつくる</p>
+<pre tabindex="0"><code>openssl genrsa -aes256 -out svr-pri.pem 2048
+</code></pre><p>Server の CSR をつくる (Public Key + Information)</p>
+<pre tabindex="0"><code>openssl req -new -key svr-pri.pem -subj &#34;/C=JP/ST=Tokyo/L=Chiyoda/O=CRT/OU=Workshop/CN=hello.lan/&#34; -out svr-csr.pem
+</code></pre><p>Extension File をつくる</p>
+<p>svr-ext.cnf</p>
+<pre tabindex="0"><code>subjectAltName=DNS:*.hello.lan,IP:::,IP:0.0.0.0
+</code></pre><p>Server の Certificate をつくる (CA の Private Key で Server の CSR に署名)</p>
+<pre tabindex="0"><code>openssl x509 -req -in svr-csr.pem -days 397 -CA ../ca-crt.pem -CAkey ../ca-pri.pem -CAcreateserial -out svr-crt.pem -extfile svr-ext.cnf
+</code></pre><p><a href="https://support.apple.com/ja-jp/102028">信頼済み証明書に関する今後の制限について</a></p>
+<h3 id="読む">読む</h3>
+<p>Private Key</p>
+<pre tabindex="0"><code>openssl rsa -text -in ca-pri.pem -noout
+</code></pre><p>CSR</p>
+<pre tabindex="0"><code>openssl req -text -in ca-req.csr -noout
+</code></pre><p>Certificate</p>
+<pre tabindex="0"><code>openssl x509 -text -in ca-crt.pem -noout
+</code></pre>
 
 <a href="../../">戻る</a>
 

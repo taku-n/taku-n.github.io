@@ -271,4 +271,94 @@ sudo systemctl enable letsencrypt.service
 
 PKI: Public Key Infrastructure  
 　CA: Certificate Authority  
+　CSR: Certificate Signing Request  
+　　C: Country Name  
+　　ST: State or Province Name  
+　　L: Locality Name  
+　　O: Organization Name  
+　　OU: Organizational Unit Name  
+　　CN: Common Name  
 　X.509  
+PEM: Privacy Enhanced Mail  
+
+[PEMとは？ わかりやすく10分で解説](https://www.netattest.com/pem-2024_mkt_tst)  
+
+### CA をつくる
+
+```
+mkdir oreoreca
+cd oreoreca
+```
+
+CA の Private Key をつくる  
+
+```
+openssl genrsa -aes256 -out ca-pri.pem 2048
+```
+
+CA の CSR をつくる (Public Key + Information)  
+
+```
+openssl req -new -key ca-pri.pem -subj "/C=JP/ST=Tokyo/L=Chiyoda/O=CRT/OU=Workshop/CN=OreOreCA/" -out ca-csr.pem
+```
+
+CA の Certificate をつくる (Private Key で CSR に署名)  
+
+```
+openssl x509 -req -in ca-csr.pem -days 397 -signkey ca-pri.pem -out ca-crt.pem
+```
+
+### Server Certificate をつくる
+
+```
+mkdir server
+cd server
+```
+
+Server の Private Key をつくる  
+
+```
+openssl genrsa -aes256 -out svr-pri.pem 2048
+```
+
+Server の CSR をつくる (Public Key + Information)  
+
+```
+openssl req -new -key svr-pri.pem -subj "/C=JP/ST=Tokyo/L=Chiyoda/O=CRT/OU=Workshop/CN=hello.lan/" -out svr-csr.pem
+```
+
+Extension File をつくる  
+
+svr-ext.cnf  
+
+```
+subjectAltName=DNS:*.hello.lan,IP:::,IP:0.0.0.0
+```
+
+Server の Certificate をつくる (CA の Private Key で Server の CSR に署名)  
+
+```
+openssl x509 -req -in svr-csr.pem -days 397 -CA ../ca-crt.pem -CAkey ../ca-pri.pem -CAcreateserial -out svr-crt.pem -extfile svr-ext.cnf
+```
+
+[信頼済み証明書に関する今後の制限について](https://support.apple.com/ja-jp/102028)  
+
+### 読む
+
+Private Key  
+
+```
+openssl rsa -text -in ca-pri.pem -noout
+```
+
+CSR  
+
+```
+openssl req -text -in ca-req.csr -noout
+```
+
+Certificate  
+
+```
+openssl x509 -text -in ca-crt.pem -noout
+```
