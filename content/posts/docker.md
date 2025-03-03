@@ -109,6 +109,72 @@ $ sudo docker image list
 
 ## Docker Compose
 
+### Version
+
+```
+docker compose version
+```
+
+### hello, world
+
+compose.yaml  
+
+```
+services:
+  hello:
+    image: hello-world
+```
+
+```
+docker compose up
+```
+
+### Linux
+
+compose.yaml  
+
+```
+services:
+  linux:
+    image: ubuntu
+    tty: true
+```
+
+```
+docker compose up -d  # -d makes it run in the background
+```
+
+Check if it is running  
+
+```
+docker compose ps
+```
+
+Enter the container  
+
+```
+docker compose exec linux bash
+```
+
+Stop the container  
+
+```
+docker compose down
+```
+
+### Linux with a bind mount
+
+compose.yaml  
+
+```
+services:
+  linux:
+    image: ubuntu
+    volumes:
+      - ./data:/data
+    tty: true
+```
+
 docker-compose.yml をつぎの内容で作成
 
 ```
