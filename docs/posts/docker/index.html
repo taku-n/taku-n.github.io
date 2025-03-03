@@ -53,7 +53,36 @@ $ sudo docker ps --no-trunc --format &#34;table {{.Command}}&#34;  # コマン�
 </code></pre><p>確認</p>
 <pre tabindex="0"><code>$ sudo docker image list
 </code></pre><h2 id="docker-compose">Docker Compose</h2>
-<p>docker-compose.yml をつぎの内容で作成</p>
+<h3 id="version">Version</h3>
+<pre tabindex="0"><code>docker compose version
+</code></pre><h3 id="hello-world">hello, world</h3>
+<p>compose.yaml</p>
+<pre tabindex="0"><code>services:
+  hello:
+    image: hello-world
+</code></pre><pre tabindex="0"><code>docker compose up
+</code></pre><h3 id="linux">Linux</h3>
+<p>compose.yaml</p>
+<pre tabindex="0"><code>services:
+  linux:
+    image: ubuntu
+    tty: true
+</code></pre><pre tabindex="0"><code>docker compose up -d  # -d makes it run in the background
+</code></pre><p>Check if it is running</p>
+<pre tabindex="0"><code>docker compose ps
+</code></pre><p>Enter the container</p>
+<pre tabindex="0"><code>docker compose exec linux bash
+</code></pre><p>Stop the container</p>
+<pre tabindex="0"><code>docker compose down
+</code></pre><h3 id="linux-with-a-bind-mount">Linux with a bind mount</h3>
+<p>compose.yaml</p>
+<pre tabindex="0"><code>services:
+  linux:
+    image: ubuntu
+    volumes:
+      - ./data:/data
+    tty: true
+</code></pre><p>docker-compose.yml をつぎの内容で作成</p>
 <pre tabindex="0"><code>version: &#39;3&#39;
 
 services:

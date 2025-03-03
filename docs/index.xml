@@ -6,8 +6,15 @@
     <description>Recent content on 非同期エンジニアブログ</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 15 Feb 2025 15:40:32 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 04 Mar 2025 01:12:12 +0900</lastBuildDate>
     <atom:link href="https://taku-n.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pytorch</title>
+      <link>https://taku-n.github.io/posts/pytorch/</link>
+      <pubDate>Tue, 04 Mar 2025 01:12:12 +0900</pubDate>
+      <guid>https://taku-n.github.io/posts/pytorch/</guid>
+      <description>PyTorch Install WSL2+Ubuntu24.04+Docker＋GPUでつくる機械学習環境&#xA;GPUの型番にあったCUDAバージョンの選び方&#xA;Compose で GPU アクセスの有効化&#xA;compose.yaml&#xA;services: linux: image: pytorch/pytorch:2.6.0-cuda12.6-cudnn9-devel deploy: resources: reservations: devices: - driver: nvidia count: all capabilities: [gpu] tty: true docker compose exec linux bash python &amp;gt;&amp;gt;&amp;gt; import torch &amp;gt;&amp;gt;&amp;gt; print(torch.cuda.is_available()) In case it prints True, the GPU is available.</description>
+    </item>
     <item>
       <title>Crossterm</title>
       <link>https://taku-n.github.io/posts/crossterm/</link>
