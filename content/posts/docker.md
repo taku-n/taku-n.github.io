@@ -175,6 +175,25 @@ services:
     tty: true
 ```
 
+### Linux from a Dockerfile with a bind mount
+
+ubuntu/Dockerfile  
+
+```
+FROM ubuntu
+```
+
+compose.yaml  
+
+```
+services:
+  linux:
+    build: ./ubuntu
+    volumes:
+      - ./data:/data
+    tty: true
+```
+
 docker-compose.yml をつぎの内容で作成
 
 ```

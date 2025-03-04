@@ -82,6 +82,16 @@ $ sudo docker ps --no-trunc --format &#34;table {{.Command}}&#34;  # コマン�
     volumes:
       - ./data:/data
     tty: true
+</code></pre><h3 id="linux-from-a-dockerfile-with-a-bind-mount">Linux from a Dockerfile with a bind mount</h3>
+<p>ubuntu/Dockerfile</p>
+<pre tabindex="0"><code>FROM ubuntu
+</code></pre><p>compose.yaml</p>
+<pre tabindex="0"><code>services:
+  linux:
+    build: ./ubuntu
+    volumes:
+      - ./data:/data
+    tty: true
 </code></pre><p>docker-compose.yml をつぎの内容で作成</p>
 <pre tabindex="0"><code>version: &#39;3&#39;
 
