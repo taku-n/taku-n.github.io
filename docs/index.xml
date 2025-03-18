@@ -13,7 +13,7 @@
       <link>https://taku-n.github.io/posts/pytorch/</link>
       <pubDate>Tue, 04 Mar 2025 01:12:12 +0900</pubDate>
       <guid>https://taku-n.github.io/posts/pytorch/</guid>
-      <description>PyTorch Install WSL2+Ubuntu24.04+Docker＋GPUでつくる機械学習環境&#xA;GPUの型番にあったCUDAバージョンの選び方&#xA;Compose で GPU アクセスの有効化&#xA;compose.yaml&#xA;services: linux: image: pytorch/pytorch:2.6.0-cuda12.6-cudnn9-devel deploy: resources: reservations: devices: - driver: nvidia count: all capabilities: [gpu] tty: true docker compose exec linux bash python &amp;gt;&amp;gt;&amp;gt; import torch &amp;gt;&amp;gt;&amp;gt; print(torch.cuda.is_available()) In case it prints True, the GPU is available.</description>
+      <description>PyTorch Install on WSL with GeForce RTX 3060 In case you use GeForce RTX 3060, you can use pytorch/pytorch:2.6.0-cuda12.6-cudnn9-devel&#xA;WSL2+Ubuntu24.04+Docker＋GPUでつくる機械学習環境&#xA;GPUの型番にあったCUDAバージョンの選び方&#xA;Compose で GPU アクセスの有効化&#xA;compose.yaml&#xA;services: linux: image: pytorch/pytorch:2.6.0-cuda12.6-cudnn9-devel deploy: resources: reservations: devices: - driver: nvidia count: all capabilities: [gpu] tty: true docker compose up -d docker compose exec linux bash python -c &amp;#34;import torch; print(torch.cuda.is_available())&amp;#34; In case it prints True, the GPU is available.&#xA;Hugging Face Transformers Transformers</description>
     </item>
     <item>
       <title>Crossterm</title>

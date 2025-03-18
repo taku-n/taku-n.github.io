@@ -11,7 +11,8 @@
 <a href="../../">戻る</a>
 
 <h1 id="pytorch">PyTorch</h1>
-<h2 id="install">Install</h2>
+<h2 id="install-on-wsl-with-geforce-rtx-3060">Install on WSL with GeForce RTX 3060</h2>
+<p>In case you use GeForce RTX 3060, you can use pytorch/pytorch:2.6.0-cuda12.6-cudnn9-devel</p>
 <p><a href="https://zenn.dev/yumizz/articles/627d4e4821c636">WSL2+Ubuntu24.04+Docker＋GPUでつくる機械学習環境</a><br>
 <a href="https://zenn.dev/yumizz/articles/73d6c7d1085d2f">GPUの型番にあったCUDAバージョンの選び方</a><br>
 <a href="https://docs.docker.jp/compose/gpu-support.html">Compose で GPU アクセスの有効化</a></p>
@@ -27,11 +28,52 @@
               count: all
               capabilities: [gpu]
     tty: true
-</code></pre><pre tabindex="0"><code>docker compose exec linux bash
-</code></pre><pre tabindex="0"><code>python
-&gt;&gt;&gt; import torch
-&gt;&gt;&gt; print(torch.cuda.is_available())
+</code></pre><pre tabindex="0"><code>docker compose up -d
+docker compose exec linux bash
+</code></pre><pre tabindex="0"><code>python -c &#34;import torch; print(torch.cuda.is_available())&#34;
 </code></pre><p>In case it prints True, the GPU is available.</p>
+<h2 id="hugging-face-transformers">Hugging Face Transformers</h2>
+<p><a href="https://huggingface.co/docs/transformers">Transformers</a><br>
+<a href="https://huggingface.co/models">Models</a></p>
+<p><a href="https://huggingface.co/docs/transformers/model_doc/auto">AutoClass</a><br>
+　<a href="https://huggingface.co/docs/transformers/model_doc/auto#transformers.AutoTokenizer">AutoTokenizer</a><br>
+　<a href="https://huggingface.co/docs/transformers/model_doc/auto#transformers.AutoModel">AutoModel</a><br>
+　　<a href="https://huggingface.co/docs/transformers/model_doc/auto#transformers.AutoModelForSequenceClassification">AutoModelForSequenceClassification</a><br>
+　<a href="https://huggingface.co/docs/transformers/model_doc/auto#transformers.AutoConfig">AutoConfig</a></p>
+<p><a href="https://huggingface.co/docs/transformers/main_classes/trainer#transformers.Trainer">Trainer</a><br>
+　<a href="https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments">TrainingArguments</a><br>
+<a href="https://huggingface.co/docs/transformers/main_classes/trainer#transformers.Seq2SeqTrainer">Seq2SeqTrainer</a><br>
+　<a href="https://huggingface.co/docs/transformers/main_classes/trainer#transformers.Seq2SeqTrainingArguments">Seq2SeqTrainingArguments</a></p>
+<p>pytorch/Dockerfile</p>
+<pre tabindex="0"><code>FROM pytorch/pytorch:2.6.0-cuda12.6-cudnn9-devel
+
+RUN apt update &amp;&amp; \
+  apt full-upgrade -y &amp;&amp; \
+  pip install -U pip &amp;&amp; \
+  pip install transformers datasets evaluate accelerate &amp;&amp; \
+  pip install sentencepiece
+
+# sentencepiece is for Mizuiro-sakura/luke-japanese-large-sentiment-analysis-wrime
+</code></pre><p>Don&rsquo;t do pip install pip-review; pip-review &ndash;auto or you&rsquo;ll destroy the environment.</p>
+<p>compose.yaml</p>
+<pre tabindex="0"><code>services:
+  linux:
+    build: ./pytorch
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    tty: true
+</code></pre><pre tabindex="0"><code>docker compose up --build -d
+docker compose exec linux bash
+</code></pre><pre tabindex="0"><code>python -c &#34;import torch; print(torch.cuda.is_available())&#34;
+</code></pre><p>In case it prints True, the GPU is available.</p>
+<pre tabindex="0"><code>python -c &#34;from transformers import pipeline; print(pipeline(&#39;sentiment-analysis&#39;)(&#39;we love you&#39;))&#34;
+</code></pre><p>In case it prints [{&rsquo;label&rsquo;: &lsquo;POSITIVE&rsquo;, &lsquo;score&rsquo;: 0.9998704195022583}], Hugging Face Transformers is installed properly.</p>
+<h3 id="livedoor-news-corpus">livedoor News Corpus</h3>
 
 
 <a href="../../">戻る</a>

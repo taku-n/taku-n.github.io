@@ -194,6 +194,10 @@ services:
     tty: true
 ```
 
+```
+docker compose up --build -d
+```
+
 docker-compose.yml をつぎの内容で作成
 
 ```
