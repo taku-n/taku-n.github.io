@@ -265,7 +265,7 @@
       <link>https://taku-n.github.io/posts/neovim/</link>
       <pubDate>Wed, 11 Dec 2019 10:20:39 +0900</pubDate>
       <guid>https://taku-n.github.io/posts/neovim/</guid>
-      <description>Neovim (0.2.2) ウェブサイト Neovim&#xA;User manual&#xA;FAQ&#xA;バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない&#xA;$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &amp;#34;screen-256color&amp;#34; set-option -ga terminal-overrides &amp;#34;,xterm-256color:Tc&amp;#34; Line 1: Ctrl + [ を押したときに遅延させない&#xA;Line 2, 3: 色を正しく表示するため (?)&#xA;Cursor shape doesn&amp;rsquo;t change in tmux&#xA;設定ファイル ~/.config/nvim/init.vim&#xA;lazy.nvim :Lazy&#xA;:Lazy update&#xA;dein.vim インストール $ curl -OL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh $ sh installer.sh ~/.config/nvim/dein dein.vim 用の設定をしていなければ，表示された指示に従って設定して，そのあと</description>
+      <description>Neovim (0.2.2) ウェブサイト Neovim&#xA;User manual&#xA;FAQ&#xA;バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない&#xA;$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &amp;#34;screen-256color&amp;#34; set-option -ga terminal-overrides &amp;#34;,xterm-256color:Tc&amp;#34; Line 1: Ctrl + [ を押したときに遅延させない&#xA;Line 2, 3: 色を正しく表示するため (?)&#xA;Cursor shape doesn&amp;rsquo;t change in tmux&#xA;設定ファイル ~/.config/nvim/init.vim&#xA;lazy.nvim :Lazy&#xA;:Lazy update&#xA;プラグインがおかしくなったときは ~/.local/share/nvim/lazy にあるプラグインを削除して :Lazy clean -&amp;gt; :Lazy Install すればなおるかもしれない&#xA;dein.vim インストール $ curl -OL https://raw.</description>
     </item>
     <item>
       <title>Hugo Templates</title>
