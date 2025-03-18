@@ -57,6 +57,8 @@ Line 2, 3: 色を正しく表示するため (?)
 
 :Lazy update  
 
+プラグインがおかしくなったときは ~/.local/share/nvim/lazy にあるプラグインを削除して :Lazy clean -> :Lazy Install すればなおるかもしれない  
+
 ## dein.vim
 
 ### インストール
