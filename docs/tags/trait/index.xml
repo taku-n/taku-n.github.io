@@ -13,7 +13,7 @@
       <link>https://taku-n.github.io/posts/trait/</link>
       <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
       <guid>https://taku-n.github.io/posts/trait/</guid>
-      <description>Trait Dictionary Rust のトレイトは &amp;ldquo;トレイトとしては別物&amp;rdquo; らしい&#xA;Trait Trait T を定義&#xA;trait T { } Trait S を要求する Trait T を定義&#xA;Trait S は Trait T の Supertrait&#xA;Trait T は Trait S の Subtrait&#xA;trait S { } trait T: S { } Trait R と Trait S を要求する Trait T を定義&#xA;trait R { } trait S { } trait T: R + S { } Clone (std::clone::Clone) pub trait Clone { fn clone(&amp;amp;self) -&amp;gt; Self; fn clone_from(&amp;amp;mut self, source: &amp;amp;Self) {.</description>
+      <description>&lt;h1 id=&#34;trait-dictionary&#34;&gt;Trait Dictionary&lt;/h1&gt;&#xA;&lt;p&gt;Rust のトレイトは &amp;ldquo;&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%AC%E3%82%A4%E3%83%88&#34;&gt;トレイトとしては別物&lt;/a&gt;&amp;rdquo; らしい&lt;/p&gt;&#xA;&lt;h2 id=&#34;trait&#34;&gt;Trait&lt;/h2&gt;&#xA;&lt;p&gt;Trait T を定義&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;trait T {&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Trait S を要求する Trait T を定義&lt;br&gt;&#xA;Trait S は Trait T の Supertrait&lt;br&gt;&#xA;Trait T は Trait S の Subtrait&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;trait S {&#xA;}&#xA;&#xA;trait T: S {&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Trait R と Trait S を要求する Trait T を定義&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;trait R {&#xA;}&#xA;&#xA;trait S {&#xA;}&#xA;&#xA;trait T: R + S {&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

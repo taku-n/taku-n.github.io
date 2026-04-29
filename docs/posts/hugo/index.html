@@ -15,8 +15,11 @@
 <a href="https://gohugo.io/documentation/">Hugo Documentation</a></p>
 <p>Hugo について，わかったことをメモしたいと思う<br>
 正確かどうかは，わからない</p>
-<p>コンテンツの追加</p>
-<pre tabindex="0"><code>$ hugo new content content/posts/my-first-post.md
+<h2 id="installation">Installation</h2>
+<pre tabindex="0"><code>sudo apt update
+sudo apt install hugo
+</code></pre><p>コンテンツの追加</p>
+<pre tabindex="0"><code>$ hugo new content posts/my-first-post.md
 </code></pre><p>サーバの起動</p>
 <pre tabindex="0"><code>$ hugo server -D  # includes draft content
 http://127.0.0.1:1313/

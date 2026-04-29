@@ -13,7 +13,7 @@
       <link>https://taku-n.github.io/posts/wasm/</link>
       <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
       <guid>https://taku-n.github.io/posts/wasm/</guid>
-      <description>WebAssembly Official results for js web frameworks benchmark&#xA;wasm-bindgen wasm-pack をインストール cargo install wasm-pack wasm-pack でビルド wasm-pack build --target web </description>
+      <description>&lt;h1 id=&#34;webassembly&#34;&gt;WebAssembly&lt;/h1&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://krausest.github.io/js-framework-benchmark/&#34;&gt;Official results for js web frameworks benchmark&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;wasm-bindgen&#34;&gt;wasm-bindgen&lt;/h2&gt;&#xA;&lt;h3 id=&#34;wasm-pack-をインストール&#34;&gt;wasm-pack をインストール&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cargo install wasm-pack&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;wasm-pack-でビルド&#34;&gt;wasm-pack でビルド&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wasm-pack build --target web&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
   </channel>
 </rss>

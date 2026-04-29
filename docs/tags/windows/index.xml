@@ -13,7 +13,7 @@
       <link>https://taku-n.github.io/posts/windows/</link>
       <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
       <guid>https://taku-n.github.io/posts/windows/</guid>
-      <description>Windows おかしくなったときに，管理者権限で，まず実行&#xA;sfc /scannow Windows Subsystem for Linux バージョンを見る&#xA;wsl.exe -v&#xA;アップデートする&#xA;wsl.exe &amp;ndash;update</description>
+      <description>&lt;h1 id=&#34;windows&#34;&gt;Windows&lt;/h1&gt;&#xA;&lt;p&gt;おかしくなったときに，管理者権限で，まず実行&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sfc /scannow&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;windows-subsystem-for-linux&#34;&gt;Windows Subsystem for Linux&lt;/h2&gt;&#xA;&lt;p&gt;バージョンを見る&lt;br&gt;&#xA;wsl.exe -v&lt;/p&gt;&#xA;&lt;p&gt;アップデートする&lt;br&gt;&#xA;wsl.exe &amp;ndash;update&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

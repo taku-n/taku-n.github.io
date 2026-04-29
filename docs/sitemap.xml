@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://taku-n.github.io/posts/</loc>
-    <lastmod>2026-04-28T23:21:34+09:00</lastmod>
+    <loc>https://taku-n.github.io/posts/podman/</loc>
+    <lastmod>2026-04-29T13:11:51+09:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/ubuntu2604/</loc>
-    <lastmod>2026-04-28T23:21:34+09:00</lastmod>
+    <loc>https://taku-n.github.io/posts/</loc>
+    <lastmod>2026-04-29T13:11:51+09:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/</loc>
+    <lastmod>2026-04-29T13:11:51+09:00</lastmod>
+  </url><url>
+    <loc>https://taku-n.github.io/posts/ubuntu2604/</loc>
     <lastmod>2026-04-28T23:21:34+09:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/pytorch/</loc>
@@ -38,10 +41,10 @@
     <loc>https://taku-n.github.io/tags/</loc>
     <lastmod>2022-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/vrchat/</loc>
+    <loc>https://taku-n.github.io/posts/vrchat/</loc>
     <lastmod>2022-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/vrchat/</loc>
+    <loc>https://taku-n.github.io/tags/vrchat/</loc>
     <lastmod>2022-01-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/rust/</loc>
@@ -50,10 +53,10 @@
     <loc>https://taku-n.github.io/posts/type/</loc>
     <lastmod>2021-11-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/webassembly/</loc>
+    <loc>https://taku-n.github.io/posts/wasm/</loc>
     <lastmod>2021-10-29T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/wasm/</loc>
+    <loc>https://taku-n.github.io/tags/webassembly/</loc>
     <lastmod>2021-10-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/macro/</loc>
@@ -77,10 +80,10 @@
     <loc>https://taku-n.github.io/tags/axum/</loc>
     <lastmod>2021-08-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/windows/</loc>
+    <loc>https://taku-n.github.io/posts/windows/</loc>
     <lastmod>2021-06-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/windows/</loc>
+    <loc>https://taku-n.github.io/tags/windows/</loc>
     <lastmod>2021-06-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/warp/</loc>
@@ -101,22 +104,22 @@
     <loc>https://taku-n.github.io/tags/nginx/</loc>
     <lastmod>2021-04-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/haproxy/</loc>
-    <lastmod>2021-04-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://taku-n.github.io/posts/haproxy/</loc>
     <lastmod>2021-04-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/tls/</loc>
-    <lastmod>2021-02-19T00:00:00+00:00</lastmod>
+    <loc>https://taku-n.github.io/tags/haproxy/</loc>
+    <lastmod>2021-04-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/tls/</loc>
     <lastmod>2021-02-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/go/</loc>
-    <lastmod>2021-01-21T00:00:00+00:00</lastmod>
+    <loc>https://taku-n.github.io/tags/tls/</loc>
+    <lastmod>2021-02-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/go/</loc>
+    <lastmod>2021-01-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://taku-n.github.io/tags/go/</loc>
     <lastmod>2021-01-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/ubuntu/</loc>
@@ -125,16 +128,16 @@
     <loc>https://taku-n.github.io/posts/ubuntu2004/</loc>
     <lastmod>2021-01-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/ipv6/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://taku-n.github.io/posts/ipv6/</loc>
     <lastmod>2020-12-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/hy/</loc>
-    <lastmod>2020-10-30T00:00:00+00:00</lastmod>
+    <loc>https://taku-n.github.io/tags/ipv6/</loc>
+    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/hy/</loc>
+    <lastmod>2020-10-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://taku-n.github.io/tags/hy/</loc>
     <lastmod>2020-10-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/systemd/</loc>
@@ -143,16 +146,16 @@
     <loc>https://taku-n.github.io/tags/systemd/</loc>
     <lastmod>2020-10-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/raspberry-pi/</loc>
-    <lastmod>2020-08-26T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://taku-n.github.io/posts/raspi/</loc>
     <lastmod>2020-08-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/git/</loc>
-    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+    <loc>https://taku-n.github.io/tags/raspberry-pi/</loc>
+    <lastmod>2020-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/git/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://taku-n.github.io/tags/git/</loc>
     <lastmod>2020-06-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/github/</loc>
@@ -164,10 +167,10 @@
     <loc>https://taku-n.github.io/posts/kubernetes/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/docker/</loc>
+    <loc>https://taku-n.github.io/posts/docker/</loc>
     <lastmod>2020-06-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/docker/</loc>
+    <loc>https://taku-n.github.io/tags/docker/</loc>
     <lastmod>2020-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/posts/zfs/</loc>
@@ -182,10 +185,10 @@
     <loc>https://taku-n.github.io/posts/foo/</loc>
     <lastmod>2020-04-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/tags/market/</loc>
+    <loc>https://taku-n.github.io/posts/market/</loc>
     <lastmod>2020-04-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://taku-n.github.io/posts/market/</loc>
+    <loc>https://taku-n.github.io/tags/market/</loc>
     <lastmod>2020-04-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://taku-n.github.io/tags/jisaku/</loc>

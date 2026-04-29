@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Podman - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="podman">Podman</h1>
+<p><a href="https://podman.io/">Podman</a><br>
+<a href="https://docs.redhat.com/ja/documentation/red_hat_enterprise_linux/9/html/building_running_and_managing_containers/">コンテナーの構築、実行、および管理</a></p>
+<h2 id="installation">Installation</h2>
+<pre tabindex="0"><code>sudo apt update
+sudo apt install podman
+</code></pre><h2 id="print-information">Print information</h2>
+<pre tabindex="0"><code>podman version
+podman info
+</code></pre><h2 id="set-the-mount-propagation-of--shared">Set the mount propagation of / shared</h2>
+<p>In case you get a warning below when you run &ldquo;podman version&rdquo;</p>
+<pre tabindex="0"><code>WARN[0000] &#34;/&#34; is not a shared mount, this could cause issues or missing mounts with rootless containers
+</code></pre><p><a href="https://zenn.dev/tom_tan/articles/405ae402b43f37#%2F-%E3%81%AE-mount-propagation-%E8%A8%AD%E5%AE%9A%E3%81%AE%E7%A2%BA%E8%AA%8D">Podman で Singularity コンテナを動かすまでの覚書</a></p>
+<h2 id="set-the-linger-yes">Set the Linger yes</h2>
+<p>In case when you run</p>
+<pre tabindex="0"><code>loginctl user-status $USER | grep Linger
+</code></pre><p>it prints &ldquo;Linger: no&rdquo;</p>
+<p><a href="https://zenn.dev/tom_tan/articles/405ae402b43f37#systemd-%E3%81%AE-linger-%E8%A8%AD%E5%AE%9A%E3%81%AE%E7%A2%BA%E8%AA%8D">Podman で Singularity コンテナを動かすまでの覚書</a></p>
+<h2 id="hello-world">hello, world</h2>
+<pre tabindex="0"><code>podman run hello
+</code></pre><h2 id="images">Images</h2>
+<h3 id="print-the-image-i-have-got">Print the image I have got</h3>
+<pre tabindex="0"><code>podman images
+</code></pre><h3 id="remove-the-image">Remove the image</h3>
+<pre tabindex="0"><code>podman rmi image-name
+</code></pre><h2 id="containers">Containers</h2>
+<h3 id="print-the-containers">Print the containers</h3>
+<pre tabindex="0"><code>podman ps -a
+podman ps  # Running containers only
+</code></pre><h3 id="stop-the-container">Stop the container</h3>
+<pre tabindex="0"><code>podman stop container-name
+</code></pre><h3 id="remove-the-container-having-been-stopped">Remove the container having been stopped</h3>
+<pre tabindex="0"><code>podman rm container-name
+</code></pre><h2 id="network">Network</h2>
+<h3 id="print-the-network-list">Print the network list</h3>
+<pre tabindex="0"><code>podman network ls
+</code></pre><h3 id="print-the-network-detail">Print the network detail</h3>
+<pre tabindex="0"><code>podman network inspect network-name
+</code></pre><p>The default network is podman &ldquo;subnet&rdquo;: &ldquo;10.88.0.0/16&rdquo;, &ldquo;gateway&rdquo;: &ldquo;10.88.0.1&rdquo;</p>
+<h2 id="ubuntu">Ubuntu</h2>
+<h3 id="run-a-command-in-a-container">Run a command in a container</h3>
+<pre tabindex="0"><code>podman run -it --rm --name ubuntu docker.io/ubuntu echo hello, world
+# -i: Enable you to input against the container
+# -t: Open a terminal after starting the container
+# --rm: Remove the container after the use
+# --name: Set container name
+</code></pre><h3 id="run-a-container-in-the-background-and-dive-into-its-bash-shell">Run a container in the background and dive into its Bash shell</h3>
+<pre tabindex="0"><code>podman run -d -it --rm --name ubuntu docker.io/ubuntu
+# -d: Run in the background
+# -it: Without these flags, the container ends immediately
+
+podman exec -it ubuntu bash
+</code></pre><h3 id="run-a-container-with-a-network-connecting-to-the-default-network-podman-by-108811">Run a container with a network connecting to the default network podman by 10.88.1.1</h3>
+<pre tabindex="0"><code>podman run -d -it --rm --net podman --ip=10.88.1.1 --name ubuntu docker.io/ubuntu
+# --net network-name
+</code></pre><h2 id="nginx">nginx</h2>
+<h3 id="host-a-website">Host a website</h3>
+<pre tabindex="0"><code>podman run -d --rm -p 8888:80 --name nginx docker.io/nginx
+# -d: Run in the background
+# -p: host-side-port:container-side-port
+curl 127.0.0.1:8888
+# Open http://127.0.0.1:8888/ from a browser in Windows
+</code></pre><p>To access it from another device, open the TCP port 8888 of your Windows<br>
+See <a href="https://solutions.vaio.com/5464">[Windows 11] Windowsファイアウォールでポートを開く / 閉じる方法</a></p>
+<h3 id="host-a-website-for-another-container-as-well">Host a website for another container as well</h3>
+<pre tabindex="0"><code>podman run -d --rm --net podman --ip=10.88.1.1 -p 8888:80 --name nginx docker.io/nginx
+podman run -d -it --rm --net podman --ip=10.88.1.2 --name ubuntu docker.io/ubuntu
+podman exec -it ubuntu bash
+</code></pre><p>In the ubuntu container</p>
+<pre tabindex="0"><code>apt update
+apt upgrade
+apt install curl
+curl 10.88.1.1:80  # The port is not 8888 in this case
+</code></pre><h2 id="podman-compose">Podman Compose</h2>
+<h3 id="installation-1">Installation</h3>
+<pre tabindex="0"><code>sudo apt update
+sudo apt install podman-compose
+</code></pre><h3 id="print-information-1">Print information</h3>
+<pre tabindex="0"><code>podman compose version
+</code></pre><h3 id="error-from-nftables">Error from nftables</h3>
+<p>In case you get this error</p>
+<pre tabindex="0"><code>Error: unable to start container &#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#34;: netavark: nftables error: &#34;nft&#34; did not return successfully while applying ruleset
+</code></pre><pre tabindex="0"><code>sudo apt update
+sudo apt install iptables
+mkdir ~/.config/containers
+vi ~/.config/containers/containers.conf
+</code></pre><pre tabindex="0"><code>[network]
+firewall_driver = &#34;iptables&#34;
+</code></pre><pre tabindex="0"><code>podman system reset
+</code></pre><p><a href="https://note.com/fminamot/n/nf8f8e232d94b">Podman composeを使ってAnsible管理対象ノードをRootlessコンテナとして起動する</a></p>
+<h3 id="print-the-status">Print the status</h3>
+<pre tabindex="0"><code>podman compose ps
+</code></pre><h3 id="run">Run</h3>
+<pre tabindex="0"><code>podman compose up -d
+# -d: Run in the background
+</code></pre><h3 id="stop">Stop</h3>
+<pre tabindex="0"><code>podman compose down
+</code></pre><h3 id="nginx-1">nginx</h3>
+<pre tabindex="0"><code>vi podman-compose.yml
+</code></pre><pre tabindex="0"><code>services:
+  web:
+    image: docker.io/nginx
+    ports:
+      - &#34;8888:80&#34;
+</code></pre><pre tabindex="0"><code>podman compose up -d
+curl 127.0.0.1:8888
+</code></pre>
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment" placeholder="故障中"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>

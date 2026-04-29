@@ -13,7 +13,7 @@
       <link>https://taku-n.github.io/posts/warp/</link>
       <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
       <guid>https://taku-n.github.io/posts/warp/</guid>
-      <description>warp Structs And pub struct And&amp;lt;T, U&amp;gt; { pub(super) first: T, pub(super) second: U, }&#xA;impl&amp;lt;T, U&amp;gt; FilterBase for And&amp;lt;T, U&amp;gt;&#xA;Traits </description>
+      <description>&lt;h1 id=&#34;warp&#34;&gt;warp&lt;/h1&gt;&#xA;&lt;h2 id=&#34;structs&#34;&gt;Structs&lt;/h2&gt;&#xA;&lt;h3 id=&#34;and&#34;&gt;And&lt;/h3&gt;&#xA;&lt;p&gt;pub struct And&amp;lt;T, U&amp;gt; {          &lt;br&gt;&#xA;pub(super) first: T,        &lt;br&gt;&#xA;pub(super) second: U,       &lt;br&gt;&#xA;}&lt;/p&gt;&#xA;&lt;p&gt;impl&amp;lt;T, U&amp;gt; FilterBase for And&amp;lt;T, U&amp;gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;traits&#34;&gt;Traits&lt;/h2&gt;</description>
     </item>
   </channel>
 </rss>

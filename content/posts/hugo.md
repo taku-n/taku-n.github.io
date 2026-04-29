@@ -12,10 +12,17 @@ draft: false
 Hugo について，わかったことをメモしたいと思う  
 正確かどうかは，わからない
 
+## Installation
+
+```
+sudo apt update
+sudo apt install hugo
+```
+
 コンテンツの追加
 
 ```
-$ hugo new content content/posts/my-first-post.md
+$ hugo new content posts/my-first-post.md
 ```
 
 サーバの起動

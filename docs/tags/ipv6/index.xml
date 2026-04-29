@@ -13,7 +13,7 @@
       <link>https://taku-n.github.io/posts/ipv6/</link>
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
       <guid>https://taku-n.github.io/posts/ipv6/</guid>
-      <description>IPv6 Server OS: Ubuntu 20.04 Client OS: Windows 10&#xA;IPv6 が有効になっているか調べる $ ip -6 a コマンド プロンプト から IPv6 アドレスに ping する &amp;gt;ping {IPv6 address} SSH Server が IPv6 を受け入れるようにする $ sudo nvim /etc/ssh/sshd_config #ListenAddress :: を&#xA;ListenAddress :: に変更する&#xA;コマンド プロンプト から IPv6 アドレスに SSH で接続する &amp;gt;ssh {user name}@{IPv6 address} </description>
+      <description>&lt;h1 id=&#34;ipv6&#34;&gt;IPv6&lt;/h1&gt;&#xA;&lt;p&gt;Server OS: Ubuntu 20.04&#xA;Client OS: Windows 10&lt;/p&gt;&#xA;&lt;h2 id=&#34;ipv6-が有効になっているか調べる&#34;&gt;IPv6 が有効になっているか調べる&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ ip -6 a&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;コマンド-プロンプト-から-ipv6-アドレスに-ping-する&#34;&gt;コマンド プロンプト から IPv6 アドレスに ping する&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt;ping {IPv6 address}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;ssh-server-が-ipv6-を受け入れるようにする&#34;&gt;SSH Server が IPv6 を受け入れるようにする&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ sudo nvim /etc/ssh/sshd_config&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#ListenAddress ::&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;を&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ListenAddress ::&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;に変更する&lt;/p&gt;&#xA;&lt;h2 id=&#34;コマンド-プロンプト-から-ipv6-アドレスに-ssh-で接続する&#34;&gt;コマンド プロンプト から IPv6 アドレスに SSH で接続する&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt;ssh {user name}@{IPv6 address}&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
   </channel>
 </rss>

@@ -110,210 +110,210 @@ Partitions will be aligned on 2048-sector boundaries<br>
 1MiB =    1048576<br>
 1GiB = 1073741824</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:right">Sector</th>
-<th style="text-align:right">Beginning Byte</th>
-<th style="text-align:right">Ending Byte</th>
-<th style="text-align:right">Size</th>
-<th style="text-align:center">Purpose</th>
-<th style="text-align:center">Type</th>
-<th style="text-align:center">Code</th>
-<th style="text-align:center">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right">0</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">511</td>
-<td style="text-align:right">512</td>
-<td style="text-align:center">Master Boot Record</td>
-<td style="text-align:center">NA</td>
-<td style="text-align:center">NA</td>
-<td style="text-align:center">NA</td>
-</tr>
-<tr>
-<td style="text-align:right">1</td>
-<td style="text-align:right">512</td>
-<td style="text-align:right">1023</td>
-<td style="text-align:right">512</td>
-<td style="text-align:center">First GPT Header</td>
-<td style="text-align:center">NA</td>
-<td style="text-align:center">NA</td>
-<td style="text-align:center">NA</td>
-</tr>
-<tr>
-<td style="text-align:right">2</td>
-<td style="text-align:right">1024</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">&hellip;</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:right">16384</td>
-<td style="text-align:center">First GPT Entries</td>
-<td style="text-align:center">NA</td>
-<td style="text-align:center">NA</td>
-<td style="text-align:center">NA</td>
-</tr>
-<tr>
-<td style="text-align:right">33</td>
-<td style="text-align:right"></td>
-<td style="text-align:right">17407</td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">34</td>
-<td style="text-align:right">17408</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">&hellip;</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:right">1031168</td>
-<td style="text-align:center">BIOS Boot Partition</td>
-<td style="text-align:center">NA</td>
-<td style="text-align:center">EF02</td>
-<td style="text-align:center">BIOS boot partition</td>
-</tr>
-<tr>
-<td style="text-align:right">2047</td>
-<td style="text-align:right"></td>
-<td style="text-align:right">1048575</td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">2048</td>
-<td style="text-align:right">1048576</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">&hellip;</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:right">1073741824</td>
-<td style="text-align:center">EFI System Partition</td>
-<td style="text-align:center">FAT32</td>
-<td style="text-align:center">EF00</td>
-<td style="text-align:center">EFI system partition</td>
-</tr>
-<tr>
-<td style="text-align:right">2099199</td>
-<td style="text-align:right"></td>
-<td style="text-align:right">1074790399</td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">2099200</td>
-<td style="text-align:right">1074790400</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">&hellip;</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:right">1073741824</td>
-<td style="text-align:center">Linux Swap</td>
-<td style="text-align:center">Swap</td>
-<td style="text-align:center">8200</td>
-<td style="text-align:center">Linux swap</td>
-</tr>
-<tr>
-<td style="text-align:right">4196351</td>
-<td style="text-align:right"></td>
-<td style="text-align:right">2148532223</td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">4196352</td>
-<td style="text-align:right">2148532224</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">&hellip;</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:right">1073741824</td>
-<td style="text-align:center">ZFS Boot Pool</td>
-<td style="text-align:center">ZFS</td>
-<td style="text-align:center">BF01</td>
-<td style="text-align:center">Mac ZFS</td>
-</tr>
-<tr>
-<td style="text-align:right">6293503</td>
-<td style="text-align:right"></td>
-<td style="text-align:right">3222274047</td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">6293504</td>
-<td style="text-align:right">3222274048</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right">&hellip;</td>
-<td style="text-align:right"></td>
-<td style="text-align:right"></td>
-<td style="text-align:right">NA</td>
-<td style="text-align:center">ZFS Root Pool</td>
-<td style="text-align:center">ZFS</td>
-<td style="text-align:center">BF01</td>
-<td style="text-align:center">Mac ZFS</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: right">Sector</th>
+          <th style="text-align: right">Beginning Byte</th>
+          <th style="text-align: right">Ending Byte</th>
+          <th style="text-align: right">Size</th>
+          <th style="text-align: center">Purpose</th>
+          <th style="text-align: center">Type</th>
+          <th style="text-align: center">Code</th>
+          <th style="text-align: center">Name</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">511</td>
+          <td style="text-align: right">512</td>
+          <td style="text-align: center">Master Boot Record</td>
+          <td style="text-align: center">NA</td>
+          <td style="text-align: center">NA</td>
+          <td style="text-align: center">NA</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">512</td>
+          <td style="text-align: right">1023</td>
+          <td style="text-align: right">512</td>
+          <td style="text-align: center">First GPT Header</td>
+          <td style="text-align: center">NA</td>
+          <td style="text-align: center">NA</td>
+          <td style="text-align: center">NA</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2</td>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">16384</td>
+          <td style="text-align: center">First GPT Entries</td>
+          <td style="text-align: center">NA</td>
+          <td style="text-align: center">NA</td>
+          <td style="text-align: center">NA</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">33</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">17407</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">34</td>
+          <td style="text-align: right">17408</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">1031168</td>
+          <td style="text-align: center">BIOS Boot Partition</td>
+          <td style="text-align: center">NA</td>
+          <td style="text-align: center">EF02</td>
+          <td style="text-align: center">BIOS boot partition</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2047</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">1048575</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2048</td>
+          <td style="text-align: right">1048576</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">1073741824</td>
+          <td style="text-align: center">EFI System Partition</td>
+          <td style="text-align: center">FAT32</td>
+          <td style="text-align: center">EF00</td>
+          <td style="text-align: center">EFI system partition</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2099199</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">1074790399</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2099200</td>
+          <td style="text-align: right">1074790400</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">1073741824</td>
+          <td style="text-align: center">Linux Swap</td>
+          <td style="text-align: center">Swap</td>
+          <td style="text-align: center">8200</td>
+          <td style="text-align: center">Linux swap</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4196351</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">2148532223</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4196352</td>
+          <td style="text-align: right">2148532224</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">1073741824</td>
+          <td style="text-align: center">ZFS Boot Pool</td>
+          <td style="text-align: center">ZFS</td>
+          <td style="text-align: center">BF01</td>
+          <td style="text-align: center">Mac ZFS</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">6293503</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">3222274047</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">6293504</td>
+          <td style="text-align: right">3222274048</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">&hellip;</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right">NA</td>
+          <td style="text-align: center">ZFS Root Pool</td>
+          <td style="text-align: center">ZFS</td>
+          <td style="text-align: center">BF01</td>
+          <td style="text-align: center">Mac ZFS</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="conoha-iso">conoha-iso</h3>
 <p>基本はこちらを読めばいい<br>
