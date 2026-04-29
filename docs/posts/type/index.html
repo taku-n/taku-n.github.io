@@ -11,6 +11,50 @@
 <a href="../../">戻る</a>
 
 <h1 id="type-dictionary">Type Dictionary</h1>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="bytesbytes">bytes::Bytes</h2>
+<p><a href="https://docs.rs/bytes/latest/bytes/struct.Bytes.html">struct bytes::Bytes</a><br>
+<a href="https://docs.rs/bytes/latest/bytes/struct.BytesMut.html">struct bytes::BytesMut</a></p>
+<pre tabindex="0"><code>use bytes::BytesMut;
+
+// Create an instance
+let mut bytes_mut = BytesMut::new();
+println!(&#34;{:?}&#34;, bytes_mut.len()); //=&gt; 0
+
+// Extend bytes_mut length from 0 to 3 and fill it with 0x00, 0x01, 0x02
+bytes_mut.extend_from_slice(&amp;[0x00, 0x01, 0x02]);
+println!(&#34;{bytes_mut:?}&#34;); //=&gt; b&#34;\0\x01\x02&#34;
+println!(&#34;{:?}&#34;, bytes_mut.len()); //=&gt; 3
+
+// copy_from_slice() to update the data
+// I can use copy_from_slice() because the length of bytes_mut is the same as the length of the slice given
+bytes_mut.copy_from_slice(&amp;[0x03, 0x04, 0x05]);
+println!(&#34;{bytes_mut:?}&#34;);         //=&gt; b&#34;\x03\x04\x05&#34;
+println!(&#34;{:?}&#34;, bytes_mut.len()); //=&gt; 3
+
+// Extend bytes_mut length again from 3 to 6 and fill it with 0x06, 0x07, 0x08
+bytes_mut.extend_from_slice(&amp;[0x06, 0x07, 0x08]);
+println!(&#34;{bytes_mut:?}&#34;);         //=&gt; b&#34;\x03\x04\x05\x06\x07\x08&#34;
+println!(&#34;{:?}&#34;, bytes_mut.len()); //=&gt; 6
+
+// resize() shrinks the length of bytes_mut but doesnt change the data because the second argument is only used when extending
+bytes_mut.resize(3, 0x00);
+println!(&#34;{bytes_mut:?}&#34;);         //=&gt; b&#34;\x03\x04\x05&#34;
+println!(&#34;{:?}&#34;, bytes_mut.len()); //=&gt; 3
+
+// copy_from_slice() with a slice of another BytesMut instance
+// Be careful that the length is the same
+let mut another_bytes_mut = BytesMut::new();
+another_bytes_mut.extend_from_slice(b&#34;hello&#34;);
+bytes_mut.copy_from_slice(&amp;another_bytes_mut[1..4]);
+println!(&#34;{bytes_mut:?}&#34;);         //=&gt; b&#34;ell&#34;
+println!(&#34;{:?}&#34;, bytes_mut.len()); //=&gt; 3
+
+// Convert from BytesMut to Bytes
+let bytes = bytes_mut.freeze();
+</code></pre><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="bytesbytesmut">bytes::BytesMut</h2>
+<p><a href="#bytes-bytes">See bytes::Bytes</a></p>
 
 
 <a href="../../">戻る</a>

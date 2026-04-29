@@ -13,7 +13,7 @@
       <link>https://taku-n.github.io/posts/type/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
       <guid>https://taku-n.github.io/posts/type/</guid>
-      <description>Type Dictionary </description>
+      <description>Type Dictionary bytes::Bytes struct bytes::Bytes&#xA;struct bytes::BytesMut&#xA;use bytes::BytesMut; // Create an instance let mut bytes_mut = BytesMut::new(); println!(&amp;#34;{:?}&amp;#34;, bytes_mut.len()); //=&amp;gt; 0 // Extend bytes_mut length from 0 to 3 and fill it with 0x00, 0x01, 0x02 bytes_mut.extend_from_slice(&amp;amp;[0x00, 0x01, 0x02]); println!(&amp;#34;{bytes_mut:?}&amp;#34;); //=&amp;gt; b&amp;#34;\0\x01\x02&amp;#34; println!(&amp;#34;{:?}&amp;#34;, bytes_mut.len()); //=&amp;gt; 3 // copy_from_slice() to update the data // I can use copy_from_slice() because the length of bytes_mut is the same as the length of the slice given bytes_mut.</description>
     </item>
     <item>
       <title>WebAssembly</title>

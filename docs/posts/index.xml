@@ -6,8 +6,15 @@
     <description>Recent content in Posts on 非同期エンジニアブログ</description>
     <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 04 Mar 2025 01:12:12 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 23:21:34 +0900</lastBuildDate>
     <atom:link href="https://taku-n.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 26.04 LTS</title>
+      <link>https://taku-n.github.io/posts/ubuntu2604/</link>
+      <pubDate>Tue, 28 Apr 2026 23:21:34 +0900</pubDate>
+      <guid>https://taku-n.github.io/posts/ubuntu2604/</guid>
+      <description>Ubuntu 26.04 LTS (Resolute Raccoon) Installation Get Ubuntu on WSL&#xA;Install ubuntu-26.04-wsl-amd64.wsl&#xA;Prevent the login message touch .hushlogin Update sudo apt update sudo apt upgrade Locales sudo apt install language-pack-en # en_US.UTF-8 sudo apt install language-pack-ja # ja_JP.UTF-8 sudo update-locale LANG=ja_JP.UTF-8 To build sudo apt install python-is-python3 sudo apt install build-essential SSH Put keys in ~/.ssh&#xA;chmod 700 ~/.ssh cd ~/.ssh chmod 600 private-key GitHub sudo apt install gh BROWSER=false gh auth login ## FYI: false is a command /usr/bin/false Remember the one-time code</description>
+    </item>
     <item>
       <title>Pytorch</title>
       <link>https://taku-n.github.io/posts/pytorch/</link>
@@ -76,7 +83,7 @@
       <link>https://taku-n.github.io/posts/type/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
       <guid>https://taku-n.github.io/posts/type/</guid>
-      <description>Type Dictionary </description>
+      <description>Type Dictionary bytes::Bytes struct bytes::Bytes&#xA;struct bytes::BytesMut&#xA;use bytes::BytesMut; // Create an instance let mut bytes_mut = BytesMut::new(); println!(&amp;#34;{:?}&amp;#34;, bytes_mut.len()); //=&amp;gt; 0 // Extend bytes_mut length from 0 to 3 and fill it with 0x00, 0x01, 0x02 bytes_mut.extend_from_slice(&amp;amp;[0x00, 0x01, 0x02]); println!(&amp;#34;{bytes_mut:?}&amp;#34;); //=&amp;gt; b&amp;#34;\0\x01\x02&amp;#34; println!(&amp;#34;{:?}&amp;#34;, bytes_mut.len()); //=&amp;gt; 3 // copy_from_slice() to update the data // I can use copy_from_slice() because the length of bytes_mut is the same as the length of the slice given bytes_mut.</description>
     </item>
     <item>
       <title>WebAssembly</title>
@@ -265,7 +272,7 @@
       <link>https://taku-n.github.io/posts/neovim/</link>
       <pubDate>Wed, 11 Dec 2019 10:20:39 +0900</pubDate>
       <guid>https://taku-n.github.io/posts/neovim/</guid>
-      <description>Neovim (0.2.2) ウェブサイト Neovim&#xA;User manual&#xA;FAQ&#xA;バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない&#xA;$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &amp;#34;screen-256color&amp;#34; set-option -ga terminal-overrides &amp;#34;,xterm-256color:Tc&amp;#34; Line 1: Ctrl + [ を押したときに遅延させない&#xA;Line 2, 3: 色を正しく表示するため (?)&#xA;Cursor shape doesn&amp;rsquo;t change in tmux&#xA;設定ファイル ~/.config/nvim/init.vim&#xA;lazy.nvim :Lazy&#xA;:Lazy update&#xA;プラグインがおかしくなったときは ~/.local/share/nvim/lazy にあるプラグインを削除して :Lazy clean -&amp;gt; :Lazy Install すればなおるかもしれない&#xA;dein.vim インストール $ curl -OL https://raw.</description>
+      <description>Neovim (0.2.2) ウェブサイト Neovim&#xA;User manual&#xA;FAQ&#xA;バージョンを確認 $ nvim --version Neovim の動作状況を確認 $ nvim :checkhealth tmux を使用している場合，つぎの設定を追記するらしい (tmux のことは，よくわからない&#xA;$ nvim ~/.tmux.conf set -s escape-time 0 set-option -g default-terminal &amp;#34;screen-256color&amp;#34; set-option -ga terminal-overrides &amp;#34;,xterm-256color:Tc&amp;#34; Line 1: Ctrl + [ を押したときに遅延させない&#xA;Line 2, 3: 色を正しく表示するため (?)&#xA;Cursor shape doesn&amp;rsquo;t change in tmux&#xA;設定ファイル ~/.config/nvim/init.vim&#xA;lazy.nvim :Lazy&#xA;:Lazy update&#xA;プラグインがおかしくなったときは ~/.local/share/nvim/lazy にあるプラグインを削除して :Lazy clean -&amp;gt; :Lazy install すればなおるかもしれない&#xA;dein.vim インストール $ curl -OL https://raw.</description>
     </item>
     <item>
       <title>Hugo Templates</title>

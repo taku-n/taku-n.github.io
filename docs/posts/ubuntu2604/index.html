@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Ubuntu 26.04 LTS - 非同期エンジニアブログ</title>
+</head>
+
+<body>
+<a href="../../">戻る</a>
+
+<h1 id="ubuntu-2604-lts-resolute-raccoon">Ubuntu 26.04 LTS (Resolute Raccoon)</h1>
+<h2 id="installation">Installation</h2>
+<p><a href="https://ubuntu.com/download/wsl">Get Ubuntu on WSL</a><br>
+Install ubuntu-26.04-wsl-amd64.wsl</p>
+<h2 id="prevent-the-login-message">Prevent the login message</h2>
+<pre tabindex="0"><code>touch .hushlogin
+</code></pre><h2 id="update">Update</h2>
+<pre tabindex="0"><code>sudo apt update
+sudo apt upgrade
+</code></pre><h2 id="locales">Locales</h2>
+<pre tabindex="0"><code>sudo apt install language-pack-en  # en_US.UTF-8
+sudo apt install language-pack-ja  # ja_JP.UTF-8
+sudo update-locale LANG=ja_JP.UTF-8
+</code></pre><h2 id="to-build">To build</h2>
+<pre tabindex="0"><code>sudo apt install python-is-python3
+sudo apt install build-essential
+</code></pre><h2 id="ssh">SSH</h2>
+<p>Put keys in ~/.ssh</p>
+<pre tabindex="0"><code>chmod 700 ~/.ssh
+cd ~/.ssh
+chmod 600 private-key
+</code></pre><h2 id="github">GitHub</h2>
+<pre tabindex="0"><code>sudo apt install gh
+BROWSER=false gh auth login  ## FYI: false is a command /usr/bin/false
+</code></pre><p>Remember the one-time code<br>
+Open a web browser at <a href="https://github.com/login/device">https://github.com/login/device</a><br>
+Input the one-time code</p>
+<h2 id="git">Git</h2>
+<pre tabindex="0"><code>git config --global user.name &#34;Takuto Nanjo&#34;
+git config --global user.email &#34;16991946+taku-n@users.noreply.github.com&#34;
+</code></pre><h2 id="dot-files">Dot files</h2>
+<pre tabindex="0"><code>cd
+gh repo clone taku-n/.dots
+mv .bashrc .bashrc.orig
+mv .profile .profile.orig
+ln -s .dots/.bashrc .bashrc
+ln -s .dots/.profile .profile
+</code></pre><p>Restart my terminal</p>
+<h2 id="neovim">Neovim</h2>
+<pre tabindex="0"><code>curl --create-dirs --output-dir ~/.local/nvim -OL https://github.com/neovim/neovim/releases/download/
+vx.y.z/nvim-linux-x86_64.appimage
+mkdir ~/.local/bin
+ln -s ~/.local/nvim/nvim-linux-x86_64.appimage ~/.local/bin/vi
+gh repo clone taku-n/nvim ~/.config/nvim
+sudo apt install lua5.1  # The version embedded in Neovim
+</code></pre><p>Restart my terminal</p>
+
+
+<a href="../../">戻る</a>
+
+<div class="comento" id="comento"></div>
+
+<form class="comento-form" name="comento">
+  <label>Name:<br><input type="text" name="name" value="John Doe"></label><br>
+  <br>
+  <label>Comment:<br><textarea name="comment" placeholder="故障中"></textarea></label><br>
+  <br>
+  <button type="button" onclick="post()">Submit</button>
+</form>
+
+<style>
+body {
+  margin: 10px;
+}
+
+pre {
+  color: white;
+  background-color: black;
+}
+
+.comento {
+  background-color: black;
+  padding-top:    10px;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: white;
+  background-color: grey;
+  margin-top:    0px;
+  margin-bottom: 0px;
+}
+
+.comment {
+  color: white;
+  background-color: grey;
+  margin-top:     0px;
+  margin-bottom: 20px;
+}
+
+.comento-form {
+  color: white;
+  background-color: black;
+  padding-left:   10px;
+  padding-right:  10px;
+  padding-bottom: 10px;
+}
+</style>
+
+<script>
+let action = "";
+
+if (/\/$/.test(location.pathname)) {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname + 'index.html';
+} else {
+  action = 'https://hoge1.xyz/get?thread=' + location.pathname;
+}
+
+fetch(action, {
+  mode: 'cors'
+}).then(res => {
+  return res.text();
+}).then(text => {
+  let data = JSON.parse(text);
+  let comments = "";
+  for (let record of data) {
+    comments += '<p class="name">' + record.name + '</p>'
+        + '<p class="comment">' + record.comment + "</p>";
+  }
+  comento.innerHTML = comments;
+});
+
+function post() {
+  let action;
+
+  if (/\/$/.test(location.pathname)) {  
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname + 'index.html';
+  } else {
+    action = 'https://hoge1.xyz/post?thread=' + location.pathname;
+  }
+
+  document.comento.method = 'post';
+  document.comento.action = action;
+  document.comento.submit();
+}
+</script>
+</body>
+
+</html>
