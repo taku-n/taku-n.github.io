@@ -6,6 +6,8 @@ draft: true
 
 # Podman
 
+Podman version 5.7.0 on Ubuntu 26.04 LTS in WSL on Windows 11 Pro  
+
 [Podman](https://podman.io/)  
 [コンテナーの構築、実行、および管理](https://docs.redhat.com/ja/documentation/red_hat_enterprise_linux/9/html/building_running_and_managing_containers/)  
 
@@ -121,6 +123,15 @@ podman run -d -it --rm --name ubuntu docker.io/ubuntu
 # -d: Run in the background
 # -it: Without these flags, the container ends immediately
 
+podman exec -it ubuntu bash
+```
+
+In case you don't want to wait for 10 seconds by this error  
+WARN[0010] StopSignal SIGTERM failed to stop container ubuntu in 10 seconds, resorting to SIGKILL  
+after "podman stop ubuntu", use this instead  
+
+```
+podman run -d -it --rm --stop-signal=SIGHUP --name ubuntu docker.io/ubuntu
 podman exec -it ubuntu bash
 ```
 
